@@ -2,8 +2,15 @@
 > Приложение для ведения дневника тренировок. Скоро лето и еще не поздно привести себя в порядок! Данное приложение
 > поможет вам нагнать темп и следить за своим здоровьем. Записывайте свои тренировки, чтобы анализировать свой прогресс.
 > И помните, что главное - это регулярность.
-
-1. [Link PR №1](https://github.com/Jon7even/homework_ylab/tree/main/homework_1) 
+> 
+> 
+> # Список ссылок на PR
+> 1. [Link PR №1](https://github.com/Jon7even/homework_ylab/tree/main/homework_1)
+>
+> 
+> # Список ссылок на ТЗ
+> 1. [Link HW №1](https://github.com/Jon7even/homework_ylab/tree/homework_1/docs/tasks/technical-task-1.md)
+> 
 
 
 > [!IMPORTANT]
@@ -21,8 +28,7 @@
 >
 
 ## Архитектура приложения
-![Архитектура приложения на схеме](docs/images/architecture.jpg)
-
+![Архитектура приложения на схеме](https://github.com/Jon7even/homework_ylab/tree/homework_1/docs/images/architecture.jpg)
 
 
 > [!TIP]
@@ -34,8 +40,12 @@
 
 
 ## Сборка и запуск
-1. С помощью Maven собрать проект `mvn clean install` (проект соберется и запустятся автоматические тесты)
-2. Запустить можно двумя способами: 
-   2.1. В среде разработки IntelliJ IDEA
-   2.2. Запустить собранный jar из папки `target` командой `java -jar training-diary-1.0-SNAPSHOT`
+- Обязательное наличие Java 17 на машине.
+- С помощью Maven собрать проект `mvn clean install`
+(проект соберется и запустятся автоматические тесты)
+- Запустить можно двумя способами: 
+   - 1). В среде разработки IntelliJ IDEA
+   - 2). Запустить собранный jar из папки `target` командой `java -jar training-diary-1.0-SNAPSHOT.jar`
+   - или из общего каталога `java -jar target/training-diary-1.0-SNAPSHOT.jar`
+  
 Работа приложения проверена на Windows 10 и Ubuntu 22.04.4.
