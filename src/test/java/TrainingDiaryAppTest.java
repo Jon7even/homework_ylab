@@ -1,4 +1,4 @@
-import com.github.jon7even.TrainingDiaryApp;
+import com.github.jon7even.presentation.in.TrainingDiaryApp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

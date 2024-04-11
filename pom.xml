@@ -98,7 +98,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.github.jon7even.TrainingDiaryApp</mainClass>
+                            <mainClass>com.github.jon7even.presentation.in.TrainingDiaryApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
