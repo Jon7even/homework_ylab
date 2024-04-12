@@ -12,4 +12,6 @@ import lombok.experimental.UtilityClass;
 public class InitialDataInDb {
     public static final String ADMIN_LOGIN = "admin";
     public static final String ADMIN_PASSWORD = "admin";
+
+    public static final String HOME = System.getProperty("user.dir") + "/src/main/resources/";
 }

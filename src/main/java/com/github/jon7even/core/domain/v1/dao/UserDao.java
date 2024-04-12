@@ -45,14 +45,6 @@ public interface UserDao {
     Optional<UserEntity> findByUserLogin(String userLogin);
 
     /**
-     * Метод для удаления существующего пользователя
-     *
-     * @param userId существующий ID пользователя
-     * @return пользователь, если процедура удаления не произошла
-     */
-    Optional<UserEntity> deleteUserById(String userId);
-
-    /**
      * Метод для поиска всех пользователей без параметров
      *
      * @return список пользователей

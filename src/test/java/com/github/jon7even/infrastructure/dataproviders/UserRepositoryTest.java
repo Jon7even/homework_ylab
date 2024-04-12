@@ -19,22 +19,22 @@ public class UserRepositoryTest extends PreparationForTests {
     @InjectMocks
     private UserRepository userRepository;
 
-    private Optional<UserEntity> actualResultFirst;
+    private Optional<UserEntity> actualResultUserFirst;
 
-    private Optional<UserEntity> actualResultSecond;
+    private Optional<UserEntity> actualResultUserSecond;
 
     @BeforeEach
     public void setUp() {
         initUsers();
-        actualResultFirst = userRepository.createUser(userEntityFirstForCreate);
-        actualResultSecond = userRepository.createUser(userEntitySecondForCreate);
+        actualResultUserFirst = userRepository.createUser(userEntityFirstForCreate);
+        actualResultUserSecond = userRepository.createUser(userEntitySecondForCreate);
     }
 
     @Test
     @DisplayName("Новый пользователь должен создаться c релевантными полями")
     public void shouldCreateNewUser() {
-        assertEquals(userEntityFirstExpected, actualResultFirst.get());
-        assertEquals(userEntitySecondExpected, actualResultSecond.get());
+        assertEquals(userEntityFirstExpected, actualResultUserFirst.get());
+        assertEquals(userEntitySecondExpected, actualResultUserSecond.get());
     }
 
     @Test
@@ -48,5 +48,29 @@ public class UserRepositoryTest extends PreparationForTests {
     public void shouldFindUserById() {
         assertEquals(secondIdLong, userRepository.findByUserId(secondIdLong).get().getId());
         assertEquals(thirdIdLong, userRepository.findByUserId(thirdIdLong).get().getId());
+    }
+
+    @Test
+    @DisplayName("Поиск пользователя по логину")
+    public void shouldFindUserByLogin() {
+        assertEquals(userLoginFirst, userRepository.findByUserLogin(userLoginFirst));
+        assertEquals(userLoginSecond, userRepository.findByUserLogin(userLoginSecond));
+    }
+
+    @Test
+    @DisplayName("Не должен зарегистрировать пользователя с запрещенным логином")
+    public void shouldNotCreateUser() {
+        userEntityFirstForCreate.setLogin("admin");
+        Optional<UserEntity> actualResultFirst = userRepository.createUser(userEntityFirstForCreate);
+        userEntitySecondForCreate.setLogin("administrator");
+        Optional<UserEntity> actualResultSecond = userRepository.createUser(userEntitySecondForCreate);
+        assertEquals(actualResultFirst, Optional.empty());
+        assertEquals(actualResultSecond, Optional.empty());
+    }
+
+    @Test
+    @DisplayName("Получить всех пользователей")
+    public void shouldFindAllUsers() {
+        assertEquals(userRepository.getAllUsers().size(), 3);
     }
 }
