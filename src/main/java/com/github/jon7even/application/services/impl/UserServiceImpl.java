@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
         System.out.println("Пользователя попытались сохранить в репозитории: " + createdUser);
 
         if (createdUser.isPresent()) {
+            System.out.println("Новый пользователь успешно сохранен");
             return userMapper.toDtoFromEntity(createdUser.get());
         } else {
             throw new NotCreatedException("New User");
