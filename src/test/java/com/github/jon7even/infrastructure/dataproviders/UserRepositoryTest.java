@@ -53,8 +53,8 @@ public class UserRepositoryTest extends PreparationForTests {
     @Test
     @DisplayName("Поиск пользователя по логину")
     public void shouldFindUserByLogin() {
-        assertEquals(userLoginFirst, userRepository.findByUserLogin(userLoginFirst));
-        assertEquals(userLoginSecond, userRepository.findByUserLogin(userLoginSecond));
+        assertEquals(userEntityFirstExpected, userRepository.findByUserLogin(userLoginFirst).get());
+        assertEquals(userEntitySecondExpected, userRepository.findByUserLogin(userLoginSecond).get());
     }
 
     @Test

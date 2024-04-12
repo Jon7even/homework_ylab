@@ -16,6 +16,7 @@ import java.util.Set;
 @Builder
 public class UserHistoryEntity {
     private Long id;
+    private Long userId;
     private LocalDateTime dateTimeOn;
     private String event;
     private Set<GroupPermissionsEntity> permissions;

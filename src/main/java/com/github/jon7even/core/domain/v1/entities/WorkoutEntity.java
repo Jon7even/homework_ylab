@@ -20,6 +20,6 @@ public class WorkoutEntity {
     private LocalDateTime timeStartOn;
     private LocalDateTime timeEndOn;
     private Double currentWeightUser;
-    private WorkoutTypeEntity workoutTypeEntity;
+    private Long idWorkoutType;
     private Set<GroupPermissionsEntity> permissions;
 }

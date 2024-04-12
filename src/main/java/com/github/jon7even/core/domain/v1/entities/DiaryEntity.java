@@ -16,7 +16,7 @@ import java.util.Set;
 @Builder
 public class DiaryEntity {
     private Long id;
-    private UserEntity userEntity;
+    private Long userId;
     private Double weightUser;
     private Double growthUser;
     private LocalDateTime createdOn;
