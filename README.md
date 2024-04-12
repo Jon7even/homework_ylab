@@ -5,7 +5,7 @@
 > 
 > 
 > # Список ссылок на PR
-> 1. [Link PR №1](https://github.com/Jon7even/homework_ylab/tree/main/homework_1)
+> 1. [Link PR №1](https://github.com/Jon7even/homework_ylab/pull/1)
 >
 > 
 > # Список ссылок на ТЗ
