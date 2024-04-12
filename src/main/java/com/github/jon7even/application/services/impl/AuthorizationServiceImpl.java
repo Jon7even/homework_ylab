@@ -2,6 +2,7 @@ package com.github.jon7even.application.services.impl;
 
 import com.github.jon7even.application.dto.user.UserLoginAuthDto;
 import com.github.jon7even.application.services.AuthorizationService;
+import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.entities.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.AccessDeniedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
@@ -18,7 +19,7 @@ import java.util.Optional;
 public class AuthorizationServiceImpl implements AuthorizationService {
     private static AuthorizationServiceImpl instance;
 
-    private final UserRepository userRepository;
+    private final UserDao userRepository;
 
     public static AuthorizationServiceImpl getInstance() {
         if (instance == null) {
