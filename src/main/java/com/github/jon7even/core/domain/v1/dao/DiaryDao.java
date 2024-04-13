@@ -1,6 +1,6 @@
 package com.github.jon7even.core.domain.v1.dao;
 
-import com.github.jon7even.core.domain.v1.entities.DiaryEntity;
+import com.github.jon7even.core.domain.v1.entities.workout.DiaryEntity;
 
 import java.util.Optional;
 

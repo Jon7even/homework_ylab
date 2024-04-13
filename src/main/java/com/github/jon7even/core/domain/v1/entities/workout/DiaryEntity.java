@@ -1,10 +1,9 @@
-package com.github.jon7even.core.domain.v1.entities;
+package com.github.jon7even.core.domain.v1.entities.workout;
 
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 /**
  * Класс описывающий сущность дневника тренировок
@@ -21,5 +20,5 @@ public class DiaryEntity {
     private Double growthUser;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
-    private Set<GroupPermissionsEntity> permissions;
+    private Integer idTypeService;
 }

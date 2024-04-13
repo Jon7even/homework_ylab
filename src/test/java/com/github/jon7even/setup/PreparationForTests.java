@@ -3,7 +3,7 @@ package com.github.jon7even.setup;
 import com.github.jon7even.application.dto.user.UserCreateDto;
 import com.github.jon7even.application.dto.user.UserShortResponseDto;
 import com.github.jon7even.application.dto.user.UserUpdateDto;
-import com.github.jon7even.core.domain.v1.entities.UserEntity;
+import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 
 public class PreparationForTests {
     protected Long firstIdLong = 1L;

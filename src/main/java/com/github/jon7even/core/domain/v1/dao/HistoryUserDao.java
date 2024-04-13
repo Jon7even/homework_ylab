@@ -1,6 +1,6 @@
 package com.github.jon7even.core.domain.v1.dao;
 
-import com.github.jon7even.core.domain.v1.entities.HistoryUserEntity;
+import com.github.jon7even.core.domain.v1.entities.history.HistoryUserEntity;
 
 import java.util.List;
 import java.util.Optional;

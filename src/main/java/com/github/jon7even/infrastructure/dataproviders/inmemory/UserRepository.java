@@ -1,7 +1,7 @@
 package com.github.jon7even.infrastructure.dataproviders.inmemory;
 
 import com.github.jon7even.core.domain.v1.dao.UserDao;
-import com.github.jon7even.core.domain.v1.entities.UserEntity;
+import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.BadLoginException;
 
 import java.io.IOException;

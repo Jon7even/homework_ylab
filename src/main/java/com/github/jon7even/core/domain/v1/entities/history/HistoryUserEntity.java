@@ -1,10 +1,9 @@
-package com.github.jon7even.core.domain.v1.entities;
+package com.github.jon7even.core.domain.v1.entities.history;
 
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 /**
  * Класс описывающий сущность аудита действий пользователя
@@ -19,5 +18,5 @@ public class HistoryUserEntity {
     private Long userId;
     private LocalDateTime dateTimeOn;
     private String event;
-    private Set<GroupPermissionsEntity> permissions;
+    private Integer idTypeService;
 }

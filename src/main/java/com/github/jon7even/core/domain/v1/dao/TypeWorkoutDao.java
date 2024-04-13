@@ -1,6 +1,6 @@
 package com.github.jon7even.core.domain.v1.dao;
 
-import com.github.jon7even.core.domain.v1.entities.TypeWorkoutEntity;
+import com.github.jon7even.core.domain.v1.entities.workout.TypeWorkoutEntity;
 
 import java.util.Optional;
 

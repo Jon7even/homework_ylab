@@ -1,7 +1,7 @@
 package com.github.jon7even.infrastructure.dataproviders.inmemory;
 
 import com.github.jon7even.core.domain.v1.dao.TypeWorkoutDao;
-import com.github.jon7even.core.domain.v1.entities.TypeWorkoutEntity;
+import com.github.jon7even.core.domain.v1.entities.workout.TypeWorkoutEntity;
 
 import java.util.HashMap;
 import java.util.Map;

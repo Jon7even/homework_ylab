@@ -1,8 +1,9 @@
-package com.github.jon7even.core.domain.v1.entities;
+package com.github.jon7even.core.domain.v1.entities.permissions;
 
-import com.github.jon7even.core.domain.v1.enums.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
+
+import java.util.Set;
 
 /**
  * Класс описывающий сущность группы разрешений
@@ -15,8 +16,5 @@ import lombok.Data;
 public class GroupPermissionsEntity {
     private Integer id;
     private String name;
-    private AccessLevel write;
-    private AccessLevel read;
-    private AccessLevel update;
-    private AccessLevel delete;
+    private Set<TypeServiceEntity> servicesList;
 }

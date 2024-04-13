@@ -1,6 +1,6 @@
 package com.github.jon7even.core.domain.v1.dao;
 
-import com.github.jon7even.core.domain.v1.entities.WorkoutEntity;
+import com.github.jon7even.core.domain.v1.entities.workout.WorkoutEntity;
 
 import java.time.LocalDate;
 import java.util.List;

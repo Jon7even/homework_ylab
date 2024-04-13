@@ -1,4 +1,4 @@
-package com.github.jon7even.core.domain.v1.entities;
+package com.github.jon7even.core.domain.v1.entities.user;
 
 import lombok.Builder;
 import lombok.Data;

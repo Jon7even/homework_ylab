@@ -1,6 +1,6 @@
 package com.github.jon7even.core.domain.v1.dao;
 
-import com.github.jon7even.core.domain.v1.entities.UserEntity;
+import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 
 import java.util.List;
 import java.util.Optional;

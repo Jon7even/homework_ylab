@@ -1,9 +1,7 @@
-package com.github.jon7even.core.domain.v1.entities;
+package com.github.jon7even.core.domain.v1.entities.workout;
 
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.Set;
 
 /**
  * Класс описывающий сущность типа тренировки
@@ -17,5 +15,5 @@ public class TypeWorkoutEntity {
     private Long id;
     private String typeName;
     private Double kcalPerHour;
-    private Set<GroupPermissionsEntity> permissions;
+    private Integer idTypeService;
 }

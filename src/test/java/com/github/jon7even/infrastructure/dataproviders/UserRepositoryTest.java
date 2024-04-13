@@ -1,6 +1,6 @@
 package com.github.jon7even.infrastructure.dataproviders;
 
-import com.github.jon7even.core.domain.v1.entities.UserEntity;
+import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.BadLoginException;
 import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
 import com.github.jon7even.setup.PreparationForTests;

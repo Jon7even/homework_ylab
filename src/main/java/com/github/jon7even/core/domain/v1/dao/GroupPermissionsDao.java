@@ -1,6 +1,6 @@
 package com.github.jon7even.core.domain.v1.dao;
 
-import com.github.jon7even.core.domain.v1.entities.GroupPermissionsEntity;
+import com.github.jon7even.core.domain.v1.entities.permissions.GroupPermissionsEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,17 +29,27 @@ public interface GroupPermissionsDao {
     Optional<GroupPermissionsEntity> updateGroupPermissions(GroupPermissionsEntity groupPermissionsEntity);
 
     /**
-     * Метод для поиска определенной группы с разрешениями по ID
+     * Метод для поиска определенной группы по ID с разрешениями и всеми имеющимися сервисами
      *
      * @param groupPermissionsId существующий ID группы с разрешениями
-     * @return определенную группу с разрешениями, если она есть в системе
+     * @return определенную группу с разрешениями для всех сервисов, если она есть в системе
      */
     Optional<GroupPermissionsEntity> findByGroupPermissionsId(Integer groupPermissionsId);
 
     /**
-     * Метод для поиска всех групп с разрешениями
+     * Метод для поиска определенной группы по ID с разрешениями определенного сервиса
      *
-     * @return список всех групп с разрешениями
+     * @param groupPermissionsId существующий ID группы с разрешениями
+     * @param nameTypeServiceId существующий ID сервиса
+     * @return определенную группу с разрешениями для определенного сервиса
+     */
+    Optional<GroupPermissionsEntity> findByGroupPermissionsIdAndByTypeServiceId(Integer groupPermissionsId,
+                                                                                Integer nameTypeServiceId);
+
+    /**
+     * Метод для поиска всех групп с разрешениями и всеми имеющимися сервисами
+     *
+     * @return список всех групп с разрешениями для всех сервисов
      */
     List<GroupPermissionsEntity> getAllGroupsOfPermissions();
 }

@@ -1,7 +1,7 @@
 package com.github.jon7even.infrastructure.dataproviders.inmemory;
 
 import com.github.jon7even.core.domain.v1.dao.DiaryDao;
-import com.github.jon7even.core.domain.v1.entities.DiaryEntity;
+import com.github.jon7even.core.domain.v1.entities.workout.DiaryEntity;
 
 import java.util.HashMap;
 import java.util.Map;

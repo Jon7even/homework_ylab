@@ -1,7 +1,7 @@
 package com.github.jon7even.infrastructure.dataproviders.inmemory;
 
 import com.github.jon7even.core.domain.v1.dao.WorkoutDao;
-import com.github.jon7even.core.domain.v1.entities.WorkoutEntity;
+import com.github.jon7even.core.domain.v1.entities.workout.WorkoutEntity;
 
 import java.time.LocalDate;
 import java.util.HashMap;
