@@ -26,7 +26,7 @@ public class PreparationForTests {
     public static final String ADMIN_PASSWORD = "admin";
 
     protected UserCreateDto userCreateDtoFirst;
-    protected UserUpdateDto userUpdateDto;
+    protected UserUpdateDto userUpdateDtoFirst;
     protected UserShortResponseDto userShortResponseDto;
 
     protected void initUsers() {
@@ -66,9 +66,9 @@ public class PreparationForTests {
                 .password("UserDtoUpdate")
                 .idGroupPermissions(1)
                 .build();
-        userUpdateDto = UserUpdateDto.builder()
+        userUpdateDtoFirst = UserUpdateDto.builder()
                 .password("newPassword")
-                .idGroupPermissions(1)
+                .idGroupPermissions(2)
                 .build();
         userShortResponseDto = UserShortResponseDto.builder()
                 .login("LoginForResponse")

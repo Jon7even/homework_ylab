@@ -21,7 +21,7 @@ public interface UserMapper {
     @Mapping(source = "userLogin", target = "login")
     @Mapping(source = "userUpdateDto.password", target = "password")
     @Mapping(source = "userUpdateDto.idGroupPermissions", target = "idGroupPermissions")
-    UserEntity toEntityFromDtoUpdate(UserUpdateDto userUpdateDto, Long idUser, Long userLogin);
+    UserEntity toEntityFromDtoUpdate(UserUpdateDto userUpdateDto, Long idUser, String userLogin);
 
     @Mapping(source = "userEntity.login", target = "login")
     UserShortResponseDto toShortDtoFromEntity(UserEntity userEntity);

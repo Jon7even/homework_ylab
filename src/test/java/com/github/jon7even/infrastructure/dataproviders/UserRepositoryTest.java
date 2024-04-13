@@ -1,6 +1,7 @@
 package com.github.jon7even.infrastructure.dataproviders;
 
 import com.github.jon7even.core.domain.v1.entities.UserEntity;
+import com.github.jon7even.core.domain.v1.exception.BadLoginException;
 import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
 import com.github.jon7even.setup.PreparationForTests;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class UserRepositoryTest extends PreparationForTests {
@@ -38,39 +40,53 @@ public class UserRepositoryTest extends PreparationForTests {
     }
 
     @Test
-    @DisplayName("Пользователь админ должен быть уже в базе")
-    public void shouldFindUserAdminInBD() {
+    @DisplayName("Пользователь админ должен быть уже в базе при инициализации программы")
+    public void shouldFindUserAdminInBD_ReturnUserAdmin() {
         assertEquals(userAdmin.getId(), userRepository.findByUserId(firstIdLong).get().getId());
     }
 
     @Test
-    @DisplayName("Поиск пользователя по ID")
-    public void shouldFindUserById() {
+    @DisplayName("Должен найти пользователя по ID")
+    public void shouldFindUserById_ReturnUser() {
         assertEquals(secondIdLong, userRepository.findByUserId(secondIdLong).get().getId());
         assertEquals(thirdIdLong, userRepository.findByUserId(thirdIdLong).get().getId());
     }
 
     @Test
-    @DisplayName("Поиск пользователя по логину")
-    public void shouldFindUserByLogin() {
+    @DisplayName("Не должен найти пользователя по ID")
+    public void shouldNotFindUserById_ReturnUser() {
+        Optional<UserEntity> actualResultFirst = userRepository.findByUserId(9999L);
+        Optional<UserEntity> actualResultSecond = userRepository.findByUserId(-9999L);
+        assertEquals(actualResultFirst, Optional.empty());
+        assertEquals(actualResultSecond, Optional.empty());
+    }
+
+    @Test
+    @DisplayName("Должен найти пользователя по логину")
+    public void shouldFindUserByLogin_ReturnUser() {
         assertEquals(userEntityFirstExpected, userRepository.findByUserLogin(userLoginFirst).get());
         assertEquals(userEntitySecondExpected, userRepository.findByUserLogin(userLoginSecond).get());
     }
 
     @Test
     @DisplayName("Не должен зарегистрировать пользователя с запрещенным логином")
-    public void shouldNotCreateUser() {
+    public void shouldNotCreateUser_ReturnExceptionBadLogin() {
         userEntityFirstForCreate.setLogin("admin");
-        Optional<UserEntity> actualResultFirst = userRepository.createUser(userEntityFirstForCreate);
+        assertThrows(BadLoginException.class, () -> userRepository.createUser(
+                userEntityFirstForCreate
+        ));
         userEntitySecondForCreate.setLogin("administrator");
-        Optional<UserEntity> actualResultSecond = userRepository.createUser(userEntitySecondForCreate);
-        assertEquals(actualResultFirst, Optional.empty());
-        assertEquals(actualResultSecond, Optional.empty());
+        assertThrows(BadLoginException.class, () -> userRepository.createUser(
+                userEntityFirstForCreate
+        ));
+
+        userEntityFirstForCreate.setLogin(userLoginFirst);
+        userEntitySecondForCreate.setLogin(userLoginSecond);
     }
 
     @Test
     @DisplayName("Получить всех пользователей")
-    public void shouldFindAllUsers() {
+    public void shouldFindAllUsers_ReturnAllUsers() {
         assertEquals(userRepository.getAllUsers().size(), 3);
     }
 }
