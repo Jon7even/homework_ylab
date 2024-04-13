@@ -2,6 +2,7 @@ package com.github.jon7even.infrastructure.dataproviders.inmemory;
 
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.entities.UserEntity;
+import com.github.jon7even.core.domain.v1.exception.BadLoginException;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -53,8 +54,8 @@ public class UserRepository implements UserDao {
     @Override
     public Optional<UserEntity> createUser(UserEntity userEntity) {
         if (containsLoginInBanList(userEntity.getLogin())) {
-            System.out.println("Запрещено видоизменять пользователя с таким логином");
-            return Optional.empty();
+            System.out.println("Запрещено регистрировать пользователя с таким логином");
+            throw new BadLoginException("New User");
         }
 
         Long userId = ++idGenerator;

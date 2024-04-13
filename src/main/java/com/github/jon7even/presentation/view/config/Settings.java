@@ -11,4 +11,6 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class Settings {
     public static boolean RUN_APP = true;
+
+    public static final Integer DEFAULT_ID_FOR_GROUP = 1;
 }

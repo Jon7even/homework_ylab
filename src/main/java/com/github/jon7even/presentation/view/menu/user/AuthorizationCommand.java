@@ -1,6 +1,5 @@
 package com.github.jon7even.presentation.view.menu.user;
 
-import com.github.jon7even.application.dto.user.UserInMemoryDto;
 import com.github.jon7even.application.dto.user.UserLoginAuthDto;
 import com.github.jon7even.application.services.AuthorizationService;
 import com.github.jon7even.application.services.UserService;
@@ -50,14 +49,14 @@ public class AuthorizationCommand extends ServiceCommand {
                 setUserInMemory(userService.findUserForAuthorization(userLoginAuthDto));
                 setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
             } else {
-                System.out.println(UNKNOWN_ERROR);
+                System.out.println(UNKNOWN_ERROR_EXCEPTION);
                 setCommandNextMenu(new StartCommand());
             }
         } catch (NotFoundException e) {
-            System.out.println(AUTH_LOGIN_DENIED);
+            System.out.println(AUTH_LOGIN_DENIED_EXCEPTION);
             setCommandNextMenu(new StartCommand());
         } catch (AccessDeniedException e) {
-            System.out.println(AUTH_PASSWORD_DENIED);
+            System.out.println(AUTH_PASSWORD_DENIED_EXCEPTION);
             setCommandNextMenu(new StartCommand());
         }
     }
