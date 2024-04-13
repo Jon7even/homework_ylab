@@ -2,6 +2,7 @@ package com.github.jon7even.core.domain.v1.mappers;
 
 
 import com.github.jon7even.application.dto.user.UserCreateDto;
+import com.github.jon7even.application.dto.user.UserInMemoryDto;
 import com.github.jon7even.application.dto.user.UserShortResponseDto;
 import com.github.jon7even.application.dto.user.UserUpdateDto;
 import com.github.jon7even.core.domain.v1.entities.UserEntity;
@@ -23,5 +24,10 @@ public interface UserMapper {
     UserEntity toEntityFromDtoUpdate(UserUpdateDto userUpdateDto, Long idUser, Long userLogin);
 
     @Mapping(source = "userEntity.login", target = "login")
-    UserShortResponseDto toDtoFromEntity(UserEntity userEntity);
+    UserShortResponseDto toShortDtoFromEntity(UserEntity userEntity);
+
+    @Mapping(source = "userEntity.id", target = "id")
+    @Mapping(source = "userEntity.login", target = "login")
+    @Mapping(source = "userEntity.idGroupPermissions", target = "idGroupPermissions")
+    UserInMemoryDto toInMemoryDtoFromEntity(UserEntity userEntity);
 }

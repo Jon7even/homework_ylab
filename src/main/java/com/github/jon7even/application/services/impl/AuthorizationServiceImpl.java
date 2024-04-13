@@ -18,7 +18,6 @@ import java.util.Optional;
  */
 public class AuthorizationServiceImpl implements AuthorizationService {
     private static AuthorizationServiceImpl instance;
-
     private final UserDao userRepository;
 
     public static AuthorizationServiceImpl getInstance() {

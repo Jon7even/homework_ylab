@@ -39,7 +39,7 @@ public class UserRepository implements UserDao {
                 .id(++idGenerator)
                 .login(ADMIN_LOGIN)
                 .password(ADMIN_PASSWORD)
-                .idGroupPermissions(1)
+                .idGroupPermissions(DEFAULT_GROUP_PERMISSIONS_ADMIN)
                 .build();
         mapOfUsers.put(admin.getId(), admin);
 

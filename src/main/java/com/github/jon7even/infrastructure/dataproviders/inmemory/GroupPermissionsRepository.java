@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.github.jon7even.core.domain.v1.enums.AccessLevel.ALLOW;
+import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitialDataInDb.DEFAULT_GROUP_PERMISSIONS_ADMIN;
+import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitialDataInDb.DEFAULT_GROUP_PERMISSIONS_USER;
+
 /**
  * Реализация репозитория разрешения групп
  *
@@ -27,6 +31,25 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
     }
 
     private GroupPermissionsRepository() {
+        GroupPermissionsEntity admin = GroupPermissionsEntity.builder()
+                .id(DEFAULT_GROUP_PERMISSIONS_ADMIN)
+                .name("Admin")
+                .write(ALLOW)
+                .read(ALLOW)
+                .update(ALLOW)
+                .delete(ALLOW)
+                .build();
+        mapOfGroupsPermissions.put(DEFAULT_GROUP_PERMISSIONS_ADMIN, admin);
+
+        GroupPermissionsEntity user = GroupPermissionsEntity.builder()
+                .id(++idGenerator)
+                .name("User")
+                .write(ALLOW)
+                .read(ALLOW)
+                .update(ALLOW)
+                .delete(ALLOW)
+                .build();
+        mapOfGroupsPermissions.put(DEFAULT_GROUP_PERMISSIONS_USER, user);
     }
 
     @Override

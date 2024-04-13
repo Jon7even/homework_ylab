@@ -1,10 +1,13 @@
 package com.github.jon7even.application.services.impl;
 
 import com.github.jon7even.application.dto.user.UserCreateDto;
+import com.github.jon7even.application.dto.user.UserInMemoryDto;
+import com.github.jon7even.application.dto.user.UserLoginAuthDto;
 import com.github.jon7even.application.dto.user.UserShortResponseDto;
 import com.github.jon7even.application.services.UserService;
 import com.github.jon7even.core.domain.v1.entities.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
+import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.mappers.UserMapper;
 import com.github.jon7even.core.domain.v1.mappers.UserMapperImpl;
 import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
@@ -46,9 +49,22 @@ public class UserServiceImpl implements UserService {
 
         if (createdUser.isPresent()) {
             System.out.println("Новый пользователь успешно сохранен");
-            return userMapper.toDtoFromEntity(createdUser.get());
+            return userMapper.toShortDtoFromEntity(createdUser.get());
         } else {
             throw new NotCreatedException("New User");
+        }
+    }
+
+    @Override
+    public UserInMemoryDto findUserForAuthorization(UserLoginAuthDto userLoginAuthDto) {
+        System.out.println("Поиск пользователя по логину: " + userLoginAuthDto);
+        Optional<UserEntity> foundUserEntity = userRepository.findByUserLogin(userLoginAuthDto.getLogin());
+
+        if (foundUserEntity.isPresent()) {
+            System.out.println("Найден пользователь по логину: " + foundUserEntity);
+            return userMapper.toInMemoryDtoFromEntity(foundUserEntity.get());
+        } else {
+            throw new NotFoundException("User by login");
         }
     }
 }
