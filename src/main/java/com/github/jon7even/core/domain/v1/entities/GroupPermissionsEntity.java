@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- * Класс описывающий сущность идентификатора разрешений
+ * Класс описывающий сущность группы разрешений
  *
  * @author Jon7even
  * @version 1.0

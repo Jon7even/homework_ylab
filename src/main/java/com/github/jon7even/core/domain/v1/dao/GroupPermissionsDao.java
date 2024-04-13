@@ -11,7 +11,7 @@ import java.util.Optional;
  * @author Jon7even
  * @version 1.0
  */
-public interface GroupUserDao {
+public interface GroupPermissionsDao {
     /**
      * Метод для создания новой группы разрешений
      *
@@ -34,7 +34,7 @@ public interface GroupUserDao {
      * @param groupPermissionsId существующий ID группы с разрешениями
      * @return определенную группу с разрешениями, если она есть в системе
      */
-    Optional<GroupPermissionsEntity> findByGroupPermissionsId(Long groupPermissionsId);
+    Optional<GroupPermissionsEntity> findByGroupPermissionsId(Integer groupPermissionsId);
 
     /**
      * Метод для поиска всех групп с разрешениями

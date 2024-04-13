@@ -6,6 +6,7 @@ import com.github.jon7even.core.domain.v1.entities.UserEntity;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,11 +23,8 @@ import static java.nio.file.Paths.get;
  */
 public class UserRepository implements UserDao {
     private static UserRepository instance;
-
-    private final HashMap<Long, UserEntity> userList = new HashMap<>();
-
+    private final Map<Long, UserEntity> mapOfUsers = new HashMap<>();
     public static List<String> banListAddLogin;
-
     private Long idGenerator = 0L;
 
     public static UserRepository getInstance() {
@@ -43,7 +41,7 @@ public class UserRepository implements UserDao {
                 .password(ADMIN_PASSWORD)
                 .idGroupPermissions(1)
                 .build();
-        userList.put(admin.getId(), admin);
+        mapOfUsers.put(admin.getId(), admin);
 
         try {
             banListAddLogin = lines(get(HOME, "BanListAddLogin.properties")).collect(Collectors.toList());
@@ -54,16 +52,17 @@ public class UserRepository implements UserDao {
 
     @Override
     public Optional<UserEntity> createUser(UserEntity userEntity) {
-        if (containLoginInBanList(userEntity.getLogin())) {
+        if (containsLoginInBanList(userEntity.getLogin())) {
             System.out.println("Запрещено видоизменять пользователя с таким логином");
             return Optional.empty();
         }
 
         Long userId = ++idGenerator;
         userEntity.setId(userId);
-        userList.put(userId, userEntity);
+        mapOfUsers.put(userId, userEntity);
+
         System.out.println("В БД добавлен новый пользователь: " + userEntity);
-        return Optional.of(userList.get(userId));
+        return findByUserId(userId);
     }
 
     @Override
@@ -72,12 +71,12 @@ public class UserRepository implements UserDao {
         UserEntity oldUser;
 
         if (containUserById(userId)) {
-            oldUser = userList.get(userId);
+            oldUser = mapOfUsers.get(userId);
         } else {
             return Optional.empty();
         }
 
-        userList.put(userEntity.getId(), userEntity);
+        mapOfUsers.put(userId, userEntity);
         System.out.println("В БД произошло обновление. Старые данные: " + oldUser + "\n Новые данные: " + userEntity);
         return findByUserId(userId);
     }
@@ -87,11 +86,11 @@ public class UserRepository implements UserDao {
         System.out.println("Ищу пользователя с userId=" + userId);
 
         if (containUserById(userId)) {
-            Optional<UserEntity> foundUserEntity = Optional.of(userList.get(userId));
+            Optional<UserEntity> foundUserEntity = Optional.of(mapOfUsers.get(userId));
             System.out.println("Найден пользователь: " + foundUserEntity.get());
             return foundUserEntity;
         } else {
-            System.out.println("Пользователь с таким ID не найден");
+            System.out.println("Пользователь с таким userId не найден");
             return Optional.empty();
         }
     }
@@ -100,7 +99,7 @@ public class UserRepository implements UserDao {
     public Optional<UserEntity> findByUserLogin(String userLogin) {
         System.out.println("Ищу пользователя по логину userLogin=" + userLogin);
 
-        Optional<UserEntity> foundUserEntity = userList.values().stream()
+        Optional<UserEntity> foundUserEntity = mapOfUsers.values().stream()
                 .filter(userEntity -> userEntity.getLogin().contains(userLogin))
                 .findFirst();
 
@@ -116,16 +115,15 @@ public class UserRepository implements UserDao {
     @Override
     public List<UserEntity> getAllUsers() {
         System.out.println("Получаю список пользователей");
-        return userList.values().stream().toList();
+        return mapOfUsers.values().stream().toList();
     }
 
     private Boolean containUserById(Long userId) {
-        System.out.println("Проверяем есть ли пользователь с ID " + userId);
-        return userList.containsKey(userId);
+        System.out.println("Проверяем есть ли пользователь с userId=" + userId);
+        return mapOfUsers.containsKey(userId);
     }
 
-    private Boolean containLoginInBanList(String userLogin) {
+    private Boolean containsLoginInBanList(String userLogin) {
         return banListAddLogin.stream().anyMatch(userLogin::equalsIgnoreCase);
     }
-
 }

@@ -13,7 +13,7 @@ import java.util.Set;
  */
 @Data
 @Builder
-public class WorkoutTypeEntity {
+public class TypeWorkoutEntity {
     private Long id;
     private String typeName;
     private Double kcalPerHour;

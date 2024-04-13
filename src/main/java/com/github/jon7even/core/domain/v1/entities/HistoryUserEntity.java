@@ -14,7 +14,7 @@ import java.util.Set;
  */
 @Data
 @Builder
-public class UserHistoryEntity {
+public class HistoryUserEntity {
     private Long id;
     private Long userId;
     private LocalDateTime dateTimeOn;
