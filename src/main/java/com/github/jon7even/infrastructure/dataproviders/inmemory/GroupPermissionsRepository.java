@@ -122,6 +122,7 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
         Set<TypeServiceEntity> userListPermissions = new HashSet<>(
                 Set.of(historyAdmin, diaryAdmin, workoutAdmin, workoutTypeAdmin)
         );
+
         Set<TypeServiceEntity> adminListPermissions = new HashSet<>(
                 Set.of(historyUser, diaryUser, workoutUser, workoutTypeUser)
         );
@@ -131,14 +132,14 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
                 .name("Admin")
                 .servicesList(userListPermissions)
                 .build();
-        mapOfGroupsPermissions.put(DEFAULT_GROUP_PERMISSIONS_ADMIN, admin);
+        mapOfGroupsPermissions.put(++idGenerator, admin);
 
         GroupPermissionsEntity user = GroupPermissionsEntity.builder()
-                .id(++idGenerator)
+                .id(DEFAULT_GROUP_PERMISSIONS_USER)
                 .name("User")
                 .servicesList(adminListPermissions)
                 .build();
-        mapOfGroupsPermissions.put(DEFAULT_GROUP_PERMISSIONS_USER, user);
+        mapOfGroupsPermissions.put(++idGenerator, user);
     }
 
     @Override

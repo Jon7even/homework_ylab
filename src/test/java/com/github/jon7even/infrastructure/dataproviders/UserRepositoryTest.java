@@ -1,8 +1,8 @@
 package com.github.jon7even.infrastructure.dataproviders;
 
+import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.BadLoginException;
-import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
 import com.github.jon7even.setup.PreparationForTests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,11 +19,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ExtendWith(MockitoExtension.class)
 public class UserRepositoryTest extends PreparationForTests {
     @InjectMocks
-    private UserRepository userRepository;
+    private UserDao userRepository;
 
     private Optional<UserEntity> actualResultUserFirst;
 
     private Optional<UserEntity> actualResultUserSecond;
+
+    private Long sizeListRepositoryUser = 3L;
 
     @BeforeEach
     public void setUp() {
@@ -87,6 +89,6 @@ public class UserRepositoryTest extends PreparationForTests {
     @Test
     @DisplayName("Получить всех пользователей")
     public void shouldFindAllUsers_ReturnAllUsers() {
-        assertEquals(userRepository.getAllUsers().size(), 3);
+        assertEquals(userRepository.getAllUsers().size(), sizeListRepositoryUser);
     }
 }

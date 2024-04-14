@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 
 public class TrainingDiaryAppTest {
     @Test
-    void contextLoads() {
+    public void contextLoads() {
     }
 
     @Test
-    void testMan() {
+    public void testMan() {
         Assertions.assertDoesNotThrow(TrainingDiaryApp::new);
     }
 }

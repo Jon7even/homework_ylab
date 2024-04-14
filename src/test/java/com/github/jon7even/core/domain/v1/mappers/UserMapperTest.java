@@ -23,7 +23,7 @@ public class UserMapperTest extends PreparationForTests {
 
     @Test
     @DisplayName("Должен произойти правильный маппинг в сущность для создания новых данных в БД")
-    void toEntityFromDtoCreate_ReturnEntity() {
+    public void toEntityFromDtoCreate_ReturnEntity() {
         UserEntity actualResult = userMapper.toEntityFromDtoCreate(userCreateDtoFirst);
 
         assertNotNull(actualResult);
@@ -35,7 +35,7 @@ public class UserMapperTest extends PreparationForTests {
 
     @Test
     @DisplayName("Должен произойти правильный маппинг в сущность для обновления данных в БД")
-    void toEntityFromDtoUpdate_ReturnEntity() {
+    public void toEntityFromDtoUpdate_ReturnEntity() {
         UserEntity actualResult = userMapper.toEntityFromDtoUpdate(userUpdateDtoFirst, secondIdLong, userLoginFirst);
 
         assertNotNull(actualResult);
@@ -47,7 +47,7 @@ public class UserMapperTest extends PreparationForTests {
 
     @Test
     @DisplayName("Должен произойти правильный маппинг в модель для короткого вывода о пользователе")
-    void toShortDtoFromEntity_UserShortResponseDto() {
+    public void toShortDtoFromEntity_UserShortResponseDto() {
         UserShortResponseDto actualResult = userMapper.toShortDtoFromEntity(userEntityFirstExpected);
 
         assertNotNull(actualResult);
@@ -56,7 +56,7 @@ public class UserMapperTest extends PreparationForTests {
 
     @Test
     @DisplayName("Должен произойти правильный маппинг в модель для пользователя в памяти")
-    void toInMemoryDtoFromEntity_UserInMemoryDto() {
+    public void toInMemoryDtoFromEntity_UserInMemoryDto() {
         UserInMemoryDto actualResult = userMapper.toInMemoryDtoFromEntity(userEntityFirstExpected);
 
         assertNotNull(actualResult);

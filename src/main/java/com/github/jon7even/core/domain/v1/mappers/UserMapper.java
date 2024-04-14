@@ -9,6 +9,12 @@ import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+/**
+ * Интерфейс для маппинга DTO и сущностей пользователя
+ *
+ * @author Jon7even
+ * @version 1.0
+ */
 @Mapper
 public interface UserMapper {
     @Mapping(target = "id", ignore = true)
