@@ -39,7 +39,7 @@
 > ## Архитектура приложения
 >
 >
-> ![Архитектура приложения на схеме](/docs/images/architecture.jpg)
+> ![Архитектура приложения на схеме](/docs/images/architectureApp.jpg)
 >
 > 
 
