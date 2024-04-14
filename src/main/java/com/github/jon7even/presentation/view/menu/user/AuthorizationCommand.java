@@ -1,5 +1,6 @@
 package com.github.jon7even.presentation.view.menu.user;
 
+import com.github.jon7even.application.dto.history.HistoryUserCreateDto;
 import com.github.jon7even.application.dto.user.UserLoginAuthDto;
 import com.github.jon7even.application.services.AuthorizationService;
 import com.github.jon7even.application.services.UserService;
@@ -47,6 +48,12 @@ public class AuthorizationCommand extends ServiceCommand {
             if (authorizationService.processAuthorization(userLoginAuthDto)) {
                 System.out.println(AUTH_SUCCESS);
                 setUserInMemory(userService.findUserForAuthorization(userLoginAuthDto));
+
+                getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                        .userId(getUserInMemory().getId())
+                        .event("Успешная авторизация пользователя")
+                        .build());
+
                 setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
             } else {
                 System.out.println(UNKNOWN_ERROR_EXCEPTION);

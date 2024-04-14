@@ -24,7 +24,7 @@ public class StartCommand extends ServiceCommand {
         switch (scanner.nextInt()) {
             case 1 -> setCommandNextMenu(new AuthorizationCommand());
             case 2 -> setCommandNextMenu(new RegisterNewUserCommand());
-            case 0 -> setCommandNextMenu(new ExitCommand());
+            case 0 -> setCommandNextMenu(new ExitFromAppCommand());
             default -> setCommandNextMenu(new StartCommand());
         }
     }

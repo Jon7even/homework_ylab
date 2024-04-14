@@ -5,10 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Класс DTO для сохранения действий пользователя
+ *
+ * @author Jon7even
+ * @version 1.0
+ */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class HistoryCreateDto {
+public class HistoryUserCreateDto {
+    private Long userId;
     private String event;
 }

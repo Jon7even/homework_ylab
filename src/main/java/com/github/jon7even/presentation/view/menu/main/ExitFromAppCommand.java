@@ -10,7 +10,7 @@ import static com.github.jon7even.presentation.view.ru.LocalMessages.EXIT_MESSAG
  * @author Jon7even
  * @version 1.0
  */
-public class ExitCommand extends ServiceCommand {
+public class ExitFromAppCommand extends ServiceCommand {
     @Override
     public void handle() {
         System.out.println(EXIT_MESSAGE);

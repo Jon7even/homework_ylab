@@ -6,7 +6,7 @@ public class AccessDeniedException extends ApplicationException {
     }
 
     private static String getErrorMessage(String resource) {
-        return String.format("[%s] not found", resource);
+        return String.format("[%s] Access Denied", resource);
     }
 }
 

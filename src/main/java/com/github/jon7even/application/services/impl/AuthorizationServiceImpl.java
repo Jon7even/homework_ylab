@@ -41,7 +41,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
                 System.out.println("Пользователь авторизовался");
                 return true;
             } else {
-                throw new AccessDeniedException(String.format("Access Denied for [userLogin=%s]",
+                throw new AccessDeniedException(String.format("For [userLogin=%s]",
                         userLoginAuthDto.getLogin()));
             }
         } else {
