@@ -71,26 +71,13 @@ public class DiaryRepository implements DiaryDao {
     @Override
     public Optional<DiaryEntity> findByUserId(Long userId) {
         System.out.println("Ищу дневник с userId=" + userId);
-
-        if (containsDiaryByUserId(userId)) {
-            Optional<DiaryEntity> foundDiaryEntity = Optional.of(mapOfDiaries.values().stream()
-                    .filter(diaryEntity -> diaryEntity.getUserId().equals(userId))
-                    .findFirst().get());
-            System.out.println("Найден дневник: " + foundDiaryEntity.get());
-            return foundDiaryEntity;
-        } else {
-            System.out.println("Дневник с таким userId не найден");
-            return Optional.empty();
-        }
+        return mapOfDiaries.values().stream()
+                .filter(diaryEntity -> diaryEntity.getUserId().equals(userId))
+                .findFirst();
     }
 
     private Boolean containDiaryById(Long diaryId) {
         System.out.println("Проверяем есть ли дневник с diaryId=" + diaryId);
         return mapOfDiaries.containsKey(diaryId);
-    }
-
-    private Boolean containsDiaryByUserId(Long userId) {
-        System.out.println("Проверяем есть ли дневник с userId=" + userId);
-        return mapOfDiaries.values().stream().anyMatch(diaryEntity -> diaryEntity.getUserId().equals(userId));
     }
 }

@@ -4,16 +4,13 @@ import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.BadLoginException;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitialDataInDb.*;
-import static java.nio.file.Files.lines;
-import static java.nio.file.Paths.get;
+import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitDbUser.ADMIN_FIRST_USER;
+import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitDbUser.BAN_LIST_ADD_LOGIN;
 
 
 /**
@@ -25,7 +22,6 @@ import static java.nio.file.Paths.get;
 public class UserRepository implements UserDao {
     private static UserRepository instance;
     private final Map<Long, UserEntity> mapOfUsers = new HashMap<>();
-    public static List<String> banListAddLogin;
     private Long idGenerator = 0L;
 
     public static UserRepository getInstance() {
@@ -36,19 +32,8 @@ public class UserRepository implements UserDao {
     }
 
     private UserRepository() {
-        UserEntity admin = UserEntity.builder()
-                .id(++idGenerator)
-                .login(ADMIN_LOGIN)
-                .password(ADMIN_PASSWORD)
-                .idGroupPermissions(DEFAULT_GROUP_PERMISSIONS_ADMIN)
-                .build();
-        mapOfUsers.put(admin.getId(), admin);
-
-        try {
-            banListAddLogin = lines(get(HOME, "BanListAddLogin.properties")).collect(Collectors.toList());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        ++idGenerator;
+        mapOfUsers.put(ADMIN_FIRST_USER.getId(), ADMIN_FIRST_USER);
     }
 
     @Override
@@ -85,32 +70,16 @@ public class UserRepository implements UserDao {
     @Override
     public Optional<UserEntity> findByUserId(Long userId) {
         System.out.println("Ищу пользователя с userId=" + userId);
-
-        if (containUserById(userId)) {
-            Optional<UserEntity> foundUserEntity = Optional.of(mapOfUsers.get(userId));
-            System.out.println("Найден пользователь: " + foundUserEntity.get());
-            return foundUserEntity;
-        } else {
-            System.out.println("Пользователь с таким userId не найден");
-            return Optional.empty();
-        }
+        return Optional.ofNullable(mapOfUsers.get(userId));
     }
 
     @Override
     public Optional<UserEntity> findByUserLogin(String userLogin) {
         System.out.println("Ищу пользователя по логину userLogin=" + userLogin);
 
-        Optional<UserEntity> foundUserEntity = mapOfUsers.values().stream()
+        return mapOfUsers.values().stream()
                 .filter(userEntity -> userEntity.getLogin().contains(userLogin))
                 .findFirst();
-
-        if (foundUserEntity.isPresent()) {
-            System.out.println("Найден пользователь с таким логином: " + foundUserEntity.get());
-            return foundUserEntity;
-        } else {
-            System.out.println("Пользователь с таким логином не найден");
-            return Optional.empty();
-        }
     }
 
     @Override
@@ -125,6 +94,6 @@ public class UserRepository implements UserDao {
     }
 
     private Boolean containsLoginInBanList(String userLogin) {
-        return banListAddLogin.stream().anyMatch(userLogin::equalsIgnoreCase);
+        return BAN_LIST_ADD_LOGIN.stream().anyMatch(userLogin::equalsIgnoreCase);
     }
 }

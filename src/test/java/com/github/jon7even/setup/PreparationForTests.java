@@ -125,7 +125,7 @@ public class PreparationForTests {
                 .build();
         nameTypeWorkoutType = NameType.builder()
                 .id(4)
-                .name("Type Workout Service")
+                .name("TypeWorkout Service")
                 .build();
 
         historyAdmin = TypeServiceEntity.builder()

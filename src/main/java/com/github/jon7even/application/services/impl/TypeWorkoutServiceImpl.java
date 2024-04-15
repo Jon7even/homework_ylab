@@ -24,6 +24,7 @@ import java.util.Optional;
 
 import static com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions.UPDATE;
 import static com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions.WRITE;
+import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitialCommonDataInDb.SERVICE_TYPE_WORKOUT;
 
 /**
  * Реализация сервиса взаимодействия с типами тренировок
@@ -60,9 +61,10 @@ public class TypeWorkoutServiceImpl implements TypeWorkoutService {
         System.out.println("Пользователь с requesterId="
                 + requesterId + "запрашивает разрешение на создание нового типа тренировки");
 
-        if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId), 4, WRITE)) {
+        if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId),
+                SERVICE_TYPE_WORKOUT.getId(), WRITE)) {
             TypeWorkoutEntity typeWorkoutEntityForSaveInRepository = typeWorkoutMapper.toTypeWorkoutEntityFromDtoCreate(
-                    typeWorkoutCreateDto, 4
+                    typeWorkoutCreateDto, SERVICE_TYPE_WORKOUT.getId()
             );
             System.out.println("Новый тип тренировки для сохранения собран: " + typeWorkoutEntityForSaveInRepository);
 
@@ -99,7 +101,8 @@ public class TypeWorkoutServiceImpl implements TypeWorkoutService {
         System.out.println("Пользователь с requesterId="
                 + requesterId + "запрашивает разрешение на обновление типа тренировки");
 
-        if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId), 4, UPDATE)) {
+        if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId),
+                SERVICE_TYPE_WORKOUT.getId(), UPDATE)) {
             TypeWorkoutEntity typeWorkoutEntityForUpdate = getTypeWorkoutEntityByTypeWorkoutId(typeWorkoutId);
 
             System.out.println("Объединяем данные в сущности");

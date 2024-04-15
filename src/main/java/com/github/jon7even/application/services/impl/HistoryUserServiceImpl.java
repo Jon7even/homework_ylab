@@ -25,6 +25,7 @@ import java.util.Comparator;
 import java.util.Objects;
 
 import static com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions.READ;
+import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitialCommonDataInDb.SERVICE_HISTORY;
 
 /**
  * Реализация сервиса для взаимодействия с историей действий пользователя
@@ -95,7 +96,8 @@ public class HistoryUserServiceImpl implements HistoryUserService {
         List<HistoryUserEntity> listHistoryByUserId;
 
         System.out.println("Запрашиваю разрешение на просмотр");
-        if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId), 1, READ)) {
+        if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId),
+                SERVICE_HISTORY.getId(), READ)) {
             listHistoryByUserId = historyUserRepository.findAllHistoryByUserId(userId);
             System.out.println("Получен список из событий в количестве=" + listHistoryByUserId.size());
         } else {

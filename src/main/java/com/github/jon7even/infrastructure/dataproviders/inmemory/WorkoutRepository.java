@@ -37,7 +37,7 @@ public class WorkoutRepository implements WorkoutDao {
         workoutEntity.setId(workoutId);
         mapOfWorkouts.put(workoutId, workoutEntity);
 
-        System.out.println("В БД добавлен новая тренировка: " + workoutEntity);
+        System.out.println("В БД добавлена новая тренировка: " + workoutEntity);
         return findByWorkoutByTypeIdAndDate(workoutId);
     }
 
@@ -51,7 +51,6 @@ public class WorkoutRepository implements WorkoutDao {
         } else {
             return Optional.empty();
         }
-
         mapOfWorkouts.put(workoutId, workoutEntity);
         System.out.println("В БД произошло обновление. Старые данные: " + oldWorkout
                 + "\n Новые данные: " + workoutEntity);
@@ -60,34 +59,17 @@ public class WorkoutRepository implements WorkoutDao {
 
     @Override
     public Optional<WorkoutEntity> findByWorkoutByTypeIdAndDate(Long workoutId) {
-        System.out.println("Ищу тренировка с workoutId=" + workoutId);
-
-        if (containsWorkoutById(workoutId)) {
-            Optional<WorkoutEntity> foundWorkoutEntity = Optional.of(mapOfWorkouts.get(workoutId));
-            System.out.println("Найдена тренировка: " + foundWorkoutEntity.get());
-            return foundWorkoutEntity;
-        } else {
-            System.out.println("Тренировка с таким workoutId не найдена");
-            return Optional.empty();
-        }
+        System.out.println("Ищу тренировку с workoutId=" + workoutId);
+        return Optional.ofNullable(mapOfWorkouts.get(workoutId));
     }
 
     @Override
     public Optional<WorkoutEntity> findByWorkoutByTypeIdAndDate(Long idTypeWorkout, LocalDate dayOfWorkout) {
         System.out.println("Ищу тренировку с idWorkoutType=" + idTypeWorkout + " и датой=" + dayOfWorkout.toString());
-
-        Optional<WorkoutEntity> foundWorkoutEntity = mapOfWorkouts.values().stream()
+        return mapOfWorkouts.values().stream()
                 .filter(workoutEntity -> workoutEntity.getIdTypeWorkout().equals(idTypeWorkout))
                 .filter(workoutEntity -> workoutEntity.getTimeStartOn().toLocalDate().equals(dayOfWorkout))
                 .findFirst();
-
-        if (foundWorkoutEntity.isPresent()) {
-            System.out.println("Найдена тренировка с заданными параметрами: " + foundWorkoutEntity.get());
-            return foundWorkoutEntity;
-        } else {
-            System.out.println("Тренировка с такими параметрами не найдена");
-            return Optional.empty();
-        }
     }
 
     @Override

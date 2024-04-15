@@ -2,19 +2,19 @@ package com.github.jon7even.infrastructure.dataproviders.inmemory;
 
 import com.github.jon7even.core.domain.v1.dao.GroupPermissionsDao;
 import com.github.jon7even.core.domain.v1.entities.permissions.GroupPermissionsEntity;
-import com.github.jon7even.core.domain.v1.entities.permissions.NameType;
 import com.github.jon7even.core.domain.v1.entities.permissions.TypeServiceEntity;
 
 import java.util.Set;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 
-import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitialDataInDb.DEFAULT_GROUP_PERMISSIONS_ADMIN;
-import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitialDataInDb.DEFAULT_GROUP_PERMISSIONS_USER;
+import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitDbGroupPermissions.BASE_GROUP_PERMISSIONS_FOR_ADMIN;
+import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitDbGroupPermissions.BASE_GROUP_PERMISSIONS_FOR_USER;
+import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitialCommonDataInDb.DEFAULT_ID_GROUP_PERMISSIONS_ADMIN;
+import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitialCommonDataInDb.DEFAULT_ID_GROUP_PERMISSIONS_USER;
 
 /**
  * Реализация репозитория разрешения групп
@@ -35,139 +35,10 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
     }
 
     private GroupPermissionsRepository() {
-        NameType nameTypeHistory = NameType.builder()
-                .id(1)
-                .name("History Service")
-                .build();
-        NameType nameTypeDiary = NameType.builder()
-                .id(2)
-                .name("Diary Service")
-                .build();
-        NameType nameTypeWorkout = NameType.builder()
-                .id(3)
-                .name("Workout Service")
-                .build();
-        NameType nameTypeWorkoutType = NameType.builder()
-                .id(4)
-                .name("TypeWorkout Service")
-                .build();
-
-        NameType nameUserType = NameType.builder()
-                .id(5)
-                .name("User Service")
-                .build();
-
-        TypeServiceEntity historyAdmin = TypeServiceEntity.builder()
-                .id(1)
-                .nameType(nameTypeHistory)
-                .update(true)
-                .write(true)
-                .read(true)
-                .delete(true)
-                .build();
-
-        TypeServiceEntity diaryAdmin = TypeServiceEntity.builder()
-                .id(2)
-                .nameType(nameTypeDiary)
-                .update(true)
-                .write(true)
-                .read(true)
-                .delete(true)
-                .build();
-
-        TypeServiceEntity workoutAdmin = TypeServiceEntity.builder()
-                .id(3)
-                .nameType(nameTypeWorkout)
-                .update(true)
-                .write(true)
-                .read(true)
-                .delete(true)
-                .build();
-
-        TypeServiceEntity workoutTypeAdmin = TypeServiceEntity.builder()
-                .id(4)
-                .nameType(nameTypeWorkoutType)
-                .update(true)
-                .write(true)
-                .read(true)
-                .delete(true)
-                .build();
-
-        TypeServiceEntity userAdmin = TypeServiceEntity.builder()
-                .id(5)
-                .nameType(nameUserType)
-                .update(true)
-                .write(true)
-                .read(true)
-                .delete(true)
-                .build();
-
-        TypeServiceEntity historyUser = TypeServiceEntity.builder()
-                .id(6)
-                .nameType(nameTypeHistory)
-                .update(false)
-                .write(false)
-                .read(false)
-                .delete(false)
-                .build();
-
-        TypeServiceEntity diaryUser = TypeServiceEntity.builder()
-                .id(7)
-                .nameType(nameTypeDiary)
-                .update(false)
-                .write(false)
-                .read(false)
-                .delete(false)
-                .build();
-
-        TypeServiceEntity workoutUser = TypeServiceEntity.builder()
-                .id(8)
-                .nameType(nameTypeWorkout)
-                .update(false)
-                .write(false)
-                .read(false)
-                .delete(false)
-                .build();
-
-        TypeServiceEntity workoutTypeUser = TypeServiceEntity.builder()
-                .id(9)
-                .nameType(nameTypeWorkoutType)
-                .update(false)
-                .write(false)
-                .read(false)
-                .delete(false)
-                .build();
-
-        TypeServiceEntity userUser = TypeServiceEntity.builder()
-                .id(10)
-                .nameType(nameUserType)
-                .update(false)
-                .write(false)
-                .read(false)
-                .delete(false)
-                .build();
-
-        Set<TypeServiceEntity> userListPermissions = new HashSet<>(
-                Set.of(historyAdmin, diaryAdmin, workoutAdmin, workoutTypeAdmin, userAdmin)
-        );
-
-        Set<TypeServiceEntity> adminListPermissions = new HashSet<>(
-                Set.of(historyUser, diaryUser, workoutUser, workoutTypeUser, userUser)
-        );
-
-        GroupPermissionsEntity admin = GroupPermissionsEntity.builder()
-                .id(DEFAULT_GROUP_PERMISSIONS_ADMIN)
-                .name("Admin")
-                .servicesList(userListPermissions)
-                .build();
-        mapOfGroupsPermissions.put(++idGenerator, admin);
-
-        GroupPermissionsEntity user = GroupPermissionsEntity.builder()
-                .id(DEFAULT_GROUP_PERMISSIONS_USER)
-                .name("User")
-                .servicesList(adminListPermissions)
-                .build();
-        mapOfGroupsPermissions.put(++idGenerator, user);
+        ++idGenerator;
+        mapOfGroupsPermissions.put(DEFAULT_ID_GROUP_PERMISSIONS_ADMIN, BASE_GROUP_PERMISSIONS_FOR_ADMIN);
+        ++idGenerator;
+        mapOfGroupsPermissions.put(DEFAULT_ID_GROUP_PERMISSIONS_USER, BASE_GROUP_PERMISSIONS_FOR_USER);
     }
 
     @Override
@@ -200,15 +71,7 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
     @Override
     public Optional<GroupPermissionsEntity> findByGroupPermissionsId(Integer groupPermissionsId) {
         System.out.println("Ищу группу с groupPermissionsId=" + groupPermissionsId);
-
-        if (containsGroupPermissionsById(groupPermissionsId)) {
-            Optional<GroupPermissionsEntity> foundGroup = Optional.of(mapOfGroupsPermissions.get(groupPermissionsId));
-            System.out.println("Найдена группа: " + foundGroup.get());
-            return foundGroup;
-        } else {
-            System.out.println("Группа с таким groupPermissionsId не найдена");
-            return Optional.empty();
-        }
+        return Optional.ofNullable(mapOfGroupsPermissions.get(groupPermissionsId));
     }
 
     @Override
@@ -216,7 +79,6 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
                                                                                        Integer nameTypeServiceId) {
         System.out.println("Ищу группу с groupPermissionsId=" + groupPermissionsId
                 + "и nameTypeServiceId=" + nameTypeServiceId);
-
         Optional<GroupPermissionsEntity> foundGroupWithAllType = findByGroupPermissionsId(groupPermissionsId);
 
         if (foundGroupWithAllType.isPresent()) {

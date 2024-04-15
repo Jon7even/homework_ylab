@@ -50,19 +50,6 @@ public class HistoryUserRepository implements HistoryUserDao {
 
     private Optional<HistoryUserEntity> findByHistoryUserId(Long historyUserId) {
         System.out.println("Ищу историю действий с historyUserId=" + historyUserId);
-
-        if (containsHistoryUserById(historyUserId)) {
-            Optional<HistoryUserEntity> foundHistoryUserEntity = Optional.of(mapOfHistoryByUser.get(historyUserId));
-            System.out.println("Найдена история: " + foundHistoryUserEntity.get());
-            return foundHistoryUserEntity;
-        } else {
-            System.out.println("История с таким historyUserId не найдена");
-            return Optional.empty();
-        }
-    }
-
-    private Boolean containsHistoryUserById(Long historyUserId) {
-        System.out.println("Проверяем есть ли история с historyUserId=" + historyUserId);
-        return mapOfHistoryByUser.containsKey(historyUserId);
+        return Optional.ofNullable(mapOfHistoryByUser.get(historyUserId));
     }
 }
