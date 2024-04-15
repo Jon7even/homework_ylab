@@ -9,7 +9,7 @@ import com.github.jon7even.presentation.view.menu.user.SignOutCommand;
 
 import java.util.Scanner;
 
-import static com.github.jon7even.presentation.view.ru.LocalMessages.MAIN_WORKOUT;
+import static com.github.jon7even.presentation.view.ru.LocalMessages.MAIN_MENU_WORKOUT;
 
 /**
  * Главное меню взаимодействия с тренировками
@@ -30,7 +30,7 @@ public class MainMenuWorkoutCommand extends ServiceCommand {
                 .event("Просмотр главного меню тренировок")
                 .build());
 
-        System.out.println(MAIN_WORKOUT);
+        System.out.println(MAIN_MENU_WORKOUT);
 
         switch (scanner.nextInt()) {
             // TODO

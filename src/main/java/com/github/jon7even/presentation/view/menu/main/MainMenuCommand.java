@@ -2,18 +2,32 @@ package com.github.jon7even.presentation.view.menu.main;
 
 import com.github.jon7even.application.dto.history.HistoryUserCreateDto;
 import com.github.jon7even.application.dto.user.UserInMemoryDto;
-import com.github.jon7even.presentation.view.menu.diary.MainMenuDiaryCommand;
-import com.github.jon7even.presentation.view.menu.user.MainMenuUserCommand;
+import com.github.jon7even.application.services.GroupPermissionsService;
+import com.github.jon7even.application.services.impl.GroupPermissionsServiceImpl;
+import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
+import com.github.jon7even.presentation.view.menu.admin.MainAdminMenuCommand;
+import com.github.jon7even.presentation.view.menu.diary.MainDiaryMenuCommand;
+import com.github.jon7even.presentation.view.menu.user.MainUserMenuCommand;
 import com.github.jon7even.presentation.view.menu.user.SignOutCommand;
 import com.github.jon7even.presentation.view.menu.workout.MainMenuWorkoutCommand;
 
 import java.util.Scanner;
 
+import static com.github.jon7even.presentation.view.ru.LocalMessages.MAIN_ADMIN;
 import static com.github.jon7even.presentation.view.ru.LocalMessages.MAIN_MENU;
 
+/**
+ * Главное меню приложение, здесь отображаются основные функции
+ *
+ * @author Jon7even
+ * @version 1.0
+ */
 public class MainMenuCommand extends ServiceCommand {
+    private final GroupPermissionsService groupPermissionsService;
+
     public MainMenuCommand(UserInMemoryDto userService) {
         setUserInMemory(userService);
+        groupPermissionsService = GroupPermissionsServiceImpl.getInstance();
     }
 
     @Override
@@ -24,15 +38,35 @@ public class MainMenuCommand extends ServiceCommand {
                 .event("Просмотр главного меню приложения")
                 .build());
 
-        System.out.println(MAIN_MENU);
 
-        switch (scanner.nextInt()) {
-            case 1 -> setCommandNextMenu(new MainMenuDiaryCommand(getUserInMemory()));
-            case 2 -> setCommandNextMenu(new MainMenuWorkoutCommand(getUserInMemory()));
-            case 3 -> setCommandNextMenu(new MainMenuUserCommand(getUserInMemory()));
-            case 4 -> setCommandNextMenu(new SignOutCommand(getUserInMemory()));
-            case 0 -> setCommandNextMenu(new ExitFromAppCommand());
-            default -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
+        boolean secret = groupPermissionsService.getPermissionsForService(
+                getUserInMemory().getIdGroupPermissions(), 5, FlagPermissions.WRITE
+        );
+
+        if (secret) {
+            System.out.println(MAIN_ADMIN);
+
+            switch (scanner.nextInt()) {
+                case 1 -> setCommandNextMenu(new MainAdminMenuCommand(getUserInMemory()));
+                case 2 -> setCommandNextMenu(new MainDiaryMenuCommand(getUserInMemory()));
+                case 3 -> setCommandNextMenu(new MainMenuWorkoutCommand(getUserInMemory()));
+                case 4 -> setCommandNextMenu(new MainUserMenuCommand(getUserInMemory()));
+                case 5 -> setCommandNextMenu(new SignOutCommand(getUserInMemory()));
+                case 0 -> setCommandNextMenu(new ExitFromAppCommand());
+                default -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
+            }
+        } else {
+            System.out.println(MAIN_MENU);
+
+            switch (scanner.nextInt()) {
+                case 1 -> setCommandNextMenu(new MainDiaryMenuCommand(getUserInMemory()));
+                case 2 -> setCommandNextMenu(new MainMenuWorkoutCommand(getUserInMemory()));
+                case 3 -> setCommandNextMenu(new MainUserMenuCommand(getUserInMemory()));
+                case 4 -> setCommandNextMenu(new SignOutCommand(getUserInMemory()));
+                case 5 -> setCommandNextMenu(new MainAdminMenuCommand(getUserInMemory()));
+                case 0 -> setCommandNextMenu(new ExitFromAppCommand());
+                default -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
+            }
         }
     }
 }

@@ -9,5 +9,11 @@ import com.github.jon7even.application.dto.user.UserLoginAuthDto;
  * @version 1.0
  */
 public interface AuthorizationService {
+    /**
+     * Метод, который даёт однозначный ответ правильный ли пароль ввел пользователь
+     *
+     * @param userLoginAuthDto заполненный пользователем объект DTO
+     * @return boolean с ответом - правильно ли введен пароль
+     */
     boolean processAuthorization(UserLoginAuthDto userLoginAuthDto);
 }

@@ -9,7 +9,7 @@ import com.github.jon7even.presentation.view.menu.user.SignOutCommand;
 
 import java.util.Scanner;
 
-import static com.github.jon7even.presentation.view.ru.LocalMessages.MAIN_DIARY;
+import static com.github.jon7even.presentation.view.ru.LocalMessages.MAIN_MENU_DIARY;
 
 /**
  * Главное меню взаимодействия с дневником
@@ -17,8 +17,8 @@ import static com.github.jon7even.presentation.view.ru.LocalMessages.MAIN_DIARY;
  * @author Jon7even
  * @version 1.0
  */
-public class MainMenuDiaryCommand extends ServiceCommand {
-    public MainMenuDiaryCommand(UserInMemoryDto userService) {
+public class MainDiaryMenuCommand extends ServiceCommand {
+    public MainDiaryMenuCommand(UserInMemoryDto userService) {
         setUserInMemory(userService);
     }
 
@@ -30,15 +30,15 @@ public class MainMenuDiaryCommand extends ServiceCommand {
                 .event("Просмотр главного меню дневника")
                 .build());
 
-        System.out.println(MAIN_DIARY);
+        System.out.println(MAIN_MENU_DIARY);
 
         switch (scanner.nextInt()) {
-            // TODO
+            //TODO
             // TODO
             case 3 -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
             case 4 -> setCommandNextMenu(new SignOutCommand(getUserInMemory()));
             case 0 -> setCommandNextMenu(new ExitFromAppCommand());
-            default -> setCommandNextMenu(new MainMenuDiaryCommand(getUserInMemory()));
+            default -> setCommandNextMenu(new MainDiaryMenuCommand(getUserInMemory()));
         }
     }
 }

@@ -8,7 +8,7 @@ import com.github.jon7even.presentation.view.menu.main.ServiceCommand;
 
 import java.util.Scanner;
 
-import static com.github.jon7even.presentation.view.ru.LocalMessages.MAIN_USER;
+import static com.github.jon7even.presentation.view.ru.LocalMessages.MAIN_MENU_USER;
 
 /**
  * Главное меню взаимодействия с аккаунтом пользователя
@@ -16,8 +16,8 @@ import static com.github.jon7even.presentation.view.ru.LocalMessages.MAIN_USER;
  * @author Jon7even
  * @version 1.0
  */
-public class MainMenuUserCommand extends ServiceCommand {
-    public MainMenuUserCommand(UserInMemoryDto userService) {
+public class MainUserMenuCommand extends ServiceCommand {
+    public MainUserMenuCommand(UserInMemoryDto userService) {
         setUserInMemory(userService);
     }
 
@@ -29,14 +29,14 @@ public class MainMenuUserCommand extends ServiceCommand {
                 .event("Просмотр главного меню пользователя")
                 .build());
 
-        System.out.println(MAIN_USER);
+        System.out.println(MAIN_MENU_USER);
 
         switch (scanner.nextInt()) {
             case 1 -> setCommandNextMenu(new ViewMyHistoryCommand(getUserInMemory()));
             case 2 -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
             case 3 -> setCommandNextMenu(new SignOutCommand(getUserInMemory()));
             case 0 -> setCommandNextMenu(new ExitFromAppCommand());
-            default -> setCommandNextMenu(new MainMenuUserCommand(getUserInMemory()));
+            default -> setCommandNextMenu(new MainUserMenuCommand(getUserInMemory()));
         }
     }
 }

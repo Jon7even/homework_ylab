@@ -109,7 +109,7 @@ public class HistoryUserServiceImpl implements HistoryUserService {
 
     private List<HistoryUserEntity> sortListHistoryUser(List<HistoryUserEntity> listNotSorted) {
         System.out.println("Сортируем список");
-        List<HistoryUserEntity> sortedList = listNotSorted.stream().sorted()
+        List<HistoryUserEntity> sortedList = listNotSorted.stream()
                 .sorted(Comparator.comparing(HistoryUserEntity::getDateTimeOn)
                         .reversed())
                 .collect(Collectors.toList());

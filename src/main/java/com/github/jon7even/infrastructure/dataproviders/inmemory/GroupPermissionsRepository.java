@@ -47,6 +47,11 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
                 .name("Type Workout Service")
                 .build();
 
+        NameType nameUserType = NameType.builder()
+                .id(5)
+                .name("User Service")
+                .build();
+
         TypeServiceEntity historyAdmin = TypeServiceEntity.builder()
                 .id(1)
                 .nameType(nameTypeHistory)
@@ -83,8 +88,17 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
                 .delete(true)
                 .build();
 
-        TypeServiceEntity historyUser = TypeServiceEntity.builder()
+        TypeServiceEntity userAdmin = TypeServiceEntity.builder()
                 .id(5)
+                .nameType(nameUserType)
+                .update(true)
+                .write(true)
+                .read(true)
+                .delete(true)
+                .build();
+
+        TypeServiceEntity historyUser = TypeServiceEntity.builder()
+                .id(6)
                 .nameType(nameTypeHistory)
                 .update(false)
                 .write(false)
@@ -93,7 +107,7 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
                 .build();
 
         TypeServiceEntity diaryUser = TypeServiceEntity.builder()
-                .id(6)
+                .id(7)
                 .nameType(nameTypeDiary)
                 .update(false)
                 .write(false)
@@ -102,7 +116,7 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
                 .build();
 
         TypeServiceEntity workoutUser = TypeServiceEntity.builder()
-                .id(7)
+                .id(8)
                 .nameType(nameTypeWorkout)
                 .update(false)
                 .write(false)
@@ -111,7 +125,7 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
                 .build();
 
         TypeServiceEntity workoutTypeUser = TypeServiceEntity.builder()
-                .id(8)
+                .id(9)
                 .nameType(nameTypeWorkoutType)
                 .update(false)
                 .write(false)
@@ -119,12 +133,21 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
                 .delete(false)
                 .build();
 
+        TypeServiceEntity userUser = TypeServiceEntity.builder()
+                .id(10)
+                .nameType(nameUserType)
+                .update(false)
+                .write(false)
+                .read(false)
+                .delete(false)
+                .build();
+
         Set<TypeServiceEntity> userListPermissions = new HashSet<>(
-                Set.of(historyAdmin, diaryAdmin, workoutAdmin, workoutTypeAdmin)
+                Set.of(historyAdmin, diaryAdmin, workoutAdmin, workoutTypeAdmin, userAdmin)
         );
 
         Set<TypeServiceEntity> adminListPermissions = new HashSet<>(
-                Set.of(historyUser, diaryUser, workoutUser, workoutTypeUser)
+                Set.of(historyUser, diaryUser, workoutUser, workoutTypeUser, userUser)
         );
 
         GroupPermissionsEntity admin = GroupPermissionsEntity.builder()

@@ -7,6 +7,12 @@ import com.github.jon7even.presentation.view.menu.main.StartCommand;
 
 import static com.github.jon7even.presentation.view.ru.LocalMessages.SIGN_OUT;
 
+/**
+ * Меню автоматически выходит из аккаунта пользователя и перевод на стартовое меню
+ *
+ * @author Jon7even
+ * @version 1.0
+ */
 public class SignOutCommand extends ServiceCommand {
     public SignOutCommand(UserInMemoryDto userService) {
         setUserInMemory(userService);
