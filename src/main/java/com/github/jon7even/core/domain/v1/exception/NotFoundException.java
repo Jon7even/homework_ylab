@@ -1,5 +1,11 @@
 package com.github.jon7even.core.domain.v1.exception;
 
+/**
+ * Класс описывающий исключение если ресурс был не найден
+ *
+ * @author Jon7even
+ * @version 1.0
+ */
 public class NotFoundException extends ApplicationException {
     public NotFoundException(String resource) {
         super(getErrorMessage(resource));

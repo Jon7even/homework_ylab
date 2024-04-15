@@ -13,6 +13,12 @@ import com.github.jon7even.infrastructure.dataproviders.inmemory.GroupPermission
 
 import java.util.Optional;
 
+/**
+ * Реализация сервиса для групп разрешений
+ *
+ * @author Jon7even
+ * @version 1.0
+ */
 public class GroupPermissionsServiceImpl implements GroupPermissionsService {
     private static GroupPermissionsServiceImpl instance;
     private final GroupPermissionsDao groupRepository;

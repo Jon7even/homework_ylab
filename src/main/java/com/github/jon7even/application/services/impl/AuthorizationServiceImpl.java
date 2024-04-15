@@ -11,7 +11,7 @@ import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
 import java.util.Optional;
 
 /**
- * Реализация класса авторизации для пользователей
+ * Реализация сервиса авторизации для пользователей
  *
  * @author Jon7even
  * @version 1.0

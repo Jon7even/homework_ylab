@@ -22,6 +22,12 @@ import java.util.stream.Collectors;
 
 import static com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions.WRITE;
 
+/**
+ * Реализация сервиса истории действий пользователя
+ *
+ * @author Jon7even
+ * @version 1.0
+ */
 public class HistoryUserServiceImpl implements HistoryUserService {
     private static HistoryUserServiceImpl instance;
     private final HistoryUserDao historyUserRepository;
@@ -93,13 +99,6 @@ public class HistoryUserServiceImpl implements HistoryUserService {
         } else {
             System.out.println("У вас нет доступа для просмотра истории этого пользователя");
             return Collections.emptyList();
-        }
-
-        if (listHistoryByUserId.isEmpty()) {
-            System.out.println("Возвращаю пустой список");
-            return Collections.emptyList();
-        } else {
-            isOwnerHistory(listHistoryByUserId, userId);
         }
 
         List<HistoryUserEntity> sortedList = sortListHistoryUser(listHistoryByUserId);
