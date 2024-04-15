@@ -1,6 +1,7 @@
 package com.github.jon7even.infrastructure.dataproviders.inmemory.constants;
 
-import lombok.experimental.UtilityClass;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * Утилитарный файл констант инициализации необходимых данных в БД для нормальной работы приложения
@@ -8,8 +9,8 @@ import lombok.experimental.UtilityClass;
  * @author Jon7even
  * @version 1.0
  */
-@UtilityClass
-public class InitialDataInDb {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class InitialDataInDb {
     public static final String ADMIN_LOGIN = "admin";
 
     public static final String ADMIN_PASSWORD = "admin";

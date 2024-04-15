@@ -1,6 +1,7 @@
 package com.github.jon7even.presentation.utils;
 
-import lombok.experimental.UtilityClass;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * Утилитарный класс для формата времени
@@ -8,8 +9,8 @@ import lombok.experimental.UtilityClass;
  * @author Jon7even
  * @version 1.0
  */
-@UtilityClass
-public class DateTimeFormat {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class DateTimeFormat {
     public static final String DATE_TIME_DEFAULT = "yyyy-MM-dd HH:mm:ss";
 }
 

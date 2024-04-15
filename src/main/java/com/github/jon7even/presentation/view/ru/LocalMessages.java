@@ -1,6 +1,7 @@
 package com.github.jon7even.presentation.view.ru;
 
-import lombok.experimental.UtilityClass;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import static com.github.jon7even.presentation.view.config.Settings.ANSI_RESET;
 import static com.github.jon7even.presentation.view.config.Settings.GREEN_BOLD;
@@ -11,8 +12,8 @@ import static com.github.jon7even.presentation.view.config.Settings.GREEN_BOLD;
  * @author Jon7even
  * @version 1.0
  */
-@UtilityClass
-public class LocalMessages {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class LocalMessages {
     public static final String GREET_MESSAGE = GREEN_BOLD
             + """
             |---------------------------------------------------------------|

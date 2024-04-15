@@ -1,6 +1,7 @@
 package com.github.jon7even.presentation.view.app;
 
-import lombok.experimental.UtilityClass;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import static com.github.jon7even.presentation.view.config.Settings.RUN_APP;
 
@@ -10,8 +11,8 @@ import static com.github.jon7even.presentation.view.config.Settings.RUN_APP;
  * @author Jon7even
  * @version 1.0
  */
-@UtilityClass
-public class StarterApp {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class StarterApp {
     public static void shutdown(Boolean flag) {
         System.out.println("Выключаю приложение...");
         System.out.println("Внимание! Данные будут потеряны, процесс необратим.");
