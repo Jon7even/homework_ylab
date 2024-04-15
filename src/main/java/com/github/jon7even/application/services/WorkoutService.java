@@ -7,4 +7,5 @@ package com.github.jon7even.application.services;
  * @version 1.0
  */
 public interface WorkoutService {
+    // TODO
 }

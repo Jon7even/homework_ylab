@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 public class DiaryEntity {
     private Long id;
     private Long userId;
-    private Double weightUser;
-    private Double growthUser;
+    private Float weightUser;
+    private Float growthUser;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
     private Integer idTypeService;

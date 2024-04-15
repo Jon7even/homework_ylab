@@ -2,8 +2,6 @@ package com.github.jon7even.presentation.view.menu.admin;
 
 import com.github.jon7even.application.dto.history.HistoryUserCreateDto;
 import com.github.jon7even.application.dto.user.UserInMemoryDto;
-import com.github.jon7even.application.services.HistoryUserService;
-import com.github.jon7even.application.services.impl.HistoryUserServiceImpl;
 import com.github.jon7even.presentation.view.menu.main.ExitFromAppCommand;
 import com.github.jon7even.presentation.view.menu.main.MainMenuCommand;
 import com.github.jon7even.presentation.view.menu.main.ServiceCommand;
@@ -21,10 +19,7 @@ import static com.github.jon7even.presentation.view.ru.LocalMessages.MENU_ADMINI
  * @version 1.0
  */
 public class AddTypeWorkoutAdminCommand extends ServiceCommand {
-    private final HistoryUserService historyUserService;
-
     public AddTypeWorkoutAdminCommand(UserInMemoryDto userService) {
-        historyUserService = HistoryUserServiceImpl.getInstance();
         setUserInMemory(userService);
     }
 

@@ -32,4 +32,6 @@ public class WorkoutServiceImpl implements WorkoutService {
         workoutRepository = WorkoutRepository.getInstance();
         diaryRepository = DiaryRepository.getInstance();
     }
+
+    // TODO
 }

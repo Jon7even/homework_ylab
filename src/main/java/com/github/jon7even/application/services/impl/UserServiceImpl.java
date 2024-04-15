@@ -5,6 +5,7 @@ import com.github.jon7even.application.dto.user.UserInMemoryDto;
 import com.github.jon7even.application.dto.user.UserLoginAuthDto;
 import com.github.jon7even.application.dto.user.UserShortResponseDto;
 import com.github.jon7even.application.services.UserService;
+import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
@@ -22,7 +23,7 @@ import java.util.Optional;
  */
 public class UserServiceImpl implements UserService {
     private static UserServiceImpl instance;
-    private final UserRepository userRepository;
+    private final UserDao userRepository;
     private final UserMapper userMapper;
 
     public static UserServiceImpl getInstance() {
