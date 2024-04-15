@@ -14,6 +14,6 @@ import lombok.Data;
 public class TypeWorkoutEntity {
     private Long id;
     private String typeName;
-    private Double kcalPerHour;
+    private Integer caloriePerHour;
     private Integer idTypeService;
 }

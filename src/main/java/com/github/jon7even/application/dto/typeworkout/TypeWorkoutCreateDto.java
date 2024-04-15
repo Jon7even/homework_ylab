@@ -1,4 +1,4 @@
-package com.github.jon7even.application.dto.diary;
+package com.github.jon7even.application.dto.typeworkout;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * Класс DTO для создания дневника пользователя
+ * Класс DTO для создания нового типа тренировки
  *
  * @author Jon7even
  * @version 1.0
@@ -16,11 +16,11 @@ import lombok.NonNull;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DiaryCreateDto {
+public class TypeWorkoutCreateDto {
     @NonNull
-    private Long userId;
+    private Long requesterId;
     @NonNull
-    private Float weightUser;
+    private String typeName;
     @NonNull
-    private Float growthUser;
+    private Integer caloriePerHour;
 }

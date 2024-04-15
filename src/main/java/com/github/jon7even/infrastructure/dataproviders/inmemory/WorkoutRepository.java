@@ -79,7 +79,7 @@ public class WorkoutRepository implements WorkoutDao {
         System.out.println("Ищу тренировку с idWorkoutType=" + idTypeWorkout + " и датой=" + dayOfWorkout.toString());
 
         Optional<WorkoutEntity> foundWorkoutEntity = mapOfWorkouts.values().stream()
-                .filter(workoutEntity -> workoutEntity.getIdWorkoutType().equals(idTypeWorkout))
+                .filter(workoutEntity -> workoutEntity.getIdTypeWorkout().equals(idTypeWorkout))
                 .filter(workoutEntity -> workoutEntity.getTimeStartOn().toLocalDate().equals(dayOfWorkout))
                 .findFirst();
 

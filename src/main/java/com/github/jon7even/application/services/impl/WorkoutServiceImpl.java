@@ -9,7 +9,7 @@ import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
 import com.github.jon7even.infrastructure.dataproviders.inmemory.WorkoutRepository;
 
 /**
- * Реализация сервиса тренировок
+ * Реализация сервиса взаимодействия с тренировками
  *
  * @author Jon7even
  * @version 1.0

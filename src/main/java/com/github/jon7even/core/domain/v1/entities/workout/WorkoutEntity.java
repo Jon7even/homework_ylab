@@ -19,6 +19,6 @@ public class WorkoutEntity {
     private LocalDateTime timeStartOn;
     private LocalDateTime timeEndOn;
     private Double currentWeightUser;
-    private Long idWorkoutType;
+    private Long idTypeWorkout;
     private Integer idTypeService;
 }

@@ -16,7 +16,7 @@ public interface GroupPermissionsDao {
      * Метод для создания новой группы разрешений
      *
      * @param groupPermissionsEntity новая группа с разрешениями без ID
-     * @return новая группа с разрешениями со сгенерированным ID
+     * @return новая Entity группа с разрешениями со сгенерированным ID
      */
     Optional<GroupPermissionsEntity> createGroupPermissions(GroupPermissionsEntity groupPermissionsEntity);
 
@@ -24,7 +24,7 @@ public interface GroupPermissionsDao {
      * Метод для обновления существующей группы с разрешениями
      *
      * @param groupPermissionsEntity существующая группа с разрешениями с ID
-     * @return обновленная группа с разрешениями, если он есть в системе
+     * @return обновленная Entity группа с разрешениями, если он есть в системе
      */
     Optional<GroupPermissionsEntity> updateGroupPermissions(GroupPermissionsEntity groupPermissionsEntity);
 
@@ -32,7 +32,7 @@ public interface GroupPermissionsDao {
      * Метод для поиска определенной группы по ID с разрешениями и всеми имеющимися сервисами
      *
      * @param groupPermissionsId существующий ID группы с разрешениями
-     * @return определенную группу с разрешениями для всех сервисов, если она есть в системе
+     * @return определенную Entity группу с разрешениями для всех сервисов, если она есть в системе
      */
     Optional<GroupPermissionsEntity> findByGroupPermissionsId(Integer groupPermissionsId);
 
@@ -40,8 +40,8 @@ public interface GroupPermissionsDao {
      * Метод для поиска определенной группы по ID с разрешениями определенного сервиса
      *
      * @param groupPermissionsId существующий ID группы с разрешениями
-     * @param nameTypeServiceId существующий ID сервиса
-     * @return определенную группу с разрешениями для определенного сервиса
+     * @param nameTypeServiceId  существующий ID сервиса
+     * @return определенную Entity группу с разрешениями для определенного сервиса
      */
     Optional<GroupPermissionsEntity> findByGroupPermissionsIdAndByTypeServiceId(Integer groupPermissionsId,
                                                                                 Integer nameTypeServiceId);
@@ -49,7 +49,8 @@ public interface GroupPermissionsDao {
     /**
      * Метод для поиска всех групп с разрешениями и всеми имеющимися сервисами
      *
-     * @return список всех групп с разрешениями для всех сервисов
+     * @return весь найденный список Entity всех найденных групп с разрешениями для всех сервисов
+     * без параметров сортировки
      */
     List<GroupPermissionsEntity> getAllGroupsOfPermissions();
 }

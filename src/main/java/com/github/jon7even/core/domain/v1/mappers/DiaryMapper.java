@@ -4,7 +4,11 @@ import com.github.jon7even.application.dto.diary.DiaryCreateDto;
 import com.github.jon7even.application.dto.diary.DiaryResponseDto;
 import com.github.jon7even.application.dto.diary.DiaryUpdateDto;
 import com.github.jon7even.core.domain.v1.entities.workout.DiaryEntity;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.time.LocalDateTime;
 

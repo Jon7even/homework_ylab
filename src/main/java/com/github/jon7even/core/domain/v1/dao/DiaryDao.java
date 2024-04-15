@@ -15,7 +15,7 @@ public interface DiaryDao {
      * Метод для создания нового дневника
      *
      * @param diaryEntity новый дневник без ID
-     * @return новый дневник со сгенерированным ID
+     * @return новый Entity дневник со сгенерированным ID
      */
     Optional<DiaryEntity> createDiary(DiaryEntity diaryEntity);
 
@@ -23,7 +23,7 @@ public interface DiaryDao {
      * Метод для обновления дневника
      *
      * @param diaryEntity существующий дневник
-     * @return обновленный дневник, если он есть в системе
+     * @return обновленный Entity дневник, если он есть в системе
      */
     Optional<DiaryEntity> updateDiary(DiaryEntity diaryEntity);
 
@@ -31,7 +31,7 @@ public interface DiaryDao {
      * Метод для поиска дневника по ID
      *
      * @param diaryId существующий ID дневника
-     * @return дневник, если он есть в системе
+     * @return дневник Entity, если он есть в системе
      */
     Optional<DiaryEntity> findByDiaryId(Long diaryId);
 
@@ -39,7 +39,7 @@ public interface DiaryDao {
      * Метод для поиска дневника по ID пользователя
      *
      * @param userId существующий ID пользователя
-     * @return дневник относящийся к конкретному пользователю
+     * @return дневник Entity относящийся к конкретному пользователю
      */
     Optional<DiaryEntity> findByUserId(Long userId);
 }

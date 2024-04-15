@@ -6,7 +6,7 @@ import com.github.jon7even.application.dto.user.UserLoginAuthDto;
 import com.github.jon7even.application.dto.user.UserShortResponseDto;
 
 /**
- * Интерфейс операций для пользователей
+ * Интерфейс для взаимодействия с пользователями
  *
  * @author Jon7even
  * @version 1.0

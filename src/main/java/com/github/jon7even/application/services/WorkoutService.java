@@ -1,7 +1,7 @@
 package com.github.jon7even.application.services;
 
 /**
- * Интерфейс тренировок для пользователей
+ * Интерфейс для взаимодействия с тренировками
  *
  * @author Jon7even
  * @version 1.0

@@ -14,7 +14,7 @@ import com.github.jon7even.infrastructure.dataproviders.inmemory.GroupPermission
 import java.util.Optional;
 
 /**
- * Реализация сервиса для групп разрешений
+ * Реализация сервиса для взаимодействия с группами разрешения
  *
  * @author Jon7even
  * @version 1.0

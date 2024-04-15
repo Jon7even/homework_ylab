@@ -2,6 +2,7 @@ package com.github.jon7even.core.domain.v1.dao;
 
 import com.github.jon7even.core.domain.v1.entities.workout.TypeWorkoutEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -15,7 +16,7 @@ public interface TypeWorkoutDao {
      * Метод для создания нового типа тренировки
      *
      * @param typeWorkoutEntity новый тип тренировки без ID
-     * @return новый тип тренировки со сгенерированным ID
+     * @return новый Entity тип тренировки со сгенерированным ID
      */
     Optional<TypeWorkoutEntity> createTypeWorkout(TypeWorkoutEntity typeWorkoutEntity);
 
@@ -23,7 +24,7 @@ public interface TypeWorkoutDao {
      * Метод для обновления существующего типа тренировки
      *
      * @param typeWorkoutEntity существующий тип тренировки
-     * @return обновленный тип тренировки, если он есть в системе
+     * @return обновленный Entity тип тренировки, если он есть в системе
      */
     Optional<TypeWorkoutEntity> updateTypeWorkout(TypeWorkoutEntity typeWorkoutEntity);
 
@@ -31,7 +32,14 @@ public interface TypeWorkoutDao {
      * Метод для поиска типа тренировки по ID
      *
      * @param typeWorkoutId существующий ID типа тренировки
-     * @return тип тренировки, если он есть в системе
+     * @return тип тренировки Entity, если он есть в системе
      */
     Optional<TypeWorkoutEntity> findByTypeWorkoutId(Long typeWorkoutId);
+
+    /**
+     * Метод, который получает все типы тренировок
+     *
+     * @return весь найденный список Entity всех существующих типов тренировок без параметров сортировки
+     */
+    List<TypeWorkoutEntity> findAllTypeWorkoutsNoSort();
 }

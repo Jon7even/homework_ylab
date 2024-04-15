@@ -3,6 +3,7 @@ package com.github.jon7even.infrastructure.dataproviders;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.BadLoginException;
+import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
 import com.github.jon7even.setup.PreparationForTests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ExtendWith(MockitoExtension.class)
 public class UserRepositoryTest extends PreparationForTests {
     @InjectMocks
-    private UserDao userRepository;
+    private UserRepository userRepository;
 
     private Optional<UserEntity> actualResultUserFirst;
 

@@ -3,7 +3,7 @@ package com.github.jon7even.application.services;
 import com.github.jon7even.application.dto.user.UserLoginAuthDto;
 
 /**
- * Интерфейс авторизации для пользователей
+ * Интерфейс для взаимодействия с сервисом авторизации
  *
  * @author Jon7even
  * @version 1.0

@@ -4,7 +4,7 @@ import com.github.jon7even.application.dto.permission.GroupPermissionsServiceDto
 import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
 
 /**
- * Интерфейс групп разрешений для установки флагов ограничений пользователей
+ * Интерфейс для взаимодействия с группами разрешений и установки флагов для определенных групп пользователей
  *
  * @author Jon7even
  * @version 1.0

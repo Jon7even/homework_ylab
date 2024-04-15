@@ -7,7 +7,7 @@ import com.github.jon7even.application.dto.history.HistoryUserResponseByUserDto;
 import java.util.List;
 
 /**
- * Интерфейс логики над историей действий пользователя
+ * Интерфейс для взаимодействия с историей действий пользователя
  *
  * @author Jon7even
  * @version 1.0
@@ -23,7 +23,7 @@ public interface HistoryUserService {
     /**
      * Метод, который получает свою историю действий пользователя в коротком варианте представления
      *
-     * @param userId      это ID существующего пользователя по которому требуется произвести проверку
+     * @param userId это ID существующего пользователя по которому требуется произвести проверку
      * @return Список всех действий отсортированных по дате
      */
     List<HistoryUserResponseByUserDto> findAllHistoryByOwnerIdSortByDeskDate(Long userId);

@@ -4,6 +4,7 @@ import com.github.jon7even.core.domain.v1.dao.TypeWorkoutDao;
 import com.github.jon7even.core.domain.v1.entities.workout.TypeWorkoutEntity;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -69,6 +70,12 @@ public class TypeWorkoutRepository implements TypeWorkoutDao {
             System.out.println("Тип тренировки с таким typeWorkoutId не найден");
             return Optional.empty();
         }
+    }
+
+    @Override
+    public List<TypeWorkoutEntity> findAllTypeWorkoutsNoSort() {
+        System.out.println("Получаем полный список всех типов тренировки без параметров сортировки");
+        return mapOfTypeWorkouts.values().stream().toList();
     }
 
     private Boolean containsTypeWorkoutById(Long typeWorkoutId) {

@@ -16,7 +16,7 @@ public interface HistoryUserDao {
      * Метод для сохранения действия пользователя
      *
      * @param historyUserEntity новое действие пользователя без ID
-     * @return созданное действие пользователя со сгенерированным ID
+     * @return созданное Entity действие пользователя со сгенерированным ID
      */
     Optional<HistoryUserEntity> createHistoryOfUser(HistoryUserEntity historyUserEntity);
 
@@ -24,7 +24,7 @@ public interface HistoryUserDao {
      * Метод для поиска действий пользователя по ID пользователя
      *
      * @param userId существующий ID пользователя
-     * @return вся история действия пользователя без параметров
+     * @return весь найденный список Entity истории действий пользователя без параметров сортировки
      */
     List<HistoryUserEntity> findAllHistoryByUserId(Long userId);
 }

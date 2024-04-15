@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
- * Реализация сервиса дневника
+ * Реализация сервиса для взаимодействия с дневником пользователя
  *
  * @author Jon7even
  * @version 1.0
@@ -92,6 +92,7 @@ public class DiaryServiceImpl implements DiaryService {
         if (updatedDiary.isPresent()) {
             System.out.println("Дневник обновлен в БД: " + updatedDiary);
         } else {
+            System.out.println("Дневник не получилось обновить: " + updatedDiary);
             throw new NotUpdatedException(diaryUpdateDto.toString());
         }
     }
@@ -122,12 +123,11 @@ public class DiaryServiceImpl implements DiaryService {
         Optional<DiaryEntity> foundDiaryEntity = diaryRepository.findByUserId(userId);
 
         if (foundDiaryEntity.isPresent()) {
-            System.out.println("Дневник существует");
+            System.out.println("Дневник с таким userId существует");
             return foundDiaryEntity.get();
         } else {
             System.out.println("Дневник пользователя с таким userId не найден");
             throw new NotFoundException(String.format("Diary by [userId=%s]", userId));
         }
     }
-
 }

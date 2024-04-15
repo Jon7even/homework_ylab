@@ -17,13 +17,17 @@ import com.github.jon7even.infrastructure.dataproviders.inmemory.HistoryUserRepo
 import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.Comparator;
+import java.util.Objects;
 
-import static com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions.WRITE;
+import static com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions.READ;
 
 /**
- * Реализация сервиса истории действий пользователя
+ * Реализация сервиса для взаимодействия с историей действий пользователя
  *
  * @author Jon7even
  * @version 1.0
@@ -33,7 +37,6 @@ public class HistoryUserServiceImpl implements HistoryUserService {
     private final HistoryUserDao historyUserRepository;
     private final HistoryUserMapper historyUserMapper;
     private final UserDao userRepository;
-
     private final GroupPermissionsService groupPermissionsService;
 
     public static HistoryUserServiceImpl getInstance() {
@@ -64,7 +67,6 @@ public class HistoryUserServiceImpl implements HistoryUserService {
         }
     }
 
-
     @Override
     public List<HistoryUserResponseByUserDto> findAllHistoryByOwnerIdSortByDeskDate(Long userId) {
         System.out.println("Пользователь requesterId=" + userId + " начинает получать свою историю действий");
@@ -93,7 +95,7 @@ public class HistoryUserServiceImpl implements HistoryUserService {
         List<HistoryUserEntity> listHistoryByUserId;
 
         System.out.println("Запрашиваю разрешение на просмотр");
-        if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId), 1, WRITE)) {
+        if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId), 1, READ)) {
             listHistoryByUserId = historyUserRepository.findAllHistoryByUserId(userId);
             System.out.println("Получен список из событий в количестве=" + listHistoryByUserId.size());
         } else {
@@ -130,7 +132,7 @@ public class HistoryUserServiceImpl implements HistoryUserService {
     private void isOwnerHistory(List<HistoryUserEntity> listHistoryByUserId, Long userId) {
         System.out.println("Проверяем является ли пользователь владельцем действий");
         if (!Objects.equals(userId, listHistoryByUserId.listIterator().next().getUserId())) {
-            throw new AccessDeniedException(String.format("For [requesterId=%s]", userId));
+            throw new AccessDeniedException(String.format("For [requesterId=%d]", userId));
         }
     }
 

@@ -5,7 +5,7 @@ import com.github.jon7even.application.dto.diary.DiaryResponseDto;
 import com.github.jon7even.application.dto.diary.DiaryUpdateDto;
 
 /**
- * Интерфейс дневника для пользователей
+ * Интерфейс для взаимодействия с дневником пользователя
  *
  * @author Jon7even
  * @version 1.0

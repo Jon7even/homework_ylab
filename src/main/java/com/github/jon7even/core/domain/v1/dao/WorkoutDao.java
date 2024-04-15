@@ -17,7 +17,7 @@ public interface WorkoutDao {
      * Метод для создания новой тренировки
      *
      * @param workoutEntity новая тренировка без ID
-     * @return новая тренировка со сгенерированным ID
+     * @return новая Entity тренировка со сгенерированным ID
      */
     Optional<WorkoutEntity> createWorkout(WorkoutEntity workoutEntity);
 
@@ -25,7 +25,7 @@ public interface WorkoutDao {
      * Метод для обновления существующей тренировки
      *
      * @param workoutEntity существующая тренировка
-     * @return обновленная тренировка, если она есть в системе
+     * @return обновленная Entity тренировка, если она есть в системе
      */
     Optional<WorkoutEntity> updateWorkout(WorkoutEntity workoutEntity);
 
@@ -33,7 +33,7 @@ public interface WorkoutDao {
      * Метод для поиска тренировки по ID
      *
      * @param workoutId существующий ID тренировки
-     * @return тренировку, если она есть в системе
+     * @return тренировку Entity, если она есть в системе
      */
     Optional<WorkoutEntity> findByWorkoutByTypeIdAndDate(Long workoutId);
 
@@ -42,7 +42,7 @@ public interface WorkoutDao {
      *
      * @param idTypeWorkout существующий ID типа тренировки
      * @param dayOfWorkout  день в который была тренировка
-     * @return тренировку, если она подпадает под параметры поиска
+     * @return тренировку Entity, если она подпадает под параметры поиска
      */
     Optional<WorkoutEntity> findByWorkoutByTypeIdAndDate(Long idTypeWorkout, LocalDate dayOfWorkout);
 
@@ -50,14 +50,15 @@ public interface WorkoutDao {
      * Метод для поиска всех тренировок по ID дневника
      *
      * @param diaryId существующий ID дневника
-     * @return все тренировки относящиеся к конкретному дневнику
+     * @return весь найденный список Entity всех существующих тренировок без параметров сортировки относящихся
+     * к определенному дневнику
      */
     List<WorkoutEntity> findAllWorkoutByDiaryId(Long diaryId);
 
     /**
      * Метод для поиска всех тренировок без параметров
      *
-     * @return список всех существующих тренировок
+     * @return весь найденный список Entity всех существующих тренировок без параметров сортировки
      */
     List<WorkoutEntity> findAllWorkout();
 }

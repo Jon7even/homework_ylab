@@ -16,7 +16,7 @@ import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
 import java.util.Optional;
 
 /**
- * Реализация сервиса для взаимодействия с пользователями
+ * Реализация сервиса взаимодействия с пользователями
  *
  * @author Jon7even
  * @version 1.0

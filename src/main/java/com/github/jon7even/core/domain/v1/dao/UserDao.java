@@ -16,7 +16,7 @@ public interface UserDao {
      * Метод для создания нового пользователя
      *
      * @param userEntity новый пользователь без ID
-     * @return новый пользователь со сгенерированным ID
+     * @return новый Entity пользователь со сгенерированным ID
      */
     Optional<UserEntity> createUser(UserEntity userEntity);
 
@@ -47,7 +47,7 @@ public interface UserDao {
     /**
      * Метод для поиска всех пользователей без параметров
      *
-     * @return список пользователей
+     * @return весь найденный список Entity всех существующих пользователей без параметров сортировки
      */
     List<UserEntity> getAllUsers();
 }
