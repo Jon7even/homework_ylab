@@ -144,7 +144,7 @@ public class TypeWorkoutServiceImpl implements TypeWorkoutService {
         System.out.println("Начинаем получать все типы тренировок");
         List<TypeWorkoutEntity> listTypeWorkoutEntityNoSort = typeWorkoutRepository.findAllTypeWorkoutsNoSort();
         System.out.println("Получен список из типов тренировок в количестве=" + listTypeWorkoutEntityNoSort.size());
-        System.out.println("Начинаем мапппить и отправить");
+        System.out.println("Начинаем мапппить и отправлять");
         return typeWorkoutMapper.toListTypeWorkoutDtoFromEntity(listTypeWorkoutEntityNoSort);
     }
 

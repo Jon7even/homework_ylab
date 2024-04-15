@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 /**
  * Класс DTO для создания нового типа тренировки
@@ -17,10 +16,7 @@ import lombok.NonNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TypeWorkoutCreateDto {
-    @NonNull
     private Long requesterId;
-    @NonNull
     private String typeName;
-    @NonNull
     private Integer caloriePerHour;
 }

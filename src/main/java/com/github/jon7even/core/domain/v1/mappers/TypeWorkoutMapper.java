@@ -5,7 +5,11 @@ import com.github.jon7even.application.dto.typeworkout.TypeWorkoutResponseDto;
 import com.github.jon7even.application.dto.typeworkout.TypeWorkoutShortDto;
 import com.github.jon7even.application.dto.typeworkout.TypeWorkoutUpdateDto;
 import com.github.jon7even.core.domain.v1.entities.workout.TypeWorkoutEntity;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
 
@@ -38,7 +42,7 @@ public interface TypeWorkoutMapper {
     void updateTypeWorkoutEntityFromDtoUpdate(@MappingTarget TypeWorkoutEntity typeWorkoutEntity,
                                               TypeWorkoutUpdateDto typeWorkoutUpdateDto);
 
-    @Mapping(source = "listTypeWorkoutsEntity.id", target = "typeWorkoutId")
-    @Mapping(source = "listTypeWorkoutsEntity.typeName", target = "typeName")
-    List<TypeWorkoutShortDto> toListTypeWorkoutDtoFromEntity(List<TypeWorkoutEntity> listTypeWorkoutsEntity);
+    @Mapping(source = "typeWorkoutEntity.id", target = "id")
+    @Mapping(source = "typeWorkoutEntity.typeName", target = "typeName")
+    List<TypeWorkoutShortDto> toListTypeWorkoutDtoFromEntity(List<TypeWorkoutEntity> typeWorkoutEntity);
 }

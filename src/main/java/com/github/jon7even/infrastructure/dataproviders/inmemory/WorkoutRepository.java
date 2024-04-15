@@ -18,9 +18,7 @@ import java.util.stream.Collectors;
  */
 public class WorkoutRepository implements WorkoutDao {
     private static WorkoutRepository instance;
-
     private final Map<Long, WorkoutEntity> mapOfWorkouts = new HashMap<>();
-
     private Long idGenerator = 0L;
 
     public static WorkoutRepository getInstance() {

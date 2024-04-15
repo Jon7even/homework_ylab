@@ -49,7 +49,7 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
                 .build();
         NameType nameTypeWorkoutType = NameType.builder()
                 .id(4)
-                .name("Type Workout Service")
+                .name("TypeWorkout Service")
                 .build();
 
         NameType nameUserType = NameType.builder()

@@ -35,11 +35,11 @@ public class CreateMyDiaryCommand extends ServiceCommand {
     public void handle() {
         getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
                 .userId(getUserInMemory().getId())
-                .event("Создание нового дневника")
+                .event("Попытка создания нового дневника")
                 .build());
 
         if (diaryService.isExistByUserId(getUserInMemory().getId())) {
-            System.out.println(MENU_DIARY_NOT_FAILURE);
+            System.out.println(MENU_DIARY_ALREADY_EXIST_FAILURE);
             setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
         } else {
             Scanner scanner = getScanner();
@@ -55,12 +55,18 @@ public class CreateMyDiaryCommand extends ServiceCommand {
             System.out.println(MENU_DIARY_CREATE_HOLD);
             DiaryResponseDto createdDiary = diaryService.createDiary(diaryCreateDto);
 
+            getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                    .userId(getUserInMemory().getId())
+                    .event("Впервые создали свой дневник")
+                    .build());
+
             System.out.println(MENU_DIARY_CREATE_DONE);
             System.out.printf(MENU_DIARY_VIEW,
                     createdDiary.getWeightUser(),
                     createdDiary.getGrowthUser(),
                     createdDiary.getCreatedOn().format(DateTimeFormatter.ofPattern(DATE_TIME_DEFAULT)),
                     createdDiary.getUpdatedOn().format(DateTimeFormatter.ofPattern(DATE_TIME_DEFAULT)));
+
 
             System.out.println(MENU_DIARY_VIEW_END);
             switch (scanner.nextInt()) {

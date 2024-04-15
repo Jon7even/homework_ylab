@@ -16,6 +16,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TypeWorkoutShortDto {
-    private Long typeWorkoutId;
+    private Long id;
     private String typeName;
 }

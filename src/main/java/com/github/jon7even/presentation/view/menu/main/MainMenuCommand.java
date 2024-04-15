@@ -33,17 +33,15 @@ public class MainMenuCommand extends ServiceCommand {
     @Override
     public void handle() {
         Scanner scanner = getScanner();
-        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
-                .userId(getUserInMemory().getId())
-                .event("Просмотр главного меню приложения")
-                .build());
-
-
         boolean secret = groupPermissionsService.getPermissionsForService(
-                getUserInMemory().getIdGroupPermissions(), 5, FlagPermissions.WRITE
+                getUserInMemory().getIdGroupPermissions(), 5, FlagPermissions.READ
         );
 
         if (secret) {
+            getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                    .userId(getUserInMemory().getId())
+                    .event("Просмотр главного меню приложения роль - администратор")
+                    .build());
             System.out.println(MAIN_ADMIN);
 
             switch (scanner.nextInt()) {
@@ -56,6 +54,10 @@ public class MainMenuCommand extends ServiceCommand {
                 default -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
             }
         } else {
+            getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                    .userId(getUserInMemory().getId())
+                    .event("Просмотр главного меню приложения роль - пользователь")
+                    .build());
             System.out.println(MAIN_MENU);
 
             switch (scanner.nextInt()) {
