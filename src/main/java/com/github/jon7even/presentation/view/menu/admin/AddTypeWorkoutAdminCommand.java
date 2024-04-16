@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitialCommonDataInDb.SERVICE_TYPE_WORKOUT;
-import static com.github.jon7even.presentation.view.ru.LocalException.ADD_NEW_TYPE_WORKOUT_ACCESS_DENIED;
-import static com.github.jon7even.presentation.view.ru.LocalException.DETAIL_OF_TYPE_WORKOUT_NOT_EXIST_EXCEPTION;
+import static com.github.jon7even.presentation.view.ru.LocalException.ACCESS_DENIED;
+import static com.github.jon7even.presentation.view.ru.LocalException.NOT_FOUND_ID_EXCEPTION;
 import static com.github.jon7even.presentation.view.ru.LocalMessages.*;
 
 /**
@@ -106,7 +106,7 @@ public class AddTypeWorkoutAdminCommand extends ServiceCommand {
                         .event("Попытка добавить новый тип тренировки с несуществующей детализацией detailOfTypeId="
                                 + detailOfTypeId)
                         .build());
-                System.out.println(DETAIL_OF_TYPE_WORKOUT_NOT_EXIST_EXCEPTION);
+                System.out.println(NOT_FOUND_ID_EXCEPTION);
             }
 
         } else {
@@ -114,7 +114,7 @@ public class AddTypeWorkoutAdminCommand extends ServiceCommand {
                     .userId(userId)
                     .event("Попытка добавить новый тип тренировки - нет доступа")
                     .build());
-            System.out.println(ADD_NEW_TYPE_WORKOUT_ACCESS_DENIED);
+            System.out.println(ACCESS_DENIED);
         }
         System.out.println(MENU_WHAT_NEXT_HOLD);
 

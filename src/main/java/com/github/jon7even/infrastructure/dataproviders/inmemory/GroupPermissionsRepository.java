@@ -78,7 +78,7 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
     public Optional<GroupPermissionsEntity> findByGroupPermissionsIdAndByTypeServiceId(Integer groupPermissionsId,
                                                                                        Integer nameTypeServiceId) {
         System.out.println("Ищу группу с groupPermissionsId=" + groupPermissionsId
-                + "и nameTypeServiceId=" + nameTypeServiceId);
+                + " и nameTypeServiceId=" + nameTypeServiceId);
         Optional<GroupPermissionsEntity> foundGroupWithAllType = findByGroupPermissionsId(groupPermissionsId);
 
         if (foundGroupWithAllType.isPresent()) {

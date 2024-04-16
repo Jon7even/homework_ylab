@@ -35,8 +35,9 @@ public class MainAdminMenuCommand extends ServiceCommand {
         switch (scanner.nextInt()) {
             case 1 -> setCommandNextMenu(new ViewHistoryAnyUserCommand(getUserInMemory()));
             case 2 -> setCommandNextMenu(new AddTypeWorkoutAdminCommand(getUserInMemory()));
-            case 3 -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
-            case 4 -> setCommandNextMenu(new SignOutCommand(getUserInMemory()));
+            case 3 -> setCommandNextMenu(new UpdateTypeWorkoutAdminCommand(getUserInMemory()));
+            case 4 -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
+            case 5 -> setCommandNextMenu(new SignOutCommand(getUserInMemory()));
             case 0 -> setCommandNextMenu(new ExitFromAppCommand());
             default -> setCommandNextMenu(new MainAdminMenuCommand(getUserInMemory()));
         }

@@ -53,7 +53,6 @@ public final class LocalMessages {
             + "2.Вернуться на главное меню\n"
             + "3.Выйти из аккаунта\n"
             + "0.Завершить работу с приложением\n" + ANSI_RESET;
-
     public static final String MAIN_MENU_DIARY = GREEN_BOLD
             + "Вы в главном меню своего дневника. Выберите пункт меню: \n"
             + "1.Просмотреть информацию о дневнике\n"
@@ -97,8 +96,9 @@ public final class LocalMessages {
             + "Вы в главном меню администратора. Выберите пункт меню: \n"
             + "1.Просмотреть историю действий любого пользователя\n"
             + "2.Добавить тип тренировки\n"
-            + "3.Вернуться на главное меню\n"
-            + "4.Выйти из аккаунта\n"
+            + "3.Изменить тип тренировки\n"
+            + "4.Вернуться на главное меню\n"
+            + "5.Выйти из аккаунта\n"
             + "0.Завершить работу с приложением\n" + ANSI_RESET;
     public static final String MENU_WHAT_NEXT_HOLD = GREEN_BOLD + "Что дальше? Выберите пункт меню: \n"
             + "1.Вернуться на главное меню\n"
@@ -111,12 +111,10 @@ public final class LocalMessages {
                     + "2.Вернуться на главное меню\n"
                     + "3.Выйти из аккаунта\n"
                     + "0.Завершить работу с приложением\n" + ANSI_RESET;
-
     public static final String MENU_ADMINISTRATOR_VIEWING_HISTORY_START =
             GREEN_BOLD + "Вы попали в меню просмотра истории действий "
                     + "пользователя, пожалуйста введите ID пользователя, по которому нужно посмотреть события: " + ANSI_RESET;
     public static final String MENU_ADMINISTRATOR_VIEWING_HISTORY_HOLD = GREEN_BOLD + "Идет поиск... " + ANSI_RESET;
-
     public static final String AUTH_LOGIN_MESSAGE = GREEN_BOLD + "Пожалуйста введите существующий логин" + ANSI_RESET;
     public static final String AUTH_PASSWORD_MESSAGE = GREEN_BOLD + "Пожалуйста введите пароль" + ANSI_RESET;
     public static final String AUTH_SUCCESS = GREEN_BOLD + "Добро пожаловать! Вы успешно авторизовались" + ANSI_RESET;
@@ -124,7 +122,6 @@ public final class LocalMessages {
             + "Логин был введен неправильно, перевожу на главную." + ANSI_RESET;
     public static final String AUTH_PASSWORD_DENIED_EXCEPTION = GREEN_BOLD
             + "Пароль был введен неправильно, перевожу на главную." + ANSI_RESET;
-
     public static final String REGISTER_NEW_USER_MESSAGE = GREEN_BOLD
             + "Отлично! Давайте начнем регистрацию нового пользователя" + ANSI_RESET;
     public static final String REGISTER_NEW_LOGIN_MESSAGE = GREEN_BOLD + "Пожалуйста введите новый логин" + ANSI_RESET;
@@ -135,7 +132,6 @@ public final class LocalMessages {
     public static final String REGISTER_NEXT_ITERATOR = GREEN_BOLD + "Переводим на форму авторизации..." + ANSI_RESET;
     public static final String REGISTER_BAD_LOGIN_EXCEPTION = GREEN_BOLD
             + "Запрещено использовать зарезервированный системой логин" + ANSI_RESET;
-
     public static final String VIEWING_HISTORY_HEADER_USER = GREEN_BOLD
             + """
             -----------------------------------------------------------------
@@ -168,9 +164,20 @@ public final class LocalMessages {
             + "Отлично! Теперь посмотрите методические пособия по "
             + "этому типу тренировки и напишите среднее значение количества Калорий, "
             + "которые можно сжечь занимаясь этим спортом 1 час." + ANSI_RESET;
-
     public static final String ADD_NEW_TYPE_WORKOUT_GO_ID_DETAIL_TYPE = GREEN_BOLD
             + "Выберите как будем детализировать тип тренировки. Выберите ID из списка и напишете его " + ANSI_RESET;
+    public static final String UPDATE_TYPE_WORKOUT_MENU = GREEN_BOLD
+            + "Вы попали в меню редактирования типа тренировки." + ANSI_RESET;
+    public static final String UPDATE_TYPE_WORKOUT_WAIT = GREEN_BOLD
+            + "Приступим к редактированию типа тренировки. "
+            + "На текущий момент доступны:" + ANSI_RESET;
+    public static final String UPDATE_TYPE_WORKOUT_GO_ID_TYPE = GREEN_BOLD
+            + "Приступим к редактированию. Введите ID типа, который нужно отредактировать: " + ANSI_RESET;
+    public static final String UPDATE_TYPE_WORKOUT_GO_NAME = GREEN_BOLD
+            + "Напишите новое имя типа тренировки:" + ANSI_RESET;
+    public static final String UPDATE_TYPE_WORKOUT_COMPLETE_UPDATE = GREEN_BOLD
+            + "Отлично! Существующий тип тренировки успешно обновлен."
+            + " Смотрите, что получилось..." + ANSI_RESET;
     public static final String TYPE_WORKOUT_VIEWING_LIST_DETAILS_HEADER = GREEN_BOLD
             + """     
             |------------------------------------------------------------------------|
