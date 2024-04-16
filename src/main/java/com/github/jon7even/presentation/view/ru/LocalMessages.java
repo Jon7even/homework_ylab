@@ -208,4 +208,7 @@ public final class LocalMessages {
             """ + ANSI_RESET;
     public static final String TYPE_WORKOUT_VIEWING_TYPE_BODY = GREEN_BOLD
             + "|--    %d   --|----- %d -----|--    %s    --\n" + ANSI_RESET;
+
+    public static final String WORKOUT_ADD_NEW_MENU = GREEN_BOLD
+            + "Вы попали в меню сохранения новой тренировки, так держать! " + ANSI_RESET;
 }

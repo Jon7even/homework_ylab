@@ -24,6 +24,12 @@ import static com.github.jon7even.presentation.view.ru.LocalException.ACCESS_DEN
 import static com.github.jon7even.presentation.view.ru.LocalException.NOT_FOUND_ID_EXCEPTION;
 import static com.github.jon7even.presentation.view.ru.LocalMessages.*;
 
+/**
+ * Меню обновления типа тренировки
+ *
+ * @author Jon7even
+ * @version 1.0
+ */
 public class UpdateTypeWorkoutAdminCommand extends ServiceCommand {
     private final TypeWorkoutService typeWorkoutService;
     private final GroupPermissionsService groupPermissionsService;
