@@ -11,8 +11,6 @@ import com.github.jon7even.core.domain.v1.mappers.GroupPermissionsMapper;
 import com.github.jon7even.core.domain.v1.mappers.GroupPermissionsMapperImpl;
 import com.github.jon7even.infrastructure.dataproviders.inmemory.GroupPermissionsRepository;
 
-import java.util.Optional;
-
 /**
  * Реализация сервиса для взаимодействия с группами разрешения
  *
@@ -45,7 +43,6 @@ public class GroupPermissionsServiceImpl implements GroupPermissionsService {
         GroupPermissionsEntity groupPermissionsFromBD = getGroupPermissionsEntityByGroupAndServiceId(
                 groupPermissionsId, nameTypeServiceId
         );
-
         return isAllowed(groupPermissionsFromBD, flag);
     }
 
@@ -68,20 +65,11 @@ public class GroupPermissionsServiceImpl implements GroupPermissionsService {
                                                                                 Integer nameTypeServiceId) {
         System.out.println("Начинаю получать сущность GroupPermissionsEntity по заданным параметрам");
 
-        Optional<GroupPermissionsEntity> foundGroup = groupRepository.findByGroupPermissionsIdAndByTypeServiceId(
-                groupPermissionsId, nameTypeServiceId
-        );
-
-        if (foundGroup.isPresent()) {
-            System.out.println("Группа по запросу найдена");
-            return foundGroup.get();
-        } else {
-            System.out.println("Группа по запросу не найдена");
-            throw new NotFoundException(
-                    String.format("GroupPermissions by groupPermissionsId=%d and nameTypeServiceId=%d",
-                            groupPermissionsId, nameTypeServiceId)
-            );
-        }
+        return groupRepository.findByGroupPermissionsIdAndByTypeServiceId(groupPermissionsId, nameTypeServiceId)
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("GroupPermissions by groupPermissionsId=%d and nameTypeServiceId=%d",
+                                groupPermissionsId, nameTypeServiceId)
+                ));
     }
 
     private boolean isAllowed(GroupPermissionsEntity groupPermissions, FlagPermissions flag) {

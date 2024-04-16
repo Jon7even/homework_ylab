@@ -8,8 +8,8 @@ import com.github.jon7even.application.services.HistoryUserService;
 import com.github.jon7even.core.domain.v1.dao.HistoryUserDao;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.entities.history.HistoryUserEntity;
-import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.AccessDeniedException;
+import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.mappers.HistoryUserMapper;
 import com.github.jon7even.core.domain.v1.mappers.HistoryUserMapperImpl;
@@ -18,11 +18,10 @@ import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions.READ;
 import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitialCommonDataInDb.SERVICE_HISTORY;
@@ -57,21 +56,16 @@ public class HistoryUserServiceImpl implements HistoryUserService {
     @Override
     public void createHistoryOfUser(HistoryUserCreateDto historyUserCreateDto) {
         System.out.println("К нам пришло новое событие от пользователя: " + historyUserCreateDto);
-        Optional<HistoryUserEntity> savedHistory = historyUserRepository.createHistoryOfUser(
-                historyUserMapper.toEntityFromHistoryUserCreateDto(historyUserCreateDto, LocalDateTime.now(), 1)
-        );
-
-        if (savedHistory.isPresent()) {
-            System.out.println("Событие успешно записано");
-        } else {
-            System.out.println("Событие не записалось, проведите отладку");
-        }
+        historyUserRepository.createHistoryOfUser(
+                        historyUserMapper.toEntityFromHistoryUserCreateDto(
+                                historyUserCreateDto, LocalDateTime.now(), SERVICE_HISTORY.getId()))
+                .orElseThrow(() -> new NotCreatedException("History User"));
     }
 
     @Override
     public List<HistoryUserResponseByUserDto> findAllHistoryByOwnerIdSortByDeskDate(Long userId) {
         System.out.println("Пользователь requesterId=" + userId + " начинает получать свою историю действий");
-        isExistUserById(userId);
+        isExistUserOrThrowException(userId);
 
         List<HistoryUserEntity> listHistoryByUserId = historyUserRepository.findAllHistoryByUserId(userId);
         System.out.println("Получен список из событий в количестве=" + listHistoryByUserId.size());
@@ -90,8 +84,9 @@ public class HistoryUserServiceImpl implements HistoryUserService {
 
     @Override
     public List<HistoryUserResponseByAdminDto> findAllHistoryByAdminIdSortByDeskDate(Long userId, Long requesterId) {
-        System.out.println("Начинаем получать историю действий пользователя с userId=" + userId);
-        isExistUserById(requesterId);
+        System.out.println("requesterId=" + requesterId
+                + "хочет получить историю действий пользователя с userId=" + userId);
+        isExistUserOrThrowException(requesterId);
 
         List<HistoryUserEntity> listHistoryByUserId;
 
@@ -120,13 +115,13 @@ public class HistoryUserServiceImpl implements HistoryUserService {
         return sortedList;
     }
 
-    private void isExistUserById(Long userId) {
+    private boolean isExistUserById(Long userId) {
         System.out.println("Проверяю существование запрашиваемого пользователя");
-        Optional<UserEntity> requesterFromBd = userRepository.findByUserId(userId);
+        return userRepository.findByUserId(userId).isPresent();
+    }
 
-        if (requesterFromBd.isPresent()) {
-            System.out.println("Запрашиваемый пользователь есть");
-        } else {
+    private void isExistUserOrThrowException(Long userId) {
+        if (!isExistUserById(userId)) {
             throw new NotFoundException(String.format("User with [userId=%s]", userId));
         }
     }
@@ -140,13 +135,8 @@ public class HistoryUserServiceImpl implements HistoryUserService {
 
     private Integer getGroupPermissionsId(Long requesterId) {
         System.out.println("Проверяю существование запрашиваемого пользователя requesterId=" + requesterId);
-        Optional<UserEntity> requesterFromBd = userRepository.findByUserId(requesterId);
-
-        if (requesterFromBd.isPresent()) {
-            System.out.println("Запрашиваемый пользователь есть");
-            return requesterFromBd.get().getIdGroupPermissions();
-        } else {
-            throw new NotFoundException(String.format("User with [requesterId=%s]", requesterId));
-        }
+        return userRepository.findByUserId(requesterId)
+                .orElseThrow(() -> new NotFoundException(String.format("User with [requesterId=%s]", requesterId)))
+                .getIdGroupPermissions();
     }
 }

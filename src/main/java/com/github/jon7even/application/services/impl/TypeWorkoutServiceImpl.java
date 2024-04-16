@@ -8,7 +8,6 @@ import com.github.jon7even.application.services.GroupPermissionsService;
 import com.github.jon7even.application.services.TypeWorkoutService;
 import com.github.jon7even.core.domain.v1.dao.TypeWorkoutDao;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
-import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.entities.workout.TypeWorkoutEntity;
 import com.github.jon7even.core.domain.v1.exception.AccessDeniedException;
 import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
@@ -20,7 +19,6 @@ import com.github.jon7even.infrastructure.dataproviders.inmemory.TypeWorkoutRepo
 import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions.UPDATE;
 import static com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions.WRITE;
@@ -68,19 +66,14 @@ public class TypeWorkoutServiceImpl implements TypeWorkoutService {
             );
             System.out.println("Новый тип тренировки для сохранения собран: " + typeWorkoutEntityForSaveInRepository);
 
-            Optional<TypeWorkoutEntity> createdTypeWorkoutEntity = typeWorkoutRepository.createTypeWorkout(
-                    typeWorkoutEntityForSaveInRepository
-            );
-            System.out.println("Новый тип тренировки попытались сохранить в репозитории: " + createdTypeWorkoutEntity);
+            TypeWorkoutEntity createdTypeWorkoutEntity =
+                    typeWorkoutRepository.createTypeWorkout(typeWorkoutEntityForSaveInRepository)
+                            .orElseThrow(() -> new NotCreatedException("New TypeWorkout"));
 
-            if (createdTypeWorkoutEntity.isPresent()) {
-                System.out.println("Новый тип тренировки успешно сохранен");
-                return typeWorkoutMapper.toTypeWorkoutResponseDtoFromEntity(createdTypeWorkoutEntity.get());
-            } else {
-                throw new NotCreatedException("New TypeWorkout");
-            }
+            System.out.println("Новый тип тренировки успешно сохранен");
+            return typeWorkoutMapper.toTypeWorkoutResponseDtoFromEntity(createdTypeWorkoutEntity);
         } else {
-            System.out.println("У вас нет доступа для создания нового типа тренировки");
+            System.out.println("У пользователя нет доступа для создания нового типа тренировки");
             throw new AccessDeniedException(String.format("For [requesterId=%d]", requesterId));
         }
     }
@@ -109,18 +102,14 @@ public class TypeWorkoutServiceImpl implements TypeWorkoutService {
             typeWorkoutMapper.updateTypeWorkoutEntityFromDtoUpdate(typeWorkoutEntityForUpdate, typeWorkoutUpdateDto);
 
             System.out.println("Сохраняю получившийся тип тренировки: " + typeWorkoutEntityForUpdate);
-            Optional<TypeWorkoutEntity> updatedDiaryFromRepository = typeWorkoutRepository.updateTypeWorkout(
-                    typeWorkoutEntityForUpdate
-            );
+            TypeWorkoutEntity updatedDiaryFromRepository =
+                    typeWorkoutRepository.updateTypeWorkout(typeWorkoutEntityForUpdate)
+                            .orElseThrow(() -> new NotUpdatedException(typeWorkoutUpdateDto.toString()));
 
-            if (updatedDiaryFromRepository.isPresent()) {
-                System.out.println("Тип тренировки обновлен в БД: " + updatedDiaryFromRepository
-                        + " начинаю маппить и отправлять");
-                return typeWorkoutMapper.toTypeWorkoutResponseDtoFromEntity(updatedDiaryFromRepository.get());
-            } else {
-                System.out.println("Не получилось обновить тип тренировки: " + updatedDiaryFromRepository);
-                throw new NotUpdatedException(typeWorkoutUpdateDto.toString());
-            }
+            System.out.println("Тип тренировки обновлен в БД: " + updatedDiaryFromRepository
+                    + " начинаю маппить и отправлять");
+            return typeWorkoutMapper.toTypeWorkoutResponseDtoFromEntity(updatedDiaryFromRepository);
+
         } else {
             System.out.println("У вас нет доступа для обновления нового типа тренировки");
             throw new AccessDeniedException(String.format("For [requesterId=%d]", requesterId));
@@ -131,15 +120,7 @@ public class TypeWorkoutServiceImpl implements TypeWorkoutService {
     @Override
     public boolean isExistByTypeWorkoutId(Long typeWorkoutId) {
         System.out.println("Проверяю существует ли тип тренировки с typeWorkoutId=" + typeWorkoutId);
-        Optional<TypeWorkoutEntity> foundTypeWorkoutEntity = typeWorkoutRepository.findByTypeWorkoutId(typeWorkoutId);
-
-        if (foundTypeWorkoutEntity.isPresent()) {
-            System.out.println("Тип тренировки с таким typeWorkoutId существует");
-            return true;
-        } else {
-            System.out.println("Тип тренировки с таким typeWorkoutId не найден");
-            return false;
-        }
+        return typeWorkoutRepository.findByTypeWorkoutId(typeWorkoutId).isPresent();
     }
 
     @Override
@@ -153,26 +134,16 @@ public class TypeWorkoutServiceImpl implements TypeWorkoutService {
 
     private TypeWorkoutEntity getTypeWorkoutEntityByTypeWorkoutId(Long typeWorkoutId) {
         System.out.println("Начинаю получать тип тренировки по typeWorkoutId=" + typeWorkoutId);
-        Optional<TypeWorkoutEntity> foundTypeWorkoutEntity = typeWorkoutRepository.findByTypeWorkoutId(typeWorkoutId);
-
-        if (foundTypeWorkoutEntity.isPresent()) {
-            System.out.println("Тип тренировки с таким typeWorkoutId существует");
-            return foundTypeWorkoutEntity.get();
-        } else {
-            System.out.println("Тип тренировки с таким typeWorkoutId не найден");
-            throw new NotFoundException(String.format("TypeWorkout by [typeWorkoutId=%s]", typeWorkoutId));
-        }
+        return typeWorkoutRepository.findByTypeWorkoutId(typeWorkoutId)
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("TypeWorkout by [typeWorkoutId=%s]", typeWorkoutId)
+                ));
     }
 
     private Integer getGroupPermissionsId(Long requesterId) {
         System.out.println("Проверяю существование запрашиваемого пользователя requesterId=" + requesterId);
-        Optional<UserEntity> requesterFromBd = userRepository.findByUserId(requesterId);
-
-        if (requesterFromBd.isPresent()) {
-            System.out.println("Запрашиваемый пользователь есть");
-            return requesterFromBd.get().getIdGroupPermissions();
-        } else {
-            throw new NotFoundException(String.format("User with [requesterId=%s]", requesterId));
-        }
+        return userRepository.findByUserId(requesterId)
+                .orElseThrow(() -> new NotFoundException(String.format("User with [requesterId=%s]", requesterId)))
+                .getIdGroupPermissions();
     }
 }

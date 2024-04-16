@@ -36,13 +36,17 @@ public class ViewHistoryAnyUserCommand extends ServiceCommand {
         Scanner scanner = getScanner();
         getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
                 .userId(getUserInMemory().getId())
-                .event("Просмотр истории действия другого пользователя")
+                .event("Просмотр меню поиска истории действий любого пользователя")
                 .build());
-
         System.out.println(MENU_ADMINISTRATOR_VIEWING_HISTORY_START);
 
         Long userId = scanner.nextLong();
         System.out.println(MENU_ADMINISTRATOR_VIEWING_HISTORY_HOLD);
+
+        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                .userId(getUserInMemory().getId())
+                .event("Просмотр истории пользователя с userId=" + userId)
+                .build());
 
         List<HistoryUserResponseByAdminDto> historyList = historyUserService.findAllHistoryByAdminIdSortByDeskDate(
                 userId, getUserInMemory().getId()

@@ -8,8 +8,6 @@ import com.github.jon7even.core.domain.v1.exception.AccessDeniedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
 
-import java.util.Optional;
-
 /**
  * Реализация сервиса авторизации для пользователей
  *
@@ -34,18 +32,16 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     @Override
     public boolean processAuthorization(UserLoginAuthDto userLoginAuthDto) {
         System.out.println("К нам пришел пользователь на авторизацию: " + userLoginAuthDto);
-        Optional<UserEntity> userFromBd = userRepository.findByUserLogin(userLoginAuthDto.getLogin());
-
-        if (userFromBd.isPresent()) {
-            if (userFromBd.get().getPassword().equals(userLoginAuthDto.getPassword())) {
-                System.out.println("Пользователь авторизовался");
-                return true;
-            } else {
-                throw new AccessDeniedException(String.format("For [userLogin=%s]",
-                        userLoginAuthDto.getLogin()));
-            }
+        UserEntity userFromBd = userRepository.findByUserLogin(userLoginAuthDto.getLogin())
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("User with [userLogin=%s]", userLoginAuthDto.getLogin()))
+                );
+        if (userFromBd.getPassword().equals(userLoginAuthDto.getPassword())) {
+            System.out.println("Пользователь авторизовался");
+            return true;
         } else {
-            throw new NotFoundException(String.format("User with [userLogin=%s]", userLoginAuthDto.getLogin()));
+            throw new AccessDeniedException(String.format("For [userLogin=%s]",
+                    userLoginAuthDto.getLogin()));
         }
     }
 }

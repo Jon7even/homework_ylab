@@ -13,8 +13,6 @@ import com.github.jon7even.core.domain.v1.mappers.UserMapper;
 import com.github.jon7even.core.domain.v1.mappers.UserMapperImpl;
 import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
 
-import java.util.Optional;
-
 /**
  * Реализация сервиса взаимодействия с пользователями
  *
@@ -45,27 +43,18 @@ public class UserServiceImpl implements UserService {
         UserEntity userForSaveInRepository = userMapper.toEntityFromDtoCreate(userCreateDto);
         System.out.println("Пользователь для сохранения собран: " + userForSaveInRepository);
 
-        Optional<UserEntity> createdUser = userRepository.createUser(userForSaveInRepository);
-        System.out.println("Пользователя попытались сохранить в репозитории: " + createdUser);
-
-        if (createdUser.isPresent()) {
-            System.out.println("Новый пользователь успешно сохранен");
-            return userMapper.toShortDtoFromEntity(createdUser.get());
-        } else {
-            throw new NotCreatedException("New User");
-        }
+        UserEntity createdUser = userRepository.createUser(userForSaveInRepository)
+                .orElseThrow(() -> new NotCreatedException("New User"));
+        return userMapper.toShortDtoFromEntity(createdUser);
     }
 
     @Override
     public UserInMemoryDto findUserForAuthorization(UserLoginAuthDto userLoginAuthDto) {
         System.out.println("Поиск пользователя по логину: " + userLoginAuthDto);
-        Optional<UserEntity> foundUserEntity = userRepository.findByUserLogin(userLoginAuthDto.getLogin());
+        UserEntity foundUserEntity = userRepository.findByUserLogin(userLoginAuthDto.getLogin())
+                .orElseThrow(() -> new NotFoundException("User by login"));
 
-        if (foundUserEntity.isPresent()) {
-            System.out.println("Найден пользователь по логину: " + foundUserEntity);
-            return userMapper.toInMemoryDtoFromEntity(foundUserEntity.get());
-        } else {
-            throw new NotFoundException("User by login");
-        }
+        System.out.println("Найден пользователь по логину: " + foundUserEntity);
+        return userMapper.toInMemoryDtoFromEntity(foundUserEntity);
     }
 }
