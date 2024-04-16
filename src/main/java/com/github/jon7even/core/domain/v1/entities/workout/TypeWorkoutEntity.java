@@ -15,5 +15,6 @@ public class TypeWorkoutEntity {
     private Long id;
     private String typeName;
     private Integer caloriePerHour;
+    private DetailOfTypeWorkoutEntity detailOfTypeWorkoutEntity;
     private Integer idTypeService;
 }

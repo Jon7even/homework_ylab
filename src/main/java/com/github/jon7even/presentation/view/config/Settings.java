@@ -19,5 +19,8 @@ public final class Settings {
 
     public static final String GREEN_BOLD = "\033[1;32m";
 
+
+    public static final String RED_BOLD = "\033[1;31m";
+
     public static final String ANSI_RESET = "\u001B[0m";
 }

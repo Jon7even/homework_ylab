@@ -8,6 +8,7 @@ import com.github.jon7even.application.services.HistoryUserService;
 import com.github.jon7even.core.domain.v1.dao.HistoryUserDao;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.entities.history.HistoryUserEntity;
+import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
 import com.github.jon7even.core.domain.v1.exception.AccessDeniedException;
 import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
@@ -87,18 +88,10 @@ public class HistoryUserServiceImpl implements HistoryUserService {
         System.out.println("requesterId=" + requesterId
                 + "хочет получить историю действий пользователя с userId=" + userId);
         isExistUserOrThrowException(requesterId);
+        validationOfPermissions(requesterId, READ);
 
-        List<HistoryUserEntity> listHistoryByUserId;
-
-        System.out.println("Запрашиваю разрешение на просмотр");
-        if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId),
-                SERVICE_HISTORY.getId(), READ)) {
-            listHistoryByUserId = historyUserRepository.findAllHistoryByUserId(userId);
-            System.out.println("Получен список из событий в количестве=" + listHistoryByUserId.size());
-        } else {
-            System.out.println("У вас нет доступа для просмотра истории этого пользователя");
-            return Collections.emptyList();
-        }
+        List<HistoryUserEntity> listHistoryByUserId = historyUserRepository.findAllHistoryByUserId(userId);
+        System.out.println("Получен список из событий в количестве=" + listHistoryByUserId.size());
 
         List<HistoryUserEntity> sortedList = sortListHistoryUser(listHistoryByUserId);
         System.out.println("Начинаю маппить и возвращать");
@@ -130,6 +123,18 @@ public class HistoryUserServiceImpl implements HistoryUserService {
         System.out.println("Проверяем является ли пользователь владельцем действий");
         if (!Objects.equals(userId, listHistoryByUserId.listIterator().next().getUserId())) {
             throw new AccessDeniedException(String.format("For [requesterId=%d]", userId));
+        }
+    }
+
+    private void validationOfPermissions(Long requesterId, FlagPermissions flagPermissions) {
+        System.out.println("Пользователь с requesterId="
+                + requesterId + "запрашивает разрешение на операцию: " + flagPermissions);
+        if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId),
+                SERVICE_HISTORY.getId(), flagPermissions)) {
+            System.out.println("Разрешение на эту операцию получено.");
+        } else {
+            System.out.println("У пользователя нет доступа на эту операцию");
+            throw new AccessDeniedException(String.format("For [requesterId=%d]", requesterId));
         }
     }
 

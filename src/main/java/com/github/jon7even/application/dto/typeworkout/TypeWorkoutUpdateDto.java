@@ -20,4 +20,5 @@ public class TypeWorkoutUpdateDto {
     private Long typeWorkoutId;
     private String typeName;
     private Integer caloriePerHour;
+    private Integer detailOfTypeId;
 }

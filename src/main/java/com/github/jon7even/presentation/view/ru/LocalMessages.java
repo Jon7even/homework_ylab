@@ -155,9 +155,6 @@ public final class LocalMessages {
             + "|-- %s --|--    %d    --|--%s--\n" + ANSI_RESET;
     public static final String ADD_NEW_TYPE_WORKOUT_MENU = GREEN_BOLD
             + "Вы попали в меню добавления нового типа тренировки." + ANSI_RESET;
-    public static final String ADD_NEW_TYPE_WORKOUT_ACCESS_DENIED = GREEN_BOLD
-            + "У вас нет прав на добавление нового типа "
-            + "тренировки, пожалуйста свяжитесь с нашей командой, если вам нужен такой доступ" + ANSI_RESET;
     public static final String ADD_NEW_TYPE_WORKOUT_COMPLETE_CREATE = GREEN_BOLD
             + "Отлично! Новый тип тренировки добавлен."
             + " Смотрите, что получилось..." + ANSI_RESET;
@@ -171,6 +168,19 @@ public final class LocalMessages {
             + "Отлично! Теперь посмотрите методические пособия по "
             + "этому типу тренировки и напишите среднее значение количества Калорий, "
             + "которые можно сжечь занимаясь этим спортом 1 час." + ANSI_RESET;
+
+    public static final String ADD_NEW_TYPE_WORKOUT_GO_ID_DETAIL_TYPE = GREEN_BOLD
+            + "Выберите как будем детализировать тип тренировки. Выберите ID из списка и напишете его " + ANSI_RESET;
+    public static final String TYPE_WORKOUT_VIEWING_LIST_DETAILS_HEADER = GREEN_BOLD
+            + """     
+            |------------------------------------------------------------------------|
+            |--------------------Виды детализации типа тренировки--------------------|
+            |------------------------------------------------------------------------|
+            |--ID типа--|---------------Название детализации-------------------------|
+            |------------------------------------------------------------------------|
+            """ + ANSI_RESET;
+    public static final String TYPE_WORKOUT_VIEWING_LIST_DETAILS_BODY = GREEN_BOLD
+            + "|--   %d   --|--    %s    --\n" + ANSI_RESET;
     public static final String TYPE_WORKOUT_VIEWING_LIST_HEADER = GREEN_BOLD
             + """     
             |------------------------------------------------------------------------|

@@ -19,5 +19,5 @@ public class TypeWorkoutResponseDto {
     private Long typeWorkoutId;
     private String typeName;
     private Integer caloriePerHour;
-    private Integer idTypeService;
+    private DetailOfTypeWorkoutResponseDto detailOfTypeWorkoutResponseDto;
 }

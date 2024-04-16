@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Класс DTO для создания нового типа тренировки
+ * Класс DTO для отображения дополнительной информации о типе тренировки
  *
  * @author Jon7even
  * @version 1.0
@@ -15,9 +15,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TypeWorkoutCreateDto {
-    private Long requesterId;
-    private String typeName;
-    private Integer caloriePerHour;
-    private Integer detailOfTypeId;
+public class DetailOfTypeWorkoutResponseDto {
+    private Integer id;
+    private String name;
+    private Boolean isFillingRequired;
 }

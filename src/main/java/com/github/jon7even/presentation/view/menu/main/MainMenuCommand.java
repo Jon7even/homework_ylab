@@ -13,6 +13,7 @@ import com.github.jon7even.presentation.view.menu.workout.MainMenuWorkoutCommand
 
 import java.util.Scanner;
 
+import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitialCommonDataInDb.SERVICE_USER;
 import static com.github.jon7even.presentation.view.ru.LocalMessages.MAIN_ADMIN;
 import static com.github.jon7even.presentation.view.ru.LocalMessages.MAIN_MENU;
 
@@ -34,7 +35,7 @@ public class MainMenuCommand extends ServiceCommand {
     public void handle() {
         Scanner scanner = getScanner();
         boolean secret = groupPermissionsService.getPermissionsForService(
-                getUserInMemory().getIdGroupPermissions(), 5, FlagPermissions.READ
+                getUserInMemory().getIdGroupPermissions(), SERVICE_USER.getId(), FlagPermissions.READ
         );
 
         if (secret) {

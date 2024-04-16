@@ -1,6 +1,7 @@
 package com.github.jon7even.infrastructure.dataproviders.inmemory;
 
 import com.github.jon7even.core.domain.v1.dao.TypeWorkoutDao;
+import com.github.jon7even.core.domain.v1.entities.workout.DetailOfTypeWorkoutEntity;
 import com.github.jon7even.core.domain.v1.entities.workout.TypeWorkoutEntity;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import static com.github.jon7even.infrastructure.dataproviders.inmemory.constant
 public class TypeWorkoutRepository implements TypeWorkoutDao {
     private static TypeWorkoutRepository instance;
     private final Map<Long, TypeWorkoutEntity> mapOfTypeWorkouts = new HashMap<>();
+    private final Map<Integer, DetailOfTypeWorkoutEntity> mapOfDetailOfTypeWorkouts = new HashMap<>();
     private Long idGenerator = 0L;
 
     public static TypeWorkoutRepository getInstance() {
@@ -38,6 +40,9 @@ public class TypeWorkoutRepository implements TypeWorkoutDao {
         mapOfTypeWorkouts.put(++idGenerator, SWIMMING_POOL);
         mapOfTypeWorkouts.put(++idGenerator, TENNIS);
         mapOfTypeWorkouts.put(++idGenerator, SKIING);
+        mapOfDetailOfTypeWorkouts.put(DETAIL_OF_DISTANCE_TRAVELED.getId(), DETAIL_OF_DISTANCE_TRAVELED);
+        mapOfDetailOfTypeWorkouts.put(DETAIL_OF_EXERCISES_PERFORMED.getId(), DETAIL_OF_EXERCISES_PERFORMED);
+        mapOfDetailOfTypeWorkouts.put(DETAIL_OF_NOT_DETAILS.getId(), DETAIL_OF_NOT_DETAILS);
     }
 
     @Override
@@ -75,8 +80,20 @@ public class TypeWorkoutRepository implements TypeWorkoutDao {
 
     @Override
     public List<TypeWorkoutEntity> findAllTypeWorkoutsNoSort() {
-        System.out.println("Получаем полный список всех типов тренировки без параметров сортировки");
+        System.out.println("Получаем весь список всех типов тренировки без параметров сортировки");
         return mapOfTypeWorkouts.values().stream().toList();
+    }
+
+    @Override
+    public Optional<DetailOfTypeWorkoutEntity> findDetailOfTypeWorkout(Integer detailOfTypeId) {
+        System.out.println("Получаем тип деталей по detailOfTypeId=" + detailOfTypeId);
+        return Optional.ofNullable(mapOfDetailOfTypeWorkouts.get(detailOfTypeId));
+    }
+
+    @Override
+    public List<DetailOfTypeWorkoutEntity> findAllDetailOfTypeWorkoutNoSort() {
+        System.out.println("Получаем весь список деталей для типа тренировки без параметров сортировки");
+        return mapOfDetailOfTypeWorkouts.values().stream().toList();
     }
 
     private Boolean containsTypeWorkoutById(Long typeWorkoutId) {

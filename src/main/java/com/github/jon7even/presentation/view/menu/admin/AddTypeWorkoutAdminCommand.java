@@ -1,6 +1,7 @@
 package com.github.jon7even.presentation.view.menu.admin;
 
 import com.github.jon7even.application.dto.history.HistoryUserCreateDto;
+import com.github.jon7even.application.dto.typeworkout.DetailOfTypeWorkoutResponseDto;
 import com.github.jon7even.application.dto.typeworkout.TypeWorkoutCreateDto;
 import com.github.jon7even.application.dto.typeworkout.TypeWorkoutResponseDto;
 import com.github.jon7even.application.dto.typeworkout.TypeWorkoutShortDto;
@@ -18,6 +19,9 @@ import com.github.jon7even.presentation.view.menu.user.SignOutCommand;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitialCommonDataInDb.SERVICE_TYPE_WORKOUT;
+import static com.github.jon7even.presentation.view.ru.LocalException.ADD_NEW_TYPE_WORKOUT_ACCESS_DENIED;
+import static com.github.jon7even.presentation.view.ru.LocalException.DETAIL_OF_TYPE_WORKOUT_NOT_EXIST_EXCEPTION;
 import static com.github.jon7even.presentation.view.ru.LocalMessages.*;
 
 /**
@@ -47,7 +51,7 @@ public class AddTypeWorkoutAdminCommand extends ServiceCommand {
         System.out.println(ADD_NEW_TYPE_WORKOUT_MENU);
 
         boolean isPermissionWrite = groupPermissionsService.getPermissionsForService(
-                getUserInMemory().getIdGroupPermissions(), 4, FlagPermissions.WRITE
+                getUserInMemory().getIdGroupPermissions(), SERVICE_TYPE_WORKOUT.getId(), FlagPermissions.WRITE
         );
 
         if (isPermissionWrite) {
@@ -65,24 +69,46 @@ public class AddTypeWorkoutAdminCommand extends ServiceCommand {
             System.out.println(ADD_NEW_TYPE_WORKOUT_GO_CALORIE);
             Integer caloriePerHour = scanner.nextInt();
 
-            TypeWorkoutCreateDto typeWorkoutForSaveInDB = TypeWorkoutCreateDto.builder()
-                    .requesterId(userId)
-                    .typeName(nameTypeWorkout)
-                    .caloriePerHour(caloriePerHour)
-                    .build();
+            List<DetailOfTypeWorkoutResponseDto> listDetailsOfTypeWorkout =
+                    typeWorkoutService.findAllDetailOfTypeWorkoutNoSort();
+            System.out.print(TYPE_WORKOUT_VIEWING_LIST_DETAILS_HEADER);
+            listDetailsOfTypeWorkout.forEach(t -> System.out.printf(
+                    TYPE_WORKOUT_VIEWING_LIST_DETAILS_BODY,
+                    t.getId(),
+                    t.getName())
+            );
+            System.out.println(ADD_NEW_TYPE_WORKOUT_GO_ID_DETAIL_TYPE);
+            Integer detailOfTypeId = scanner.nextInt();
 
-            TypeWorkoutResponseDto createdNewTypeWorkout = typeWorkoutService.createTypeWorkout(typeWorkoutForSaveInDB);
-            getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
-                    .userId(userId)
-                    .event("Создание нового типа тренировки с Id=" + createdNewTypeWorkout.getTypeWorkoutId())
-                    .build());
+            if (typeWorkoutService.isExistDetailOfTypeByDetailOfTypeId(detailOfTypeId)) {
+                TypeWorkoutCreateDto typeWorkoutForSaveInDB = TypeWorkoutCreateDto.builder()
+                        .requesterId(userId)
+                        .typeName(nameTypeWorkout)
+                        .caloriePerHour(caloriePerHour)
+                        .detailOfTypeId(detailOfTypeId)
+                        .build();
 
-            System.out.println(ADD_NEW_TYPE_WORKOUT_COMPLETE_CREATE);
-            System.out.print(TYPE_WORKOUT_VIEWING_TYPE_HEADER);
-            System.out.printf(TYPE_WORKOUT_VIEWING_TYPE_BODY,
-                    createdNewTypeWorkout.getTypeWorkoutId(),
-                    createdNewTypeWorkout.getCaloriePerHour(),
-                    createdNewTypeWorkout.getCaloriePerHour());
+                TypeWorkoutResponseDto createdNewTypeWorkout = typeWorkoutService.createTypeWorkout(typeWorkoutForSaveInDB);
+                getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                        .userId(userId)
+                        .event("Создание нового типа тренировки с Id=" + createdNewTypeWorkout.getTypeWorkoutId())
+                        .build());
+
+                System.out.println(ADD_NEW_TYPE_WORKOUT_COMPLETE_CREATE);
+                System.out.print(TYPE_WORKOUT_VIEWING_TYPE_HEADER);
+                System.out.printf(TYPE_WORKOUT_VIEWING_TYPE_BODY,
+                        createdNewTypeWorkout.getTypeWorkoutId(),
+                        createdNewTypeWorkout.getCaloriePerHour(),
+                        createdNewTypeWorkout.getCaloriePerHour());
+            } else {
+                getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                        .userId(userId)
+                        .event("Попытка добавить новый тип тренировки с несуществующей детализацией detailOfTypeId="
+                                + detailOfTypeId)
+                        .build());
+                System.out.println(DETAIL_OF_TYPE_WORKOUT_NOT_EXIST_EXCEPTION);
+            }
+
         } else {
             getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
                     .userId(userId)

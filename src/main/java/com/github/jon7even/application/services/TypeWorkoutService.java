@@ -1,9 +1,6 @@
 package com.github.jon7even.application.services;
 
-import com.github.jon7even.application.dto.typeworkout.TypeWorkoutCreateDto;
-import com.github.jon7even.application.dto.typeworkout.TypeWorkoutResponseDto;
-import com.github.jon7even.application.dto.typeworkout.TypeWorkoutShortDto;
-import com.github.jon7even.application.dto.typeworkout.TypeWorkoutUpdateDto;
+import com.github.jon7even.application.dto.typeworkout.*;
 
 import java.util.List;
 
@@ -38,12 +35,12 @@ public interface TypeWorkoutService {
     TypeWorkoutResponseDto updateTypeWorkout(TypeWorkoutUpdateDto typeWorkoutUpdateDto);
 
     /**
-     * Метод, который даёт однозначный ответ существует ли тип тренировки по заданному ID
+     * Метод, который возвращает однозначный ответ, существует ли тип тренировки по заданному ID
      *
      * @param typeWorkoutId существующий ID типа тренировки
      * @return boolean с ответом - есть ли такой тип тренировки
      */
-    boolean isExistByTypeWorkoutId(Long typeWorkoutId);
+    boolean isExistTypeWorkoutByTypeWorkoutId(Long typeWorkoutId);
 
     /**
      * Метод, который получает все типы тренировок
@@ -51,4 +48,27 @@ public interface TypeWorkoutService {
      * @return несортированный список DTO всех типов тренировок в кратком представлении TypeWorkoutShortDto
      */
     List<TypeWorkoutShortDto> findAllTypeWorkoutsNoSort();
+
+    /**
+     * Метод, который получает дополнительные параметры к типу тренировки
+     *
+     * @param detailOfTypeId существующий ID параметра
+     * @return объект DTO DetailOfTypeWorkoutResponseDto с деталями о типе тренировки
+     */
+    DetailOfTypeWorkoutResponseDto findTypeWorkoutByTypeWorkoutId(Integer detailOfTypeId);
+
+    /**
+     * Метод, который возвращает однозначный ответ, существует такой параметр детализации
+     *
+     * @param detailOfTypeId существующий ID параметра
+     * @return boolean с ответом - есть ли такой параметр детализации
+     */
+    boolean isExistDetailOfTypeByDetailOfTypeId(Integer detailOfTypeId);
+
+    /**
+     * Метод, который получает все возможные детали для типов тренировок
+     *
+     * @return несортированный список DTO всех деталей в представлении DetailOfTypeWorkoutResponseDto
+     */
+    List<DetailOfTypeWorkoutResponseDto> findAllDetailOfTypeWorkoutNoSort();
 }

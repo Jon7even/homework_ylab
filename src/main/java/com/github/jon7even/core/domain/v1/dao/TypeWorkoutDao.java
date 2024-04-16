@@ -1,5 +1,6 @@
 package com.github.jon7even.core.domain.v1.dao;
 
+import com.github.jon7even.core.domain.v1.entities.workout.DetailOfTypeWorkoutEntity;
 import com.github.jon7even.core.domain.v1.entities.workout.TypeWorkoutEntity;
 
 import java.util.List;
@@ -42,4 +43,19 @@ public interface TypeWorkoutDao {
      * @return весь найденный список Entity всех существующих типов тренировок без параметров сортировки
      */
     List<TypeWorkoutEntity> findAllTypeWorkoutsNoSort();
+
+    /**
+     * Метод для поиска деталей к типам тренировки по ID
+     *
+     * @param detailOfTypeId существующий ID типа деталей
+     * @return тип деталей Entity, если он есть в системе
+     */
+    Optional<DetailOfTypeWorkoutEntity> findDetailOfTypeWorkout(Integer detailOfTypeId);
+
+    /**
+     * Метод, который получает все доступные детали для типов тренировок
+     *
+     * @return весь найденный список Entity всех существующих типов деталей без параметров сортировки
+     */
+    List<DetailOfTypeWorkoutEntity> findAllDetailOfTypeWorkoutNoSort();
 }
