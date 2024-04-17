@@ -21,13 +21,14 @@ public final class DataTimeValidator {
 
     public static LocalDateTime getLocalDateTimeStartAndValidate(LocalDateTime currentTime, String targetTimeInput) {
         LocalDateTime targetTime;
-        System.out.println("Начинаю валидацию");
+        System.out.println("Начинаю валидацию времени Старта тренировки targetTimeInput=" + targetTimeInput);
         try {
             targetTime = LocalDateTime.parse(targetTimeInput, DATA_TIME_FORMAT);
             if (targetTime.isAfter(currentTime)) {
+                System.out.println("Указали время в будущем");
                 throw new IncorrectTimeException(targetTimeInput);
             } else {
-                System.out.println("Валидация времени прошла targetTime=" + targetTime);
+                System.out.println("Валидация времени прошла targetTime=" + targetTime.format(DATA_TIME_FORMAT));
                 return targetTime;
             }
         } catch (Exception e) {
@@ -36,12 +37,14 @@ public final class DataTimeValidator {
     }
 
     public static LocalDateTime getLocalDateTimeEndStartAndValidate(LocalDateTime startTime, Integer durationInput) {
-        System.out.println("Начинаю валидацию");
+        System.out.println("Начинаю валидацию времени Окончания тренировки, durationInput=" + durationInput);
         LocalDateTime endTime;
         try {
             Duration periodWorkout = Duration.ofMinutes(durationInput);
+            System.out.println("Продолжительность тренировки получилась periodWorkout=" + periodWorkout);
             endTime = startTime.plus(periodWorkout);
-            if (!Objects.equals(startTime.getDayOfYear(), endTime.getDayOfYear()) && !periodWorkout.isNegative()) {
+            if (!Objects.equals(startTime.getDayOfYear(), endTime.getDayOfYear()) || periodWorkout.isNegative()) {
+                System.out.println("Дни тренировки не совпадают или период оказался отрицательным числом!");
                 throw new IncorrectTimeException("Duration of workout");
             } else {
                 System.out.println("Валидация времени прошла endTime=" + endTime);
@@ -52,19 +55,20 @@ public final class DataTimeValidator {
         }
     }
 
-    public static Duration getLocalDateTimeEndStartAndValidate(LocalDateTime startTime,
-                                                               LocalDateTime endTime,
-                                                               Integer durationInput) {
-        System.out.println("Начинаю валидацию");
+    public static Duration getDurationAndValidate(LocalDateTime startTime,
+                                                  LocalDateTime endTime,
+                                                  Integer durationInput) {
+        System.out.println("Начинаю валидацию времени отдыха, durationInput=" + durationInput);
         Duration durationOfRest;
         try {
             durationOfRest = Duration.ofMinutes(durationInput);
-
             int timeOfWorkout = Duration.between(startTime, endTime).toMinutesPart();
-            if (!durationOfRest.isNegative() && !(durationInput > timeOfWorkout)) {
+            System.out.println(timeOfWorkout);
+            if (durationOfRest.isNegative() || durationInput > timeOfWorkout) {
+                System.out.println("Время отдыха больше, чем сама тренировка или число отрицательное");
                 throw new IncorrectTimeException("Duration of Rest");
             } else {
-                System.out.println("Валидация времени прошла durationOfRest=" + durationOfRest);
+                System.out.println("Валидация времени отдыха прошла durationOfRest=" + durationOfRest);
                 return durationOfRest;
             }
         } catch (Exception e) {

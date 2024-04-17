@@ -10,6 +10,7 @@ import com.github.jon7even.presentation.view.menu.main.ExitFromAppCommand;
 import com.github.jon7even.presentation.view.menu.main.MainMenuCommand;
 import com.github.jon7even.presentation.view.menu.main.ServiceCommand;
 import com.github.jon7even.presentation.view.menu.user.SignOutCommand;
+import com.github.jon7even.presentation.view.menu.workout.MainMenuWorkoutCommand;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -71,8 +72,9 @@ public class CreateMyDiaryCommand extends ServiceCommand {
             System.out.println(MENU_DIARY_VIEW_END);
             switch (scanner.nextInt()) {
                 case 1 -> setCommandNextMenu(new MainDiaryMenuCommand(getUserInMemory()));
-                case 2 -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
-                case 3 -> setCommandNextMenu(new SignOutCommand(getUserInMemory()));
+                case 2 -> setCommandNextMenu(new MainMenuWorkoutCommand(getUserInMemory()));
+                case 3 -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
+                case 4 -> setCommandNextMenu(new SignOutCommand(getUserInMemory()));
                 case 0 -> setCommandNextMenu(new ExitFromAppCommand());
                 default -> setCommandNextMenu(new ViewMyDiaryCommand(getUserInMemory()));
             }

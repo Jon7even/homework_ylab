@@ -1,13 +1,20 @@
 package com.github.jon7even.setup;
 
+import com.github.jon7even.application.dto.typeworkout.DetailOfTypeWorkoutResponseDto;
+import com.github.jon7even.application.dto.typeworkout.TypeWorkoutResponseDto;
 import com.github.jon7even.application.dto.user.UserCreateDto;
 import com.github.jon7even.application.dto.user.UserShortResponseDto;
 import com.github.jon7even.application.dto.user.UserUpdateDto;
+import com.github.jon7even.application.dto.workout.WorkoutFullResponseDto;
 import com.github.jon7even.core.domain.v1.entities.permissions.GroupPermissionsEntity;
 import com.github.jon7even.core.domain.v1.entities.permissions.NameType;
 import com.github.jon7even.core.domain.v1.entities.permissions.TypeServiceEntity;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
+import com.github.jon7even.core.domain.v1.entities.workout.DetailOfTypeWorkoutEntity;
+import com.github.jon7even.core.domain.v1.entities.workout.TypeWorkoutEntity;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,13 +36,267 @@ public class PreparationForTests {
     protected String userPasswordFirst = "qwertyfirst";
     protected String userPasswordSecond = "qwertysecond";
 
-
     public static final String ADMIN_LOGIN = "admin";
     public static final String ADMIN_PASSWORD = "admin";
 
     protected UserCreateDto userCreateDtoFirst;
     protected UserUpdateDto userUpdateDtoFirst;
     protected UserShortResponseDto userShortResponseDto;
+
+    protected DetailOfTypeWorkoutEntity detailOfTypeWorkoutEntityTraveled;
+    protected DetailOfTypeWorkoutEntity detailOfTypeWorkoutEntityExercises;
+    protected DetailOfTypeWorkoutEntity detailOfTypeWorkoutEntityNotDetails;
+
+    protected TypeWorkoutEntity typeWorkoutEntityWalking;
+    protected TypeWorkoutEntity typeWorkoutEntityRunning;
+    protected TypeWorkoutEntity typeWorkoutEntityStrength;
+    protected TypeWorkoutEntity typeWorkoutEntityTreadmill;
+    protected TypeWorkoutEntity typeWorkoutEntityBicycling;
+    protected TypeWorkoutEntity typeWorkoutEntityYoga;
+    protected TypeWorkoutEntity typeWorkoutEntitySwimming;
+    protected TypeWorkoutEntity typeWorkoutEntityTennis;
+    protected TypeWorkoutEntity typeWorkoutEntitySkiing;
+
+    protected DetailOfTypeWorkoutResponseDto detailOfTypeWorkoutResponseDtoTraveled;
+    protected DetailOfTypeWorkoutResponseDto detailOfTypeWorkoutResponseDtoExercises;
+    protected DetailOfTypeWorkoutResponseDto detailOfTypeWorkoutResponseDtoNotDetails;
+    protected TypeWorkoutResponseDto typeWorkoutResponseDtoWalking;
+    protected TypeWorkoutResponseDto typeWorkoutResponseDtoRunning;
+    protected TypeWorkoutResponseDto typeWorkoutResponseDtoStrength;
+    protected TypeWorkoutResponseDto typeWorkoutResponseDtoTreadmill;
+    protected TypeWorkoutResponseDto typeWorkoutResponseDtoBicycling;
+    protected TypeWorkoutResponseDto typeWorkoutResponseDtoYoga;
+    protected TypeWorkoutResponseDto typeWorkoutResponseDtoSwimming;
+    protected TypeWorkoutResponseDto typeWorkoutResponseDtoTennis;
+    protected TypeWorkoutResponseDto typeWorkoutResponseDtoSkiing;
+
+    protected void initTypeWorkoutResponseDto() {
+        detailOfTypeWorkoutResponseDtoTraveled = DetailOfTypeWorkoutResponseDto.builder()
+                .id(1)
+                .name("Пройденное расстояние (м)")
+                .isFillingRequired(true)
+                .build();
+
+        detailOfTypeWorkoutResponseDtoExercises = DetailOfTypeWorkoutResponseDto.builder()
+                .id(2)
+                .name("Количество выполненных упражнений")
+                .isFillingRequired(true)
+                .build();
+
+        detailOfTypeWorkoutResponseDtoNotDetails = DetailOfTypeWorkoutResponseDto.builder()
+                .id(3)
+                .name("Занятие не требует дополнительных параметров")
+                .isFillingRequired(false)
+                .build();
+
+        typeWorkoutResponseDtoWalking = TypeWorkoutResponseDto.builder()
+                .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoTraveled)
+                .typeName("Простая ходьба")
+                .caloriePerHour(200)
+                .build();
+
+        typeWorkoutResponseDtoRunning = TypeWorkoutResponseDto.builder()
+                .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoTraveled)
+                .typeName("Бег на улице")
+                .caloriePerHour(500)
+                .build();
+
+        typeWorkoutResponseDtoStrength = TypeWorkoutResponseDto.builder()
+                .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoExercises)
+                .typeName("Силовая тренировка")
+                .caloriePerHour(520)
+                .build();
+
+        typeWorkoutResponseDtoTreadmill = TypeWorkoutResponseDto.builder()
+                .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoTraveled)
+                .typeName("Бег на беговой дорожке")
+                .caloriePerHour(400)
+                .build();
+
+        typeWorkoutResponseDtoBicycling = TypeWorkoutResponseDto.builder()
+                .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoTraveled)
+                .typeName("Велоспорт")
+                .caloriePerHour(450)
+                .build();
+
+        typeWorkoutResponseDtoYoga = TypeWorkoutResponseDto.builder()
+                .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoNotDetails)
+                .typeName("Занятия йогой")
+                .caloriePerHour(225)
+                .build();
+
+        typeWorkoutResponseDtoSwimming = TypeWorkoutResponseDto.builder()
+                .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoTraveled)
+                .typeName("Плавать в бассейне")
+                .caloriePerHour(230)
+                .build();
+
+        typeWorkoutResponseDtoTennis = TypeWorkoutResponseDto.builder()
+                .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoNotDetails)
+                .typeName("Игра в теннис")
+                .caloriePerHour(400)
+                .build();
+
+        typeWorkoutResponseDtoSkiing = TypeWorkoutResponseDto.builder()
+                .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoTraveled)
+                .typeName("Ходьба на лыжах")
+                .caloriePerHour(485)
+                .build();
+    }
+
+    protected void initTypeWorkoutEntity() {
+        detailOfTypeWorkoutEntityTraveled = DetailOfTypeWorkoutEntity.builder()
+                .id(1)
+                .name("Пройденное расстояние (м)")
+                .isFillingRequired(true)
+                .build();
+
+        detailOfTypeWorkoutEntityExercises = DetailOfTypeWorkoutEntity.builder()
+                .id(2)
+                .name("Количество выполненных упражнений")
+                .isFillingRequired(true)
+                .build();
+
+        detailOfTypeWorkoutEntityNotDetails = DetailOfTypeWorkoutEntity.builder()
+                .id(3)
+                .name("Занятие не требует дополнительных параметров")
+                .isFillingRequired(false)
+                .build();
+
+        typeWorkoutEntityWalking = TypeWorkoutEntity.builder()
+                .id(1L)
+                .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
+                .typeName("Простая ходьба")
+                .caloriePerHour(200)
+                .idTypeService(4)
+                .build();
+
+        typeWorkoutEntityRunning = TypeWorkoutEntity.builder()
+                .id(2L)
+                .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
+                .typeName("Бег на улице")
+                .caloriePerHour(500)
+                .idTypeService(4)
+                .build();
+
+        typeWorkoutEntityStrength = TypeWorkoutEntity.builder()
+                .id(3L)
+                .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityExercises)
+                .typeName("Силовая тренировка")
+                .caloriePerHour(520)
+                .idTypeService(4)
+                .build();
+
+        typeWorkoutEntityTreadmill = TypeWorkoutEntity.builder()
+                .id(4L)
+                .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
+                .typeName("Бег на беговой дорожке")
+                .caloriePerHour(400)
+                .idTypeService(4)
+                .build();
+
+        typeWorkoutEntityBicycling = TypeWorkoutEntity.builder()
+                .id(5L)
+                .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
+                .typeName("Велоспорт")
+                .caloriePerHour(450)
+                .idTypeService(4)
+                .build();
+
+        typeWorkoutEntityYoga = TypeWorkoutEntity.builder()
+                .id(6L)
+                .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityNotDetails)
+                .typeName("Занятия йогой")
+                .caloriePerHour(225)
+                .idTypeService(4)
+                .build();
+
+        typeWorkoutEntitySwimming = TypeWorkoutEntity.builder()
+                .id(7L)
+                .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
+                .typeName("Плавать в бассейне")
+                .caloriePerHour(230)
+                .idTypeService(4)
+                .build();
+
+        typeWorkoutEntityTennis = TypeWorkoutEntity.builder()
+                .id(8L)
+                .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityNotDetails)
+                .typeName("Игра в теннис")
+                .caloriePerHour(400)
+                .idTypeService(4)
+                .build();
+
+        typeWorkoutEntitySkiing = TypeWorkoutEntity.builder()
+                .id(9L)
+                .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
+                .typeName("Ходьба на лыжах")
+                .caloriePerHour(485)
+                .idTypeService(4)
+                .build();
+    }
+
+    protected LocalDateTime timeStartOne;
+    protected LocalDateTime timeStartSecond;
+    protected LocalDateTime timeStartThird;
+    protected LocalDateTime timeEndOne;
+    protected LocalDateTime timeEndSecond;
+    protected LocalDateTime timeEndThird;
+    protected Duration periodOne;
+    protected Duration periodSecond;
+    protected Duration periodThird;
+
+    protected void initLocalDateTime() {
+        timeStartOne = LocalDateTime.of(2024, 4, 14, 10, 0);
+        timeEndOne = LocalDateTime.of(2024, 4, 14, 11, 20);
+        timeStartSecond = LocalDateTime.of(2024, 4, 15, 17, 17);
+        timeEndSecond = LocalDateTime.of(2024, 4, 15, 17, 57);
+        timeStartThird = LocalDateTime.of(2024, 4, 16, 17, 17);
+        timeEndThird = LocalDateTime.of(2024, 4, 16, 20, 7);
+        periodOne = Duration.ofMinutes(20L);
+        periodSecond = Duration.ofMinutes(37L);
+        periodThird = Duration.ofMinutes(47L);
+    }
+
+    protected WorkoutFullResponseDto workoutFullResponseDtoFirst;
+    protected WorkoutFullResponseDto workoutFullResponseDtoSecond;
+    protected WorkoutFullResponseDto workoutFullResponseDtoThird;
+
+    protected void initWorkoutDto() {
+        workoutFullResponseDtoFirst = WorkoutFullResponseDto.builder()
+                .id(firstIdLong)
+                .idDiary(firstIdLong)
+                .typeWorkoutResponseDto(typeWorkoutResponseDtoWalking)
+                .timeStartOn(timeStartOne)
+                .timeEndOn(timeEndOne)
+                .timeOfRest(periodOne)
+                .currentWeightUser(80.5F)
+                .personalNote("One")
+                .detailOfWorkout("One")
+                .build();
+        workoutFullResponseDtoSecond = WorkoutFullResponseDto.builder()
+                .id(secondIdLong)
+                .idDiary(secondIdLong)
+                .typeWorkoutResponseDto(typeWorkoutResponseDtoStrength)
+                .timeStartOn(timeStartSecond)
+                .timeEndOn(timeEndSecond)
+                .timeOfRest(periodSecond)
+                .currentWeightUser(79.9F)
+                .personalNote("Second")
+                .detailOfWorkout("Second")
+                .build();
+        workoutFullResponseDtoThird = WorkoutFullResponseDto.builder()
+                .id(thirdIdLong)
+                .idDiary(thirdIdLong)
+                .typeWorkoutResponseDto(typeWorkoutResponseDtoYoga)
+                .timeStartOn(timeStartThird)
+                .timeEndOn(timeEndThird)
+                .timeOfRest(periodThird)
+                .currentWeightUser(79.7F)
+                .personalNote("Third")
+                .detailOfWorkout("Без деталей")
+                .build();
+    }
 
     protected void initUsers() {
         userEntityFirstExpected = UserEntity.builder()

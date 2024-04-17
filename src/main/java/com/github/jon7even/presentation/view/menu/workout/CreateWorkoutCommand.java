@@ -8,11 +8,14 @@ import com.github.jon7even.application.dto.user.UserInMemoryDto;
 import com.github.jon7even.application.dto.workout.WorkoutCreateDto;
 import com.github.jon7even.application.dto.workout.WorkoutFullResponseDto;
 import com.github.jon7even.application.services.DiaryService;
+import com.github.jon7even.application.services.ServiceCalculationOfStats;
 import com.github.jon7even.application.services.TypeWorkoutService;
 import com.github.jon7even.application.services.WorkoutService;
 import com.github.jon7even.application.services.impl.DiaryServiceImpl;
+import com.github.jon7even.application.services.impl.ServiceCalculationOfStatsImpl;
 import com.github.jon7even.application.services.impl.TypeWorkoutServiceImpl;
 import com.github.jon7even.application.services.impl.WorkoutServiceImpl;
+import com.github.jon7even.core.domain.v1.exception.IncorrectTimeException;
 import com.github.jon7even.presentation.utils.DataTimeValidator;
 import com.github.jon7even.presentation.view.menu.main.ExitFromAppCommand;
 import com.github.jon7even.presentation.view.menu.main.MainMenuCommand;
@@ -40,12 +43,14 @@ public class CreateWorkoutCommand extends ServiceCommand {
     private final DiaryService diaryService;
     private final TypeWorkoutService typeWorkoutService;
     private final WorkoutService workoutService;
+    private final ServiceCalculationOfStats serviceCalculationOfStats;
 
     public CreateWorkoutCommand(UserInMemoryDto userService) {
         setUserInMemory(userService);
         typeWorkoutService = TypeWorkoutServiceImpl.getInstance();
         workoutService = WorkoutServiceImpl.getInstance();
         diaryService = DiaryServiceImpl.getInstance();
+        serviceCalculationOfStats = ServiceCalculationOfStatsImpl.getInstance();
     }
 
     @Override
@@ -55,7 +60,6 @@ public class CreateWorkoutCommand extends ServiceCommand {
                 .userId(userId)
                 .event("Просмотр меню сохранения новой тренировки")
                 .build());
-        System.out.println(WORKOUT_ADD_NEW_MENU);
         Long diaryId = diaryService.getIdDiaryByUserId(userId);
 
         List<TypeWorkoutShortDto> listExistsTypeWorkout = typeWorkoutService.findAllTypeWorkoutsNoSort();
@@ -65,87 +69,100 @@ public class CreateWorkoutCommand extends ServiceCommand {
                 t.getId(),
                 t.getTypeName())
         );
+        System.out.println(WORKOUT_ADD_NEW_MENU);
         System.out.println(WORKOUT_ADD_NEW_GO_ID_TYPE_WORKOUT);
         Scanner scanner = getScanner();
         Long typeWorkoutId = scanner.nextLong();
         scanner.nextLine();
 
         if (typeWorkoutService.isExistTypeWorkoutByTypeWorkoutId(typeWorkoutId)) {
-            LocalDateTime currentTime = LocalDateTime.now();
-            System.out.println(WORKOUT_ADD_NEW_GO_TIME_START);
-            System.out.println(WORKOUT_WARN_TIME);
-            LocalDateTime timeStart = DataTimeValidator.getLocalDateTimeStartAndValidate(currentTime,
-                    scanner.nextLine());
-            scanner.nextLine();
-            System.out.println(WORKOUT_ADD_NEW_GO_TIME_END);
-            LocalDateTime timeEnd = DataTimeValidator.getLocalDateTimeEndStartAndValidate(timeStart, scanner.nextInt());
+            try {
+                LocalDateTime currentTime = LocalDateTime.now();
+                System.out.println(WORKOUT_ADD_NEW_GO_TIME_START);
+                System.out.println(WORKOUT_WARN_TIME);
+                LocalDateTime timeStart = DataTimeValidator.getLocalDateTimeStartAndValidate(
+                        currentTime, scanner.nextLine()
+                );
 
-            System.out.println(WORKOUT_ADD_NEW_GO_TIME_REST);
-            System.out.println(WORKOUT_WARN_TIME_REST_DURATION);
-            Duration durationOfRest = Duration.ofMinutes(scanner.nextLong());
-            scanner.nextLine();
-            System.out.println(WORKOUT_ADD_NEW_GO_WEIGHT);
-            Float weightUser = Float.parseFloat(scanner.nextLine());
+                System.out.println(WORKOUT_ADD_NEW_GO_TIME_END);
+                LocalDateTime timeEnd = DataTimeValidator.getLocalDateTimeEndStartAndValidate(
+                        timeStart, scanner.nextInt()
+                );
 
-            System.out.println(WORKOUT_ADD_NEW_GO_NOTE);
-            String personalNote = scanner.nextLine();
-            scanner.nextLine();
-            String detailOfWorkout = NAME_WITHOUT_DETAILS;
-            DetailOfTypeWorkoutResponseDto detailOfTypeWorkout =
-                    typeWorkoutService.findTypeWorkoutByTypeWorkoutId(typeWorkoutId)
-                            .getDetailOfTypeWorkoutResponseDto();
-
-            if (detailOfTypeWorkout.getIsFillingRequired()) {
-                System.out.printf(WORKOUT_ADD_NEW_GO_DETAIL, detailOfTypeWorkout.getName());
-                detailOfWorkout = scanner.nextLine();
+                System.out.println(WORKOUT_ADD_NEW_GO_TIME_REST);
+                System.out.println(WORKOUT_WARN_TIME_REST_DURATION);
+                Duration durationOfRest = DataTimeValidator.getDurationAndValidate(
+                        timeStart, timeEnd, scanner.nextInt()
+                );
                 scanner.nextLine();
+
+                System.out.println(WORKOUT_ADD_NEW_GO_WEIGHT);
+                Float weightUser = Float.parseFloat(scanner.nextLine());
+
+                System.out.println(WORKOUT_ADD_NEW_GO_NOTE);
+                String personalNote = scanner.nextLine();
+
+                String detailOfWorkout = NAME_WITHOUT_DETAILS;
+                DetailOfTypeWorkoutResponseDto detailOfTypeWorkout =
+                        typeWorkoutService.findTypeWorkoutByTypeWorkoutId(typeWorkoutId)
+                                .getDetailOfTypeWorkoutResponseDto();
+
+                if (detailOfTypeWorkout.getIsFillingRequired()) {
+                    System.out.printf(WORKOUT_ADD_NEW_GO_DETAIL, detailOfTypeWorkout.getName());
+                    detailOfWorkout = scanner.nextLine();
+                }
+
+                WorkoutCreateDto workoutForSaveInDB = WorkoutCreateDto.builder()
+                        .idDiary(diaryId)
+                        .idTypeWorkout(typeWorkoutId)
+                        .timeStartOn(timeStart)
+                        .timeEndOn(timeEnd)
+                        .timeOfRest(durationOfRest)
+                        .currentWeightUser(weightUser)
+                        .personalNote(personalNote)
+                        .detailOfWorkout(detailOfWorkout)
+                        .build();
+
+                WorkoutFullResponseDto workoutFullResponseDto = workoutService.saveWorkout(workoutForSaveInDB);
+
+                DiaryUpdateDto diaryForUpdateInDb = DiaryUpdateDto.builder()
+                        .userId(userId)
+                        .weightUser(weightUser)
+                        .build();
+                if (Objects.equals(timeEnd.getDayOfYear(), currentTime.getDayOfYear())) {
+                    diaryForUpdateInDb.setUpdatedOn(timeEnd);
+                }
+                diaryService.updateDiary(diaryForUpdateInDb);
+
+                getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                        .userId(userId)
+                        .event("Успешное сохранение тренировки с id=" + workoutFullResponseDto.getId())
+                        .build());
+
+                System.out.println(WORKOUT_ADD_NEW_COMPLETE_CREATE);
+                int minutesOfWorkout = serviceCalculationOfStats.getRealMinutesOfWorkoutFromWorkoutDto(
+                        workoutFullResponseDto
+                );
+                int totalCalorie = serviceCalculationOfStats.getTotalCalorieFromWorkoutDto(workoutFullResponseDto);
+
+                System.out.printf(WORKOUT_FULL_VIEWING_FORM,
+                        workoutFullResponseDto.getTimeStartOn().format(DATA_TIME_FORMAT),
+                        workoutFullResponseDto.getTypeWorkoutResponseDto().getTypeName(),
+                        minutesOfWorkout,
+                        workoutFullResponseDto.getTimeOfRest().toMinutes(),
+                        workoutFullResponseDto.getCurrentWeightUser(),
+                        totalCalorie,
+                        workoutFullResponseDto.getTypeWorkoutResponseDto()
+                                .getDetailOfTypeWorkoutResponseDto()
+                                .getName(),
+                        workoutFullResponseDto.getDetailOfWorkout(),
+                        workoutFullResponseDto.getPersonalNote()
+                );
+            } catch (IncorrectTimeException e) {
+                System.out.println(BAD_INPUT_TIME_EXCEPTION);
+            } catch (Exception e) {
+                System.out.println(BAD_INPUT_EXCEPTION);
             }
-
-            WorkoutCreateDto workoutForSaveInDB = WorkoutCreateDto.builder()
-                    .idDiary(diaryId)
-                    .idTypeWorkout(typeWorkoutId)
-                    .timeStartOn(timeStart)
-                    .timeEndOn(timeEnd)
-                    .timeOfRest(durationOfRest)
-                    .currentWeightUser(weightUser)
-                    .personalNote(personalNote)
-                    .detailOfWorkout(detailOfWorkout)
-                    .build();
-
-            WorkoutFullResponseDto workoutFullResponseDto = workoutService.saveWorkout(workoutForSaveInDB);
-
-            DiaryUpdateDto diaryForUpdateInDb = DiaryUpdateDto.builder()
-                    .userId(userId)
-                    .weightUser(weightUser)
-                    .build();
-            if (Objects.equals(timeEnd.getDayOfYear(), currentTime.getDayOfYear())) {
-                diaryForUpdateInDb.setUpdatedOn(timeEnd);
-            }
-            diaryService.updateDiary(diaryForUpdateInDb);
-
-            getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
-                    .userId(userId)
-                    .event("Успешное сохранение тренировки с id=" + workoutFullResponseDto.getId())
-                    .build());
-
-            System.out.println(WORKOUT_ADD_NEW_COMPLETE_CREATE);
-            int minutesOfWorkout = Duration.between(workoutFullResponseDto.getTimeStartOn(),
-                    workoutFullResponseDto.getTimeEndOn()).toMinutesPart();
-
-            Integer calculationOfCalorie = minutesOfWorkout / 60
-                    * workoutFullResponseDto.getTypeWorkoutResponseDto().getCaloriePerHour();
-
-            System.out.printf(WORKOUT_FULL_VIEWING_FORM,
-                    workoutFullResponseDto.getTimeStartOn().format(DATA_TIME_FORMAT),
-                    workoutFullResponseDto.getTypeWorkoutResponseDto().getTypeName(),
-                    minutesOfWorkout,
-                    workoutFullResponseDto.getTimeOfRest().toMinutesPart(),
-                    workoutFullResponseDto.getCurrentWeightUser(),
-                    calculationOfCalorie,
-                    workoutFullResponseDto.getTypeWorkoutResponseDto().getDetailOfTypeWorkoutResponseDto().getName(),
-                    workoutFullResponseDto.getDetailOfWorkout(),
-                    workoutFullResponseDto.getPersonalNote()
-            );
         } else {
             getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
                     .userId(userId)

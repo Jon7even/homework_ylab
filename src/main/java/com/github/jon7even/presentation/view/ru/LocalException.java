@@ -25,6 +25,8 @@ public final class LocalException {
             + "соответствовать формату ЧИСЛО-МЕСЯЦ-ГОД ЧАС:МИНУТА" + ANSI_RESET;
     public static final String BAD_INPUT_TIME_EXCEPTION = RED_BOLD +
             "Вы совершили ошибку при вводе даты. Попробуйте снова" + ANSI_RESET;
+    public static final String BAD_INPUT_EXCEPTION = RED_BOLD +
+            "Вы совершили ошибку при вводе. Попробуйте снова" + ANSI_RESET;
     public static final String WORKOUT_WARN_TIME_REST_DURATION = RED_BOLD +
             "Только не увлекитесь! Отдых не должен превышать время самой тренировки:)" + ANSI_RESET;
 }

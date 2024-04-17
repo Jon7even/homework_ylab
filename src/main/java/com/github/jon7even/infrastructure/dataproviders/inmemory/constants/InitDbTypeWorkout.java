@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public final class InitDbTypeWorkout {
     public final static DetailOfTypeWorkoutEntity DETAIL_OF_DISTANCE_TRAVELED = DetailOfTypeWorkoutEntity.builder()
             .id(1)
-            .name("Пройденное расстояние")
+            .name("Пройденное расстояние (м)")
             .isFillingRequired(true)
             .build();
 
@@ -102,6 +102,4 @@ public final class InitDbTypeWorkout {
             .caloriePerHour(485)
             .idTypeService(4)
             .build();
-
-
 }
