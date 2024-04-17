@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WorkoutShortResponseDto {
+    private Long id;
     private LocalDateTime timeStartOn;
     private String typeName;
     private String detailOfWorkout;

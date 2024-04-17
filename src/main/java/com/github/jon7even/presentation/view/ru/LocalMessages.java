@@ -81,7 +81,6 @@ public final class LocalMessages {
             + "2.Вернуться на главное меню\n"
             + "3.Выйти из аккаунта\n"
             + "0.Завершить работу с приложением\n" + ANSI_RESET;
-
     public static final String MAIN_MENU_WORKOUT =
             GREEN_BOLD + "Вы в главном меню своих тренировок. Выберите пункт меню: \n"
                     + "1.Записать тренировку\n"
@@ -208,7 +207,39 @@ public final class LocalMessages {
             """ + ANSI_RESET;
     public static final String TYPE_WORKOUT_VIEWING_TYPE_BODY = GREEN_BOLD
             + "|--    %d   --|----- %d -----|--    %s    --\n" + ANSI_RESET;
-
     public static final String WORKOUT_ADD_NEW_MENU = GREEN_BOLD
             + "Вы попали в меню сохранения новой тренировки, так держать! " + ANSI_RESET;
+    public static final String WORKOUT_ADD_NEW_GO_ID_TYPE_WORKOUT = GREEN_BOLD
+            + "Давайте выберем ID типа тренировки из списка: " + ANSI_RESET;
+    public static final String WORKOUT_ADD_NEW_GO_TIME_START = GREEN_BOLD
+            + "Введите пожалуйста дату и время тренировки в формате 01-01-2024 00:00" + ANSI_RESET;
+    public static final String WORKOUT_ADD_NEW_GO_TIME_END = GREEN_BOLD
+            + "Введите пожалуйста количество минут, в течении которых длилась тренировка." + ANSI_RESET;
+    public static final String WORKOUT_ADD_NEW_GO_TIME_REST = GREEN_BOLD
+            + "Наверняка во время тренировки вы отдыхали, укажите количество минут отдыха: " + ANSI_RESET;
+    public static final String WORKOUT_ADD_NEW_GO_WEIGHT = GREEN_BOLD
+            + "Напишите свой текущий вес в формате в формате [00.000]кг. "
+            + "Это обязательно, ведь вы пришли за результатом. А мы поможем отследить ваш прогресс." + ANSI_RESET;
+    public static final String WORKOUT_ADD_NEW_GO_NOTE = GREEN_BOLD
+            + "Почти закончили! Напишите свои дополнительные заметки на эту тренировку(например свое состояние)\n"
+            + ANSI_RESET;
+    public static final String WORKOUT_ADD_NEW_GO_DETAIL = GREEN_BOLD
+            + "Укажите пожалуйста дополнительный параметр для: %s\n" + ANSI_RESET;
+    public static final String WORKOUT_ADD_NEW_COMPLETE_CREATE = GREEN_BOLD
+            + "Поздравляем! Ваша тренировка сохранена! Давайте посмотрим, что получилось: \n" + ANSI_RESET;
+    public static final String WORKOUT_FULL_VIEWING_FORM = GREEN_BOLD
+            + "--------------------------------------------------------------------------------------------------------\n"
+            + "---------------------------Ваша тренировка состоялась %s----------------------------------\n"
+            + "---------------------------Тип тренировки %s-----------------------------------------------------\n"
+            + "|       --Вы занимались целых %d минут!--       |  --За всю тренировку вы отдохнули %d минут!--   \n"
+            + "| --Ваш вес на тот момент составлял %.03fкг--     |  --Ссоженно целых %d Калорий-- \n"
+            + "|                --Детали тренировки: %s %s-- \n"
+            + "|                --Ваша заметка: %s-- \n"
+            + "---------------------------------------------------------------------------------------------------------\n"
+            + ANSI_RESET;
+    public static final String WORKOUT_MAIN_MENU_WHAT_NEXT = GREEN_BOLD + "Что дальше? Выберите пункт меню: \n"
+            + "1.Вернуться на главное меню тренировок\n"
+            + "1.Вернуться на главное меню\n"
+            + "2.Выйти из аккаунта\n"
+            + "0.Завершить работу с приложением\n" + ANSI_RESET;
 }

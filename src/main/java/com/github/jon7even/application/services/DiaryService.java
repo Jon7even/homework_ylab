@@ -49,4 +49,12 @@ public interface DiaryService {
      * @return объект DTO DiaryResponseDto
      */
     DiaryResponseDto getDiaryDtoByUserId(Long userId);
+
+    /**
+     * Метод, который получает ID дневника по ID пользователя
+     *
+     * @param userId существующий ID пользователя
+     * @return ID дневника
+     */
+    Long getIdDiaryByUserId(Long userId);
 }

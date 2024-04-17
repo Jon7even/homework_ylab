@@ -21,4 +21,10 @@ public final class LocalException {
             + ANSI_RESET;
     public static final String ACCESS_DENIED = RED_BOLD + "У вас нет прав эту операцию, "
             + "пожалуйста свяжитесь с нашей командой, если вам нужно предоставить такой доступ" + ANSI_RESET;
+    public static final String WORKOUT_WARN_TIME = RED_BOLD + "Обратите внимание, время не должно быть в будущем и "
+            + "соответствовать формату ЧИСЛО-МЕСЯЦ-ГОД ЧАС:МИНУТА" + ANSI_RESET;
+    public static final String BAD_INPUT_TIME_EXCEPTION = RED_BOLD +
+            "Вы совершили ошибку при вводе даты. Попробуйте снова" + ANSI_RESET;
+    public static final String WORKOUT_WARN_TIME_REST_DURATION = RED_BOLD +
+            "Только не увлекитесь! Отдых не должен превышать время самой тренировки:)" + ANSI_RESET;
 }

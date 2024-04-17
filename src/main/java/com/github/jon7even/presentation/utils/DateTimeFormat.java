@@ -3,6 +3,8 @@ package com.github.jon7even.presentation.utils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * Утилитарный класс для формата времени
  *
@@ -11,6 +13,7 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DateTimeFormat {
-    public static final String DATE_TIME_DEFAULT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_TIME_DEFAULT = "dd-MM-yyyy HH:mm";
+    public static final DateTimeFormatter DATA_TIME_FORMAT = DateTimeFormatter.ofPattern(DATE_TIME_DEFAULT);
 }
 

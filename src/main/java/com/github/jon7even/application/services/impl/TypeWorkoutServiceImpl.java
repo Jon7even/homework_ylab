@@ -56,7 +56,7 @@ public class TypeWorkoutServiceImpl implements TypeWorkoutService {
         validationOfPermissions(typeWorkoutCreateDto.getRequesterId(), WRITE);
 
         DetailOfTypeWorkoutEntity detailOfTypeWorkoutEntity = typeWorkoutMapper.toEntityDetailOfTypeFromDtoResponse(
-                findTypeWorkoutByTypeWorkoutId(typeWorkoutCreateDto.getDetailOfTypeId())
+                findDetailOfTypeByDetailOfTypeId(typeWorkoutCreateDto.getDetailOfTypeId())
         );
 
         TypeWorkoutEntity typeWorkoutEntityForSaveInRepository = typeWorkoutMapper.toTypeWorkoutEntityFromDtoCreate(
@@ -87,7 +87,7 @@ public class TypeWorkoutServiceImpl implements TypeWorkoutService {
         validationOfPermissions(requesterId, UPDATE);
 
         DetailOfTypeWorkoutEntity detailOfTypeWorkoutEntity = typeWorkoutMapper.toEntityDetailOfTypeFromDtoResponse(
-                findTypeWorkoutByTypeWorkoutId(typeWorkoutUpdateDto.getDetailOfTypeId())
+                findDetailOfTypeByDetailOfTypeId(typeWorkoutUpdateDto.getDetailOfTypeId())
         );
 
         TypeWorkoutEntity typeWorkoutEntityForUpdate = getTypeWorkoutEntityByTypeWorkoutId(typeWorkoutId);
@@ -122,7 +122,7 @@ public class TypeWorkoutServiceImpl implements TypeWorkoutService {
     }
 
     @Override
-    public DetailOfTypeWorkoutResponseDto findTypeWorkoutByTypeWorkoutId(Integer detailOfTypeId) {
+    public DetailOfTypeWorkoutResponseDto findDetailOfTypeByDetailOfTypeId(Integer detailOfTypeId) {
         System.out.println("Начинаю получать тип деталей тренировки=" + detailOfTypeId);
         return typeWorkoutMapper.toDtoDetailOfTypeResponseFromEntity(
                 typeWorkoutRepository.findDetailOfTypeWorkout(detailOfTypeId)

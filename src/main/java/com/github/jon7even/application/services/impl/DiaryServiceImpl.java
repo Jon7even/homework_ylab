@@ -91,6 +91,12 @@ public class DiaryServiceImpl implements DiaryService {
         return diaryMapper.toDiaryResponseDtoFromEntity(diaryEntityFromRepository);
     }
 
+    @Override
+    public Long getIdDiaryByUserId(Long userId) {
+        System.out.println("Начинаю получать ID дневника по userId=" + userId);
+        return getDiaryEntityByUserId(userId).getId();
+    }
+
     private DiaryEntity getDiaryEntityByUserId(Long userId) {
         System.out.println("Начинаю получать дневник пользователя с userId=" + userId);
         return diaryRepository.findByUserId(userId)

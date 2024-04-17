@@ -55,7 +55,7 @@ public interface TypeWorkoutService {
      * @param detailOfTypeId существующий ID параметра
      * @return объект DTO DetailOfTypeWorkoutResponseDto с деталями о типе тренировки
      */
-    DetailOfTypeWorkoutResponseDto findTypeWorkoutByTypeWorkoutId(Integer detailOfTypeId);
+    DetailOfTypeWorkoutResponseDto findDetailOfTypeByDetailOfTypeId(Integer detailOfTypeId);
 
     /**
      * Метод, который возвращает однозначный ответ, существует такой параметр детализации

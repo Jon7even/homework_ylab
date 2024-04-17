@@ -14,13 +14,9 @@ import static com.github.jon7even.infrastructure.dataproviders.inmemory.constant
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Settings {
     public static boolean RUN_APP = true;
-
+    public static final String NAME_WITHOUT_DETAILS = "Без деталей";
     public static final Integer DEFAULT_ID_FOR_GROUP = DEFAULT_ID_GROUP_PERMISSIONS_USER;
-
     public static final String GREEN_BOLD = "\033[1;32m";
-
-
     public static final String RED_BOLD = "\033[1;31m";
-
     public static final String ANSI_RESET = "\u001B[0m";
 }
