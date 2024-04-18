@@ -22,7 +22,7 @@ public class TrainingDiaryApp {
         while (RUN_APP) {
             try {
                 serviceCommand.handle();
-            } catch (InputMismatchException exception) {
+            } catch (InputMismatchException | IndexOutOfBoundsException exception) {
                 System.out.println(INCORRECT_INPUT);
                 serviceCommand.setScanner(new Scanner(System.in));
                 serviceCommand.setCommandNextMenu(serviceCommand);

@@ -3,8 +3,7 @@ package com.github.jon7even.presentation.view.ru;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import static com.github.jon7even.presentation.view.config.Settings.ANSI_RESET;
-import static com.github.jon7even.presentation.view.config.Settings.GREEN_BOLD;
+import static com.github.jon7even.presentation.view.config.Settings.*;
 
 /**
  * Утилитарный класс для сообщений в меню
@@ -87,10 +86,9 @@ public final class LocalMessages {
                     + "1.Записать тренировку\n"
                     + "2.Изменить тренировку\n"
                     + "3.Удалить тренировку\n"
-                    + "4.Просмотреть тренировки\n"
-                    + "5.Просмотреть статистику по тренировкам\n"
-                    + "6.Вернуться на главное меню\n"
-                    + "7.Выйти из аккаунта\n"
+                    + "4.Поиск тренировок\n"
+                    + "5.Вернуться на главное меню\n"
+                    + "6.Выйти из аккаунта\n"
                     + "0.Завершить работу с приложением\n" + ANSI_RESET;
     public static final String MAIN_MENU_ADMINISTRATOR = GREEN_BOLD
             + "Вы в главном меню администратора. Выберите пункт меню: \n"
@@ -218,14 +216,18 @@ public final class LocalMessages {
             """ + ANSI_RESET;
     public static final String TYPE_WORKOUT_VIEWING_TYPE_BODY = GREEN_BOLD
             + "|--    %d   --|----- %d -----|--    %s    --\n" + ANSI_RESET;
-
     public static final String WORKOUT_UPDATE_MENU = GREEN_BOLD
             + "Вы попали в меню редактирования своей тренировки! " + ANSI_RESET;
+    public static final String WORKOUT_DELETE_MENU = GREEN_BOLD
+            + "Вы попали в меню удаления своей тренировки! " + ANSI_RESET;
     public static final String WORKOUT_UPDATE_PREPARE = GREEN_BOLD
             + "Вот такая была тренировка. Преступим к редактированию." + ANSI_RESET;
+    public static final String WORKOUT_DELETE_PREPARE = GREEN_BOLD
+            + "Вот такая была тренировка. Преступим к удалению." + ANSI_RESET;
+    public static final String WORKOUT_DELETE_COMPLETE = RED_BOLD
+            + "Тренировка была успешно удалена!" + ANSI_RESET;
     public static final String WORKOUT_GO_ID = GREEN_BOLD
             + "Выше находится ваш список тренировок, выберите его ID для операции: " + ANSI_RESET;
-
     public static final String WORKOUT_ADD_NEW_MENU = GREEN_BOLD
             + "Вы попали в меню сохранения новой тренировки, так держать! " + ANSI_RESET;
     public static final String WORKOUT_GO_ID_TYPE_WORKOUT = GREEN_BOLD

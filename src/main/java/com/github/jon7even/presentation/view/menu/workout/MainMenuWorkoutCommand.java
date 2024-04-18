@@ -46,11 +46,10 @@ public class MainMenuWorkoutCommand extends ServiceCommand {
             switch (scanner.nextInt()) {
                 case 1 -> setCommandNextMenu(new CreateWorkoutCommand(getUserInMemory()));
                 case 2 -> setCommandNextMenu(new UpdateWorkoutCommand(getUserInMemory()));
+                case 3 -> setCommandNextMenu(new DeleteWorkoutCommand(getUserInMemory()));
                 // TODO
-                // TODO
-                // TODO
-                case 6 -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
-                case 7 -> setCommandNextMenu(new SignOutCommand(getUserInMemory()));
+                case 5 -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
+                case 6 -> setCommandNextMenu(new SignOutCommand(getUserInMemory()));
                 case 0 -> setCommandNextMenu(new ExitFromAppCommand());
                 default -> setCommandNextMenu(new MainMenuWorkoutCommand(getUserInMemory()));
             }
