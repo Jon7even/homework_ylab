@@ -35,7 +35,7 @@ public interface WorkoutDao {
      * @param workoutId существующий ID тренировки
      * @return тренировку Entity, если она есть в системе
      */
-    Optional<WorkoutEntity> findByWorkoutByTypeIdAndDate(Long workoutId);
+    Optional<WorkoutEntity> findByWorkoutByWorkoutId(Long workoutId);
 
     /**
      * Метод для поиска определенной тренировки по дню и типу
@@ -44,7 +44,7 @@ public interface WorkoutDao {
      * @param dayOfWorkout  день в который была тренировка
      * @return тренировку Entity, если она подпадает под параметры поиска
      */
-    Optional<WorkoutEntity> findByWorkoutByTypeIdAndDate(Long idTypeWorkout, LocalDate dayOfWorkout);
+    Optional<WorkoutEntity> findByWorkoutByWorkoutIdAndDate(Long idTypeWorkout, LocalDate dayOfWorkout);
 
     /**
      * Метод для поиска всех тренировок по ID дневника
@@ -56,9 +56,9 @@ public interface WorkoutDao {
     List<WorkoutEntity> findAllWorkoutByDiaryId(Long diaryId);
 
     /**
-     * Метод для поиска всех тренировок без параметров
+     * Метод для удаления тренировки по существующему ID
      *
-     * @return весь найденный список Entity всех существующих тренировок без параметров сортировки
+     * @param workoutId существующий ID тренировки
      */
-    List<WorkoutEntity> findAllWorkout();
+    void deleteWorkoutByWorkoutId(Long workoutId);
 }

@@ -4,12 +4,8 @@ import com.github.jon7even.core.domain.v1.dao.GroupPermissionsDao;
 import com.github.jon7even.core.domain.v1.entities.permissions.GroupPermissionsEntity;
 import com.github.jon7even.core.domain.v1.entities.permissions.TypeServiceEntity;
 
-import java.util.Set;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.Map;
-import java.util.HashMap;
 
 import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitDbGroupPermissions.BASE_GROUP_PERMISSIONS_FOR_ADMIN;
 import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitDbGroupPermissions.BASE_GROUP_PERMISSIONS_FOR_USER;

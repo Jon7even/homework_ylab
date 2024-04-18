@@ -29,4 +29,6 @@ public final class LocalException {
             "Вы совершили ошибку при вводе. Попробуйте снова" + ANSI_RESET;
     public static final String WORKOUT_WARN_TIME_REST_DURATION = RED_BOLD +
             "Только не увлекитесь! Отдых не должен превышать время самой тренировки:)" + ANSI_RESET;
+    public static final String WORKOUT_IS_EMPTY_EXCEPTION = RED_BOLD +
+            "У вас еще нет тренировок, внесите хотя бы одну" + ANSI_RESET;
 }

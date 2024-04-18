@@ -39,8 +39,8 @@ public interface WorkoutMapper {
     @Mapping(source = "workoutEntity.currentWeightUser", target = "currentWeightUser")
     @Mapping(source = "workoutEntity.personalNote", target = "personalNote")
     @Mapping(source = "workoutEntity.detailOfWorkout", target = "detailOfWorkout")
-    WorkoutFullResponseDto toDiaryResponseDtoFromEntity(WorkoutEntity workoutEntity,
-                                                        TypeWorkoutResponseDto typeWorkoutResponseDto);
+    WorkoutFullResponseDto toWorkoutFullResponseDtoFromEntity(WorkoutEntity workoutEntity,
+                                                              TypeWorkoutResponseDto typeWorkoutResponseDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
@@ -69,16 +69,4 @@ public interface WorkoutMapper {
     @Mapping(source = "workoutEntity.currentWeightUser", target = "currentWeightUser")
     @Mapping(source = "workoutEntity.personalNote", target = "personalNote")
     List<WorkoutShortResponseDto> toListWorkoutShortResponseDtoFromEntity(List<WorkoutEntity> workoutEntity);
-
-    @Mapping(source = "workoutEntity.id", target = "id")
-    @Mapping(source = "workoutEntity.idDiary", target = "idDiary")
-    @Mapping(source = "typeWorkoutResponseDto", target = "typeWorkoutResponseDto")
-    @Mapping(source = "workoutEntity.timeStartOn", target = "timeStartOn")
-    @Mapping(source = "workoutEntity.timeEndOn", target = "timeEndOn")
-    @Mapping(source = "workoutEntity.timeOfRest", target = "timeOfRest")
-    @Mapping(source = "workoutEntity.currentWeightUser", target = "currentWeightUser")
-    @Mapping(source = "workoutEntity.personalNote", target = "personalNote")
-    @Mapping(source = "workoutEntity.detailOfWorkout", target = "detailOfWorkout")
-    WorkoutFullResponseDto toWorkoutFullResponseDtoFromEntity(WorkoutEntity workoutEntity,
-                                                              TypeWorkoutResponseDto typeWorkoutResponseDto);
 }

@@ -38,7 +38,7 @@ public class WorkoutRepository implements WorkoutDao {
         mapOfWorkouts.put(workoutId, workoutEntity);
 
         System.out.println("В БД добавлена новая тренировка: " + workoutEntity);
-        return findByWorkoutByTypeIdAndDate(workoutId);
+        return findByWorkoutByWorkoutId(workoutId);
     }
 
     @Override
@@ -54,17 +54,17 @@ public class WorkoutRepository implements WorkoutDao {
         mapOfWorkouts.put(workoutId, workoutEntity);
         System.out.println("В БД произошло обновление. Старые данные: " + oldWorkout
                 + "\n Новые данные: " + workoutEntity);
-        return findByWorkoutByTypeIdAndDate(workoutId);
+        return findByWorkoutByWorkoutId(workoutId);
     }
 
     @Override
-    public Optional<WorkoutEntity> findByWorkoutByTypeIdAndDate(Long workoutId) {
+    public Optional<WorkoutEntity> findByWorkoutByWorkoutId(Long workoutId) {
         System.out.println("Ищу тренировку с workoutId=" + workoutId);
         return Optional.ofNullable(mapOfWorkouts.get(workoutId));
     }
 
     @Override
-    public Optional<WorkoutEntity> findByWorkoutByTypeIdAndDate(Long idTypeWorkout, LocalDate dayOfWorkout) {
+    public Optional<WorkoutEntity> findByWorkoutByWorkoutIdAndDate(Long idTypeWorkout, LocalDate dayOfWorkout) {
         System.out.println("Ищу тренировку с idWorkoutType=" + idTypeWorkout + " и датой=" + dayOfWorkout.toString());
         return mapOfWorkouts.values().stream()
                 .filter(workoutEntity -> workoutEntity.getIdTypeWorkout().equals(idTypeWorkout))
@@ -81,9 +81,9 @@ public class WorkoutRepository implements WorkoutDao {
     }
 
     @Override
-    public List<WorkoutEntity> findAllWorkout() {
-        System.out.println("Получаю список всех тренировок без параметров");
-        return mapOfWorkouts.values().stream().toList();
+    public void deleteWorkoutByWorkoutId(Long workoutId) {
+        System.out.println("Удаляю тренировку по workoutId=" + workoutId);
+        mapOfWorkouts.remove(workoutId);
     }
 
     private Boolean containsWorkoutById(Long workoutId) {

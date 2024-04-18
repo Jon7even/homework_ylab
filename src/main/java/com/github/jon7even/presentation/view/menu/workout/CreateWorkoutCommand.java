@@ -70,7 +70,7 @@ public class CreateWorkoutCommand extends ServiceCommand {
                 t.getTypeName())
         );
         System.out.println(WORKOUT_ADD_NEW_MENU);
-        System.out.println(WORKOUT_ADD_NEW_GO_ID_TYPE_WORKOUT);
+        System.out.println(WORKOUT_GO_ID_TYPE_WORKOUT);
         Scanner scanner = getScanner();
         Long typeWorkoutId = scanner.nextLong();
         scanner.nextLine();
@@ -78,28 +78,28 @@ public class CreateWorkoutCommand extends ServiceCommand {
         if (typeWorkoutService.isExistTypeWorkoutByTypeWorkoutId(typeWorkoutId)) {
             try {
                 LocalDateTime currentTime = LocalDateTime.now();
-                System.out.println(WORKOUT_ADD_NEW_GO_TIME_START);
+                System.out.println(WORKOUT_GO_TIME_START);
                 System.out.println(WORKOUT_WARN_TIME);
                 LocalDateTime timeStart = DataTimeValidator.getLocalDateTimeStartAndValidate(
                         currentTime, scanner.nextLine()
                 );
 
-                System.out.println(WORKOUT_ADD_NEW_GO_TIME_END);
+                System.out.println(WORKOUT_GO_TIME_END);
                 LocalDateTime timeEnd = DataTimeValidator.getLocalDateTimeEndStartAndValidate(
                         timeStart, scanner.nextInt()
                 );
 
-                System.out.println(WORKOUT_ADD_NEW_GO_TIME_REST);
+                System.out.println(WORKOUT_GO_TIME_REST);
                 System.out.println(WORKOUT_WARN_TIME_REST_DURATION);
                 Duration durationOfRest = DataTimeValidator.getDurationAndValidate(
                         timeStart, timeEnd, scanner.nextInt()
                 );
                 scanner.nextLine();
 
-                System.out.println(WORKOUT_ADD_NEW_GO_WEIGHT);
+                System.out.println(WORKOUT_GO_WEIGHT);
                 Float weightUser = Float.parseFloat(scanner.nextLine());
 
-                System.out.println(WORKOUT_ADD_NEW_GO_NOTE);
+                System.out.println(WORKOUT_GO_NOTE);
                 String personalNote = scanner.nextLine();
 
                 String detailOfWorkout = NAME_WITHOUT_DETAILS;
@@ -108,7 +108,7 @@ public class CreateWorkoutCommand extends ServiceCommand {
                                 .getDetailOfTypeWorkoutResponseDto();
 
                 if (detailOfTypeWorkout.getIsFillingRequired()) {
-                    System.out.printf(WORKOUT_ADD_NEW_GO_DETAIL, detailOfTypeWorkout.getName());
+                    System.out.printf(WORKOUT_GO_DETAIL, detailOfTypeWorkout.getName());
                     detailOfWorkout = scanner.nextLine();
                 }
 
@@ -123,7 +123,7 @@ public class CreateWorkoutCommand extends ServiceCommand {
                         .detailOfWorkout(detailOfWorkout)
                         .build();
 
-                WorkoutFullResponseDto workoutFullResponseDto = workoutService.saveWorkout(workoutForSaveInDB);
+                WorkoutFullResponseDto workoutSavedDto = workoutService.saveWorkout(workoutForSaveInDB);
 
                 DiaryUpdateDto diaryForUpdateInDb = DiaryUpdateDto.builder()
                         .userId(userId)
@@ -136,27 +136,27 @@ public class CreateWorkoutCommand extends ServiceCommand {
 
                 getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
                         .userId(userId)
-                        .event("Успешное сохранение тренировки с id=" + workoutFullResponseDto.getId())
+                        .event("Успешное сохранение тренировки с id=" + workoutSavedDto.getId())
                         .build());
 
-                System.out.println(WORKOUT_ADD_NEW_COMPLETE_CREATE);
                 int minutesOfWorkout = serviceCalculationOfStats.getRealMinutesOfWorkoutFromWorkoutDto(
-                        workoutFullResponseDto
+                        workoutSavedDto
                 );
-                int totalCalorie = serviceCalculationOfStats.getTotalCalorieFromWorkoutDto(workoutFullResponseDto);
+                int totalCalorie = serviceCalculationOfStats.getTotalCalorieFromWorkoutDto(workoutSavedDto);
 
+                System.out.println(WORKOUT_ADD_NEW_COMPLETE_CREATE);
                 System.out.printf(WORKOUT_FULL_VIEWING_FORM,
-                        workoutFullResponseDto.getTimeStartOn().format(DATA_TIME_FORMAT),
-                        workoutFullResponseDto.getTypeWorkoutResponseDto().getTypeName(),
+                        workoutSavedDto.getTimeStartOn().format(DATA_TIME_FORMAT),
+                        workoutSavedDto.getTypeWorkoutResponseDto().getTypeName(),
                         minutesOfWorkout,
-                        workoutFullResponseDto.getTimeOfRest().toMinutes(),
-                        workoutFullResponseDto.getCurrentWeightUser(),
+                        workoutSavedDto.getTimeOfRest().toMinutes(),
+                        workoutSavedDto.getCurrentWeightUser(),
                         totalCalorie,
-                        workoutFullResponseDto.getTypeWorkoutResponseDto()
+                        workoutSavedDto.getTypeWorkoutResponseDto()
                                 .getDetailOfTypeWorkoutResponseDto()
                                 .getName(),
-                        workoutFullResponseDto.getDetailOfWorkout(),
-                        workoutFullResponseDto.getPersonalNote()
+                        workoutSavedDto.getDetailOfWorkout(),
+                        workoutSavedDto.getPersonalNote()
                 );
             } catch (IncorrectTimeException e) {
                 System.out.println(BAD_INPUT_TIME_EXCEPTION);

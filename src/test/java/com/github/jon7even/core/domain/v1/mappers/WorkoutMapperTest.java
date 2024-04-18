@@ -67,7 +67,7 @@ public class WorkoutMapperTest extends PreparationForTests {
     @Test
     @DisplayName("Маппинг из сущности в DTO для предоставления полной информации о тренировке")
     public void should_toDiaryResponseDtoFromEntity_ReturnDtoResponse() {
-        WorkoutFullResponseDto actualResultFirst = workoutMapper.toDiaryResponseDtoFromEntity(
+        WorkoutFullResponseDto actualResultFirst = workoutMapper.toWorkoutFullResponseDtoFromEntity(
                 workoutEntityFirst, typeWorkoutResponseDtoWalking
         );
         assertNotNull(actualResultFirst);
@@ -82,7 +82,7 @@ public class WorkoutMapperTest extends PreparationForTests {
         assertEquals(workoutEntityFirst.getPersonalNote(), actualResultFirst.getPersonalNote());
         assertEquals(workoutEntityFirst.getDetailOfWorkout(), actualResultFirst.getDetailOfWorkout());
 
-        WorkoutFullResponseDto actualResultSecond = workoutMapper.toDiaryResponseDtoFromEntity(
+        WorkoutFullResponseDto actualResultSecond = workoutMapper.toWorkoutFullResponseDtoFromEntity(
                 workoutEntitySecond, typeWorkoutResponseDtoStrength
         );
         assertNotNull(actualResultSecond);
@@ -97,7 +97,7 @@ public class WorkoutMapperTest extends PreparationForTests {
         assertEquals(workoutEntitySecond.getPersonalNote(), actualResultSecond.getPersonalNote());
         assertEquals(workoutEntitySecond.getDetailOfWorkout(), actualResultSecond.getDetailOfWorkout());
 
-        WorkoutFullResponseDto actualResultThird = workoutMapper.toDiaryResponseDtoFromEntity(
+        WorkoutFullResponseDto actualResultThird = workoutMapper.toWorkoutFullResponseDtoFromEntity(
                 workoutEntityThird, typeWorkoutResponseDtoYoga
         );
         assertNotNull(actualResultThird);

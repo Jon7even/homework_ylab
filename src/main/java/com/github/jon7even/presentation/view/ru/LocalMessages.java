@@ -198,6 +198,16 @@ public final class LocalMessages {
             """ + ANSI_RESET;
     public static final String TYPE_WORKOUT_VIEWING_LIST_BODY = GREEN_BOLD
             + "|--   %d   --|--    %s    --\n" + ANSI_RESET;
+    public static final String WORKOUT_VIEWING_LIST_HEADER = GREEN_BOLD
+            + """     
+            |---------------------------------------------------------------------------------------------------------|
+            |-----------------------------------Просмотр списка ваших тренировок--------------------------------------|
+            |---------------------------------------------------------------------------------------------------------|
+            |--ID--|--Тренировка началась--|--Тренировка закончилась--|--Отдыхали--|--Вес на тот момент--|--Заметка---|
+            |---------------------------------------------------------------------------------------------------------|
+            """ + ANSI_RESET;
+    public static final String WORKOUT_VIEWING_LIST_BODY = GREEN_BOLD
+            + "|--%d--|  --%s--  |  --%s--  |  --%d минут--  |   --%.01fкг--  |--%s--   \n";
     public static final String TYPE_WORKOUT_VIEWING_TYPE_HEADER = GREEN_BOLD
             + """     
             |--------------------------------------------------------------------------|
@@ -208,26 +218,36 @@ public final class LocalMessages {
             """ + ANSI_RESET;
     public static final String TYPE_WORKOUT_VIEWING_TYPE_BODY = GREEN_BOLD
             + "|--    %d   --|----- %d -----|--    %s    --\n" + ANSI_RESET;
+
+    public static final String WORKOUT_UPDATE_MENU = GREEN_BOLD
+            + "Вы попали в меню редактирования своей тренировки! " + ANSI_RESET;
+    public static final String WORKOUT_UPDATE_PREPARE = GREEN_BOLD
+            + "Вот такая была тренировка. Преступим к редактированию." + ANSI_RESET;
+    public static final String WORKOUT_GO_ID = GREEN_BOLD
+            + "Выше находится ваш список тренировок, выберите его ID для операции: " + ANSI_RESET;
+
     public static final String WORKOUT_ADD_NEW_MENU = GREEN_BOLD
             + "Вы попали в меню сохранения новой тренировки, так держать! " + ANSI_RESET;
-    public static final String WORKOUT_ADD_NEW_GO_ID_TYPE_WORKOUT = GREEN_BOLD
+    public static final String WORKOUT_GO_ID_TYPE_WORKOUT = GREEN_BOLD
             + "Давайте выберем ID типа тренировки из списка: " + ANSI_RESET;
-    public static final String WORKOUT_ADD_NEW_GO_TIME_START = GREEN_BOLD
+    public static final String WORKOUT_GO_TIME_START = GREEN_BOLD
             + "Введите пожалуйста дату и время тренировки в формате 01-01-2024 00:00" + ANSI_RESET;
-    public static final String WORKOUT_ADD_NEW_GO_TIME_END = GREEN_BOLD
+    public static final String WORKOUT_GO_TIME_END = GREEN_BOLD
             + "Введите пожалуйста количество минут, в течении которых длилась тренировка." + ANSI_RESET;
-    public static final String WORKOUT_ADD_NEW_GO_TIME_REST = GREEN_BOLD
+    public static final String WORKOUT_GO_TIME_REST = GREEN_BOLD
             + "Наверняка во время тренировки вы отдыхали, укажите количество минут отдыха: " + ANSI_RESET;
-    public static final String WORKOUT_ADD_NEW_GO_WEIGHT = GREEN_BOLD
-            + "Напишите свой текущий вес в формате в формате [00.000]кг. "
+    public static final String WORKOUT_GO_WEIGHT = GREEN_BOLD
+            + "Напишите свой текущий вес в формате в формате [00.0]кг. "
             + "Это обязательно, ведь вы пришли за результатом. А мы поможем отследить ваш прогресс." + ANSI_RESET;
-    public static final String WORKOUT_ADD_NEW_GO_NOTE = GREEN_BOLD
+    public static final String WORKOUT_GO_NOTE = GREEN_BOLD
             + "Почти закончили! Напишите свои дополнительные заметки на эту тренировку(например свое состояние)"
             + ANSI_RESET;
-    public static final String WORKOUT_ADD_NEW_GO_DETAIL = GREEN_BOLD
+    public static final String WORKOUT_GO_DETAIL = GREEN_BOLD
             + "Укажите пожалуйста дополнительный параметр: %s\n" + ANSI_RESET;
     public static final String WORKOUT_ADD_NEW_COMPLETE_CREATE = GREEN_BOLD
             + "Поздравляем! Ваша тренировка сохранена! Давайте посмотрим, что получилось:" + ANSI_RESET;
+    public static final String WORKOUT_UPDATE_COMPLETE_UPDATE = GREEN_BOLD
+            + "Мы обновили вашу тренировку, посмотрим, что получилось:" + ANSI_RESET;
     public static final String WORKOUT_FULL_VIEWING_FORM = GREEN_BOLD
             + "|------------------------------------------------------------------------------------------|\n"
             + "|-----------------------Ваша тренировка состоялась %s------------------------|\n"
