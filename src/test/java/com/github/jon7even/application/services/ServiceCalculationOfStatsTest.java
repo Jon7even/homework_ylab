@@ -20,9 +20,9 @@ public class ServiceCalculationOfStatsTest extends PreparationForTests {
     @BeforeEach
     public void setup() {
         serviceCalculationOfStats = ServiceCalculationOfStatsImpl.getInstance();
-        initLocalDateTime();
-        initTypeWorkoutResponseDto();
+        initTypeWorkoutDto();
         initWorkoutDto();
+        initLocalDateTime();
     }
 
     @Test
@@ -40,7 +40,7 @@ public class ServiceCalculationOfStatsTest extends PreparationForTests {
         Integer actualResult = serviceCalculationOfStats.getRealMinutesOfWorkoutFromWorkoutDto(
                 workoutFullResponseDtoFirst
         );
-        long timeOfWorkout = Duration.between(timeStartOne, timeEndOne).toMinutes();
+        long timeOfWorkout = Duration.between(timeStartFirst, timeEndFirst).toMinutes();
         int timeOfWorkoutMinusRestExpected
                 = (int) (timeOfWorkout - workoutFullResponseDtoFirst.getTimeOfRest().toMinutes());
         assertNotNull(actualResult);

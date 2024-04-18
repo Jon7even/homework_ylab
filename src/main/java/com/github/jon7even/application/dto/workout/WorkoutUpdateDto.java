@@ -23,8 +23,8 @@ public class WorkoutUpdateDto {
     private Long idDiary;
     private Long idTypeWorkout;
     private LocalDateTime timeStartOn;
-    private Duration durationOfWorkout;
-    private Duration durationOfRest;
+    private LocalDateTime timeEndOn;
+    private Duration timeOfRest;
     private Float currentWeightUser;
     private String personalNote;
     private String detailOfWorkout;

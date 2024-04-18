@@ -17,13 +17,13 @@ public class UserMapperTest extends PreparationForTests {
     @BeforeEach
     public void setUp() {
         userMapper = new UserMapperImpl();
-        initUsers();
+        initUsersEntity();
         initUsersDto();
     }
 
     @Test
     @DisplayName("Должен произойти правильный маппинг в сущность для создания новых данных в БД")
-    public void toEntityFromDtoCreate_ReturnEntity() {
+    public void toEntityFromDtoCreate_ReturnEntityNotId() {
         UserEntity actualResult = userMapper.toEntityFromDtoCreate(userCreateDtoFirst);
 
         assertNotNull(actualResult);
@@ -48,20 +48,20 @@ public class UserMapperTest extends PreparationForTests {
     @Test
     @DisplayName("Должен произойти правильный маппинг в модель для короткого вывода о пользователе")
     public void toShortDtoFromEntity_UserShortResponseDto() {
-        UserShortResponseDto actualResult = userMapper.toShortDtoFromEntity(userEntityFirstExpected);
+        UserShortResponseDto actualResult = userMapper.toShortDtoFromEntity(userEntityFirst);
 
         assertNotNull(actualResult);
-        assertEquals(userEntityFirstExpected.getLogin(), actualResult.getLogin());
+        assertEquals(userEntityFirst.getLogin(), actualResult.getLogin());
     }
 
     @Test
     @DisplayName("Должен произойти правильный маппинг в модель для пользователя в памяти")
     public void toInMemoryDtoFromEntity_UserInMemoryDto() {
-        UserInMemoryDto actualResult = userMapper.toInMemoryDtoFromEntity(userEntityFirstExpected);
+        UserInMemoryDto actualResult = userMapper.toInMemoryDtoFromEntity(userEntityFirst);
 
         assertNotNull(actualResult);
-        assertEquals(userEntityFirstExpected.getId(), actualResult.getId());
-        assertEquals(userEntityFirstExpected.getLogin(), actualResult.getLogin());
-        assertEquals(userEntityFirstExpected.getIdGroupPermissions(), actualResult.getIdGroupPermissions());
+        assertEquals(userEntityFirst.getId(), actualResult.getId());
+        assertEquals(userEntityFirst.getLogin(), actualResult.getLogin());
+        assertEquals(userEntityFirst.getIdGroupPermissions(), actualResult.getIdGroupPermissions());
     }
 }

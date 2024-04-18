@@ -21,8 +21,6 @@ import java.time.LocalDateTime;
 public class WorkoutShortResponseDto {
     private Long id;
     private LocalDateTime timeStartOn;
-    private String typeName;
-    private String detailOfWorkout;
     private LocalDateTime timeEndOn;
     private Duration timeOfRest;
     private Float currentWeightUser;

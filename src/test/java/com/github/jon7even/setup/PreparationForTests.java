@@ -1,24 +1,42 @@
 package com.github.jon7even.setup;
 
+import com.github.jon7even.application.dto.diary.DiaryCreateDto;
+import com.github.jon7even.application.dto.diary.DiaryUpdateDto;
+import com.github.jon7even.application.dto.history.HistoryUserCreateDto;
+import com.github.jon7even.application.dto.history.HistoryUserResponseByAdminDto;
+import com.github.jon7even.application.dto.history.HistoryUserResponseByUserDto;
 import com.github.jon7even.application.dto.typeworkout.DetailOfTypeWorkoutResponseDto;
+import com.github.jon7even.application.dto.typeworkout.TypeWorkoutCreateDto;
 import com.github.jon7even.application.dto.typeworkout.TypeWorkoutResponseDto;
+import com.github.jon7even.application.dto.typeworkout.TypeWorkoutUpdateDto;
 import com.github.jon7even.application.dto.user.UserCreateDto;
 import com.github.jon7even.application.dto.user.UserShortResponseDto;
 import com.github.jon7even.application.dto.user.UserUpdateDto;
+import com.github.jon7even.application.dto.workout.WorkoutCreateDto;
 import com.github.jon7even.application.dto.workout.WorkoutFullResponseDto;
+import com.github.jon7even.core.domain.v1.entities.history.HistoryUserEntity;
 import com.github.jon7even.core.domain.v1.entities.permissions.GroupPermissionsEntity;
 import com.github.jon7even.core.domain.v1.entities.permissions.NameType;
 import com.github.jon7even.core.domain.v1.entities.permissions.TypeServiceEntity;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.entities.workout.DetailOfTypeWorkoutEntity;
+import com.github.jon7even.core.domain.v1.entities.workout.DiaryEntity;
 import com.github.jon7even.core.domain.v1.entities.workout.TypeWorkoutEntity;
+import com.github.jon7even.core.domain.v1.entities.workout.WorkoutEntity;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class PreparationForTests {
+    protected Integer idTypeServiceHistory = 1;
+    protected Integer idTypeServiceDiary = 2;
+    protected Integer idTypeServiceWorkout = 3;
+    protected Integer idTypeServiceTypeWorkout = 4;
+    protected Integer idTypeServiceUser = 5;
     protected Long firstIdLong = 1L;
     protected Long secondIdLong = 2L;
     protected Long thirdIdLong = 3L;
@@ -26,9 +44,9 @@ public class PreparationForTests {
     protected Integer secondIdInteger = 2;
     protected Integer thirdIdInteger = 3;
     protected Integer fourthIdInteger = 4;
-    protected UserEntity userEntityFirstExpected;
+    protected UserEntity userEntityFirst;
     protected UserEntity userEntityFirstForCreate;
-    protected UserEntity userEntitySecondExpected;
+    protected UserEntity userEntitySecond;
     protected UserEntity userEntitySecondForCreate;
     protected UserEntity userAdmin;
     protected String userLoginFirst = "UserFirst";
@@ -57,6 +75,16 @@ public class PreparationForTests {
     protected TypeWorkoutEntity typeWorkoutEntityTennis;
     protected TypeWorkoutEntity typeWorkoutEntitySkiing;
 
+    protected TypeWorkoutCreateDto typeWorkoutCreateDtoWalking;
+    protected TypeWorkoutCreateDto typeWorkoutCreateDtoRunning;
+    protected TypeWorkoutCreateDto typeWorkoutCreateDtoStrength;
+    protected TypeWorkoutCreateDto typeWorkoutCreateDtoTreadmill;
+    protected TypeWorkoutCreateDto typeWorkoutCreateDtoBicycling;
+    protected TypeWorkoutCreateDto typeWorkoutCreateDtoYoga;
+    protected TypeWorkoutCreateDto typeWorkoutCreateDtoSwimming;
+    protected TypeWorkoutCreateDto typeWorkoutCreateDtoTennis;
+    protected TypeWorkoutCreateDto typeWorkoutCreateDtoSkiing;
+
     protected DetailOfTypeWorkoutResponseDto detailOfTypeWorkoutResponseDtoTraveled;
     protected DetailOfTypeWorkoutResponseDto detailOfTypeWorkoutResponseDtoExercises;
     protected DetailOfTypeWorkoutResponseDto detailOfTypeWorkoutResponseDtoNotDetails;
@@ -70,7 +98,25 @@ public class PreparationForTests {
     protected TypeWorkoutResponseDto typeWorkoutResponseDtoTennis;
     protected TypeWorkoutResponseDto typeWorkoutResponseDtoSkiing;
 
-    protected void initTypeWorkoutResponseDto() {
+    protected TypeWorkoutUpdateDto typeWorkoutUpdateFirst;
+    protected TypeWorkoutUpdateDto typeWorkoutUpdateSecond;
+    protected TypeWorkoutUpdateDto typeWorkoutUpdateThird;
+
+    protected void initTypeWorkoutDto() {
+        initTypeWorkoutEntity();
+        typeWorkoutUpdateFirst = TypeWorkoutUpdateDto.builder()
+                .typeName("Full update")
+                .caloriePerHour(240)
+                .build();
+
+        typeWorkoutUpdateSecond = TypeWorkoutUpdateDto.builder()
+                .typeName("Only name")
+                .build();
+
+        typeWorkoutUpdateThird = TypeWorkoutUpdateDto.builder()
+                .caloriePerHour(270)
+                .build();
+
         detailOfTypeWorkoutResponseDtoTraveled = DetailOfTypeWorkoutResponseDto.builder()
                 .id(1)
                 .name("Пройденное расстояние (м)")
@@ -90,55 +136,127 @@ public class PreparationForTests {
                 .build();
 
         typeWorkoutResponseDtoWalking = TypeWorkoutResponseDto.builder()
+                .typeWorkoutId(1L)
                 .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoTraveled)
                 .typeName("Простая ходьба")
                 .caloriePerHour(200)
                 .build();
 
         typeWorkoutResponseDtoRunning = TypeWorkoutResponseDto.builder()
+                .typeWorkoutId(2L)
                 .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoTraveled)
                 .typeName("Бег на улице")
                 .caloriePerHour(500)
                 .build();
 
         typeWorkoutResponseDtoStrength = TypeWorkoutResponseDto.builder()
+                .typeWorkoutId(3L)
                 .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoExercises)
                 .typeName("Силовая тренировка")
                 .caloriePerHour(520)
                 .build();
 
         typeWorkoutResponseDtoTreadmill = TypeWorkoutResponseDto.builder()
+                .typeWorkoutId(4L)
                 .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoTraveled)
                 .typeName("Бег на беговой дорожке")
                 .caloriePerHour(400)
                 .build();
 
         typeWorkoutResponseDtoBicycling = TypeWorkoutResponseDto.builder()
+                .typeWorkoutId(5L)
                 .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoTraveled)
                 .typeName("Велоспорт")
                 .caloriePerHour(450)
                 .build();
 
         typeWorkoutResponseDtoYoga = TypeWorkoutResponseDto.builder()
+                .typeWorkoutId(6L)
                 .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoNotDetails)
                 .typeName("Занятия йогой")
                 .caloriePerHour(225)
                 .build();
 
         typeWorkoutResponseDtoSwimming = TypeWorkoutResponseDto.builder()
+                .typeWorkoutId(7L)
                 .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoTraveled)
                 .typeName("Плавать в бассейне")
                 .caloriePerHour(230)
                 .build();
 
         typeWorkoutResponseDtoTennis = TypeWorkoutResponseDto.builder()
+                .typeWorkoutId(8L)
                 .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoNotDetails)
                 .typeName("Игра в теннис")
                 .caloriePerHour(400)
                 .build();
 
         typeWorkoutResponseDtoSkiing = TypeWorkoutResponseDto.builder()
+                .typeWorkoutId(9L)
                 .detailOfTypeWorkoutResponseDto(detailOfTypeWorkoutResponseDtoTraveled)
+                .typeName("Ходьба на лыжах")
+                .caloriePerHour(485)
+                .build();
+
+        typeWorkoutCreateDtoWalking = TypeWorkoutCreateDto.builder()
+                .requesterId(firstIdLong)
+                .typeName("Простая ходьба")
+                .caloriePerHour(200)
+                .detailOfTypeId(detailOfTypeWorkoutEntityTraveled.getId())
+                .build();
+
+        typeWorkoutCreateDtoRunning = TypeWorkoutCreateDto.builder()
+                .requesterId(firstIdLong)
+                .detailOfTypeId(detailOfTypeWorkoutEntityTraveled.getId())
+                .typeName("Бег на улице")
+                .caloriePerHour(500)
+                .build();
+
+        typeWorkoutCreateDtoStrength = TypeWorkoutCreateDto.builder()
+                .requesterId(firstIdLong)
+                .detailOfTypeId(detailOfTypeWorkoutEntityExercises.getId())
+                .typeName("Силовая тренировка")
+                .caloriePerHour(520)
+                .build();
+
+        typeWorkoutCreateDtoTreadmill = TypeWorkoutCreateDto.builder()
+                .requesterId(firstIdLong)
+                .detailOfTypeId(detailOfTypeWorkoutEntityTraveled.getId())
+                .typeName("Бег на беговой дорожке")
+                .caloriePerHour(400)
+                .build();
+
+        typeWorkoutCreateDtoBicycling = TypeWorkoutCreateDto.builder()
+                .requesterId(firstIdLong)
+                .detailOfTypeId(detailOfTypeWorkoutEntityTraveled.getId())
+                .typeName("Велоспорт")
+                .caloriePerHour(450)
+                .build();
+
+        typeWorkoutCreateDtoYoga = TypeWorkoutCreateDto.builder()
+                .requesterId(firstIdLong)
+                .detailOfTypeId(detailOfTypeWorkoutEntityNotDetails.getId())
+                .typeName("Занятия йогой")
+                .caloriePerHour(225)
+                .build();
+
+        typeWorkoutCreateDtoSwimming = TypeWorkoutCreateDto.builder()
+                .requesterId(firstIdLong)
+                .detailOfTypeId(detailOfTypeWorkoutEntityTraveled.getId())
+                .typeName("Плавать в бассейне")
+                .caloriePerHour(230)
+                .build();
+
+        typeWorkoutCreateDtoTennis = TypeWorkoutCreateDto.builder()
+                .requesterId(firstIdLong)
+                .detailOfTypeId(detailOfTypeWorkoutEntityNotDetails.getId())
+                .typeName("Игра в теннис")
+                .caloriePerHour(400)
+                .build();
+
+        typeWorkoutCreateDtoSkiing = TypeWorkoutCreateDto.builder()
+                .requesterId(firstIdLong)
+                .detailOfTypeId(detailOfTypeWorkoutEntityTraveled.getId())
                 .typeName("Ходьба на лыжах")
                 .caloriePerHour(485)
                 .build();
@@ -168,7 +286,7 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
                 .typeName("Простая ходьба")
                 .caloriePerHour(200)
-                .idTypeService(4)
+                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
 
         typeWorkoutEntityRunning = TypeWorkoutEntity.builder()
@@ -176,7 +294,7 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
                 .typeName("Бег на улице")
                 .caloriePerHour(500)
-                .idTypeService(4)
+                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
 
         typeWorkoutEntityStrength = TypeWorkoutEntity.builder()
@@ -184,7 +302,7 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityExercises)
                 .typeName("Силовая тренировка")
                 .caloriePerHour(520)
-                .idTypeService(4)
+                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
 
         typeWorkoutEntityTreadmill = TypeWorkoutEntity.builder()
@@ -192,7 +310,7 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
                 .typeName("Бег на беговой дорожке")
                 .caloriePerHour(400)
-                .idTypeService(4)
+                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
 
         typeWorkoutEntityBicycling = TypeWorkoutEntity.builder()
@@ -200,7 +318,7 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
                 .typeName("Велоспорт")
                 .caloriePerHour(450)
-                .idTypeService(4)
+                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
 
         typeWorkoutEntityYoga = TypeWorkoutEntity.builder()
@@ -208,7 +326,7 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityNotDetails)
                 .typeName("Занятия йогой")
                 .caloriePerHour(225)
-                .idTypeService(4)
+                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
 
         typeWorkoutEntitySwimming = TypeWorkoutEntity.builder()
@@ -216,7 +334,7 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
                 .typeName("Плавать в бассейне")
                 .caloriePerHour(230)
-                .idTypeService(4)
+                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
 
         typeWorkoutEntityTennis = TypeWorkoutEntity.builder()
@@ -224,7 +342,7 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityNotDetails)
                 .typeName("Игра в теннис")
                 .caloriePerHour(400)
-                .idTypeService(4)
+                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
 
         typeWorkoutEntitySkiing = TypeWorkoutEntity.builder()
@@ -232,23 +350,26 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
                 .typeName("Ходьба на лыжах")
                 .caloriePerHour(485)
-                .idTypeService(4)
+                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
     }
 
-    protected LocalDateTime timeStartOne;
+    protected LocalDateTime timeStartFirst;
     protected LocalDateTime timeStartSecond;
     protected LocalDateTime timeStartThird;
-    protected LocalDateTime timeEndOne;
+    protected LocalDateTime timeEndFirst;
     protected LocalDateTime timeEndSecond;
     protected LocalDateTime timeEndThird;
+    protected LocalDateTime timeUpdateFirst;
+    protected LocalDateTime timeUpdateSecond;
+    protected LocalDateTime timeUpdateThird;
     protected Duration periodOne;
     protected Duration periodSecond;
     protected Duration periodThird;
 
     protected void initLocalDateTime() {
-        timeStartOne = LocalDateTime.of(2024, 4, 14, 10, 0);
-        timeEndOne = LocalDateTime.of(2024, 4, 14, 11, 20);
+        timeStartFirst = LocalDateTime.of(2024, 4, 14, 10, 0);
+        timeEndFirst = LocalDateTime.of(2024, 4, 14, 11, 20);
         timeStartSecond = LocalDateTime.of(2024, 4, 15, 17, 17);
         timeEndSecond = LocalDateTime.of(2024, 4, 15, 17, 57);
         timeStartThird = LocalDateTime.of(2024, 4, 16, 17, 17);
@@ -256,56 +377,19 @@ public class PreparationForTests {
         periodOne = Duration.ofMinutes(20L);
         periodSecond = Duration.ofMinutes(37L);
         periodThird = Duration.ofMinutes(47L);
+        timeUpdateFirst = timeStartFirst.plusDays(1);
+        timeUpdateSecond = timeStartSecond.plusDays(1);
+        timeUpdateThird = timeStartThird.plusDays(1);
     }
 
-    protected WorkoutFullResponseDto workoutFullResponseDtoFirst;
-    protected WorkoutFullResponseDto workoutFullResponseDtoSecond;
-    protected WorkoutFullResponseDto workoutFullResponseDtoThird;
-
-    protected void initWorkoutDto() {
-        workoutFullResponseDtoFirst = WorkoutFullResponseDto.builder()
-                .id(firstIdLong)
-                .idDiary(firstIdLong)
-                .typeWorkoutResponseDto(typeWorkoutResponseDtoWalking)
-                .timeStartOn(timeStartOne)
-                .timeEndOn(timeEndOne)
-                .timeOfRest(periodOne)
-                .currentWeightUser(80.5F)
-                .personalNote("One")
-                .detailOfWorkout("One")
-                .build();
-        workoutFullResponseDtoSecond = WorkoutFullResponseDto.builder()
-                .id(secondIdLong)
-                .idDiary(secondIdLong)
-                .typeWorkoutResponseDto(typeWorkoutResponseDtoStrength)
-                .timeStartOn(timeStartSecond)
-                .timeEndOn(timeEndSecond)
-                .timeOfRest(periodSecond)
-                .currentWeightUser(79.9F)
-                .personalNote("Second")
-                .detailOfWorkout("Second")
-                .build();
-        workoutFullResponseDtoThird = WorkoutFullResponseDto.builder()
-                .id(thirdIdLong)
-                .idDiary(thirdIdLong)
-                .typeWorkoutResponseDto(typeWorkoutResponseDtoYoga)
-                .timeStartOn(timeStartThird)
-                .timeEndOn(timeEndThird)
-                .timeOfRest(periodThird)
-                .currentWeightUser(79.7F)
-                .personalNote("Third")
-                .detailOfWorkout("Без деталей")
-                .build();
-    }
-
-    protected void initUsers() {
-        userEntityFirstExpected = UserEntity.builder()
+    protected void initUsersEntity() {
+        userEntityFirst = UserEntity.builder()
                 .id(secondIdLong)
                 .login(userLoginFirst)
                 .password(userPasswordFirst)
                 .idGroupPermissions(firstIdInteger)
                 .build();
-        userEntitySecondExpected = UserEntity.builder()
+        userEntitySecond = UserEntity.builder()
                 .id(thirdIdLong)
                 .login(userLoginSecond)
                 .password(userPasswordSecond)
@@ -350,25 +434,18 @@ public class PreparationForTests {
     protected GroupPermissionsEntity groupPermissionsForExpectedSecond;
     protected Set<TypeServiceEntity> adminListPermissionsFirst;
     protected Set<TypeServiceEntity> userListPermissionsSecond;
+
     protected NameType nameTypeHistory;
     protected NameType nameTypeDiary;
     protected NameType nameTypeWorkout;
     protected NameType nameTypeWorkoutType;
-
     protected TypeServiceEntity historyAdmin;
-
     protected TypeServiceEntity diaryAdmin;
-
     protected TypeServiceEntity workoutAdmin;
-
     protected TypeServiceEntity workoutTypeAdmin;
-
     protected TypeServiceEntity historyUser;
-
     protected TypeServiceEntity diaryUser;
-
     protected TypeServiceEntity workoutUser;
-
     protected TypeServiceEntity workoutTypeUser;
 
     protected void initGroupPermissions() {
@@ -489,6 +566,343 @@ public class PreparationForTests {
                 .id(fourthIdInteger)
                 .name("Vip User")
                 .servicesList(userListPermissionsSecond)
+                .build();
+    }
+
+    protected HistoryUserCreateDto historyUserCreateDtoFirst;
+    protected HistoryUserCreateDto historyUserCreateDtoSecond;
+    protected HistoryUserCreateDto historyUserCreateDtoThird;
+    protected List<HistoryUserResponseByAdminDto> historyUserResponseByAdminDtoListFirst;
+    protected List<HistoryUserResponseByUserDto> historyUserResponseByUserDtoListFirst;
+
+    protected void initHistoryDto() {
+        initLocalDateTime();
+        historyUserCreateDtoFirst = HistoryUserCreateDto.builder()
+                .userId(firstIdLong)
+                .event("First event")
+                .build();
+        historyUserCreateDtoSecond = HistoryUserCreateDto.builder()
+                .userId(secondIdLong)
+                .event("Second event")
+                .build();
+        historyUserCreateDtoThird = HistoryUserCreateDto.builder()
+                .userId(thirdIdLong)
+                .event("Third event")
+                .build();
+
+        HistoryUserResponseByAdminDto firstAdmin = HistoryUserResponseByAdminDto.builder()
+                .id(firstIdLong)
+                .userId(firstIdLong)
+                .dateTimeOn(timeStartFirst)
+                .event("First event")
+                .build();
+        HistoryUserResponseByAdminDto secondAdmin = HistoryUserResponseByAdminDto.builder()
+                .id(firstIdLong)
+                .userId(firstIdLong)
+                .dateTimeOn(timeEndSecond)
+                .event("Second event")
+                .build();
+        HistoryUserResponseByAdminDto thirdAdmin = HistoryUserResponseByAdminDto.builder()
+                .id(firstIdLong)
+                .userId(firstIdLong)
+                .dateTimeOn(timeStartThird)
+                .event("Third event")
+                .build();
+
+        HistoryUserResponseByUserDto firstUser = HistoryUserResponseByUserDto.builder()
+                .dateTimeOn(timeStartFirst)
+                .event("First event")
+                .build();
+        HistoryUserResponseByUserDto secondUser = HistoryUserResponseByUserDto.builder()
+                .dateTimeOn(timeEndSecond)
+                .event("Second event")
+                .build();
+        HistoryUserResponseByUserDto thirdUser = HistoryUserResponseByUserDto.builder()
+                .dateTimeOn(timeStartThird)
+                .event("Third event")
+                .build();
+
+        historyUserResponseByAdminDtoListFirst = new ArrayList<>(List.of(firstAdmin, secondAdmin, thirdAdmin));
+        historyUserResponseByUserDtoListFirst = new ArrayList<>(List.of(firstUser, secondUser, thirdUser));
+    }
+
+    protected HistoryUserEntity historyUserEntityFirst;
+    protected HistoryUserEntity historyEntitySecond;
+    protected HistoryUserEntity historyEntityThird;
+
+    protected List<HistoryUserEntity> historyUserEntityListAdminFirst;
+    protected List<HistoryUserEntity> historyUserEntityListUserFirst;
+
+    protected void initHistoryEntity() {
+        initLocalDateTime();
+        historyUserEntityFirst = HistoryUserEntity.builder()
+                .id(firstIdLong)
+                .userId(firstIdLong)
+                .dateTimeOn(timeStartFirst)
+                .event("First event")
+                .idTypeService(idTypeServiceHistory)
+                .build();
+        historyEntitySecond = HistoryUserEntity.builder()
+                .id(secondIdLong)
+                .userId(secondIdLong)
+                .dateTimeOn(timeStartSecond)
+                .event("Second event")
+                .idTypeService(idTypeServiceHistory)
+                .build();
+        historyEntityThird = HistoryUserEntity.builder()
+                .id(thirdIdLong)
+                .userId(thirdIdLong)
+                .dateTimeOn(timeStartThird)
+                .event("Third event")
+                .idTypeService(idTypeServiceHistory)
+                .build();
+
+        HistoryUserEntity firstAdmin = HistoryUserEntity.builder()
+                .id(firstIdLong)
+                .userId(firstIdLong)
+                .dateTimeOn(timeStartFirst)
+                .idTypeService(idTypeServiceHistory)
+                .event("First event")
+                .build();
+        HistoryUserEntity secondAdmin = HistoryUserEntity.builder()
+                .id(firstIdLong)
+                .userId(firstIdLong)
+                .dateTimeOn(timeEndSecond)
+                .idTypeService(idTypeServiceHistory)
+                .event("Second event")
+                .build();
+        HistoryUserEntity thirdAdmin = HistoryUserEntity.builder()
+                .id(firstIdLong)
+                .userId(firstIdLong)
+                .dateTimeOn(timeStartThird)
+                .idTypeService(idTypeServiceHistory)
+                .event("Third event")
+                .build();
+
+        HistoryUserEntity firstUser = HistoryUserEntity.builder()
+                .id(secondIdLong)
+                .userId(secondIdLong)
+                .dateTimeOn(timeStartFirst)
+                .event("First event")
+                .idTypeService(idTypeServiceHistory)
+                .build();
+        HistoryUserEntity secondUser = HistoryUserEntity.builder()
+                .id(secondIdLong)
+                .userId(secondIdLong)
+                .dateTimeOn(timeEndSecond)
+                .event("Second event")
+                .idTypeService(idTypeServiceHistory)
+                .build();
+        HistoryUserEntity thirdUser = HistoryUserEntity.builder()
+                .id(secondIdLong)
+                .userId(secondIdLong)
+                .dateTimeOn(timeStartThird)
+                .event("Third event")
+                .idTypeService(idTypeServiceHistory)
+                .build();
+
+        historyUserEntityListAdminFirst = new ArrayList<>(List.of(firstAdmin, secondAdmin, thirdAdmin));
+        historyUserEntityListUserFirst = new ArrayList<>(List.of(firstUser, secondUser, thirdUser));
+    }
+
+    protected Float weightUserFirst = 75.5F;
+    protected Float weightUserSecond = 85.1F;
+    protected Float weightUserThird = 85.1F;
+    protected Float weightUserUpdateFirst = 76.2F;
+    protected Float weightUserUpdateSecond = 83.4F;
+
+    protected Float growthUserFirst = 165.1F;
+    protected Float growthUserSecond = 177.7F;
+    protected Float growthUserUpdateFirst = 165.3F;
+    protected Float growthUserUpdateSecond = 177.9F;
+
+    protected DiaryEntity diaryEntityFirst;
+    protected DiaryEntity diaryEntitySecond;
+
+    protected void initDiaryEntity() {
+        diaryEntityFirst = DiaryEntity.builder()
+                .id(firstIdLong)
+                .userId(firstIdLong)
+                .weightUser(weightUserFirst)
+                .growthUser(growthUserFirst)
+                .createdOn(timeStartFirst)
+                .updatedOn(timeEndFirst)
+                .idTypeService(idTypeServiceDiary)
+                .build();
+        diaryEntitySecond = DiaryEntity.builder()
+                .id(secondIdLong)
+                .userId(secondIdLong)
+                .weightUser(weightUserSecond)
+                .growthUser(growthUserSecond)
+                .createdOn(timeStartSecond)
+                .updatedOn(timeEndSecond)
+                .idTypeService(idTypeServiceDiary)
+                .build();
+    }
+
+    protected DiaryCreateDto diaryCreateDtoFirst;
+    protected DiaryCreateDto diaryCreateDtoSecond;
+    protected DiaryUpdateDto diaryUpdateDtoFirst;
+    protected DiaryUpdateDto diaryUpdateDtoSecond;
+    protected DiaryUpdateDto diaryUpdateDtoThird;
+    protected DiaryUpdateDto diaryUpdateDtoFourth;
+
+    protected void initDiaryDto() {
+        diaryUpdateDtoFirst = DiaryUpdateDto.builder()
+                .userId(firstIdLong)
+                .weightUser(weightUserUpdateFirst)
+                .growthUser(growthUserUpdateFirst)
+                .updatedOn(timeUpdateFirst)
+                .build();
+        diaryUpdateDtoSecond = DiaryUpdateDto.builder()
+                .userId(firstIdLong)
+                .updatedOn(timeUpdateSecond)
+                .build();
+        diaryUpdateDtoThird = DiaryUpdateDto.builder()
+                .userId(secondIdLong)
+                .weightUser(weightUserUpdateSecond)
+                .updatedOn(timeUpdateThird)
+                .build();
+        diaryUpdateDtoFourth = DiaryUpdateDto.builder()
+                .userId(secondIdLong)
+                .growthUser(growthUserUpdateSecond)
+                .build();
+
+        diaryCreateDtoFirst = DiaryCreateDto.builder()
+                .userId(firstIdLong)
+                .weightUser(weightUserFirst)
+                .growthUser(growthUserFirst)
+                .build();
+        diaryCreateDtoSecond = DiaryCreateDto.builder()
+                .userId(secondIdLong)
+                .weightUser(weightUserSecond)
+                .growthUser(growthUserSecond)
+                .build();
+    }
+
+    protected WorkoutFullResponseDto workoutFullResponseDtoFirst;
+    protected WorkoutFullResponseDto workoutFullResponseDtoSecond;
+    protected WorkoutFullResponseDto workoutFullResponseDtoThird;
+
+    protected WorkoutCreateDto workoutCreateDtoFirst;
+    protected WorkoutCreateDto workoutCreateDtoSecond;
+    protected WorkoutCreateDto workoutCreateDtoThird;
+
+    protected void initWorkoutDto() {
+        initWorkoutEntity();
+        initLocalDateTime();
+        initTypeWorkoutDto();
+        initTypeWorkoutEntity();
+
+
+        workoutFullResponseDtoFirst = WorkoutFullResponseDto.builder()
+                .id(workoutEntityFirst.getId())
+                .idDiary(workoutEntityFirst.getIdDiary())
+                .typeWorkoutResponseDto(typeWorkoutResponseDtoWalking)
+                .timeStartOn(workoutEntityFirst.getTimeStartOn())
+                .timeEndOn(workoutEntityFirst.getTimeEndOn())
+                .timeOfRest(workoutEntityFirst.getTimeOfRest())
+                .currentWeightUser(workoutEntityFirst.getCurrentWeightUser())
+                .personalNote(workoutEntityFirst.getPersonalNote())
+                .detailOfWorkout(workoutEntityFirst.getDetailOfWorkout())
+                .build();
+        workoutFullResponseDtoSecond = WorkoutFullResponseDto.builder()
+                .id(workoutEntitySecond.getId())
+                .idDiary(workoutEntitySecond.getIdDiary())
+                .typeWorkoutResponseDto(typeWorkoutResponseDtoStrength)
+                .timeStartOn(workoutEntitySecond.getTimeStartOn())
+                .timeEndOn(workoutEntitySecond.getTimeEndOn())
+                .timeOfRest(workoutEntitySecond.getTimeOfRest())
+                .currentWeightUser(workoutEntitySecond.getCurrentWeightUser())
+                .personalNote(workoutEntitySecond.getPersonalNote())
+                .detailOfWorkout(workoutEntitySecond.getDetailOfWorkout())
+                .build();
+        workoutFullResponseDtoThird = WorkoutFullResponseDto.builder()
+                .id(workoutEntityThird.getId())
+                .idDiary(workoutEntityThird.getIdDiary())
+                .typeWorkoutResponseDto(typeWorkoutResponseDtoYoga)
+                .timeStartOn(workoutEntityThird.getTimeStartOn())
+                .timeEndOn(workoutEntityThird.getTimeEndOn())
+                .timeOfRest(workoutEntityThird.getTimeOfRest())
+                .currentWeightUser(workoutEntityThird.getCurrentWeightUser())
+                .personalNote(workoutEntityThird.getPersonalNote())
+                .detailOfWorkout(workoutEntityThird.getDetailOfWorkout())
+                .build();
+
+        workoutCreateDtoFirst = WorkoutCreateDto.builder()
+                .idDiary(workoutEntityFirst.getId())
+                .idTypeWorkout(workoutEntityFirst.getIdTypeWorkout())
+                .timeStartOn(workoutEntityFirst.getTimeStartOn())
+                .timeEndOn(workoutEntityFirst.getTimeEndOn())
+                .timeOfRest(workoutEntityFirst.getTimeOfRest())
+                .currentWeightUser(workoutEntityFirst.getCurrentWeightUser())
+                .personalNote(workoutEntityFirst.getPersonalNote())
+                .detailOfWorkout(workoutEntityFirst.getDetailOfWorkout())
+                .build();
+        workoutCreateDtoSecond = WorkoutCreateDto.builder()
+                .idDiary(workoutEntitySecond.getId())
+                .idTypeWorkout(workoutEntitySecond.getIdTypeWorkout())
+                .timeStartOn(workoutEntitySecond.getTimeStartOn())
+                .timeEndOn(workoutEntitySecond.getTimeEndOn())
+                .timeOfRest(workoutEntitySecond.getTimeOfRest())
+                .currentWeightUser(workoutEntitySecond.getCurrentWeightUser())
+                .personalNote(workoutEntitySecond.getPersonalNote())
+                .detailOfWorkout(workoutEntitySecond.getDetailOfWorkout())
+                .build();
+        workoutCreateDtoThird = WorkoutCreateDto.builder()
+                .idDiary(workoutEntityThird.getId())
+                .idTypeWorkout(workoutEntityThird.getIdTypeWorkout())
+                .timeStartOn(workoutEntityThird.getTimeStartOn())
+                .timeEndOn(workoutEntityThird.getTimeEndOn())
+                .timeOfRest(workoutEntityThird.getTimeOfRest())
+                .currentWeightUser(workoutEntityThird.getCurrentWeightUser())
+                .personalNote(workoutEntityThird.getPersonalNote())
+                .detailOfWorkout(workoutEntityThird.getDetailOfWorkout())
+                .build();
+    }
+
+    protected WorkoutEntity workoutEntityFirst;
+    protected WorkoutEntity workoutEntitySecond;
+    protected WorkoutEntity workoutEntityThird;
+
+    protected void initWorkoutEntity() {
+        initTypeWorkoutEntity();
+        initLocalDateTime();
+        workoutEntityFirst = WorkoutEntity.builder()
+                .id(firstIdLong)
+                .idDiary(firstIdLong)
+                .idTypeWorkout(typeWorkoutEntityWalking.getId())
+                .timeStartOn(timeStartFirst)
+                .timeEndOn(timeEndFirst)
+                .timeOfRest(periodOne)
+                .currentWeightUser(weightUserFirst)
+                .personalNote("One Workout")
+                .detailOfWorkout("My One Workout")
+                .idTypeService(idTypeServiceWorkout)
+                .build();
+        workoutEntitySecond = WorkoutEntity.builder()
+                .id(secondIdLong)
+                .idDiary(secondIdLong)
+                .idTypeWorkout(typeWorkoutEntityStrength.getId())
+                .timeStartOn(timeStartSecond)
+                .timeEndOn(timeEndSecond)
+                .timeOfRest(periodSecond)
+                .currentWeightUser(weightUserSecond)
+                .personalNote("Second Workout")
+                .detailOfWorkout("My Second Workout")
+                .idTypeService(idTypeServiceWorkout)
+                .build();
+        workoutEntityThird = WorkoutEntity.builder()
+                .id(thirdIdLong)
+                .idDiary(thirdIdLong)
+                .idTypeWorkout(typeWorkoutEntityYoga.getId())
+                .timeStartOn(timeStartThird)
+                .timeEndOn(timeEndThird)
+                .timeOfRest(periodThird)
+                .currentWeightUser(weightUserThird)
+                .personalNote("Third Workout")
+                .detailOfWorkout("Без деталей")
+                .idTypeService(idTypeServiceWorkout)
                 .build();
     }
 }

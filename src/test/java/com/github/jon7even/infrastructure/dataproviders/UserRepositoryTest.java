@@ -1,6 +1,5 @@
 package com.github.jon7even.infrastructure.dataproviders;
 
-import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.BadLoginException;
 import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
@@ -30,7 +29,7 @@ public class UserRepositoryTest extends PreparationForTests {
 
     @BeforeEach
     public void setUp() {
-        initUsers();
+        initUsersEntity();
         actualResultUserFirst = userRepository.createUser(userEntityFirstForCreate);
         actualResultUserSecond = userRepository.createUser(userEntitySecondForCreate);
     }
@@ -38,8 +37,8 @@ public class UserRepositoryTest extends PreparationForTests {
     @Test
     @DisplayName("Новый пользователь должен создаться c релевантными полями")
     public void shouldCreateNewUser() {
-        assertEquals(userEntityFirstExpected, actualResultUserFirst.get());
-        assertEquals(userEntitySecondExpected, actualResultUserSecond.get());
+        assertEquals(userEntityFirst, actualResultUserFirst.get());
+        assertEquals(userEntitySecond, actualResultUserSecond.get());
     }
 
     @Test
@@ -67,8 +66,8 @@ public class UserRepositoryTest extends PreparationForTests {
     @Test
     @DisplayName("Должен найти пользователя по логину")
     public void shouldFindUserByLogin_ReturnUser() {
-        assertEquals(userEntityFirstExpected, userRepository.findByUserLogin(userLoginFirst).get());
-        assertEquals(userEntitySecondExpected, userRepository.findByUserLogin(userLoginSecond).get());
+        assertEquals(userEntityFirst, userRepository.findByUserLogin(userLoginFirst).get());
+        assertEquals(userEntitySecond, userRepository.findByUserLogin(userLoginSecond).get());
     }
 
     @Test
