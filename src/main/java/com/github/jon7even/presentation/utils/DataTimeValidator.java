@@ -18,7 +18,6 @@ import static com.github.jon7even.presentation.utils.DateTimeFormat.DATA_TIME_FO
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DataTimeValidator {
-
     public static LocalDateTime getLocalDateTimeStartAndValidate(LocalDateTime currentTime, String targetTimeInput) {
         LocalDateTime targetTime;
         System.out.println("Начинаю валидацию времени Старта тренировки targetTimeInput=" + targetTimeInput);
@@ -62,8 +61,7 @@ public final class DataTimeValidator {
         Duration durationOfRest;
         try {
             durationOfRest = Duration.ofMinutes(durationInput);
-            int timeOfWorkout = Duration.between(startTime, endTime).toMinutesPart();
-            System.out.println(timeOfWorkout);
+            long timeOfWorkout = Duration.between(startTime, endTime).toMinutes();
             if (durationOfRest.isNegative() || durationInput > timeOfWorkout) {
                 System.out.println("Время отдыха больше, чем сама тренировка или число отрицательное");
                 throw new IncorrectTimeException("Duration of Rest");

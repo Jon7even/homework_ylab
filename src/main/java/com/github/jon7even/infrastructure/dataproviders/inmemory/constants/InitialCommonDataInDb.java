@@ -44,5 +44,4 @@ public final class InitialCommonDataInDb {
             .id(5)
             .name("User Service")
             .build();
-
 }

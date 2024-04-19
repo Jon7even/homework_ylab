@@ -218,7 +218,6 @@ public class UpdateWorkoutCommand extends ServiceCommand {
                                     + typeWorkoutId)
                             .build());
                     System.out.println(NOT_FOUND_ID_EXCEPTION);
-                    System.out.println();
                 }
 
             } else {
@@ -227,7 +226,6 @@ public class UpdateWorkoutCommand extends ServiceCommand {
                         .event("Попытка отредактировать несуществующую тренировку workoutId=" + workoutId)
                         .build());
                 System.out.println(NOT_FOUND_ID_EXCEPTION);
-                System.out.println();
             }
         } else {
             System.out.println(WORKOUT_IS_EMPTY_EXCEPTION);
