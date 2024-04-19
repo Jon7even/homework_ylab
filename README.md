@@ -12,7 +12,7 @@
 >
 > # Список ссылок на ТЗ
 > 1. [Link HW №1](https://github.com/Jon7even/homework_ylab/tree/main/docs/tasks/technical-task-1.md)
-> 2. [Link HW №1](https://github.com/Jon7even/homework_ylab/tree/main/docs/tasks/technical-task-2.md)
+> 2. [Link HW №2](https://github.com/Jon7even/homework_ylab/tree/main/docs/tasks/technical-task-2.md)
 >
 >
 >
@@ -41,7 +41,7 @@
 
 ## Архитектура приложения
 
-![Архитектура приложения на схеме](https://github.com/Jon7even/homework_ylab/tree/main/docs/images/architectureApp.jpg)
+![Архитектура приложения на схеме](/docs/images/architectureApp.jpg)
 
 ## Взаимодействие разрешений для групп
 
