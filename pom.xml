@@ -28,5 +28,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <liquibase.version>4.9.1</liquibase.version>
+        <posgres.version>42.5.4</posgres.version>
     </properties>
 </project>
