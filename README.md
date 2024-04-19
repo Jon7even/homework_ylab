@@ -41,7 +41,7 @@
 
 ## Архитектура приложения
 
-![Архитектура приложения на схеме](/docs/images/architectureApp.jpg)
+![Архитектура приложения на схеме](https://github.com/Jon7even/homework_ylab/tree/main/docs/images/architectureApp.jpg)
 
 ## Взаимодействие разрешений для групп
 
