@@ -1,13 +1,11 @@
-package com.github.jon7even.presentation.view.menu.workout;
+package com.github.jon7even.presentation.view.menu.admin;
 
 import com.github.jon7even.application.dto.history.HistoryUserCreateDto;
 import com.github.jon7even.application.dto.user.UserInMemoryDto;
 import com.github.jon7even.application.dto.workout.WorkoutFullResponseDto;
 import com.github.jon7even.application.dto.workout.WorkoutShortResponseDto;
-import com.github.jon7even.application.services.DiaryService;
 import com.github.jon7even.application.services.ServiceCalculationOfStats;
 import com.github.jon7even.application.services.WorkoutService;
-import com.github.jon7even.application.services.impl.DiaryServiceImpl;
 import com.github.jon7even.application.services.impl.ServiceCalculationOfStatsImpl;
 import com.github.jon7even.application.services.impl.WorkoutServiceImpl;
 import com.github.jon7even.presentation.view.menu.main.ExitFromAppCommand;
@@ -20,40 +18,40 @@ import java.util.Scanner;
 
 import static com.github.jon7even.presentation.utils.DateTimeFormat.DATA_TIME_FORMAT;
 import static com.github.jon7even.presentation.view.ru.LocalException.NOT_FOUND_ID_EXCEPTION;
-import static com.github.jon7even.presentation.view.ru.LocalException.WORKOUT_IS_EMPTY_EXCEPTION;
 import static com.github.jon7even.presentation.view.ru.LocalMessages.*;
 
-/**
- * Меню удаления существующей тренировки
- *
- * @author Jon7even
- * @version 1.0
- */
-public class DeleteWorkoutCommand extends ServiceCommand {
-    private final DiaryService diaryService;
+public class ViewWorkoutsAnyUserCommand extends ServiceCommand {
     private final WorkoutService workoutService;
     private final ServiceCalculationOfStats serviceCalculationOfStats;
 
-    public DeleteWorkoutCommand(UserInMemoryDto userService) {
-        setUserInMemory(userService);
+    public ViewWorkoutsAnyUserCommand(UserInMemoryDto userService) {
         workoutService = WorkoutServiceImpl.getInstance();
-        diaryService = DiaryServiceImpl.getInstance();
+        setUserInMemory(userService);
         serviceCalculationOfStats = ServiceCalculationOfStatsImpl.getInstance();
     }
 
     @Override
     public void handle() {
-        Long userId = getUserInMemory().getId();
-        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
-                .userId(userId)
-                .event("Просмотр меню удаления тренировки")
-                .build());
-        Long diaryId = diaryService.getIdDiaryByUserId(userId);
         Scanner scanner = getScanner();
+        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                .userId(getUserInMemory().getId())
+                .event("Просмотр меню поиска тренировок любого пользователя")
+                .build());
+        System.out.println(MENU_ADMINISTRATOR_WORKOUT_START);
+
+        Long userId = scanner.nextLong();
+        System.out.println(MENU_ADMINISTRATOR_VIEWING_HOLD);
+
+        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                .userId(getUserInMemory().getId())
+                .event("Просмотр тренировок пользователя с userId=" + userId)
+                .build());
+
         List<WorkoutShortResponseDto> listExistsWorkoutsByUser =
-                workoutService.findAllWorkoutByOwnerDiaryBySortByDeskDate(diaryId, userId);
-        System.out.println(WORKOUT_DELETE_MENU);
-        System.out.printf(WORKOUT_VIEWING_LIST_HEADER, "своих");
+                workoutService.findAllWorkoutByAdminDiaryBySortByDeskDate(userId, getUserInMemory().getId());
+        System.out.println(WORKOUT_FIND_MENU);
+        System.out.printf(WORKOUT_VIEWING_LIST_HEADER, "чужих");
+
 
         if (!listExistsWorkoutsByUser.isEmpty()) {
             for (int i = 0; i < listExistsWorkoutsByUser.size(); i++) {
@@ -69,13 +67,17 @@ public class DeleteWorkoutCommand extends ServiceCommand {
                 );
             }
 
-            System.out.println(WORKOUT_GO_ID);
+            System.out.printf(WORKOUT_ADMIN_GO_ID, userId);
             int localIdWorkout = scanner.nextInt() - 1;
             scanner.nextLine();
             long workoutId = listExistsWorkoutsByUser.get(localIdWorkout).getId();
 
             if (workoutService.isExistWorkoutByWorkoutId(workoutId)) {
                 WorkoutFullResponseDto workoutForDelete = workoutService.getWorkoutById(workoutId);
+                getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                        .userId(userId)
+                        .event("Просмотр тренировки workoutId=" + workoutId)
+                        .build());
 
                 int minutesOfWorkoutUpdate = serviceCalculationOfStats.getRealMinutesOfWorkoutFromWorkoutDto(
                         workoutForDelete
@@ -94,32 +96,25 @@ public class DeleteWorkoutCommand extends ServiceCommand {
                         workoutForDelete.getDetailOfWorkout(),
                         workoutForDelete.getPersonalNote()
                 );
-                System.out.println(WORKOUT_DELETE_PREPARE);
-                workoutService.deleteWorkoutByWorkoutIdAndOwnerId(workoutId, userId);
-                getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
-                        .userId(userId)
-                        .event("Успешное удаление тренировки workoutId=" + workoutId)
-                        .build());
-                System.out.println(WORKOUT_DELETE_COMPLETE);
             } else {
                 getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
                         .userId(userId)
-                        .event("Попытка удалить несуществующую тренировку workoutId=" + workoutId)
+                        .event("Попытка поиска несуществующей тренировки workoutId=" + workoutId)
                         .build());
                 System.out.println(NOT_FOUND_ID_EXCEPTION);
                 System.out.println();
             }
-        } else {
-            System.out.println(WORKOUT_IS_EMPTY_EXCEPTION);
-        }
 
-        System.out.println(WORKOUT_MAIN_MENU_WHAT_NEXT);
-        switch (scanner.nextInt()) {
-            case 1 -> setCommandNextMenu(new MainMenuWorkoutCommand(getUserInMemory()));
-            case 2 -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
-            case 3 -> setCommandNextMenu(new SignOutCommand(getUserInMemory()));
-            case 0 -> setCommandNextMenu(new ExitFromAppCommand());
-            default -> setCommandNextMenu(new DeleteWorkoutCommand(getUserInMemory()));
+
+            System.out.printf(MENU_ADMINISTRATOR_VIEWING, "тренировки");
+            switch (scanner.nextInt()) {
+                case 1 -> setCommandNextMenu(new MainAdminMenuCommand(getUserInMemory()));
+                case 2 -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
+                case 3 -> setCommandNextMenu(new SignOutCommand(getUserInMemory()));
+                case 0 -> setCommandNextMenu(new ExitFromAppCommand());
+                default -> setCommandNextMenu(new ViewWorkoutsAnyUserCommand(getUserInMemory()));
+            }
+
         }
     }
 }

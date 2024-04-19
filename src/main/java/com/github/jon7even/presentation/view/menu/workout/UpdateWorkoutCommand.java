@@ -64,9 +64,9 @@ public class UpdateWorkoutCommand extends ServiceCommand {
         Long diaryId = diaryService.getIdDiaryByUserId(userId);
 
         List<WorkoutShortResponseDto> listExistsWorkoutsByUser =
-                workoutService.findAllWorkoutByDiaryBySortByDeskDate(diaryId);
+                workoutService.findAllWorkoutByOwnerDiaryBySortByDeskDate(diaryId, userId);
         System.out.println(WORKOUT_UPDATE_MENU);
-        System.out.print(WORKOUT_VIEWING_LIST_HEADER);
+        System.out.printf(WORKOUT_VIEWING_LIST_HEADER, "своих");
 
         Scanner scanner = getScanner();
         if (!listExistsWorkoutsByUser.isEmpty()) {

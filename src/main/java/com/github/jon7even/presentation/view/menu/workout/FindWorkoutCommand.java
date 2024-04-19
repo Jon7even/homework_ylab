@@ -46,14 +46,14 @@ public class FindWorkoutCommand extends ServiceCommand {
         Long userId = getUserInMemory().getId();
         getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
                 .userId(userId)
-                .event("Просмотр тренировок")
+                .event("Просмотр меню поиска тренировок")
                 .build());
         Long diaryId = diaryService.getIdDiaryByUserId(userId);
         Scanner scanner = getScanner();
         List<WorkoutShortResponseDto> listExistsWorkoutsByUser =
-                workoutService.findAllWorkoutByDiaryBySortByDeskDate(diaryId);
+                workoutService.findAllWorkoutByOwnerDiaryBySortByDeskDate(diaryId, userId);
         System.out.println(WORKOUT_FIND_MENU);
-        System.out.print(WORKOUT_VIEWING_LIST_HEADER);
+        System.out.printf(WORKOUT_VIEWING_LIST_HEADER, "своих");
 
         if (!listExistsWorkoutsByUser.isEmpty()) {
             for (int i = 0; i < listExistsWorkoutsByUser.size(); i++) {
@@ -76,6 +76,10 @@ public class FindWorkoutCommand extends ServiceCommand {
 
             if (workoutService.isExistWorkoutByWorkoutId(workoutId)) {
                 WorkoutFullResponseDto workoutForDelete = workoutService.getWorkoutById(workoutId);
+                getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                        .userId(userId)
+                        .event("Просмотр тренировки workoutId=" + workoutId)
+                        .build());
 
                 int minutesOfWorkoutUpdate = serviceCalculationOfStats.getRealMinutesOfWorkoutFromWorkoutDto(
                         workoutForDelete

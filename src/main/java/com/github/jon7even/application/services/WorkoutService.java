@@ -34,7 +34,7 @@ public interface WorkoutService {
      * Метод, который удаляет тренировку по ID
      *
      * @param workoutId   существующий ID типа тренировки
-     * @param requesterId существующий ID пользователя, который является владельцем дневника тренировки
+     * @param requesterId существующий ID пользователя - владелец дневника тренировки
      */
     void deleteWorkoutByWorkoutIdAndOwnerId(Long workoutId, Long requesterId);
 
@@ -55,10 +55,20 @@ public interface WorkoutService {
     WorkoutFullResponseDto updateWorkout(WorkoutUpdateDto workoutUpdateDto);
 
     /**
-     * Метод, который получает список тренировок по ID дневника пользователя
+     * Метод, который получает список своих тренировок по ID дневника пользователя
      *
-     * @param idDiary существующий ID дневника
+     * @param idDiary     существующий ID дневника
+     * @param requesterId requesterId существующий ID пользователя - владелец дневника тренировки
      * @return сортированный по дате список DTO в коротком представлении WorkoutShortResponseDto
      */
-    List<WorkoutShortResponseDto> findAllWorkoutByDiaryBySortByDeskDate(Long idDiary);
+    List<WorkoutShortResponseDto> findAllWorkoutByOwnerDiaryBySortByDeskDate(Long idDiary, Long requesterId);
+
+    /**
+     * Метод, который получает список тренировок по ID пользователя
+     *
+     * @param userId      существующий ID пользователя
+     * @param requesterId requesterId существующий ID пользователя у которого есть доступ для этой операции
+     * @return сортированный по дате список DTO в коротком представлении WorkoutShortResponseDto
+     */
+    List<WorkoutShortResponseDto> findAllWorkoutByAdminDiaryBySortByDeskDate(Long userId, Long requesterId);
 }

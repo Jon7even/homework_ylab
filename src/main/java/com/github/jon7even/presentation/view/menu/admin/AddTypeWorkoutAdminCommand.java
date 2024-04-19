@@ -88,7 +88,8 @@ public class AddTypeWorkoutAdminCommand extends ServiceCommand {
                         .detailOfTypeId(detailOfTypeId)
                         .build();
 
-                TypeWorkoutResponseDto createdNewTypeWorkout = typeWorkoutService.createTypeWorkout(typeWorkoutForSaveInDB);
+                TypeWorkoutResponseDto createdNewTypeWorkout =
+                        typeWorkoutService.createTypeWorkout(typeWorkoutForSaveInDB);
                 getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
                         .userId(userId)
                         .event("Создание нового типа тренировки с Id=" + createdNewTypeWorkout.getTypeWorkoutId())

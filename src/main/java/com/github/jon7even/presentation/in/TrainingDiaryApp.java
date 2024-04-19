@@ -1,5 +1,6 @@
 package com.github.jon7even.presentation.in;
 
+import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.presentation.view.menu.main.ServiceCommand;
 import com.github.jon7even.presentation.view.menu.main.StartCommand;
 
@@ -22,7 +23,7 @@ public class TrainingDiaryApp {
         while (RUN_APP) {
             try {
                 serviceCommand.handle();
-            } catch (InputMismatchException | IndexOutOfBoundsException exception) {
+            } catch (InputMismatchException | IndexOutOfBoundsException | NotFoundException exception) {
                 System.out.println(INCORRECT_INPUT);
                 serviceCommand.setScanner(new Scanner(System.in));
                 serviceCommand.setCommandNextMenu(serviceCommand);

@@ -6,10 +6,12 @@ import com.github.jon7even.application.dto.workout.WorkoutFullResponseDto;
 import com.github.jon7even.application.dto.workout.WorkoutShortResponseDto;
 import com.github.jon7even.application.dto.workout.WorkoutUpdateDto;
 import com.github.jon7even.application.services.DiaryService;
+import com.github.jon7even.application.services.GroupPermissionsService;
 import com.github.jon7even.application.services.TypeWorkoutService;
 import com.github.jon7even.application.services.WorkoutService;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.dao.WorkoutDao;
+import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
 import com.github.jon7even.core.domain.v1.entities.workout.WorkoutEntity;
 import com.github.jon7even.core.domain.v1.exception.*;
 import com.github.jon7even.core.domain.v1.mappers.WorkoutMapper;
@@ -22,6 +24,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions.READ;
 import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitialCommonDataInDb.SERVICE_WORKOUT;
 
 /**
@@ -37,6 +40,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     private final WorkoutDao workoutRepository;
     private final DiaryService diaryService;
     private final WorkoutMapper workoutMapper;
+    private final GroupPermissionsService groupPermissionsService;
 
     public static WorkoutServiceImpl getInstance() {
         if (instance == null) {
@@ -51,6 +55,7 @@ public class WorkoutServiceImpl implements WorkoutService {
         diaryService = DiaryServiceImpl.getInstance();
         typeWorkoutService = TypeWorkoutServiceImpl.getInstance();
         workoutMapper = new WorkoutMapperImpl();
+        groupPermissionsService = GroupPermissionsServiceImpl.getInstance();
     }
 
     @Override
@@ -121,13 +126,28 @@ public class WorkoutServiceImpl implements WorkoutService {
     }
 
     @Override
-    public List<WorkoutShortResponseDto> findAllWorkoutByDiaryBySortByDeskDate(Long idDiary) {
-        List<WorkoutEntity> listFoundWorkouts = workoutRepository.findAllWorkoutByDiaryId(idDiary);
-        System.out.println("Получен список из тренировок в количестве=" + listFoundWorkouts.size());
-
+    public List<WorkoutShortResponseDto> findAllWorkoutByOwnerDiaryBySortByDeskDate(Long idDiary, Long requesterId) {
+        isExistUserOrThrowException(requesterId);
+        List<WorkoutEntity> listFoundWorkouts = getListWorkoutEntityNotSort(idDiary);
+        if (!listFoundWorkouts.isEmpty()) {
+            isOwnerWorkout(listFoundWorkouts.stream().findFirst()
+                            .orElseThrow(() -> new NotFoundException(String.format("Workouts [idDiary=%s]", idDiary))),
+                    requesterId);
+        }
         List<WorkoutEntity> sortedListWorkouts = sortListWorkoutsByDataDesk(listFoundWorkouts);
         System.out.println("Начинаю маппить и возвращать");
+        return workoutMapper.toListWorkoutShortResponseDtoFromEntity(sortedListWorkouts);
+    }
 
+    @Override
+    public List<WorkoutShortResponseDto> findAllWorkoutByAdminDiaryBySortByDeskDate(Long userId, Long requesterId) {
+        System.out.println("requesterId=" + requesterId
+                + "хочет получить список тренировок пользователя с userId=" + userId);
+        isExistUserOrThrowException(userId);
+        validationOfPermissions(requesterId, READ);
+        List<WorkoutEntity> listFoundWorkouts = getListWorkoutEntityNotSort(getDiaryByUserId(userId));
+        List<WorkoutEntity> sortedListWorkouts = sortListWorkoutsByDataDesk(listFoundWorkouts);
+        System.out.println("Начинаю маппить и возвращать");
         return workoutMapper.toListWorkoutShortResponseDtoFromEntity(sortedListWorkouts);
     }
 
@@ -168,5 +188,46 @@ public class WorkoutServiceImpl implements WorkoutService {
                 .collect(Collectors.toList());
         System.out.println("Список отсортирован: " + sortedList);
         return sortedList;
+    }
+
+    private Long getDiaryByUserId(Long userId) {
+        System.out.println("ищу дневник пользователя по userId=" + userId);
+        return diaryService.getIdDiaryByUserId(userId);
+    }
+
+    private void isExistUserOrThrowException(Long userId) {
+        if (!isExistUserById(userId)) {
+            throw new NotFoundException(String.format("User with [userId=%s]", userId));
+        }
+    }
+
+    private boolean isExistUserById(Long userId) {
+        System.out.println("Проверяю существование запрашиваемого пользователя");
+        return userRepository.findByUserId(userId).isPresent();
+    }
+
+    private void validationOfPermissions(Long requesterId, FlagPermissions flagPermissions) {
+        System.out.println("Пользователь с requesterId="
+                + requesterId + "запрашивает разрешение на операцию: " + flagPermissions);
+        if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId),
+                SERVICE_WORKOUT.getId(), flagPermissions)) {
+            System.out.println("Разрешение на эту операцию получено.");
+        } else {
+            System.out.println("У пользователя нет доступа на эту операцию");
+            throw new AccessDeniedException(String.format("For [requesterId=%d]", requesterId));
+        }
+    }
+
+    private Integer getGroupPermissionsId(Long requesterId) {
+        System.out.println("Проверяю существование запрашиваемого пользователя requesterId=" + requesterId);
+        return userRepository.findByUserId(requesterId)
+                .orElseThrow(() -> new NotFoundException(String.format("User with [requesterId=%s]", requesterId)))
+                .getIdGroupPermissions();
+    }
+
+    private List<WorkoutEntity> getListWorkoutEntityNotSort(Long idDiary) {
+        List<WorkoutEntity> listFoundWorkouts = workoutRepository.findAllWorkoutByDiaryId(idDiary);
+        System.out.println("Получен список из тренировок в количестве=" + listFoundWorkouts.size());
+        return listFoundWorkouts;
     }
 }

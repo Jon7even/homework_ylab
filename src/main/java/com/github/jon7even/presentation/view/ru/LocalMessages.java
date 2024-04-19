@@ -93,17 +93,18 @@ public final class LocalMessages {
     public static final String MAIN_MENU_ADMINISTRATOR = GREEN_BOLD
             + "Вы в главном меню администратора. Выберите пункт меню: \n"
             + "1.Просмотреть историю действий любого пользователя\n"
-            + "2.Добавить тип тренировки\n"
-            + "3.Изменить тип тренировки\n"
-            + "4.Вернуться на главное меню\n"
-            + "5.Выйти из аккаунта\n"
+            + "2.Просмотреть тренировки любого пользователя\n"
+            + "3.Добавить тип тренировки\n"
+            + "4.Изменить тип тренировки\n"
+            + "5.Вернуться на главное меню\n"
+            + "6.Выйти из аккаунта\n"
             + "0.Завершить работу с приложением\n" + ANSI_RESET;
     public static final String MENU_WHAT_NEXT_HOLD = GREEN_BOLD + "Что дальше? Выберите пункт меню: \n"
             + "1.Вернуться на главное меню\n"
             + "2.Выйти из аккаунта\n"
             + "0.Завершить работу с приложением\n" + ANSI_RESET;
-    public static final String MENU_ADMINISTRATOR_VIEWING_HISTORY =
-            GREEN_BOLD + "Вы просмотрели действия другого пользователя, "
+    public static final String MENU_ADMINISTRATOR_VIEWING =
+            GREEN_BOLD + "Вы просмотрели %s другого пользователя, "
                     + "что дальше? Выберите пункт меню: \n"
                     + "1.Назад в главное меню администратора\n"
                     + "2.Вернуться на главное меню\n"
@@ -111,8 +112,13 @@ public final class LocalMessages {
                     + "0.Завершить работу с приложением\n" + ANSI_RESET;
     public static final String MENU_ADMINISTRATOR_VIEWING_HISTORY_START =
             GREEN_BOLD + "Вы попали в меню просмотра истории действий "
-                    + "пользователя, пожалуйста введите ID пользователя, по которому нужно посмотреть события: " + ANSI_RESET;
-    public static final String MENU_ADMINISTRATOR_VIEWING_HISTORY_HOLD = GREEN_BOLD + "Идет поиск... " + ANSI_RESET;
+                    + "пользователя, пожалуйста введите ID пользователя, по которому нужно посмотреть события: "
+                    + ANSI_RESET;
+    public static final String MENU_ADMINISTRATOR_WORKOUT_START =
+            GREEN_BOLD + "Вы попали в меню просмотра тренировок "
+                    + "пользователя, пожалуйста введите ID пользователя, по которому нужно посмотреть события: "
+                    + ANSI_RESET;
+    public static final String MENU_ADMINISTRATOR_VIEWING_HOLD = GREEN_BOLD + "Идет поиск... " + ANSI_RESET;
     public static final String AUTH_LOGIN_MESSAGE = GREEN_BOLD + "Пожалуйста введите существующий логин" + ANSI_RESET;
     public static final String AUTH_PASSWORD_MESSAGE = GREEN_BOLD + "Пожалуйста введите пароль" + ANSI_RESET;
     public static final String AUTH_SUCCESS = GREEN_BOLD + "Добро пожаловать! Вы успешно авторизовались" + ANSI_RESET;
@@ -199,7 +205,7 @@ public final class LocalMessages {
     public static final String WORKOUT_VIEWING_LIST_HEADER = GREEN_BOLD
             + """     
             |---------------------------------------------------------------------------------------------------------|
-            |-----------------------------------Просмотр списка ваших тренировок--------------------------------------|
+            |-----------------------------------Просмотр списка %s тренировок-----------------------------------------|
             |---------------------------------------------------------------------------------------------------------|
             |--ID--|--Тренировка началась--|--Тренировка закончилась--|--Отдыхали--|--Вес на тот момент--|--Заметка---|
             |---------------------------------------------------------------------------------------------------------|
@@ -230,6 +236,8 @@ public final class LocalMessages {
             + "Тренировка была успешно удалена!" + ANSI_RESET;
     public static final String WORKOUT_GO_ID = GREEN_BOLD
             + "Выше находится ваш список тренировок, выберите его ID для операции: " + ANSI_RESET;
+    public static final String WORKOUT_ADMIN_GO_ID = GREEN_BOLD
+            + "Выше список тренировок пользователя с ID=%d, выберите ID для просмотра подробностей: " + ANSI_RESET;
     public static final String WORKOUT_ADD_NEW_MENU = GREEN_BOLD
             + "Вы попали в меню сохранения новой тренировки, так держать! " + ANSI_RESET;
     public static final String WORKOUT_GO_ID_TYPE_WORKOUT = GREEN_BOLD

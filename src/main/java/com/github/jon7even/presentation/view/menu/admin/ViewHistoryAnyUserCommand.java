@@ -41,7 +41,7 @@ public class ViewHistoryAnyUserCommand extends ServiceCommand {
         System.out.println(MENU_ADMINISTRATOR_VIEWING_HISTORY_START);
 
         Long userId = scanner.nextLong();
-        System.out.println(MENU_ADMINISTRATOR_VIEWING_HISTORY_HOLD);
+        System.out.println(MENU_ADMINISTRATOR_VIEWING_HOLD);
 
         getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
                 .userId(getUserInMemory().getId())
@@ -60,7 +60,7 @@ public class ViewHistoryAnyUserCommand extends ServiceCommand {
                 h.getEvent())
         );
 
-        System.out.println(MENU_ADMINISTRATOR_VIEWING_HISTORY);
+        System.out.printf(MENU_ADMINISTRATOR_VIEWING, "историю");
         switch (scanner.nextInt()) {
             case 1 -> setCommandNextMenu(new MainAdminMenuCommand(getUserInMemory()));
             case 2 -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
