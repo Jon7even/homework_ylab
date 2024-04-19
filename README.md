@@ -80,8 +80,8 @@
   (проект соберется и запустятся автоматические тесты)
 - Запустить можно двумя способами:
     - 1). В среде разработки IntelliJ IDEA
-    - 2). Запустить собранный jar из папки `target` командой `java -jar training-diary-1.0-SNAPSHOT.jar`
-    - или из общего каталога `java -jar target/training-diary-1.0-SNAPSHOT.jar`
+    - 2). Запустить собранный jar из папки `target` командой `java -jar main-service-1.0-SNAPSHOT.jar`
+    - или из общего каталога `java -jar target/main-service-1.0-SNAPSHOT.jar`
 - Для работы потребуется тестовый логин `admin` и тестовый пароль `admin`, который уже есть в системе.
 
 Работа приложения проверена на Windows 10 и Ubuntu 22.04.4.
