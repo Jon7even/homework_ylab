@@ -86,7 +86,7 @@ public final class LocalMessages {
                     + "1.Записать тренировку\n"
                     + "2.Изменить тренировку\n"
                     + "3.Удалить тренировку\n"
-                    + "4.Поиск тренировок\n"
+                    + "4.Мои тренировки\n"
                     + "5.Вернуться на главное меню\n"
                     + "6.Выйти из аккаунта\n"
                     + "0.Завершить работу с приложением\n" + ANSI_RESET;
@@ -220,6 +220,8 @@ public final class LocalMessages {
             + "Вы попали в меню редактирования своей тренировки! " + ANSI_RESET;
     public static final String WORKOUT_DELETE_MENU = GREEN_BOLD
             + "Вы попали в меню удаления своей тренировки! " + ANSI_RESET;
+    public static final String WORKOUT_FIND_MENU = GREEN_BOLD
+            + "Вы попали в меню просмотра дополнительной информации о тренировках! " + ANSI_RESET;
     public static final String WORKOUT_UPDATE_PREPARE = GREEN_BOLD
             + "Вот такая была тренировка. Преступим к редактированию." + ANSI_RESET;
     public static final String WORKOUT_DELETE_PREPARE = GREEN_BOLD

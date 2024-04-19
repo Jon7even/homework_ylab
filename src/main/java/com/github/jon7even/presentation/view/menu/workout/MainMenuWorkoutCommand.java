@@ -47,7 +47,7 @@ public class MainMenuWorkoutCommand extends ServiceCommand {
                 case 1 -> setCommandNextMenu(new CreateWorkoutCommand(getUserInMemory()));
                 case 2 -> setCommandNextMenu(new UpdateWorkoutCommand(getUserInMemory()));
                 case 3 -> setCommandNextMenu(new DeleteWorkoutCommand(getUserInMemory()));
-                // TODO
+                case 4 -> setCommandNextMenu(new FindWorkoutCommand(getUserInMemory()));
                 case 5 -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
                 case 6 -> setCommandNextMenu(new SignOutCommand(getUserInMemory()));
                 case 0 -> setCommandNextMenu(new ExitFromAppCommand());
