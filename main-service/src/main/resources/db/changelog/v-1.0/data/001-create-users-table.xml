@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="001-create-user-table" author="Jon7even" context="dev" dbms="postgresql">
+
+        <createSequence
+                schemaName="YOUR_SCHEMA"
+                sequenceName="YOUR_SEQUENCE"
+                dataType="bigint"
+                startValue="1"
+                incrementBy="1"
+                cycle="false"/>
+
+        <createTable tableName="user">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="YOUR_SEQUENCE">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="login" type="VARCHAR(64)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR)(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="idGroupPermissions" type="INT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>
