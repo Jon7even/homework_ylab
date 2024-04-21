@@ -1,0 +1,12 @@
+BD_SOURCE_URL: jdbc:postgresql://localhost:5432/td_main
+
+BD_DRIVER: org.postgresql.Driver
+
+BD_USER: server_user
+
+BD_PASSWORD: qwerty
+
+LIQUIBASE_SCHEMA: liquibase
+
+LIQUIBASE_CHANGE_LOG: db/changelog/db.changelog-master.xml
+

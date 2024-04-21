@@ -5,3 +5,4 @@ EXTERNAL_PORT=5432
 DB_NAME=td_main
 DB_USER=server_user
 DB_PASS=qwerty
+LIQUIBASE_SCHEMA=liquibase
