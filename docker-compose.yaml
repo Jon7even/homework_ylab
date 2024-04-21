@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+
+  td-main-db:
+    container_name: td-main-db
+    env_file:
+      - .env
+    image: "postgres:${POSTGRES_VERSION}"
+    volumes:
+      - type: volume
+        source: db-data
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: ./init.sql
+        target: /docker-entrypoint-initdb.d/init.sql
+        read_only: true
+    ports:
+      - "${EXTERNAL_PORT}:5432"
+    restart: on-failure
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+
+volumes:
+  db-data:
