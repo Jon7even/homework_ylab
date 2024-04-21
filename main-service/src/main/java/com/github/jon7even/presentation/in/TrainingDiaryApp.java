@@ -1,6 +1,5 @@
 package com.github.jon7even.presentation.in;
 
-import com.github.jon7even.configuration.ConfigLoader;
 import com.github.jon7even.presentation.view.menu.main.ServiceCommand;
 import com.github.jon7even.presentation.view.menu.main.StartCommand;
 
@@ -22,7 +21,6 @@ public class TrainingDiaryApp {
 
         while (RUN_APP) {
             try {
-                System.out.println(ConfigLoader.config);
                 serviceCommand.handle();
             } catch (InputMismatchException | IndexOutOfBoundsException exception) {
                 System.out.println(INCORRECT_INPUT);

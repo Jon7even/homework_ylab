@@ -1,16 +1,13 @@
 package com.github.jon7even.infrastructure.dataproviders.inmemory;
 
+import com.github.jon7even.configuration.database.ConfigLoader;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.BadLoginException;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitDbUser.ADMIN_FIRST_USER;
-import static com.github.jon7even.infrastructure.dataproviders.inmemory.constants.InitDbUser.BAN_LIST_ADD_LOGIN;
 
 
 /**
@@ -21,6 +18,7 @@ import static com.github.jon7even.infrastructure.dataproviders.inmemory.constant
  */
 public class UserRepository implements UserDao {
     private static UserRepository instance;
+    private static Set<String> BAN_LIST_ADD_LOGIN;
     private final Map<Long, UserEntity> mapOfUsers = new HashMap<>();
     private Long idGenerator = 0L;
 
@@ -32,6 +30,7 @@ public class UserRepository implements UserDao {
     }
 
     private UserRepository() {
+        BAN_LIST_ADD_LOGIN = ConfigLoader.CONFIG.getBAN_LIST_ADD_LOGIN();
         ++idGenerator;
         mapOfUsers.put(ADMIN_FIRST_USER.getId(), ADMIN_FIRST_USER);
     }

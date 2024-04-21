@@ -1,4 +1,4 @@
-package com.github.jon7even.configuration;
+package com.github.jon7even.configuration.database;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,7 @@ import static java.nio.file.Paths.get;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ConfigLoader {
-    public static final MainConfig config;
+    public static final MainConfig CONFIG;
     public static final String HOME = System.getProperty("user.dir") + "/src/main/resources/";
     public static final String PROPERTIES = "application.yaml";
 
@@ -30,7 +30,7 @@ public final class ConfigLoader {
             Properties properties = new Properties();
             properties.load(new FileInputStream(HOME + PROPERTIES));
 
-            config = MainConfig.builder()
+            CONFIG = MainConfig.builder()
                     .BD_USER(properties.getProperty("BD_USER"))
                     .BD_PASSWORD(properties.getProperty("BD_PASSWORD"))
                     .BD_DRIVER(properties.getProperty("BD_DRIVER"))
@@ -44,5 +44,4 @@ public final class ConfigLoader {
             throw new RuntimeException(e);
         }
     }
-
 }

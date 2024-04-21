@@ -16,8 +16,6 @@ public final class InitialCommonDataInDb {
     public static final String ADMIN_LOGIN = "admin";
     public static final String ADMIN_PASSWORD = "admin";
 
-    public static final String HOME = System.getProperty("user.dir") + "/src/main/resources/";
-
     public static final Integer DEFAULT_ID_GROUP_PERMISSIONS_ADMIN = 1;
     public static final Integer DEFAULT_ID_GROUP_PERMISSIONS_USER = 2;
     public static final String DEFAULT_NAME_GROUP_PERMISSIONS_ADMIN = "Admin";

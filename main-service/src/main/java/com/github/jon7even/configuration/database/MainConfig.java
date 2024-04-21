@@ -1,9 +1,8 @@
-package com.github.jon7even.configuration;
+package com.github.jon7even.configuration.database;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.Set;
 
@@ -16,7 +15,6 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-@ToString
 public final class MainConfig {
     private String BD_USER;
     private String BD_PASSWORD;
