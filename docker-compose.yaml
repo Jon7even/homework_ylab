@@ -11,8 +11,12 @@ services:
         source: db-data
         target: /var/lib/postgresql/data
       - type: bind
-        source: ./init.sql
-        target: /docker-entrypoint-initdb.d/init.sql
+        source: data/initLiquibase.sql
+        target: /docker-entrypoint-initdb.d/initLiquibase.sql
+        read_only: true
+      - type: bind
+        source: data/initMain.sql
+        target: /docker-entrypoint-initdb.d/initMain.sql
         read_only: true
     ports:
       - "${EXTERNAL_PORT}:5432"

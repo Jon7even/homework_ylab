@@ -15,12 +15,13 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-public final class MainConfig {
+public class MainConfig {
     private String BD_USER;
     private String BD_PASSWORD;
     private String BD_DRIVER;
     private String BD_SOURCE_URL;
     private String LIQUIBASE_SCHEMA;
+    private String MAIN_SCHEMA;
     private String LIQUIBASE_CHANGE_LOG;
     private Set<String> BAN_LIST_ADD_LOGIN;
 }

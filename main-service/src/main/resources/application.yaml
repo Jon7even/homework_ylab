@@ -8,5 +8,7 @@ BD_PASSWORD: qwerty
 
 LIQUIBASE_SCHEMA: liquibase
 
+MAIN_SCHEMA: main
+
 LIQUIBASE_CHANGE_LOG: db/changelog/db.changelog-master.xml
 

@@ -1,5 +1,7 @@
 package com.github.jon7even.presentation.in;
 
+import com.github.jon7even.infrastructure.dataproviders.core.LiquibaseManager;
+import com.github.jon7even.infrastructure.dataproviders.core.impl.LiquibaseManagerImpl;
 import com.github.jon7even.presentation.view.menu.main.ServiceCommand;
 import com.github.jon7even.presentation.view.menu.main.StartCommand;
 
@@ -18,6 +20,8 @@ import static com.github.jon7even.presentation.view.ru.LocalException.INCORRECT_
 public class TrainingDiaryApp {
     public static void main(String[] args) {
         ServiceCommand serviceCommand = new StartCommand();
+        LiquibaseManager liquibaseManager = LiquibaseManagerImpl.getInstance();
+        liquibaseManager.initMigrate();
 
         while (RUN_APP) {
             try {
