@@ -15,7 +15,7 @@ import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.mappers.HistoryUserMapper;
 import com.github.jon7even.core.domain.v1.mappers.HistoryUserMapperImpl;
 import com.github.jon7even.infrastructure.dataproviders.inmemory.HistoryUserRepository;
-import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
+import com.github.jon7even.infrastructure.dataproviders.jdbc.UserJdbcRepository;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -49,7 +49,7 @@ public class HistoryUserServiceImpl implements HistoryUserService {
 
     private HistoryUserServiceImpl() {
         historyUserRepository = HistoryUserRepository.getInstance();
-        userRepository = UserRepository.getInstance();
+        userRepository = UserJdbcRepository.getInstance();
         historyUserMapper = new HistoryUserMapperImpl();
         groupPermissionsService = GroupPermissionsServiceImpl.getInstance();
     }

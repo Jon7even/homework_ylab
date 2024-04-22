@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
-public class UserRepositoryTest extends PreparationForTests {
+public class UserJdbcRepositoryTest extends PreparationForTests {
     @InjectMocks
     private UserRepository userRepository;
 

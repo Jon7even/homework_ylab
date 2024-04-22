@@ -26,7 +26,7 @@
             <column name="password" type="VARCHAR(128)">
                 <constraints nullable="false"/>
             </column>
-            <column name="idGroupPermissions" type="INT" autoIncrement="true">
+            <column name="id_group" type="INT">
                 <constraints nullable="false"/>
             </column>
         </createTable>

@@ -15,7 +15,7 @@ import com.github.jon7even.core.domain.v1.exception.NotUpdatedException;
 import com.github.jon7even.core.domain.v1.mappers.TypeWorkoutMapper;
 import com.github.jon7even.core.domain.v1.mappers.TypeWorkoutMapperImpl;
 import com.github.jon7even.infrastructure.dataproviders.inmemory.TypeWorkoutRepository;
-import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
+import com.github.jon7even.infrastructure.dataproviders.jdbc.UserJdbcRepository;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class TypeWorkoutServiceImpl implements TypeWorkoutService {
         typeWorkoutRepository = TypeWorkoutRepository.getInstance();
         typeWorkoutMapper = new TypeWorkoutMapperImpl();
         groupPermissionsService = GroupPermissionsServiceImpl.getInstance();
-        userRepository = UserRepository.getInstance();
+        userRepository = UserJdbcRepository.getInstance();
     }
 
     @Override

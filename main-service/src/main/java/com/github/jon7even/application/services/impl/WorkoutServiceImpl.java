@@ -16,8 +16,8 @@ import com.github.jon7even.core.domain.v1.entities.workout.WorkoutEntity;
 import com.github.jon7even.core.domain.v1.exception.*;
 import com.github.jon7even.core.domain.v1.mappers.WorkoutMapper;
 import com.github.jon7even.core.domain.v1.mappers.WorkoutMapperImpl;
-import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
 import com.github.jon7even.infrastructure.dataproviders.inmemory.WorkoutRepository;
+import com.github.jon7even.infrastructure.dataproviders.jdbc.UserJdbcRepository;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -50,7 +50,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     }
 
     private WorkoutServiceImpl() {
-        userRepository = UserRepository.getInstance();
+        userRepository = UserJdbcRepository.getInstance();
         workoutRepository = WorkoutRepository.getInstance();
         diaryService = DiaryServiceImpl.getInstance();
         typeWorkoutService = TypeWorkoutServiceImpl.getInstance();

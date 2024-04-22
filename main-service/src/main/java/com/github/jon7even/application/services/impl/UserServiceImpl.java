@@ -11,7 +11,7 @@ import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.mappers.UserMapper;
 import com.github.jon7even.core.domain.v1.mappers.UserMapperImpl;
-import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
+import com.github.jon7even.infrastructure.dataproviders.jdbc.UserJdbcRepository;
 
 /**
  * Реализация сервиса взаимодействия с пользователями
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserServiceImpl() {
-        userRepository = UserRepository.getInstance();
+        userRepository = UserJdbcRepository.getInstance();
         userMapper = new UserMapperImpl();
     }
 

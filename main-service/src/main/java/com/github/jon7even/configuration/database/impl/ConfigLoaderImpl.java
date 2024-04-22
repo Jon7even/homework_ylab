@@ -21,7 +21,7 @@ import static java.nio.file.Paths.get;
 public final class ConfigLoaderImpl implements ConfigLoader {
     private static ConfigLoaderImpl instance;
     private final MainConfig config;
-    public static final String HOME = System.getProperty("user.dir") + "/main-service" + "/src/main/resources/";
+    public static final String HOME = System.getProperty("user.dir") + "/src/main/resources/";
     public static final String PROPERTIES = "application.yaml";
 
     public static ConfigLoaderImpl getInstance() {

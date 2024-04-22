@@ -6,7 +6,7 @@ import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.AccessDeniedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
-import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
+import com.github.jon7even.infrastructure.dataproviders.jdbc.UserJdbcRepository;
 
 /**
  * Реализация сервиса авторизации для пользователей
@@ -26,7 +26,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     }
 
     private AuthorizationServiceImpl() {
-        userRepository = UserRepository.getInstance();
+        userRepository = UserJdbcRepository.getInstance();
     }
 
     @Override
