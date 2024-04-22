@@ -89,12 +89,12 @@ public class UserRepository implements UserDao {
         return mapOfUsers.values().stream().toList();
     }
 
-    private Boolean containUserById(Long userId) {
+    private boolean containUserById(Long userId) {
         System.out.println("Проверяем есть ли пользователь с userId=" + userId);
         return mapOfUsers.containsKey(userId);
     }
 
-    private Boolean containsLoginInBanList(String userLogin) {
+    private boolean containsLoginInBanList(String userLogin) {
         return BAN_LIST_ADD_LOGIN.stream().anyMatch(userLogin::equalsIgnoreCase);
     }
 }
