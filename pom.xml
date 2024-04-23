@@ -11,10 +11,15 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>main-service</module>
+        <module>application</module>
+        <module>configuration</module>
+        <module>core</module>
+        <module>infrastructure</module>
+        <module>presentation</module>
     </modules>
 
     <properties>
+        <td.version>1.0-SNAPSHOT</td.version>
         <java.version>17</java.version>
         <junit.version>5.9.3</junit.version>
         <junit-platform-engine>1.9.3</junit-platform-engine>
@@ -34,4 +39,54 @@
         <log4j.version>2.23.1</log4j.version>
         <maven.shade.version>3.5.2</maven.shade.version>
     </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>${maven.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
 </project>
