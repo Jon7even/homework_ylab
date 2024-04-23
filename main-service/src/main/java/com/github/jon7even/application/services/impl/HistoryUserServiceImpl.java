@@ -5,6 +5,8 @@ import com.github.jon7even.application.dto.history.HistoryUserResponseByAdminDto
 import com.github.jon7even.application.dto.history.HistoryUserResponseByUserDto;
 import com.github.jon7even.application.services.GroupPermissionsService;
 import com.github.jon7even.application.services.HistoryUserService;
+import com.github.jon7even.configuration.database.ConfigLoader;
+import com.github.jon7even.configuration.database.impl.ConfigLoaderImpl;
 import com.github.jon7even.core.domain.v1.dao.HistoryUserDao;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.entities.history.HistoryUserEntity;
@@ -49,7 +51,8 @@ public class HistoryUserServiceImpl implements HistoryUserService {
 
     private HistoryUserServiceImpl() {
         historyUserRepository = HistoryUserRepository.getInstance();
-        userRepository = UserJdbcRepository.getInstance();
+        ConfigLoader configLoader = ConfigLoaderImpl.getInstance();
+        this.userRepository = new UserJdbcRepository(configLoader.getConfig());
         historyUserMapper = new HistoryUserMapperImpl();
         groupPermissionsService = GroupPermissionsServiceImpl.getInstance();
     }

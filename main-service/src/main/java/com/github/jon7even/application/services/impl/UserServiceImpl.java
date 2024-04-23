@@ -5,6 +5,8 @@ import com.github.jon7even.application.dto.user.UserInMemoryDto;
 import com.github.jon7even.application.dto.user.UserLoginAuthDto;
 import com.github.jon7even.application.dto.user.UserShortResponseDto;
 import com.github.jon7even.application.services.UserService;
+import com.github.jon7even.configuration.database.ConfigLoader;
+import com.github.jon7even.configuration.database.impl.ConfigLoaderImpl;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
@@ -32,7 +34,8 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserServiceImpl() {
-        userRepository = UserJdbcRepository.getInstance();
+        ConfigLoader configLoader = ConfigLoaderImpl.getInstance();
+        this.userRepository = new UserJdbcRepository(configLoader.getConfig());
         userMapper = new UserMapperImpl();
     }
 

@@ -23,7 +23,6 @@ import java.sql.SQLException;
  */
 public class LiquibaseManagerImpl implements LiquibaseManager {
     private static LiquibaseManagerImpl instance;
-    private final Connection connection;
     private final ConfigLoader configLoader;
 
     public static LiquibaseManagerImpl getInstance() {
@@ -34,12 +33,12 @@ public class LiquibaseManagerImpl implements LiquibaseManager {
     }
 
     private LiquibaseManagerImpl() {
-        connection = ConnectionManagerImpl.getInstance().getConnection();
         configLoader = ConfigLoaderImpl.getInstance();
     }
 
     @Override
     public void initMigrate() {
+        Connection connection = new ConnectionManagerImpl(configLoader.getConfig()).getConnection();
         try {
             Database database = DatabaseFactory.getInstance()
                     .findCorrectDatabaseImplementation(new JdbcConnection(connection));
@@ -51,13 +50,34 @@ public class LiquibaseManagerImpl implements LiquibaseManager {
             liquibase.update(new Contexts());
             connection.setAutoCommit(true);
             System.out.println("Миграции успешно выполнены");
-            connection.close();
-            System.out.println("Соединение с БД остановлено");
         } catch (LiquibaseException exception) {
             System.out.println("С загрузкой миграций Liquibase пошло что-то не так");
             throw new DataBaseException(exception.getMessage());
         } catch (SQLException exception) {
             System.out.println("С выполнением скриптов миграций пошло что-то не так");
+            throw new DataBaseException(exception.getMessage());
+        }
+    }
+
+    @Override
+    public void dropAll() {
+        Connection connection = new ConnectionManagerImpl(configLoader.getConfig()).getConnection();
+        try {
+            Database database = DatabaseFactory.getInstance()
+                    .findCorrectDatabaseImplementation(new JdbcConnection(connection));
+            database.setDefaultSchemaName(configLoader.getConfig().getMAIN_SCHEMA());
+            database.setLiquibaseSchemaName(configLoader.getConfig().getLIQUIBASE_SCHEMA());
+            Liquibase liquibase = new Liquibase(
+                    configLoader.getConfig().getLIQUIBASE_CHANGE_LOG(), new ClassLoaderResourceAccessor(), database
+            );
+            liquibase.dropAll();
+            connection.setAutoCommit(true);
+            System.out.println("Произошел Liquibase откат в БД");
+        } catch (LiquibaseException exception) {
+            System.out.println("С откатом миграций Liquibase пошло что-то не так");
+            throw new DataBaseException(exception.getMessage());
+        } catch (SQLException exception) {
+            System.out.println("С выполнением отката миграций пошло что-то не так");
             throw new DataBaseException(exception.getMessage());
         }
     }

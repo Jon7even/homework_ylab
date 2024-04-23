@@ -1,7 +1,6 @@
-package com.github.jon7even.infrastructure.dataproviders;
+package com.github.jon7even.infrastructure.dataproviders.inmemory;
 
 import com.github.jon7even.core.domain.v1.entities.permissions.GroupPermissionsEntity;
-import com.github.jon7even.infrastructure.dataproviders.inmemory.GroupPermissionsRepository;
 import com.github.jon7even.setup.PreparationForTests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

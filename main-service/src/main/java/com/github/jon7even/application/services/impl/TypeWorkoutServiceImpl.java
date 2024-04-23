@@ -3,6 +3,8 @@ package com.github.jon7even.application.services.impl;
 import com.github.jon7even.application.dto.typeworkout.*;
 import com.github.jon7even.application.services.GroupPermissionsService;
 import com.github.jon7even.application.services.TypeWorkoutService;
+import com.github.jon7even.configuration.database.ConfigLoader;
+import com.github.jon7even.configuration.database.impl.ConfigLoaderImpl;
 import com.github.jon7even.core.domain.v1.dao.TypeWorkoutDao;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
@@ -47,7 +49,8 @@ public class TypeWorkoutServiceImpl implements TypeWorkoutService {
         typeWorkoutRepository = TypeWorkoutRepository.getInstance();
         typeWorkoutMapper = new TypeWorkoutMapperImpl();
         groupPermissionsService = GroupPermissionsServiceImpl.getInstance();
-        userRepository = UserJdbcRepository.getInstance();
+        ConfigLoader configLoader = ConfigLoaderImpl.getInstance();
+        this.userRepository = new UserJdbcRepository(configLoader.getConfig());
     }
 
     @Override

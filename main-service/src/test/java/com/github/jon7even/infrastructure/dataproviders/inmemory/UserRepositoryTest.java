@@ -1,8 +1,7 @@
-package com.github.jon7even.infrastructure.dataproviders;
+package com.github.jon7even.infrastructure.dataproviders.inmemory;
 
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.BadLoginException;
-import com.github.jon7even.infrastructure.dataproviders.inmemory.UserRepository;
 import com.github.jon7even.setup.PreparationForTests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
-public class UserJdbcRepositoryTest extends PreparationForTests {
+public class UserRepositoryTest extends PreparationForTests {
     @InjectMocks
     private UserRepository userRepository;
 

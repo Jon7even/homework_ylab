@@ -1,7 +1,6 @@
 package com.github.jon7even.infrastructure.dataproviders.jdbc;
 
-import com.github.jon7even.configuration.database.ConfigLoader;
-import com.github.jon7even.configuration.database.impl.ConfigLoaderImpl;
+import com.github.jon7even.configuration.database.MainConfig;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.BadLoginException;
@@ -22,23 +21,15 @@ import java.util.*;
  * @version 1.0
  */
 public class UserJdbcRepository implements UserDao {
-    private static UserJdbcRepository instance;
     private static Set<String> BAN_LIST_ADD_LOGIN;
     private final ConnectionManager connectionManager;
-    private final ConfigLoader configLoader;
+    private final MainConfig config;
     private final UserRowMapper userEntityRowMapper;
 
-    public static UserJdbcRepository getInstance() {
-        if (instance == null) {
-            instance = new UserJdbcRepository();
-        }
-        return instance;
-    }
-
-    private UserJdbcRepository() {
-        configLoader = ConfigLoaderImpl.getInstance();
-        BAN_LIST_ADD_LOGIN = configLoader.getConfig().getBAN_LIST_ADD_LOGIN();
-        connectionManager = ConnectionManagerImpl.getInstance();
+    public UserJdbcRepository(MainConfig config) {
+        this.config = config;
+        BAN_LIST_ADD_LOGIN = config.getBAN_LIST_ADD_LOGIN();
+        connectionManager = new ConnectionManagerImpl(config);
         userEntityRowMapper = UserRowMapper.getInstance();
     }
 
@@ -51,7 +42,7 @@ public class UserJdbcRepository implements UserDao {
         }
         Connection connection = connectionManager.getConnection();
         String queryCreate = String.format("INSERT INTO %s.user (login, password, id_group)"
-                + "     VALUES (?,?,?) RETURNING ID", configLoader.getConfig().getMAIN_SCHEMA());
+                + "     VALUES (?,?,?) RETURNING ID", config.getMAIN_SCHEMA());
 
         try (PreparedStatement statement = connection.prepareStatement(queryCreate)) {
             statement.setString(1, userEntity.getLogin());
@@ -91,7 +82,7 @@ public class UserJdbcRepository implements UserDao {
         Connection connection = connectionManager.getConnection();
         String queryUpdate = String.format("UPDATE %s.user "
                 + "  SET login = ?, password = ?, id_group = ? "
-                + "WHERE id = ?", configLoader.getConfig().getMAIN_SCHEMA());
+                + "WHERE id = ?", config.getMAIN_SCHEMA());
 
         try (PreparedStatement statement = connection.prepareStatement(queryUpdate)) {
             statement.setString(1, userEntity.getLogin());
@@ -120,7 +111,7 @@ public class UserJdbcRepository implements UserDao {
         String sqlFindUser = String.format("SELECT * " +
                         "  FROM %s.user " +
                         " WHERE id = ?",
-                configLoader.getConfig().getMAIN_SCHEMA());
+                config.getMAIN_SCHEMA());
         try (PreparedStatement statement = connection.prepareStatement(sqlFindUser)) {
             statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
@@ -144,7 +135,7 @@ public class UserJdbcRepository implements UserDao {
         String sqlFindUser = String.format("SELECT * " +
                         "  FROM %s.user " +
                         " WHERE login = ?",
-                configLoader.getConfig().getMAIN_SCHEMA());
+                config.getMAIN_SCHEMA());
         try (PreparedStatement statement = connection.prepareStatement(sqlFindUser)) {
             statement.setString(1, userLogin);
             ResultSet resultSet = statement.executeQuery();
@@ -167,7 +158,7 @@ public class UserJdbcRepository implements UserDao {
         Connection connection = connectionManager.getConnection();
         String sqlFindUser = String.format("SELECT * " +
                         "  FROM %s.user ",
-                configLoader.getConfig().getMAIN_SCHEMA());
+                config.getMAIN_SCHEMA());
         try (PreparedStatement statement = connection.prepareStatement(sqlFindUser)) {
             ResultSet resultSet = statement.executeQuery();
             List<UserEntity> usersFromBD = new ArrayList<>();
@@ -184,7 +175,7 @@ public class UserJdbcRepository implements UserDao {
         }
     }
 
-    private Boolean containsLoginInBanList(String userLogin) {
+    private boolean containsLoginInBanList(String userLogin) {
         return BAN_LIST_ADD_LOGIN.stream().anyMatch(userLogin::equalsIgnoreCase);
     }
 }

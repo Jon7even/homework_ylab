@@ -15,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-public class MainConfig {
+public final class MainConfig {
     private String BD_USER;
     private String BD_PASSWORD;
     private String BD_DRIVER;

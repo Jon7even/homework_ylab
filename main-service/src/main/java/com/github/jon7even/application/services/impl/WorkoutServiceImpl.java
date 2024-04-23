@@ -9,6 +9,8 @@ import com.github.jon7even.application.services.DiaryService;
 import com.github.jon7even.application.services.GroupPermissionsService;
 import com.github.jon7even.application.services.TypeWorkoutService;
 import com.github.jon7even.application.services.WorkoutService;
+import com.github.jon7even.configuration.database.ConfigLoader;
+import com.github.jon7even.configuration.database.impl.ConfigLoaderImpl;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.dao.WorkoutDao;
 import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
@@ -50,7 +52,8 @@ public class WorkoutServiceImpl implements WorkoutService {
     }
 
     private WorkoutServiceImpl() {
-        userRepository = UserJdbcRepository.getInstance();
+        ConfigLoader configLoader = ConfigLoaderImpl.getInstance();
+        this.userRepository = new UserJdbcRepository(configLoader.getConfig());
         workoutRepository = WorkoutRepository.getInstance();
         diaryService = DiaryServiceImpl.getInstance();
         typeWorkoutService = TypeWorkoutServiceImpl.getInstance();

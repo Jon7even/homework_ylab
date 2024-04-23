@@ -30,5 +30,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <liquibase.version>4.9.1</liquibase.version>
         <posgres.version>42.5.4</posgres.version>
+        <testcontainers.version>1.19.7</testcontainers.version>
+        <log4j.version>2.23.1</log4j.version>
     </properties>
 </project>
