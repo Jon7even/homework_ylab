@@ -12,7 +12,6 @@
 
     <modules>
         <module>application</module>
-        <module>configuration</module>
         <module>core</module>
         <module>infrastructure</module>
         <module>presentation</module>
