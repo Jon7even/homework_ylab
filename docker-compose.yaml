@@ -1,6 +1,5 @@
 version: '3.8'
 services:
-
   td-main-db:
     container_name: td-main-db
     env_file:
@@ -8,14 +7,6 @@ services:
     image: "postgres:${POSTGRES_VERSION}"
     volumes:
       - /var/lib/postgresql/data/
-      - type: bind
-        source: data/initLiquibase.sql
-        target: /docker-entrypoint-initdb.d/initLiquibase.sql
-        read_only: true
-      - type: bind
-        source: data/initMain.sql
-        target: /docker-entrypoint-initdb.d/initMain.sql
-        read_only: true
     ports:
       - "${EXTERNAL_PORT}:5432"
     restart: on-failure

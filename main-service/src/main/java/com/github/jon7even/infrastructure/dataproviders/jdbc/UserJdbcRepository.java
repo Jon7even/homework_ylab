@@ -6,7 +6,8 @@ import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.BadLoginException;
 import com.github.jon7even.infrastructure.dataproviders.core.ConnectionManager;
 import com.github.jon7even.infrastructure.dataproviders.core.impl.ConnectionManagerImpl;
-import com.github.jon7even.infrastructure.dataproviders.core.impl.UserRowMapper;
+import com.github.jon7even.infrastructure.dataproviders.core.impl.mapper.UserRowMapper;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,6 +21,7 @@ import java.util.*;
  * @author Jon7even
  * @version 1.0
  */
+@Slf4j
 public class UserJdbcRepository implements UserDao {
     private static Set<String> BAN_LIST_ADD_LOGIN;
     private final ConnectionManager connectionManager;
@@ -35,9 +37,9 @@ public class UserJdbcRepository implements UserDao {
 
     @Override
     public Optional<UserEntity> createUser(UserEntity userEntity) {
-        System.out.println("Пришел запрос на добавление нового пользователя" + userEntity);
+        log.debug("Пришел запрос на добавление нового пользователя" + userEntity);
         if (containsLoginInBanList(userEntity.getLogin())) {
-            System.out.println("Запрещено регистрировать пользователя с таким логином");
+            log.warn("Запрещено регистрировать пользователя с таким логином");
             throw new BadLoginException("New User");
         }
         Connection connection = connectionManager.getConnection();
@@ -54,28 +56,28 @@ public class UserJdbcRepository implements UserDao {
             if (resultSet.next()) {
                 long idKeyHolder = resultSet.getLong(1);
                 userEntity.setId(idKeyHolder);
-                System.out.println("Пользователю присвоен новый ID=" + idKeyHolder);
+                log.debug("Пользователю присвоен новый ID=" + idKeyHolder);
             } else {
-                System.out.println("ID пользователю не присвоен!");
+                log.error("ID пользователю не присвоен!");
             }
 
-            System.out.println("В БД добавлен новый пользователь " + userEntity);
+            log.debug("В БД добавлен новый пользователь " + userEntity);
             return Optional.of(userEntity);
         } catch (SQLException e) {
-            System.out.println("БД не сохранила пользователя " + e.getMessage());
+            log.error("БД не сохранила пользователя " + e.getMessage());
             return Optional.empty();
         }
     }
 
     @Override
     public Optional<UserEntity> updateUser(UserEntity userEntity) {
-        System.out.println("Пришел пользователь на обновление: " + userEntity);
+        log.debug("Пришел пользователь на обновление: " + userEntity);
         Long userId = userEntity.getId();
         Optional<UserEntity> oldUser = findByUserId(userId);
         if (oldUser.isPresent()) {
-            System.out.println("Пользователь есть в системе, продолжаем обновление");
+            log.debug("Пользователь есть в системе, продолжаем обновление");
         } else {
-            System.out.println("Пользователя нет с таким ID userId=" + userId);
+            log.warn("Пользователя нет с таким ID userId=" + userId);
             return Optional.empty();
         }
 
@@ -91,7 +93,7 @@ public class UserJdbcRepository implements UserDao {
             statement.setLong(4, userId);
 
             if (statement.executeUpdate() > 0) {
-                System.out.println("В БД произошло обновление. Старые данные: " + oldUser
+                log.debug("В БД произошло обновление. Старые данные: " + oldUser
                         + "\n Новые данные: " + userEntity);
                 return Optional.of(userEntity);
             } else {
@@ -99,14 +101,14 @@ public class UserJdbcRepository implements UserDao {
             }
 
         } catch (SQLException e) {
-            System.out.println("БД не обновила пользователя " + e.getMessage());
+            log.error("БД не обновила пользователя " + e.getMessage());
             return Optional.empty();
         }
     }
 
     @Override
     public Optional<UserEntity> findByUserId(Long userId) {
-        System.out.println("Пришел запрос на получение данных пользователя по ID=" + userId);
+        log.debug("Пришел запрос на получение данных пользователя по ID=" + userId);
         Connection connection = connectionManager.getConnection();
         String sqlFindUser = String.format("SELECT * " +
                         "  FROM %s.user " +
@@ -119,18 +121,18 @@ public class UserJdbcRepository implements UserDao {
             if (resultSet.next()) {
                 return Optional.of(userEntityRowMapper.mapRow(resultSet));
             } else {
-                System.out.println("В БД такого пользователя нет");
+                log.warn("В БД такого пользователя нет");
                 return Optional.empty();
             }
         } catch (SQLException e) {
-            System.out.println("БД не нашла пользователя из-за проблем с SQL " + e.getMessage());
+            log.error("БД не нашла пользователя из-за проблем с SQL " + e.getMessage());
             return Optional.empty();
         }
     }
 
     @Override
     public Optional<UserEntity> findByUserLogin(String userLogin) {
-        System.out.println("Пришел запрос на получение данных пользователя по login=" + userLogin);
+        log.debug("Пришел запрос на получение данных пользователя по login=" + userLogin);
         Connection connection = connectionManager.getConnection();
         String sqlFindUser = String.format("SELECT * " +
                         "  FROM %s.user " +
@@ -143,18 +145,18 @@ public class UserJdbcRepository implements UserDao {
             if (resultSet.next()) {
                 return Optional.of(userEntityRowMapper.mapRow(resultSet));
             } else {
-                System.out.println("В БД такого пользователя нет");
+                log.warn("В БД такого пользователя нет");
                 return Optional.empty();
             }
         } catch (SQLException e) {
-            System.out.println("БД не нашла пользователя из-за проблем с SQL " + e.getMessage());
+            log.error("БД не нашла пользователя из-за проблем с SQL " + e.getMessage());
             return Optional.empty();
         }
     }
 
     @Override
     public List<UserEntity> getAllUsers() {
-        System.out.println("Пришел запрос на получение данных всех пользователей");
+        log.debug("Пришел запрос на получение данных всех пользователей");
         Connection connection = connectionManager.getConnection();
         String sqlFindUser = String.format("SELECT * " +
                         "  FROM %s.user ",
@@ -167,10 +169,10 @@ public class UserJdbcRepository implements UserDao {
                 UserEntity userEntity = userEntityRowMapper.mapRow(resultSet);
                 usersFromBD.add(userEntity);
             }
-            System.out.println("Найден список пользователей count=" + usersFromBD.size());
+            log.debug("Найден список пользователей count=" + usersFromBD.size());
             return usersFromBD;
         } catch (SQLException e) {
-            System.out.println("БД не нашла список пользователей из-за проблем с SQL " + e.getMessage());
+            log.error("БД не нашла список пользователей из-за проблем с SQL " + e.getMessage());
             return Collections.emptyList();
         }
     }

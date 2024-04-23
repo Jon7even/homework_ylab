@@ -8,12 +8,12 @@ package com.github.jon7even.infrastructure.dataproviders.core;
  */
 public interface LiquibaseManager {
     /**
-     * Метод, который производит необходимые миграции при старте приложения
+     * Метод для проведения миграций, при необходимости создает новую SCHEMA
      */
     void initMigrate();
 
     /**
-     * Метод, который откатывает БД до указанного Тега
+     * Метод для удаления всей БД
      */
     void dropAll();
 }

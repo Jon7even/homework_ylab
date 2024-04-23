@@ -11,9 +11,11 @@ import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Реализация сервиса для стартовых миграций Liquibase
@@ -21,6 +23,7 @@ import java.sql.SQLException;
  * @author Jon7even
  * @version 1.0
  */
+@Slf4j
 public class LiquibaseManagerImpl implements LiquibaseManager {
     private static LiquibaseManagerImpl instance;
     private final ConfigLoader configLoader;
@@ -38,6 +41,7 @@ public class LiquibaseManagerImpl implements LiquibaseManager {
 
     @Override
     public void initMigrate() {
+        initSchema();
         Connection connection = new ConnectionManagerImpl(configLoader.getConfig()).getConnection();
         try {
             Database database = DatabaseFactory.getInstance()
@@ -49,12 +53,12 @@ public class LiquibaseManagerImpl implements LiquibaseManager {
             );
             liquibase.update(new Contexts());
             connection.setAutoCommit(true);
-            System.out.println("Миграции успешно выполнены");
+            log.info("Миграции успешно выполнены");
         } catch (LiquibaseException exception) {
-            System.out.println("С загрузкой миграций Liquibase пошло что-то не так");
+            log.error("С загрузкой миграций Liquibase пошло что-то не так");
             throw new DataBaseException(exception.getMessage());
         } catch (SQLException exception) {
-            System.out.println("С выполнением скриптов миграций пошло что-то не так");
+            log.error("С выполнением скриптов миграций пошло что-то не так");
             throw new DataBaseException(exception.getMessage());
         }
     }
@@ -72,12 +76,29 @@ public class LiquibaseManagerImpl implements LiquibaseManager {
             );
             liquibase.dropAll();
             connection.setAutoCommit(true);
-            System.out.println("Произошел Liquibase откат в БД");
+            log.info("Произошел Liquibase откат в БД");
         } catch (LiquibaseException exception) {
-            System.out.println("С откатом миграций Liquibase пошло что-то не так");
+            log.error("С откатом миграций Liquibase пошло что-то не так");
             throw new DataBaseException(exception.getMessage());
         } catch (SQLException exception) {
-            System.out.println("С выполнением отката миграций пошло что-то не так");
+            log.error("С выполнением отката миграций пошло что-то не так");
+            throw new DataBaseException(exception.getMessage());
+        }
+    }
+
+    private void initSchema() {
+        String sqlQuerySchema = String.format("CREATE SCHEMA IF NOT EXISTS %s;"
+                        + "CREATE SCHEMA IF NOT EXISTS %s;",
+                configLoader.getConfig().getLIQUIBASE_SCHEMA(),
+                configLoader.getConfig().getMAIN_SCHEMA()
+        );
+        Connection connection = new ConnectionManagerImpl(configLoader.getConfig()).getConnection();
+
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(sqlQuerySchema);
+            log.info("Загрузка предварительной Schema закончена");
+        } catch (SQLException exception) {
+            log.error("Что-то пошло не так с инициализацией Schema " + exception.getMessage());
             throw new DataBaseException(exception.getMessage());
         }
     }

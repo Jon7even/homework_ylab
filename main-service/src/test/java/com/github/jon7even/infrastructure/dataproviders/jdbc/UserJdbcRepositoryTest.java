@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserJdbcRepositoryTest extends ContainersSetup {
     private Optional<UserEntity> actualResultUserFirst;
@@ -21,8 +20,8 @@ public class UserJdbcRepositoryTest extends ContainersSetup {
     @BeforeEach
     public void setUp() {
         initUsersEntity();
-        actualResultUserFirst = userJdbcRepository.createUser(userEntityFirstForCreate);
-        actualResultUserSecond = userJdbcRepository.createUser(userEntitySecondForCreate);
+        actualResultUserFirst = userJdbcRepository.createUser(userEntityForCreateFirst);
+        actualResultUserSecond = userJdbcRepository.createUser(userEntityForCreateSecond);
     }
 
     @Test
@@ -64,22 +63,41 @@ public class UserJdbcRepositoryTest extends ContainersSetup {
     @Test
     @DisplayName("Не должен зарегистрировать пользователя с запрещенным логином")
     public void shouldNotCreateUser_ReturnExceptionBadLogin() {
-        userEntityFirstForCreate.setLogin("admin");
+        userEntityForCreateFirst.setLogin("admin");
         assertThrows(BadLoginException.class, () -> userJdbcRepository.createUser(
-                userEntityFirstForCreate
+                userEntityForCreateFirst
         ));
-        userEntitySecondForCreate.setLogin("administrator");
+        userEntityForCreateSecond.setLogin("administrator");
         assertThrows(BadLoginException.class, () -> userJdbcRepository.createUser(
-                userEntityFirstForCreate
+                userEntityForCreateFirst
         ));
 
-        userEntityFirstForCreate.setLogin(userLoginFirst);
-        userEntitySecondForCreate.setLogin(userLoginSecond);
+        userEntityForCreateFirst.setLogin(userLoginFirst);
+        userEntityForCreateSecond.setLogin(userLoginSecond);
     }
 
     @Test
     @DisplayName("Получить всех пользователей")
     public void shouldFindAllUsers_ReturnAllUsers() {
         assertEquals(userJdbcRepository.getAllUsers().size(), sizeListRepositoryUser);
+    }
+
+    @Test
+    @DisplayName("Должен обновить пользователя")
+    public void shouldUpdateUser_ReturnUpdatedUses() {
+        Optional<UserEntity> updatedUserFirst = userJdbcRepository.updateUser(userEntityForUpdateFirst);
+        Optional<UserEntity> updatedUserSecond = userJdbcRepository.updateUser(userEntityForUpdateSecond);
+
+        assertFalse(updatedUserFirst.isPresent());
+        assertFalse(updatedUserSecond.isPresent());
+        assertEquals(
+                userEntityForUpdateFirst, userJdbcRepository.findByUserId(userEntityForUpdateFirst.getId()).get()
+        );
+        assertEquals(
+                userEntityForUpdateSecond, userJdbcRepository.findByUserId(userEntityForUpdateSecond.getId()).get()
+        );
+
+        assertNotEquals(actualResultUserFirst, userJdbcRepository.findByUserId(userEntityForUpdateFirst.getId()));
+        assertNotEquals(actualResultUserSecond, userJdbcRepository.findByUserId(userEntityForUpdateSecond.getId()));
     }
 }

@@ -45,9 +45,11 @@ public class PreparationForTests {
     protected Integer thirdIdInteger = 3;
     protected Integer fourthIdInteger = 4;
     protected UserEntity userEntityFirst;
-    protected UserEntity userEntityFirstForCreate;
+    protected UserEntity userEntityForCreateFirst;
+    protected UserEntity userEntityForUpdateFirst;
     protected UserEntity userEntitySecond;
-    protected UserEntity userEntitySecondForCreate;
+    protected UserEntity userEntityForCreateSecond;
+    protected UserEntity userEntityForUpdateSecond;
     protected UserEntity userAdmin;
     protected String userLoginFirst = "UserFirst";
     protected String userLoginSecond = "UserSecond";
@@ -395,12 +397,12 @@ public class PreparationForTests {
                 .password(userPasswordSecond)
                 .idGroupPermissions(secondIdInteger)
                 .build();
-        userEntityFirstForCreate = UserEntity.builder()
+        userEntityForCreateFirst = UserEntity.builder()
                 .login(userLoginFirst)
                 .password(userPasswordFirst)
                 .idGroupPermissions(firstIdInteger)
                 .build();
-        userEntitySecondForCreate = UserEntity.builder()
+        userEntityForCreateSecond = UserEntity.builder()
                 .login(userLoginSecond)
                 .password(userPasswordSecond)
                 .idGroupPermissions(secondIdInteger)
@@ -409,6 +411,16 @@ public class PreparationForTests {
                 .id(firstIdLong)
                 .login(ADMIN_LOGIN)
                 .password(ADMIN_PASSWORD)
+                .idGroupPermissions(secondIdInteger)
+                .build();
+        userEntityForUpdateFirst=UserEntity.builder()
+                .login("UpdatedUserFirst")
+                .password("UpdatedUserFirst")
+                .idGroupPermissions(secondIdInteger)
+                .build();
+        userEntityForUpdateSecond=UserEntity.builder()
+                .login("UpdatedUserSecond")
+                .password("UpdatedUserSecond")
                 .idGroupPermissions(secondIdInteger)
                 .build();
     }

@@ -29,8 +29,8 @@ public class UserRepositoryTest extends PreparationForTests {
     @BeforeEach
     public void setUp() {
         initUsersEntity();
-        actualResultUserFirst = userRepository.createUser(userEntityFirstForCreate);
-        actualResultUserSecond = userRepository.createUser(userEntitySecondForCreate);
+        actualResultUserFirst = userRepository.createUser(userEntityForCreateFirst);
+        actualResultUserSecond = userRepository.createUser(userEntityForCreateSecond);
     }
 
     @Test
@@ -72,17 +72,17 @@ public class UserRepositoryTest extends PreparationForTests {
     @Test
     @DisplayName("Не должен зарегистрировать пользователя с запрещенным логином")
     public void shouldNotCreateUser_ReturnExceptionBadLogin() {
-        userEntityFirstForCreate.setLogin("admin");
+        userEntityForCreateFirst.setLogin("admin");
         assertThrows(BadLoginException.class, () -> userRepository.createUser(
-                userEntityFirstForCreate
+                userEntityForCreateFirst
         ));
-        userEntitySecondForCreate.setLogin("administrator");
+        userEntityForCreateSecond.setLogin("administrator");
         assertThrows(BadLoginException.class, () -> userRepository.createUser(
-                userEntityFirstForCreate
+                userEntityForCreateFirst
         ));
 
-        userEntityFirstForCreate.setLogin(userLoginFirst);
-        userEntitySecondForCreate.setLogin(userLoginSecond);
+        userEntityForCreateFirst.setLogin(userLoginFirst);
+        userEntityForCreateSecond.setLogin(userLoginSecond);
     }
 
     @Test
