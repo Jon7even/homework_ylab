@@ -10,7 +10,7 @@
         <createSequence
                 schemaName="main"
                 sequenceName="id_name_service_seq"
-                dataType="int"
+                dataType="INT"
                 startValue="1"
                 incrementBy="1"
                 maxValue="777"
