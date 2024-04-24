@@ -79,7 +79,6 @@
             <column name="delete" value="false"/>
         </insert>
 
-
     </changeSet>
 
 </databaseChangeLog>

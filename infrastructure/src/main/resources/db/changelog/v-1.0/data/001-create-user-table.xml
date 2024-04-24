@@ -13,7 +13,7 @@
                 dataType="BIGINT"
                 startValue="1"
                 incrementBy="1"
-                maxValue="77777"
+                maxValue="7777777"
                 cycle="false"/>
 
         <createTable tableName="user" schemaName="main">

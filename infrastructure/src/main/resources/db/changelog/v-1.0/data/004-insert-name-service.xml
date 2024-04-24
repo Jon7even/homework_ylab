@@ -10,19 +10,15 @@
         <insert tableName="name_service" schemaName="main">
             <column name="name" value="History Service"/>
         </insert>
-
         <insert tableName="name_service" schemaName="main">
             <column name="name" value="Diary Service"/>
         </insert>
-
         <insert tableName="name_service" schemaName="main">
             <column name="name" value="Workout Service"/>
         </insert>
-
         <insert tableName="name_service" schemaName="main">
             <column name="name" value="TypeWorkout Service"/>
         </insert>
-
         <insert tableName="name_service" schemaName="main">
             <column name="name" value="User Service"/>
         </insert>

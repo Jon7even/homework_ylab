@@ -5,39 +5,46 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
-    <changeSet id="010-create-history-table" author="Jon7even" context="dev" dbms="postgresql">
+    <changeSet id="012-create-diary-table" author="Jon7even" context="dev" dbms="postgresql">
 
         <createSequence
                 schemaName="main"
-                sequenceName="id_history_seq"
+                sequenceName="id_diary_seq"
                 dataType="BIGINT"
                 startValue="1"
                 incrementBy="1"
                 maxValue="7777777"
                 cycle="false"/>
 
-        <createTable tableName="history" schemaName="main">
-            <column name="id" type="BIGINT" defaultValueSequenceNext="id_history_seq">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_history"/>
+        <createTable tableName="diary" schemaName="main">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="id_diary_seq">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_diary"/>
             </column>
             <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weight" type="FLOAT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="growth" type="FLOAT">
                 <constraints nullable="false"/>
             </column>
             <column name="created_on" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="event" type="VARCHAR(255)">
+            <column name="updated_on" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
         <addForeignKeyConstraint baseTableSchemaName="main"
-                                 baseTableName="history"
+                                 baseTableName="diary"
                                  baseColumnNames="user_id"
-                                 constraintName="fk_history_on_user"
+                                 constraintName="fk_diary_on_user"
                                  referencedTableSchemaName="main"
                                  referencedTableName="user"
                                  referencedColumnNames="id"/>
+
     </changeSet>
 
 </databaseChangeLog>

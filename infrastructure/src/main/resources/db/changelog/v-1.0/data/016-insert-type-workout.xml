@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
-    <changeSet id="015-insert-type-workout" author="Jon7even" context="dev" dbms="postgresql">
+    <changeSet id="016-insert-type-workout" author="Jon7even" context="dev" dbms="postgresql">
 
         <insert tableName="type_workout" schemaName="main">
             <column name="type_name" value="Простая ходьба"/>

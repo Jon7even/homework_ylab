@@ -13,7 +13,7 @@
                 dataType="INT"
                 startValue="1"
                 incrementBy="1"
-                maxValue="7777"
+                maxValue="77777"
                 cycle="false"/>
 
         <createTable tableName="permission" schemaName="main">

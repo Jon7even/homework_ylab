@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
-    <changeSet id="011-create-diary-table" author="Jon7even" context="dev" dbms="postgresql">
+    <changeSet id="013-create-detail-of-type-workout-table" author="Jon7even" context="dev" dbms="postgresql">
 
         <createSequence
                 schemaName="main"

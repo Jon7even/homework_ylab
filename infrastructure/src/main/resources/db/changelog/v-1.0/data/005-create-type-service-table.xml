@@ -44,6 +44,7 @@
                                  referencedTableSchemaName="main"
                                  referencedTableName="name_service"
                                  referencedColumnNames="id"/>
+
     </changeSet>
 
 </databaseChangeLog>
