@@ -20,4 +20,5 @@
     <include file="v-1.0/data/013-insert-detail-of-type-workout.xml" relativeToChangelogFile="true"/>
     <include file="v-1.0/data/014-create-type-workout-table.xml" relativeToChangelogFile="true"/>
     <include file="v-1.0/data/015-insert-type-workout.xml" relativeToChangelogFile="true"/>
+    <include file="v-1.0/data/016-create-workout-table.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
