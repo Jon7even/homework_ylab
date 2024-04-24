@@ -36,7 +36,7 @@
         <posgres.version>42.5.4</posgres.version>
         <testcontainers.version>1.19.7</testcontainers.version>
         <log4j.version>2.23.1</log4j.version>
-        <maven.shade.version>3.5.2</maven.shade.version>
+        <maven.assembly.version>2.4</maven.assembly.version>
     </properties>
 
     <dependencies>
