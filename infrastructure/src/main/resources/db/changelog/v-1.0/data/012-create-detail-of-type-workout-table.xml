@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="011-create-diary-table" author="Jon7even" context="dev" dbms="postgresql">
+
+        <createSequence
+                schemaName="main"
+                sequenceName="id_detail_type_seq"
+                dataType="INT"
+                startValue="1"
+                incrementBy="1"
+                maxValue="7777"
+                cycle="false"/>
+
+        <createTable tableName="detail_type" schemaName="main">
+            <column name="id" type="INT" defaultValueSequenceNext="id_detail_type_seq">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_detail_type"/>
+            </column>
+            <column name="name" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="filling_required" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>
