@@ -46,9 +46,15 @@ public class LiquibaseManagerImpl implements LiquibaseManager {
         } catch (LiquibaseException exception) {
             System.out.println("С загрузкой миграций Liquibase пошло что-то не так");
             throw new DataBaseException(exception.getMessage());
-        } catch (SQLException exception) {
-            System.out.println("С выполнением скриптов миграций пошло что-то не так");
-            throw new DataBaseException(exception.getMessage());
+        } catch (SQLException exc) {
+            SQLException throwables = exc;
+            while (throwables != null) {
+                System.out.println("Сообщение ошибки: " + throwables.getMessage());
+                System.out.println("Статус ошибки: " + throwables.getSQLState());
+                System.out.println("Код ошибки: " + throwables.getErrorCode());
+                throwables = throwables.getNextException();
+            }
+            throw new DataBaseException("С выполнением скриптов миграций пошло что-то не так. Смотрите ошибки выше.");
         }
     }
 

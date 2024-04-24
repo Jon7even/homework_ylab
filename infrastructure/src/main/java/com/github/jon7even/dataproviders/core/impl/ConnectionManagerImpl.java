@@ -32,9 +32,15 @@ public class ConnectionManagerImpl implements ConnectionManager {
                         config.getBdPassword()
                 );
                 System.out.println("Соединение с БД установлено");
-            } catch (SQLException exception) {
-                System.out.println("С соединением пошло что-то не так");
-                throw new DataBaseException(exception.getMessage());
+            } catch (SQLException exc) {
+                SQLException throwables = exc;
+                while (throwables != null) {
+                    System.out.println("Сообщение ошибки: " + throwables.getMessage());
+                    System.out.println("Статус ошибки: " + throwables.getSQLState());
+                    System.out.println("Код ошибки: " + throwables.getErrorCode());
+                    throwables = throwables.getNextException();
+                }
+                throw new DataBaseException("С соединением пошло что-то не так. Смотрите ошибки выше.");
             }
         }
         return connection;

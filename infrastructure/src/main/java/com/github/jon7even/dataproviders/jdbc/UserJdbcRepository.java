@@ -63,8 +63,15 @@ public class UserJdbcRepository implements UserDao {
 
             log.debug("В БД добавлен новый пользователь {}", userEntity);
             return Optional.of(userEntity);
-        } catch (SQLException e) {
-            log.error("БД не сохранила пользователя {}", e.getMessage());
+        } catch (SQLException exc) {
+            SQLException throwables = exc;
+            while (throwables != null) {
+                System.out.println("Сообщение ошибки: " + throwables.getMessage());
+                System.out.println("Статус ошибки: " + throwables.getSQLState());
+                System.out.println("Код ошибки: " + throwables.getErrorCode());
+                throwables = throwables.getNextException();
+            }
+            log.error("БД не сохранила нового пользователя. Смотрите ошибки выше.");
             return Optional.empty();
         }
     }
@@ -98,9 +105,15 @@ public class UserJdbcRepository implements UserDao {
             } else {
                 return Optional.empty();
             }
-
-        } catch (SQLException e) {
-            log.error("БД не обновила пользователя {}", e.getMessage());
+        } catch (SQLException exc) {
+            SQLException throwables = exc;
+            while (throwables != null) {
+                System.out.println("Сообщение ошибки: " + throwables.getMessage());
+                System.out.println("Статус ошибки: " + throwables.getSQLState());
+                System.out.println("Код ошибки: " + throwables.getErrorCode());
+                throwables = throwables.getNextException();
+            }
+            log.error("БД не обновила существующего пользователя. Смотрите ошибки выше.");
             return Optional.empty();
         }
     }
@@ -123,8 +136,15 @@ public class UserJdbcRepository implements UserDao {
                 log.warn("В БД такого пользователя нет");
                 return Optional.empty();
             }
-        } catch (SQLException e) {
-            log.error("БД не нашла пользователя из-за проблем с SQL {}", e.getMessage());
+        } catch (SQLException exc) {
+            SQLException throwables = exc;
+            while (throwables != null) {
+                System.out.println("Сообщение ошибки: " + throwables.getMessage());
+                System.out.println("Статус ошибки: " + throwables.getSQLState());
+                System.out.println("Код ошибки: " + throwables.getErrorCode());
+                throwables = throwables.getNextException();
+            }
+            log.error("БД не нашла пользователя по ID. Смотрите ошибки выше.");
             return Optional.empty();
         }
     }
@@ -147,8 +167,15 @@ public class UserJdbcRepository implements UserDao {
                 log.warn("В БД такого пользователя нет");
                 return Optional.empty();
             }
-        } catch (SQLException e) {
-            log.error("БД не нашла пользователя из-за проблем с SQL {}", e.getMessage());
+        } catch (SQLException exc) {
+            SQLException throwables = exc;
+            while (throwables != null) {
+                System.out.println("Сообщение ошибки: " + throwables.getMessage());
+                System.out.println("Статус ошибки: " + throwables.getSQLState());
+                System.out.println("Код ошибки: " + throwables.getErrorCode());
+                throwables = throwables.getNextException();
+            }
+            log.error("БД не нашла пользователя по логину. Смотрите ошибки выше.");
             return Optional.empty();
         }
     }
@@ -162,16 +189,23 @@ public class UserJdbcRepository implements UserDao {
                 config.getMainSchema());
         try (PreparedStatement statement = connection.prepareStatement(sqlFindUser)) {
             ResultSet resultSet = statement.executeQuery();
-            List<UserEntity> usersFromBD = new ArrayList<>();
+            List<UserEntity> listUsersFromBD = new ArrayList<>();
 
             while (resultSet.next()) {
                 UserEntity userEntity = userEntityRowMapper.mapRow(resultSet);
-                usersFromBD.add(userEntity);
+                listUsersFromBD.add(userEntity);
             }
-            log.debug("Найден список пользователей count={}", usersFromBD.size());
-            return usersFromBD;
-        } catch (SQLException e) {
-            log.error("БД не нашла список пользователей из-за проблем с SQL {}", e.getMessage());
+            log.debug("Найден список пользователей count={}", listUsersFromBD.size());
+            return listUsersFromBD;
+        } catch (SQLException exc) {
+            SQLException throwables = exc;
+            while (throwables != null) {
+                System.out.println("Сообщение ошибки: " + throwables.getMessage());
+                System.out.println("Статус ошибки: " + throwables.getSQLState());
+                System.out.println("Код ошибки: " + throwables.getErrorCode());
+                throwables = throwables.getNextException();
+            }
+            log.error("БД не нашла список пользователей. Смотрите ошибки выше.");
             return Collections.emptyList();
         }
     }
