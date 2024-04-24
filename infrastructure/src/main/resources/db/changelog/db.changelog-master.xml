@@ -15,4 +15,5 @@
     <include file="v-1.0/data/008-create-group-to-type-service-table.xml" relativeToChangelogFile="true"/>
     <include file="v-1.0/data/009-insert-group-permissions.xml" relativeToChangelogFile="true"/>
     <include file="v-1.0/data/010-create-history-table.xml" relativeToChangelogFile="true"/>
+    <include file="v-1.0/data/011-create-diary-table.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
