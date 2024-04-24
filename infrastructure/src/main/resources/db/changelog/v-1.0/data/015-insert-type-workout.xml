@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="015-insert-type-workout" author="Jon7even" context="dev" dbms="postgresql">
+
+        <insert tableName="type_workout" schemaName="main">
+            <column name="type_name" value="Простая ходьба"/>
+            <column name="calorie" value="200"/>
+            <column name="detail_id" value="1"/>
+        </insert>
+        <insert tableName="type_workout" schemaName="main">
+            <column name="type_name" value="Бег на улице"/>
+            <column name="calorie" value="500"/>
+            <column name="detail_id" value="1"/>
+        </insert>
+        <insert tableName="type_workout" schemaName="main">
+            <column name="type_name" value="Силовая тренировка"/>
+            <column name="calorie" value="520"/>
+            <column name="detail_id" value="2"/>
+        </insert>
+        <insert tableName="type_workout" schemaName="main">
+            <column name="type_name" value="Бег на беговой дорожке"/>
+            <column name="calorie" value="400"/>
+            <column name="detail_id" value="1"/>
+        </insert>
+        <insert tableName="type_workout" schemaName="main">
+            <column name="type_name" value="Велоспорт"/>
+            <column name="calorie" value="450"/>
+            <column name="detail_id" value="1"/>
+        </insert>
+        <insert tableName="type_workout" schemaName="main">
+            <column name="type_name" value="Занятия йогой"/>
+            <column name="calorie" value="225"/>
+            <column name="detail_id" value="3"/>
+        </insert>
+        <insert tableName="type_workout" schemaName="main">
+            <column name="type_name" value="Плавать в бассейне"/>
+            <column name="calorie" value="350"/>
+            <column name="detail_id" value="1"/>
+        </insert>
+        <insert tableName="type_workout" schemaName="main">
+            <column name="type_name" value="Игра в теннис"/>
+            <column name="calorie" value="400"/>
+            <column name="detail_id" value="3"/>
+        </insert>
+        <insert tableName="type_workout" schemaName="main">
+            <column name="type_name" value="Ходьба на лыжах"/>
+            <column name="calorie" value="485"/>
+            <column name="detail_id" value="1"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
