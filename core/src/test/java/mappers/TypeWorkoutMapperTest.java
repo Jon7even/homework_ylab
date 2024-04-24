@@ -14,7 +14,7 @@ import setup.PreparationForTests;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TypeWorkoutMapperTest extends PreparationForTests {
     private TypeWorkoutMapper typeWorkoutMapper;
@@ -32,13 +32,24 @@ public class TypeWorkoutMapperTest extends PreparationForTests {
         TypeWorkoutEntity actualResultWalking = typeWorkoutMapper.toTypeWorkoutEntityFromDtoCreate(
                 typeWorkoutCreateDtoWalking, idTypeServiceTypeWorkout, detailOfTypeWorkoutEntityTraveled
         );
-        assertNotNull(actualResultWalking);
-        assertNull(actualResultWalking.getId());
-        assertEquals(typeWorkoutEntityWalking.getTypeName(), actualResultWalking.getTypeName());
-        assertEquals(typeWorkoutEntityWalking.getCaloriePerHour(), actualResultWalking.getCaloriePerHour());
-        assertEquals(typeWorkoutEntityWalking.getDetailOfTypeWorkoutEntity(),
-                actualResultWalking.getDetailOfTypeWorkoutEntity());
-        assertEquals(typeWorkoutEntityWalking.getIdTypeService(), actualResultWalking.getIdTypeService());
+
+        assertThat(actualResultWalking)
+                .isNotNull();
+        assertThat(actualResultWalking.getId())
+                .isNull();
+
+        assertThat(actualResultWalking.getTypeName())
+                .isNotNull()
+                .isEqualTo(typeWorkoutEntityWalking.getTypeName());
+        assertThat(actualResultWalking.getCaloriePerHour())
+                .isNotNull()
+                .isEqualTo(typeWorkoutEntityWalking.getCaloriePerHour());
+        assertThat(actualResultWalking.getDetailOfTypeWorkoutEntity())
+                .isNotNull()
+                .isEqualTo(typeWorkoutEntityWalking.getDetailOfTypeWorkoutEntity());
+        assertThat(actualResultWalking.getIdTypeService())
+                .isNotNull()
+                .isEqualTo(typeWorkoutEntityWalking.getIdTypeService());
     }
 
     @Test
@@ -50,17 +61,30 @@ public class TypeWorkoutMapperTest extends PreparationForTests {
         TypeWorkoutResponseDto actualResultType = typeWorkoutMapper.toTypeWorkoutResponseDtoFromEntity(
                 typeWorkoutEntityWalking
         );
-        assertNotNull(actualResultType);
-        assertEquals(typeWorkoutEntityWalking.getTypeName(), actualResultType.getTypeName());
-        assertEquals(typeWorkoutEntityWalking.getCaloriePerHour(), actualResultType.getCaloriePerHour());
-        assertEquals(typeWorkoutEntityWalking.getId(), actualResultType.getTypeWorkoutId());
-        assertNotNull(actualResultType.getDetailOfTypeWorkoutResponseDto());
-        assertEquals(actualResultDetail.getId(),
-                actualResultType.getDetailOfTypeWorkoutResponseDto().getId());
-        assertEquals(actualResultDetail.getName(),
-                actualResultType.getDetailOfTypeWorkoutResponseDto().getName());
-        assertEquals(actualResultDetail.getIsFillingRequired(),
-                actualResultType.getDetailOfTypeWorkoutResponseDto().getIsFillingRequired());
+
+        assertThat(actualResultType)
+                .isNotNull();
+        assertThat(actualResultType.getTypeName())
+                .isNotNull()
+                .isEqualTo(typeWorkoutEntityWalking.getTypeName());
+        assertThat(actualResultType.getCaloriePerHour())
+                .isNotNull()
+                .isEqualTo(typeWorkoutEntityWalking.getCaloriePerHour());
+        assertThat(actualResultType.getTypeWorkoutId())
+                .isNotNull()
+                .isEqualTo(typeWorkoutEntityWalking.getId());
+
+        assertThat(actualResultType.getDetailOfTypeWorkoutResponseDto())
+                .isNotNull();
+        assertThat(actualResultType.getDetailOfTypeWorkoutResponseDto().getId())
+                .isNotNull()
+                .isEqualTo(actualResultDetail.getId());
+        assertThat(actualResultType.getDetailOfTypeWorkoutResponseDto().getName())
+                .isNotNull()
+                .isEqualTo(actualResultDetail.getName());
+        assertThat(actualResultType.getDetailOfTypeWorkoutResponseDto().getIsFillingRequired())
+                .isNotNull()
+                .isEqualTo(actualResultDetail.getIsFillingRequired());
     }
 
     @Test
@@ -73,25 +97,46 @@ public class TypeWorkoutMapperTest extends PreparationForTests {
                 .caloriePerHour(typeWorkoutEntityWalking.getCaloriePerHour())
                 .idTypeService(typeWorkoutEntityWalking.getIdTypeService())
                 .build();
-        assertEquals(actualResult, typeWorkoutEntityWalking);
+
+        assertThat(actualResult)
+                .isNotNull()
+                .isEqualTo(typeWorkoutEntityWalking);
 
         typeWorkoutMapper.updateTypeWorkoutEntityFromDtoUpdate(actualResult, typeWorkoutUpdateFirst);
-        assertNotNull(actualResult);
-        assertNotEquals(typeWorkoutEntityWalking, actualResult);
-        assertEquals(actualResult.getTypeName(), typeWorkoutUpdateFirst.getTypeName());
-        assertEquals(actualResult.getCaloriePerHour(), typeWorkoutUpdateFirst.getCaloriePerHour());
+
+        assertThat(actualResult)
+                .isNotNull()
+                .isNotEqualTo(typeWorkoutEntityWalking);
+        assertThat(actualResult.getTypeName())
+                .isNotNull()
+                .isEqualTo(typeWorkoutUpdateFirst.getTypeName());
+        assertThat(actualResult.getCaloriePerHour())
+                .isNotNull()
+                .isEqualTo(typeWorkoutUpdateFirst.getCaloriePerHour());
 
         typeWorkoutMapper.updateTypeWorkoutEntityFromDtoUpdate(actualResult, typeWorkoutUpdateSecond);
-        assertNotNull(actualResult);
-        assertNotEquals(typeWorkoutEntityWalking, actualResult);
-        assertEquals(actualResult.getTypeName(), typeWorkoutUpdateSecond.getTypeName());
-        assertNotEquals(actualResult.getCaloriePerHour(), typeWorkoutUpdateSecond.getCaloriePerHour());
+
+        assertThat(actualResult)
+                .isNotNull()
+                .isNotEqualTo(typeWorkoutEntityWalking);
+        assertThat(actualResult.getTypeName())
+                .isNotNull()
+                .isEqualTo(typeWorkoutUpdateSecond.getTypeName());
+        assertThat(actualResult.getCaloriePerHour())
+                .isNotNull()
+                .isNotEqualTo(typeWorkoutUpdateSecond.getCaloriePerHour());
 
         typeWorkoutMapper.updateTypeWorkoutEntityFromDtoUpdate(actualResult, typeWorkoutUpdateThird);
-        assertNotNull(actualResult);
-        assertNotEquals(typeWorkoutEntityWalking, actualResult);
-        assertNotEquals(actualResult.getTypeName(), typeWorkoutUpdateThird.getTypeName());
-        assertEquals(actualResult.getCaloriePerHour(), typeWorkoutUpdateThird.getCaloriePerHour());
+
+        assertThat(actualResult)
+                .isNotNull()
+                .isNotEqualTo(typeWorkoutEntityWalking);
+        assertThat(actualResult.getTypeName())
+                .isNotNull()
+                .isNotEqualTo(typeWorkoutUpdateThird.getTypeName());
+        assertThat(actualResult.getCaloriePerHour())
+                .isNotNull()
+                .isEqualTo(typeWorkoutUpdateThird.getCaloriePerHour());
     }
 
     @Test
@@ -106,10 +151,17 @@ public class TypeWorkoutMapperTest extends PreparationForTests {
                 listExpected
         );
 
-        assertTrue(actualListResult.size() > 0);
-        assertEquals(listExpected.size(), actualListResult.size());
-        assertEquals(listExpected.get(0).getId(), actualListResult.get(0).getId());
-        assertEquals(listExpected.get(0).getTypeName(), actualListResult.get(0).getTypeName());
+        assertThat(actualListResult)
+                .isNotEmpty()
+                .doesNotContainNull()
+                .hasSize(listExpected.size());
+
+        assertThat(actualListResult.get(0).getId())
+                .isNotNull()
+                .isEqualTo(listExpected.get(0).getId());
+        assertThat(actualListResult.get(0).getTypeName())
+                .isNotNull()
+                .isEqualTo(listExpected.get(0).getTypeName());
     }
 
     @Test
@@ -118,13 +170,19 @@ public class TypeWorkoutMapperTest extends PreparationForTests {
         DetailOfTypeWorkoutResponseDto actualResultDetail = typeWorkoutMapper.toDtoDetailOfTypeResponseFromEntity(
                 detailOfTypeWorkoutEntityTraveled
         );
-        assertNotNull(actualResultDetail);
-        assertEquals(detailOfTypeWorkoutEntityTraveled.getId(), actualResultDetail.getId());
-        assertEquals(detailOfTypeWorkoutEntityTraveled.getName(), actualResultDetail.getName());
-        assertEquals(detailOfTypeWorkoutEntityTraveled.getIsFillingRequired(),
-                actualResultDetail.getIsFillingRequired());
-    }
+        assertThat(actualResultDetail)
+                .isNotNull();
 
+        assertThat(actualResultDetail.getId())
+                .isNotNull()
+                .isEqualTo(detailOfTypeWorkoutEntityTraveled.getId());
+        assertThat(actualResultDetail.getName())
+                .isNotNull()
+                .isEqualTo(detailOfTypeWorkoutEntityTraveled.getName());
+        assertThat(actualResultDetail.getIsFillingRequired())
+                .isNotNull()
+                .isEqualTo(detailOfTypeWorkoutEntityTraveled.getIsFillingRequired());
+    }
 
     @Test
     @DisplayName("Маппинг из DTO в сущность в DTO для сохранения данных о деталях в типе тренировки")
@@ -132,30 +190,53 @@ public class TypeWorkoutMapperTest extends PreparationForTests {
         DetailOfTypeWorkoutEntity actualResultTraveled = typeWorkoutMapper.toEntityDetailOfTypeFromDtoResponse(
                 detailOfTypeWorkoutResponseDtoTraveled
         );
-        assertNotNull(actualResultTraveled);
-        assertEquals(detailOfTypeWorkoutEntityTraveled.getId(), actualResultTraveled.getId());
-        assertEquals(detailOfTypeWorkoutEntityTraveled.getName(), actualResultTraveled.getName());
-        assertEquals(detailOfTypeWorkoutEntityTraveled.getIsFillingRequired(),
-                actualResultTraveled.getIsFillingRequired());
+
+        assertThat(actualResultTraveled)
+                .isNotNull();
+
+        assertThat(actualResultTraveled.getId())
+                .isNotNull()
+                .isEqualTo(detailOfTypeWorkoutEntityTraveled.getId());
+        assertThat(actualResultTraveled.getName())
+                .isNotNull()
+                .isEqualTo(detailOfTypeWorkoutEntityTraveled.getName());
+        assertThat(actualResultTraveled.getIsFillingRequired())
+                .isNotNull()
+                .isEqualTo(detailOfTypeWorkoutEntityTraveled.getIsFillingRequired());
 
         DetailOfTypeWorkoutEntity actualResultExercises = typeWorkoutMapper.toEntityDetailOfTypeFromDtoResponse(
                 detailOfTypeWorkoutResponseDtoExercises
         );
-        assertNotNull(actualResultExercises);
-        assertEquals(detailOfTypeWorkoutResponseDtoExercises.getId(), actualResultExercises.getId());
-        assertEquals(detailOfTypeWorkoutResponseDtoExercises.getName(), actualResultExercises.getName());
-        assertEquals(detailOfTypeWorkoutResponseDtoExercises.getIsFillingRequired(),
-                actualResultExercises.getIsFillingRequired());
+
+        assertThat(actualResultExercises)
+                .isNotNull();
+
+        assertThat(actualResultExercises.getId())
+                .isNotNull()
+                .isEqualTo(detailOfTypeWorkoutResponseDtoExercises.getId());
+        assertThat(actualResultExercises.getName())
+                .isNotNull()
+                .isEqualTo(detailOfTypeWorkoutResponseDtoExercises.getName());
+        assertThat(actualResultExercises.getIsFillingRequired())
+                .isNotNull()
+                .isEqualTo(detailOfTypeWorkoutResponseDtoExercises.getIsFillingRequired());
 
         DetailOfTypeWorkoutEntity actualResultNotDetails = typeWorkoutMapper.toEntityDetailOfTypeFromDtoResponse(
                 detailOfTypeWorkoutResponseDtoNotDetails
         );
-        assertNotNull(actualResultNotDetails);
-        assertNotNull(actualResultExercises);
-        assertEquals(detailOfTypeWorkoutResponseDtoNotDetails.getId(), actualResultNotDetails.getId());
-        assertEquals(detailOfTypeWorkoutResponseDtoNotDetails.getName(), actualResultNotDetails.getName());
-        assertEquals(detailOfTypeWorkoutResponseDtoNotDetails.getIsFillingRequired(),
-                actualResultNotDetails.getIsFillingRequired());
+
+        assertThat(actualResultNotDetails)
+                .isNotNull();
+
+        assertThat(actualResultNotDetails.getId())
+                .isNotNull()
+                .isEqualTo(detailOfTypeWorkoutResponseDtoNotDetails.getId());
+        assertThat(actualResultNotDetails.getName())
+                .isNotNull()
+                .isEqualTo(detailOfTypeWorkoutResponseDtoNotDetails.getName());
+        assertThat(actualResultNotDetails.getIsFillingRequired())
+                .isNotNull()
+                .isEqualTo(detailOfTypeWorkoutResponseDtoNotDetails.getIsFillingRequired());
     }
 
     @Test
@@ -169,11 +250,20 @@ public class TypeWorkoutMapperTest extends PreparationForTests {
                 listExpected
         );
 
-        assertTrue(actualListResult.size() > 0);
-        assertEquals(listExpected.size(), actualListResult.size());
-        assertEquals(listExpected.get(0).getId(), actualListResult.get(0).getId());
-        assertEquals(listExpected.get(0).getName(), actualListResult.get(0).getName());
-        assertEquals(listExpected.get(0).getIsFillingRequired(), actualListResult.get(0).getIsFillingRequired());
+        assertThat(actualListResult)
+                .isNotEmpty()
+                .doesNotContainNull()
+                .hasSize(listExpected.size());
+
+        assertThat(actualListResult.get(0).getId())
+                .isNotNull()
+                .isEqualTo(listExpected.get(0).getId());
+        assertThat(actualListResult.get(0).getName())
+                .isNotNull()
+                .isEqualTo(listExpected.get(0).getName());
+        assertThat(actualListResult.get(0).getIsFillingRequired())
+                .isNotNull()
+                .isEqualTo(listExpected.get(0).getIsFillingRequired());
     }
 }
 

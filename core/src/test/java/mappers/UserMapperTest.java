@@ -10,7 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import setup.PreparationForTests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class UserMapperTest extends PreparationForTests {
@@ -28,11 +28,20 @@ public class UserMapperTest extends PreparationForTests {
     public void toEntityFromDtoCreate_ReturnEntityNotId() {
         UserEntity actualResult = userMapper.toEntityFromDtoCreate(userCreateDtoFirst);
 
-        assertNotNull(actualResult);
-        assertNull(actualResult.getId());
-        assertEquals(userCreateDtoFirst.getLogin(), actualResult.getLogin());
-        assertEquals(userCreateDtoFirst.getPassword(), actualResult.getPassword());
-        assertEquals(userCreateDtoFirst.getIdGroupPermissions(), actualResult.getIdGroupPermissions());
+        assertThat(actualResult)
+                .isNotNull();
+        assertThat(actualResult.getId())
+                .isNull();
+
+        assertThat(actualResult.getLogin())
+                .isNotNull()
+                .isEqualTo(userCreateDtoFirst.getLogin());
+        assertThat(actualResult.getPassword())
+                .isNotNull()
+                .isEqualTo(userCreateDtoFirst.getPassword());
+        assertThat(actualResult.getIdGroupPermissions())
+                .isNotNull()
+                .isEqualTo(userCreateDtoFirst.getIdGroupPermissions());
     }
 
     @Test
@@ -40,11 +49,18 @@ public class UserMapperTest extends PreparationForTests {
     public void toEntityFromDtoUpdate_ReturnEntity() {
         UserEntity actualResult = userMapper.toEntityFromDtoUpdate(userUpdateDtoFirst, secondIdLong, userLoginFirst);
 
-        assertNotNull(actualResult);
-        assertEquals(userLoginFirst, actualResult.getLogin());
-        assertEquals(userLoginFirst, actualResult.getLogin());
-        assertEquals(userUpdateDtoFirst.getPassword(), actualResult.getPassword());
-        assertEquals(userUpdateDtoFirst.getIdGroupPermissions(), actualResult.getIdGroupPermissions());
+        assertThat(actualResult)
+                .isNotNull();
+
+        assertThat(actualResult.getLogin())
+                .isNotNull()
+                .isEqualTo(userLoginFirst);
+        assertThat(actualResult.getPassword())
+                .isNotNull()
+                .isEqualTo(userUpdateDtoFirst.getPassword());
+        assertThat(actualResult.getIdGroupPermissions())
+                .isNotNull()
+                .isEqualTo(userUpdateDtoFirst.getIdGroupPermissions());
     }
 
     @Test
@@ -52,8 +68,12 @@ public class UserMapperTest extends PreparationForTests {
     public void toShortDtoFromEntity_UserShortResponseDto() {
         UserShortResponseDto actualResult = userMapper.toShortDtoFromEntity(userEntityFirst);
 
-        assertNotNull(actualResult);
-        assertEquals(userEntityFirst.getLogin(), actualResult.getLogin());
+        assertThat(actualResult)
+                .isNotNull();
+
+        assertThat(actualResult.getLogin())
+                .isNotNull()
+                .isEqualTo(userEntityFirst.getLogin());
     }
 
     @Test
@@ -61,9 +81,17 @@ public class UserMapperTest extends PreparationForTests {
     public void toInMemoryDtoFromEntity_UserInMemoryDto() {
         UserInMemoryDto actualResult = userMapper.toInMemoryDtoFromEntity(userEntityFirst);
 
-        assertNotNull(actualResult);
-        assertEquals(userEntityFirst.getId(), actualResult.getId());
-        assertEquals(userEntityFirst.getLogin(), actualResult.getLogin());
-        assertEquals(userEntityFirst.getIdGroupPermissions(), actualResult.getIdGroupPermissions());
+        assertThat(actualResult)
+                .isNotNull();
+
+        assertThat(actualResult.getId())
+                .isNotNull()
+                .isEqualTo(userEntityFirst.getId());
+        assertThat(actualResult.getLogin())
+                .isNotNull()
+                .isEqualTo(userEntityFirst.getLogin());
+        assertThat(actualResult.getIdGroupPermissions())
+                .isNotNull()
+                .isEqualTo(userEntityFirst.getIdGroupPermissions());
     }
 }

@@ -8,8 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import setup.PreparationForTests;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class GroupPermissionsMapperTest extends PreparationForTests {
     private GroupPermissionsMapper permissionsMapper;
@@ -26,14 +25,30 @@ public class GroupPermissionsMapperTest extends PreparationForTests {
         GroupPermissionsServiceDto actualResult = permissionsMapper.toPermissionsServiceDtoFromEntity(
                 groupPermissionsForExpectedFirst, historyAdmin
         );
+        assertThat(actualResult)
+                .isNotNull();
 
-        assertNotNull(actualResult);
-        assertEquals(groupPermissionsForExpectedFirst.getId(), actualResult.getId());
-        assertEquals(groupPermissionsForExpectedFirst.getName(), actualResult.getNameGroup());
-        assertEquals(historyAdmin.getNameType().getName(), actualResult.getNameService());
-        assertEquals(historyAdmin.getWrite(), actualResult.getWrite());
-        assertEquals(historyAdmin.getRead(), actualResult.getRead());
-        assertEquals(historyAdmin.getUpdate(), actualResult.getUpdate());
-        assertEquals(historyAdmin.getDelete(), actualResult.getDelete());
+        assertThat(actualResult.getId())
+                .isNotNull()
+                .isEqualTo(groupPermissionsForExpectedFirst.getId());
+        assertThat(actualResult.getNameGroup())
+                .isNotNull()
+                .isEqualTo(groupPermissionsForExpectedFirst.getName());
+
+        assertThat(actualResult.getNameService())
+                .isNotNull()
+                .isEqualTo(historyAdmin.getNameType().getName());
+        assertThat(actualResult.getWrite())
+                .isNotNull()
+                .isEqualTo(historyAdmin.getWrite());
+        assertThat(actualResult.getRead())
+                .isNotNull()
+                .isEqualTo(historyAdmin.getRead());
+        assertThat(actualResult.getUpdate())
+                .isNotNull()
+                .isEqualTo(historyAdmin.getUpdate());
+        assertThat(actualResult.getDelete())
+                .isNotNull()
+                .isEqualTo(historyAdmin.getDelete());
     }
 }

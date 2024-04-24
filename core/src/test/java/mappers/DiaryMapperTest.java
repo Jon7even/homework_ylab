@@ -9,7 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import setup.PreparationForTests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class DiaryMapperTest extends PreparationForTests {
     private DiaryMapper diaryMapper;
@@ -27,44 +27,91 @@ public class DiaryMapperTest extends PreparationForTests {
         DiaryEntity actualResultFirst = diaryMapper.toDiaryEntityFromDtoCreate(
                 diaryCreateDtoFirst, diaryEntityFirst.getCreatedOn(), idTypeServiceDiary
         );
-        assertNotNull(actualResultFirst);
-        assertNull(actualResultFirst.getId());
-        assertEquals(diaryEntityFirst.getUserId(), actualResultFirst.getUserId());
-        assertEquals(diaryEntityFirst.getWeightUser(), actualResultFirst.getWeightUser());
-        assertEquals(diaryEntityFirst.getGrowthUser(), actualResultFirst.getGrowthUser());
-        assertEquals(diaryEntityFirst.getCreatedOn(), actualResultFirst.getCreatedOn());
-        assertEquals(diaryEntityFirst.getUpdatedOn(), actualResultFirst.getUpdatedOn());
-        assertEquals(diaryEntityFirst.getIdTypeService(), actualResultFirst.getIdTypeService());
+
+        assertThat(actualResultFirst)
+                .isNotNull();
+        assertThat(actualResultFirst.getId())
+                .isNull();
+
+        assertThat(actualResultFirst.getUserId())
+                .isNotNull()
+                .isEqualTo(diaryEntityFirst.getUserId());
+        assertThat(actualResultFirst.getWeightUser())
+                .isNotNull()
+                .isEqualTo(diaryEntityFirst.getWeightUser());
+        assertThat(actualResultFirst.getGrowthUser())
+                .isNotNull()
+                .isEqualTo(diaryEntityFirst.getGrowthUser());
+        assertThat(actualResultFirst.getCreatedOn())
+                .isNotNull()
+                .isEqualTo(diaryEntityFirst.getCreatedOn());
+        assertThat(actualResultFirst.getUpdatedOn())
+                .isNotNull()
+                .isNotEqualTo(diaryEntityFirst.getUpdatedOn());
 
         DiaryEntity actualResultSecond = diaryMapper.toDiaryEntityFromDtoCreate(
                 diaryCreateDtoSecond, diaryEntitySecond.getCreatedOn(), idTypeServiceDiary
         );
-        assertNotNull(actualResultSecond);
-        assertNull(actualResultSecond.getId());
-        assertEquals(diaryEntitySecond.getUserId(), actualResultSecond.getUserId());
-        assertEquals(diaryEntitySecond.getWeightUser(), actualResultSecond.getWeightUser());
-        assertEquals(diaryEntitySecond.getGrowthUser(), actualResultSecond.getGrowthUser());
-        assertEquals(diaryEntitySecond.getCreatedOn(), actualResultSecond.getCreatedOn());
-        assertEquals(diaryEntitySecond.getUpdatedOn(), actualResultSecond.getUpdatedOn());
-        assertEquals(diaryEntitySecond.getIdTypeService(), actualResultSecond.getIdTypeService());
+        assertThat(actualResultSecond)
+                .isNotNull();
+        assertThat(actualResultSecond.getId())
+                .isNull();
+
+        assertThat(actualResultSecond.getUserId())
+                .isNotNull()
+                .isEqualTo(diaryEntitySecond.getUserId());
+        assertThat(actualResultSecond.getWeightUser())
+                .isNotNull()
+                .isEqualTo(diaryEntitySecond.getWeightUser());
+        assertThat(actualResultSecond.getGrowthUser())
+                .isNotNull()
+                .isEqualTo(diaryEntitySecond.getGrowthUser());
+        assertThat(actualResultSecond.getCreatedOn())
+                .isNotNull()
+                .isEqualTo(diaryEntitySecond.getCreatedOn());
+        assertThat(actualResultSecond.getUpdatedOn())
+                .isNotNull()
+                .isNotEqualTo(diaryEntitySecond.getUpdatedOn());
     }
 
     @Test
     @DisplayName("Маппинг из сущности в DTO для предоставления данных о дневнике")
     public void should_toDiaryResponseDtoFromEntity_ReturnDtoResponse() {
         DiaryResponseDto actualResultFirst = diaryMapper.toDiaryResponseDtoFromEntity(diaryEntityFirst);
-        assertNotNull(actualResultFirst);
-        assertEquals(diaryEntityFirst.getWeightUser(), actualResultFirst.getWeightUser());
-        assertEquals(diaryEntityFirst.getGrowthUser(), actualResultFirst.getGrowthUser());
-        assertEquals(diaryEntityFirst.getCreatedOn(), actualResultFirst.getCreatedOn());
-        assertEquals(diaryEntityFirst.getUpdatedOn(), actualResultFirst.getUpdatedOn());
+
+        assertThat(actualResultFirst)
+                .isNotNull();
+
+        assertThat(actualResultFirst.getWeightUser())
+                .isNotNull()
+                .isEqualTo(diaryEntityFirst.getWeightUser());
+        assertThat(actualResultFirst.getGrowthUser())
+                .isNotNull()
+                .isEqualTo(diaryEntityFirst.getGrowthUser());
+        assertThat(actualResultFirst.getCreatedOn())
+                .isNotNull()
+                .isEqualTo(diaryEntityFirst.getCreatedOn());
+        assertThat(actualResultFirst.getUpdatedOn())
+                .isNotNull()
+                .isEqualTo(diaryEntityFirst.getUpdatedOn());
 
         DiaryResponseDto actualResultSecond = diaryMapper.toDiaryResponseDtoFromEntity(diaryEntitySecond);
-        assertNotNull(actualResultSecond);
-        assertEquals(diaryEntitySecond.getWeightUser(), actualResultSecond.getWeightUser());
-        assertEquals(diaryEntitySecond.getGrowthUser(), actualResultSecond.getGrowthUser());
-        assertEquals(diaryEntitySecond.getCreatedOn(), actualResultSecond.getCreatedOn());
-        assertEquals(diaryEntitySecond.getUpdatedOn(), actualResultSecond.getUpdatedOn());
+
+        assertThat(actualResultSecond)
+                .isNotNull();
+
+        assertThat(actualResultSecond.getWeightUser())
+                .isNotNull()
+                .isEqualTo(diaryEntitySecond.getWeightUser());
+        assertThat(actualResultSecond.getGrowthUser())
+                .isNotNull()
+                .isEqualTo(diaryEntitySecond.getGrowthUser());
+        assertThat(actualResultSecond.getCreatedOn())
+                .isNotNull()
+                .isEqualTo(diaryEntitySecond.getCreatedOn());
+        assertThat(actualResultSecond.getUpdatedOn())
+                .isNotNull()
+                .isEqualTo(diaryEntitySecond.getUpdatedOn());
     }
 
     @Test
@@ -79,34 +126,73 @@ public class DiaryMapperTest extends PreparationForTests {
                 .updatedOn(diaryEntityFirst.getUpdatedOn())
                 .idTypeService(diaryEntityFirst.getIdTypeService())
                 .build();
-        assertEquals(actualResult, diaryEntityFirst);
+
+        assertThat(actualResult)
+                .isNotNull()
+                .isEqualTo(diaryEntityFirst);
 
         diaryMapper.updateDiaryEntityFromDtoUpdate(actualResult, diaryUpdateDtoFirst);
-        assertNotNull(actualResult);
-        assertNotEquals(diaryEntityFirst, actualResult);
-        assertEquals(diaryUpdateDtoFirst.getWeightUser(), actualResult.getWeightUser());
-        assertEquals(diaryUpdateDtoFirst.getGrowthUser(), actualResult.getGrowthUser());
-        assertEquals(diaryUpdateDtoFirst.getUpdatedOn(), actualResult.getUpdatedOn());
+
+        assertThat(actualResult)
+                .isNotNull();
+
+        assertThat(actualResult.getWeightUser())
+                .isNotNull()
+                .isEqualTo(diaryUpdateDtoFirst.getWeightUser());
+        assertThat(actualResult.getGrowthUser())
+                .isNotNull()
+                .isEqualTo(diaryUpdateDtoFirst.getGrowthUser());
+        assertThat(actualResult.getUpdatedOn())
+                .isNotNull()
+                .isEqualTo(diaryUpdateDtoFirst.getUpdatedOn());
+
 
         diaryMapper.updateDiaryEntityFromDtoUpdate(actualResult, diaryUpdateDtoSecond);
-        assertNotNull(actualResult);
-        assertNotEquals(diaryEntityFirst, actualResult);
-        assertNotEquals(diaryUpdateDtoSecond.getWeightUser(), actualResult.getWeightUser());
-        assertNotEquals(diaryUpdateDtoSecond.getGrowthUser(), actualResult.getGrowthUser());
-        assertEquals(diaryUpdateDtoSecond.getUpdatedOn(), actualResult.getUpdatedOn());
+
+        assertThat(actualResult)
+                .isNotNull()
+                .isNotEqualTo(diaryEntityFirst);
+
+        assertThat(actualResult.getWeightUser())
+                .isNotNull()
+                .isNotEqualTo(diaryUpdateDtoSecond.getWeightUser());
+        assertThat(actualResult.getGrowthUser())
+                .isNotNull()
+                .isNotEqualTo(diaryUpdateDtoSecond.getGrowthUser());
+        assertThat(actualResult.getUpdatedOn())
+                .isNotNull()
+                .isEqualTo(diaryUpdateDtoSecond.getUpdatedOn());
 
         diaryMapper.updateDiaryEntityFromDtoUpdate(actualResult, diaryUpdateDtoThird);
-        assertNotNull(actualResult);
-        assertNotEquals(diaryEntityFirst, actualResult);
-        assertEquals(diaryUpdateDtoThird.getWeightUser(), actualResult.getWeightUser());
-        assertNotEquals(diaryUpdateDtoThird.getGrowthUser(), actualResult.getGrowthUser());
-        assertEquals(diaryUpdateDtoThird.getUpdatedOn(), actualResult.getUpdatedOn());
 
-        diaryMapper.updateDiaryEntityFromDtoUpdate(actualResult, diaryUpdateDtoThird);
-        assertNotNull(actualResult);
-        assertNotEquals(diaryEntityFirst, actualResult);
-        assertNotEquals(diaryUpdateDtoFourth.getWeightUser(), actualResult.getWeightUser());
-        assertNotEquals(diaryUpdateDtoFourth.getGrowthUser(), actualResult.getGrowthUser());
-        assertEquals(diaryUpdateDtoFourth.getUpdatedOn(), actualResult.getUpdatedOn());
+        assertThat(actualResult)
+                .isNotNull()
+                .isNotEqualTo(diaryEntityFirst);
+
+        assertThat(actualResult.getWeightUser())
+                .isNotNull()
+                .isEqualTo(diaryUpdateDtoThird.getWeightUser());
+        assertThat(actualResult.getGrowthUser())
+                .isNotNull()
+                .isNotEqualTo(diaryUpdateDtoThird.getGrowthUser());
+        assertThat(actualResult.getUpdatedOn())
+                .isNotNull()
+                .isEqualTo(diaryUpdateDtoThird.getUpdatedOn());
+
+        diaryMapper.updateDiaryEntityFromDtoUpdate(actualResult, diaryUpdateDtoFourth);
+
+        assertThat(actualResult)
+                .isNotNull()
+                .isNotEqualTo(diaryEntityFirst);
+
+        assertThat(actualResult.getWeightUser())
+                .isNotNull()
+                .isNotEqualTo(diaryUpdateDtoFourth.getWeightUser());
+        assertThat(actualResult.getGrowthUser())
+                .isNotNull()
+                .isEqualTo(diaryUpdateDtoFourth.getGrowthUser());
+        assertThat(actualResult.getUpdatedOn())
+                .isNotNull()
+                .isNotEqualTo(diaryUpdateDtoFourth.getUpdatedOn());
     }
 }

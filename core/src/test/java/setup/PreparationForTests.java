@@ -732,6 +732,7 @@ public class PreparationForTests {
     protected DiaryEntity diaryEntitySecond;
 
     protected void initDiaryEntity() {
+        initLocalDateTime();
         diaryEntityFirst = DiaryEntity.builder()
                 .id(firstIdLong)
                 .userId(firstIdLong)

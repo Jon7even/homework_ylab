@@ -10,8 +10,7 @@ import setup.PreparationForTests;
 
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 public class ServiceCalculationOfStatsTest extends PreparationForTests {
@@ -30,8 +29,10 @@ public class ServiceCalculationOfStatsTest extends PreparationForTests {
     public void shouldCalculateCalorieOfWorkout_ReturnRightCalorie() {
         Integer actualResult = serviceCalculationOfStats.getTotalCalorieFromWorkoutDto(workoutFullResponseDtoFirst);
         int caloriePerHourExpected = workoutFullResponseDtoFirst.getTypeWorkoutResponseDto().getCaloriePerHour();
-        assertNotNull(actualResult);
-        assertEquals(caloriePerHourExpected, actualResult);
+
+        assertThat(actualResult)
+                .isNotNull()
+                .isEqualTo(caloriePerHourExpected);
     }
 
     @Test
@@ -43,9 +44,10 @@ public class ServiceCalculationOfStatsTest extends PreparationForTests {
         long timeOfWorkout = Duration.between(timeStartFirst, timeEndFirst).toMinutes();
         int timeOfWorkoutMinusRestExpected
                 = (int) (timeOfWorkout - workoutFullResponseDtoFirst.getTimeOfRest().toMinutes());
-        assertNotNull(actualResult);
-        assertEquals(timeOfWorkoutMinusRestExpected, actualResult);
-    }
 
+        assertThat(actualResult)
+                .isNotNull()
+                .isEqualTo(timeOfWorkoutMinusRestExpected);
+    }
 }
 

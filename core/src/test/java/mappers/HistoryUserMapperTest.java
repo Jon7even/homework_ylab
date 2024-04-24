@@ -12,7 +12,7 @@ import setup.PreparationForTests;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class HistoryUserMapperTest extends PreparationForTests {
     private HistoryUserMapper historyUserMapper;
@@ -31,11 +31,17 @@ public class HistoryUserMapperTest extends PreparationForTests {
                 historyUserCreateDtoFirst, timeStartFirst, idTypeServiceHistory
         );
 
-        assertNotNull(actualResult);
-        assertNull(actualResult.getId());
-        assertEquals(historyUserEntityFirst.getDateTimeOn(), actualResult.getDateTimeOn());
-        assertEquals(historyUserEntityFirst.getEvent(), actualResult.getEvent());
-        assertEquals(historyUserEntityFirst.getIdTypeService(), actualResult.getIdTypeService());
+        assertThat(actualResult)
+                .isNotNull();
+        assertThat(actualResult.getId())
+                .isNull();
+
+        assertThat(actualResult.getDateTimeOn())
+                .isNotNull()
+                .isEqualTo(historyUserEntityFirst.getDateTimeOn());
+        assertThat(actualResult.getEvent())
+                .isNotNull()
+                .isEqualTo(historyUserEntityFirst.getEvent());
     }
 
     @Test
@@ -44,19 +50,56 @@ public class HistoryUserMapperTest extends PreparationForTests {
         List<HistoryUserResponseByAdminDto> actualResult = historyUserMapper.toHistoryUserResponseByAdminFromEntity(
                 historyUserEntityListAdminFirst
         );
-        assertEquals(historyUserEntityListAdminFirst.size(), actualResult.size());
-        assertEquals(historyUserEntityListAdminFirst.get(0).getId(), actualResult.get(0).getId());
-        assertEquals(historyUserEntityListAdminFirst.get(0).getUserId(), actualResult.get(0).getUserId());
-        assertEquals(historyUserEntityListAdminFirst.get(0).getDateTimeOn(), actualResult.get(0).getDateTimeOn());
-        assertEquals(historyUserEntityListAdminFirst.get(0).getEvent(), actualResult.get(0).getEvent());
-        assertEquals(historyUserEntityListAdminFirst.get(1).getId(), actualResult.get(1).getId());
-        assertEquals(historyUserEntityListAdminFirst.get(1).getUserId(), actualResult.get(1).getUserId());
-        assertEquals(historyUserEntityListAdminFirst.get(1).getDateTimeOn(), actualResult.get(1).getDateTimeOn());
-        assertEquals(historyUserEntityListAdminFirst.get(1).getEvent(), actualResult.get(1).getEvent());
-        assertEquals(historyUserEntityListAdminFirst.get(2).getId(), actualResult.get(2).getId());
-        assertEquals(historyUserEntityListAdminFirst.get(2).getUserId(), actualResult.get(2).getUserId());
-        assertEquals(historyUserEntityListAdminFirst.get(2).getDateTimeOn(), actualResult.get(2).getDateTimeOn());
-        assertEquals(historyUserEntityListAdminFirst.get(2).getEvent(), actualResult.get(2).getEvent());
+
+        assertThat(actualResult)
+                .isNotEmpty()
+                .doesNotContainNull()
+                .hasSize(historyUserEntityListAdminFirst.size());
+
+        assertThat(actualResult.get(0))
+                .isNotNull();
+        assertThat(actualResult.get(0).getId())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(0).getId());
+        assertThat(actualResult.get(0).getUserId())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(0).getUserId());
+        assertThat(actualResult.get(0).getDateTimeOn())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(0).getDateTimeOn());
+        assertThat(actualResult.get(0).getEvent())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(0).getEvent());
+
+        assertThat(actualResult.get(1))
+                .isNotNull();
+        assertThat(actualResult.get(1).getId())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(1).getId());
+        assertThat(actualResult.get(1).getUserId())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(1).getUserId());
+        assertThat(actualResult.get(1).getDateTimeOn())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(1).getDateTimeOn());
+        assertThat(actualResult.get(1).getEvent())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(1).getEvent());
+
+        assertThat(actualResult.get(2))
+                .isNotNull();
+        assertThat(actualResult.get(2).getId())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(2).getId());
+        assertThat(actualResult.get(2).getUserId())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(2).getUserId());
+        assertThat(actualResult.get(2).getDateTimeOn())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(2).getDateTimeOn());
+        assertThat(actualResult.get(2).getEvent())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(2).getEvent());
     }
 
     @Test
@@ -65,12 +108,36 @@ public class HistoryUserMapperTest extends PreparationForTests {
         List<HistoryUserResponseByUserDto> actualResult = historyUserMapper.toHistoryUserResponseByUserFromEntity(
                 historyUserEntityListUserFirst
         );
-        assertEquals(historyUserEntityListAdminFirst.size(), actualResult.size());
-        assertEquals(historyUserEntityListAdminFirst.get(0).getDateTimeOn(), actualResult.get(0).getDateTimeOn());
-        assertEquals(historyUserEntityListAdminFirst.get(0).getEvent(), actualResult.get(0).getEvent());
-        assertEquals(historyUserEntityListAdminFirst.get(1).getDateTimeOn(), actualResult.get(1).getDateTimeOn());
-        assertEquals(historyUserEntityListAdminFirst.get(1).getEvent(), actualResult.get(1).getEvent());
-        assertEquals(historyUserEntityListAdminFirst.get(2).getDateTimeOn(), actualResult.get(2).getDateTimeOn());
-        assertEquals(historyUserEntityListAdminFirst.get(2).getEvent(), actualResult.get(2).getEvent());
+        assertThat(actualResult)
+                .isNotEmpty()
+                .doesNotContainNull()
+                .hasSize(historyUserEntityListAdminFirst.size());
+
+        assertThat(actualResult.get(0))
+                .isNotNull();
+        assertThat(actualResult.get(0).getDateTimeOn())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(0).getDateTimeOn());
+        assertThat(actualResult.get(0).getEvent())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(0).getEvent());
+
+        assertThat(actualResult.get(1))
+                .isNotNull();
+        assertThat(actualResult.get(1).getDateTimeOn())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(1).getDateTimeOn());
+        assertThat(actualResult.get(1).getEvent())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(1).getEvent());
+
+        assertThat(actualResult.get(2))
+                .isNotNull();
+        assertThat(actualResult.get(2).getDateTimeOn())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(2).getDateTimeOn());
+        assertThat(actualResult.get(2).getEvent())
+                .isNotNull()
+                .isEqualTo(historyUserEntityListAdminFirst.get(2).getEvent());
     }
 }

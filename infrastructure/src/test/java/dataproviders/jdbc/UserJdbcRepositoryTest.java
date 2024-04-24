@@ -9,14 +9,15 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UserJdbcRepositoryTest extends ContainersSetup {
     private Optional<UserEntity> actualResultUserFirst;
 
     private Optional<UserEntity> actualResultUserSecond;
 
-    private Long sizeListRepositoryUser = 3L;
+    private Integer sizeListRepositoryUser = 3;
 
     @BeforeEach
     public void setUp() {
@@ -28,37 +29,53 @@ public class UserJdbcRepositoryTest extends ContainersSetup {
     @Test
     @DisplayName("Новый пользователь должен создаться c релевантными полями")
     public void shouldCreateNewUser() {
-        assertEquals(userEntityFirst, actualResultUserFirst.get());
-        assertEquals(userEntitySecond, actualResultUserSecond.get());
+        assertThat(userEntityFirst)
+                .isNotNull()
+                .isEqualTo(actualResultUserFirst.get());
+        assertThat(userEntitySecond)
+                .isNotNull()
+                .isEqualTo(actualResultUserSecond.get());
     }
 
     @Test
     @DisplayName("Пользователь админ должен быть уже в базе при инициализации программы")
     public void shouldFindUserAdminInBD_ReturnUserAdmin() {
-        assertEquals(userAdmin.getId(), userJdbcRepository.findByUserId(firstIdLong).get().getId());
+        assertThat(userJdbcRepository.findByUserId(firstIdLong).get().getId())
+                .isNotNull()
+                .isEqualTo(userAdmin.getId());
     }
 
     @Test
     @DisplayName("Должен найти пользователя по ID")
     public void shouldFindUserById_ReturnUser() {
-        assertEquals(secondIdLong, userJdbcRepository.findByUserId(secondIdLong).get().getId());
-        assertEquals(thirdIdLong, userJdbcRepository.findByUserId(thirdIdLong).get().getId());
+        assertThat(userJdbcRepository.findByUserId(secondIdLong).get().getId())
+                .isNotNull()
+                .isEqualTo(secondIdLong);
+
+        assertThat(userJdbcRepository.findByUserId(thirdIdLong).get().getId())
+                .isNotNull()
+                .isEqualTo(thirdIdLong);
     }
 
     @Test
     @DisplayName("Не должен найти пользователя по ID")
     public void shouldNotFindUserById_ReturnUser() {
-        Optional<UserEntity> actualResultFirst = userJdbcRepository.findByUserId(9999L);
-        Optional<UserEntity> actualResultSecond = userJdbcRepository.findByUserId(-9999L);
-        assertEquals(actualResultFirst, Optional.empty());
-        assertEquals(actualResultSecond, Optional.empty());
+        assertThat(userJdbcRepository.findByUserId(9999L))
+                .isEmpty();
+        assertThat(userJdbcRepository.findByUserId(-9999L))
+                .isEmpty();
     }
 
     @Test
     @DisplayName("Должен найти пользователя по логину")
     public void shouldFindUserByLogin_ReturnUser() {
-        assertEquals(userEntityFirst, userJdbcRepository.findByUserLogin(userLoginFirst).get());
-        assertEquals(userEntitySecond, userJdbcRepository.findByUserLogin(userLoginSecond).get());
+        assertThat(userJdbcRepository.findByUserLogin(userLoginFirst).get())
+                .isNotNull()
+                .isEqualTo(userEntityFirst);
+
+        assertThat(userJdbcRepository.findByUserLogin(userLoginSecond).get())
+                .isNotNull()
+                .isEqualTo(userEntitySecond);
     }
 
     @Test
@@ -80,7 +97,10 @@ public class UserJdbcRepositoryTest extends ContainersSetup {
     @Test
     @DisplayName("Получить всех пользователей")
     public void shouldFindAllUsers_ReturnAllUsers() {
-        assertEquals(userJdbcRepository.getAllUsers().size(), sizeListRepositoryUser);
+        assertThat(userJdbcRepository.getAllUsers())
+                .isNotEmpty()
+                .doesNotContainNull()
+                .hasSize(sizeListRepositoryUser);
     }
 
     @Test
@@ -89,16 +109,19 @@ public class UserJdbcRepositoryTest extends ContainersSetup {
         Optional<UserEntity> updatedUserFirst = userJdbcRepository.updateUser(userEntityForUpdateFirst);
         Optional<UserEntity> updatedUserSecond = userJdbcRepository.updateUser(userEntityForUpdateSecond);
 
-        assertTrue(updatedUserFirst.isPresent());
-        assertTrue(updatedUserSecond.isPresent());
-        assertEquals(
-                userEntityForUpdateFirst, userJdbcRepository.findByUserId(userEntityForUpdateFirst.getId()).get()
-        );
-        assertEquals(
-                userEntityForUpdateSecond, userJdbcRepository.findByUserId(userEntityForUpdateSecond.getId()).get()
-        );
+        assertThat(updatedUserFirst.isPresent())
+                .isTrue();
+        assertThat(updatedUserSecond.isPresent())
+                .isTrue();
 
-        assertNotEquals(actualResultUserFirst, userJdbcRepository.findByUserId(userEntityForUpdateFirst.getId()));
-        assertNotEquals(actualResultUserSecond, userJdbcRepository.findByUserId(userEntityForUpdateSecond.getId()));
+        assertThat(userJdbcRepository.findByUserId(userEntityForUpdateFirst.getId()).get())
+                .isEqualTo(userEntityForUpdateFirst);
+        assertThat(userJdbcRepository.findByUserId(userEntityForUpdateSecond.getId()).get())
+                .isEqualTo(userEntityForUpdateSecond);
+
+        assertThat(userJdbcRepository.findByUserId(userEntityForUpdateFirst.getId()))
+                .isNotEqualTo(actualResultUserFirst);
+        assertThat(userJdbcRepository.findByUserId(userEntityForUpdateSecond.getId()))
+                .isNotEqualTo(actualResultUserSecond);
     }
 }

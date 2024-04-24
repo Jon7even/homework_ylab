@@ -9,7 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import setup.PreparationForTests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class WorkoutMapperTest extends PreparationForTests {
     private WorkoutMapper workoutMapper;
@@ -26,44 +26,104 @@ public class WorkoutMapperTest extends PreparationForTests {
         WorkoutEntity actualResultFirst = workoutMapper.toWorkoutEntityFromDtoCreate(
                 workoutCreateDtoFirst, idTypeServiceDiary
         );
-        assertNotNull(actualResultFirst);
-        assertNull(actualResultFirst.getId());
-        assertEquals(workoutEntityFirst.getIdDiary(), actualResultFirst.getIdDiary());
-        assertEquals(workoutEntityFirst.getIdTypeWorkout(), actualResultFirst.getIdTypeWorkout());
-        assertEquals(workoutEntityFirst.getTimeStartOn(), actualResultFirst.getTimeStartOn());
-        assertEquals(workoutEntityFirst.getTimeEndOn(), actualResultFirst.getTimeEndOn());
-        assertEquals(workoutEntityFirst.getTimeOfRest(), actualResultFirst.getTimeOfRest());
-        assertEquals(workoutEntityFirst.getCurrentWeightUser(), actualResultFirst.getCurrentWeightUser());
-        assertEquals(workoutEntityFirst.getPersonalNote(), actualResultFirst.getPersonalNote());
-        assertEquals(workoutEntityFirst.getDetailOfWorkout(), actualResultFirst.getDetailOfWorkout());
+
+        assertThat(actualResultFirst)
+                .isNotNull();
+        assertThat(actualResultFirst.getId())
+                .isNull();
+
+        assertThat(actualResultFirst.getIdDiary())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getIdDiary());
+        assertThat(actualResultFirst.getIdTypeWorkout())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getIdTypeWorkout());
+        assertThat(actualResultFirst.getTimeStartOn())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getTimeStartOn());
+        assertThat(actualResultFirst.getTimeEndOn())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getTimeEndOn());
+        assertThat(actualResultFirst.getTimeOfRest())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getTimeOfRest());
+        assertThat(actualResultFirst.getCurrentWeightUser())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getCurrentWeightUser());
+        assertThat(actualResultFirst.getPersonalNote())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getPersonalNote());
+        assertThat(actualResultFirst.getDetailOfWorkout())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getDetailOfWorkout());
 
         WorkoutEntity actualResultSecond = workoutMapper.toWorkoutEntityFromDtoCreate(
                 workoutCreateDtoSecond, idTypeServiceDiary
         );
-        assertNotNull(actualResultSecond);
-        assertNull(actualResultSecond.getId());
-        assertEquals(workoutEntitySecond.getIdDiary(), actualResultSecond.getIdDiary());
-        assertEquals(workoutEntitySecond.getIdTypeWorkout(), actualResultSecond.getIdTypeWorkout());
-        assertEquals(workoutEntitySecond.getTimeStartOn(), actualResultSecond.getTimeStartOn());
-        assertEquals(workoutEntitySecond.getTimeEndOn(), actualResultSecond.getTimeEndOn());
-        assertEquals(workoutEntitySecond.getTimeOfRest(), actualResultSecond.getTimeOfRest());
-        assertEquals(workoutEntitySecond.getCurrentWeightUser(), actualResultSecond.getCurrentWeightUser());
-        assertEquals(workoutEntitySecond.getPersonalNote(), actualResultSecond.getPersonalNote());
-        assertEquals(workoutEntitySecond.getDetailOfWorkout(), actualResultSecond.getDetailOfWorkout());
+
+        assertThat(actualResultSecond)
+                .isNotNull();
+        assertThat(actualResultSecond.getId())
+                .isNull();
+
+        assertThat(actualResultSecond.getIdDiary())
+                .isNotNull()
+                .isEqualTo(workoutEntitySecond.getIdDiary());
+        assertThat(actualResultSecond.getIdTypeWorkout())
+                .isNotNull()
+                .isEqualTo(workoutEntitySecond.getIdTypeWorkout());
+        assertThat(actualResultSecond.getTimeStartOn())
+                .isNotNull()
+                .isEqualTo(workoutEntitySecond.getTimeStartOn());
+        assertThat(actualResultSecond.getTimeEndOn())
+                .isNotNull()
+                .isEqualTo(workoutEntitySecond.getTimeEndOn());
+        assertThat(actualResultSecond.getTimeOfRest())
+                .isNotNull()
+                .isEqualTo(workoutEntitySecond.getTimeOfRest());
+        assertThat(actualResultSecond.getCurrentWeightUser())
+                .isNotNull()
+                .isEqualTo(workoutEntitySecond.getCurrentWeightUser());
+        assertThat(actualResultSecond.getPersonalNote())
+                .isNotNull()
+                .isEqualTo(workoutEntitySecond.getPersonalNote());
+        assertThat(actualResultSecond.getDetailOfWorkout())
+                .isNotNull()
+                .isEqualTo(workoutEntitySecond.getDetailOfWorkout());
 
         WorkoutEntity actualResultThird = workoutMapper.toWorkoutEntityFromDtoCreate(
                 workoutCreateDtoThird, idTypeServiceDiary
         );
-        assertNotNull(actualResultThird);
-        assertNull(actualResultThird.getId());
-        assertEquals(workoutEntityThird.getIdDiary(), actualResultThird.getIdDiary());
-        assertEquals(workoutEntityThird.getIdTypeWorkout(), actualResultThird.getIdTypeWorkout());
-        assertEquals(workoutEntityThird.getTimeStartOn(), actualResultThird.getTimeStartOn());
-        assertEquals(workoutEntityThird.getTimeEndOn(), actualResultThird.getTimeEndOn());
-        assertEquals(workoutEntityThird.getTimeOfRest(), actualResultThird.getTimeOfRest());
-        assertEquals(workoutEntityThird.getCurrentWeightUser(), actualResultThird.getCurrentWeightUser());
-        assertEquals(workoutEntityThird.getPersonalNote(), actualResultThird.getPersonalNote());
-        assertEquals(workoutEntityThird.getDetailOfWorkout(), actualResultThird.getDetailOfWorkout());
+
+        assertThat(actualResultThird)
+                .isNotNull();
+        assertThat(actualResultThird.getId())
+                .isNull();
+
+        assertThat(actualResultThird.getIdDiary())
+                .isNotNull()
+                .isEqualTo(workoutEntityThird.getIdDiary());
+        assertThat(actualResultThird.getIdTypeWorkout())
+                .isNotNull()
+                .isEqualTo(workoutEntityThird.getIdTypeWorkout());
+        assertThat(actualResultThird.getTimeStartOn())
+                .isNotNull()
+                .isEqualTo(workoutEntityThird.getTimeStartOn());
+        assertThat(actualResultThird.getTimeEndOn())
+                .isNotNull()
+                .isEqualTo(workoutEntityThird.getTimeEndOn());
+        assertThat(actualResultThird.getTimeOfRest())
+                .isNotNull()
+                .isEqualTo(workoutEntityThird.getTimeOfRest());
+        assertThat(actualResultThird.getCurrentWeightUser())
+                .isNotNull()
+                .isEqualTo(workoutEntityThird.getCurrentWeightUser());
+        assertThat(actualResultThird.getPersonalNote())
+                .isNotNull()
+                .isEqualTo(workoutEntityThird.getPersonalNote());
+        assertThat(actualResultThird.getDetailOfWorkout())
+                .isNotNull()
+                .isEqualTo(workoutEntityThird.getDetailOfWorkout());
     }
 
     @Test
@@ -72,46 +132,100 @@ public class WorkoutMapperTest extends PreparationForTests {
         WorkoutFullResponseDto actualResultFirst = workoutMapper.toWorkoutFullResponseDtoFromEntity(
                 workoutEntityFirst, typeWorkoutResponseDtoWalking
         );
-        assertNotNull(actualResultFirst);
-        assertEquals(workoutEntityFirst.getId(), actualResultFirst.getId());
-        assertEquals(workoutEntityFirst.getIdDiary(), actualResultFirst.getIdDiary());
-        assertEquals(workoutEntityFirst.getIdTypeWorkout(),
-                actualResultFirst.getTypeWorkoutResponseDto().getTypeWorkoutId());
-        assertEquals(workoutEntityFirst.getTimeStartOn(), actualResultFirst.getTimeStartOn());
-        assertEquals(workoutEntityFirst.getTimeEndOn(), actualResultFirst.getTimeEndOn());
-        assertEquals(workoutEntityFirst.getTimeOfRest(), actualResultFirst.getTimeOfRest());
-        assertEquals(workoutEntityFirst.getCurrentWeightUser(), actualResultFirst.getCurrentWeightUser());
-        assertEquals(workoutEntityFirst.getPersonalNote(), actualResultFirst.getPersonalNote());
-        assertEquals(workoutEntityFirst.getDetailOfWorkout(), actualResultFirst.getDetailOfWorkout());
+
+        assertThat(actualResultFirst)
+                .isNotNull();
+
+        assertThat(actualResultFirst.getId())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getId());
+        assertThat(actualResultFirst.getIdDiary())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getIdDiary());
+        assertThat(actualResultFirst.getTypeWorkoutResponseDto().getTypeWorkoutId())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getIdTypeWorkout());
+        assertThat(actualResultFirst.getTimeStartOn())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getTimeStartOn());
+        assertThat(actualResultFirst.getTimeEndOn())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getTimeEndOn());
+        assertThat(actualResultFirst.getTimeOfRest())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getTimeOfRest());
+        assertThat(actualResultFirst.getCurrentWeightUser())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getCurrentWeightUser());
+        assertThat(actualResultFirst.getPersonalNote())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getPersonalNote());
+        assertThat(actualResultFirst.getDetailOfWorkout())
+                .isNotNull()
+                .isEqualTo(workoutEntityFirst.getDetailOfWorkout());
 
         WorkoutFullResponseDto actualResultSecond = workoutMapper.toWorkoutFullResponseDtoFromEntity(
                 workoutEntitySecond, typeWorkoutResponseDtoStrength
         );
-        assertNotNull(actualResultSecond);
-        assertEquals(workoutEntitySecond.getId(), actualResultSecond.getId());
-        assertEquals(workoutEntitySecond.getIdDiary(), actualResultSecond.getIdDiary());
-        assertEquals(workoutEntitySecond.getIdTypeWorkout(),
-                actualResultSecond.getTypeWorkoutResponseDto().getTypeWorkoutId());
-        assertEquals(workoutEntitySecond.getTimeStartOn(), actualResultSecond.getTimeStartOn());
-        assertEquals(workoutEntitySecond.getTimeEndOn(), actualResultSecond.getTimeEndOn());
-        assertEquals(workoutEntitySecond.getTimeOfRest(), actualResultSecond.getTimeOfRest());
-        assertEquals(workoutEntitySecond.getCurrentWeightUser(), actualResultSecond.getCurrentWeightUser());
-        assertEquals(workoutEntitySecond.getPersonalNote(), actualResultSecond.getPersonalNote());
-        assertEquals(workoutEntitySecond.getDetailOfWorkout(), actualResultSecond.getDetailOfWorkout());
+
+        assertThat(actualResultSecond)
+                .isNotNull();
+
+        assertThat(actualResultSecond.getIdDiary())
+                .isNotNull()
+                .isEqualTo(workoutEntitySecond.getIdDiary());
+        assertThat(actualResultSecond.getTypeWorkoutResponseDto().getTypeWorkoutId())
+                .isNotNull()
+                .isEqualTo(workoutEntitySecond.getIdTypeWorkout());
+        assertThat(actualResultSecond.getTimeStartOn())
+                .isNotNull()
+                .isEqualTo(workoutEntitySecond.getTimeStartOn());
+        assertThat(actualResultSecond.getTimeEndOn())
+                .isNotNull()
+                .isEqualTo(workoutEntitySecond.getTimeEndOn());
+        assertThat(actualResultSecond.getTimeOfRest())
+                .isNotNull()
+                .isEqualTo(workoutEntitySecond.getTimeOfRest());
+        assertThat(actualResultSecond.getCurrentWeightUser())
+                .isNotNull()
+                .isEqualTo(workoutEntitySecond.getCurrentWeightUser());
+        assertThat(actualResultSecond.getPersonalNote())
+                .isNotNull()
+                .isEqualTo(workoutEntitySecond.getPersonalNote());
+        assertThat(actualResultSecond.getDetailOfWorkout())
+                .isNotNull()
+                .isEqualTo(workoutEntitySecond.getDetailOfWorkout());
 
         WorkoutFullResponseDto actualResultThird = workoutMapper.toWorkoutFullResponseDtoFromEntity(
                 workoutEntityThird, typeWorkoutResponseDtoYoga
         );
-        assertNotNull(actualResultThird);
-        assertEquals(workoutEntityThird.getId(), actualResultThird.getId());
-        assertEquals(workoutEntityThird.getIdDiary(), actualResultThird.getIdDiary());
-        assertEquals(workoutEntityThird.getIdTypeWorkout(),
-                actualResultThird.getTypeWorkoutResponseDto().getTypeWorkoutId());
-        assertEquals(workoutEntityThird.getTimeStartOn(), actualResultThird.getTimeStartOn());
-        assertEquals(workoutEntityThird.getTimeEndOn(), actualResultThird.getTimeEndOn());
-        assertEquals(workoutEntityThird.getTimeOfRest(), actualResultThird.getTimeOfRest());
-        assertEquals(workoutEntityThird.getCurrentWeightUser(), actualResultThird.getCurrentWeightUser());
-        assertEquals(workoutEntityThird.getPersonalNote(), actualResultThird.getPersonalNote());
-        assertEquals(workoutEntityThird.getDetailOfWorkout(), actualResultThird.getDetailOfWorkout());
+
+        assertThat(actualResultThird)
+                .isNotNull();
+
+        assertThat(actualResultThird.getIdDiary())
+                .isNotNull()
+                .isEqualTo(workoutEntityThird.getIdDiary());
+        assertThat(actualResultThird.getTypeWorkoutResponseDto().getTypeWorkoutId())
+                .isNotNull()
+                .isEqualTo(workoutEntityThird.getIdTypeWorkout());
+        assertThat(actualResultThird.getTimeStartOn())
+                .isNotNull()
+                .isEqualTo(workoutEntityThird.getTimeStartOn());
+        assertThat(actualResultThird.getTimeEndOn())
+                .isNotNull()
+                .isEqualTo(workoutEntityThird.getTimeEndOn());
+        assertThat(actualResultThird.getTimeOfRest())
+                .isNotNull()
+                .isEqualTo(workoutEntityThird.getTimeOfRest());
+        assertThat(actualResultThird.getCurrentWeightUser())
+                .isNotNull()
+                .isEqualTo(workoutEntityThird.getCurrentWeightUser());
+        assertThat(actualResultThird.getPersonalNote())
+                .isNotNull()
+                .isEqualTo(workoutEntityThird.getPersonalNote());
+        assertThat(actualResultThird.getDetailOfWorkout())
+                .isNotNull()
+                .isEqualTo(workoutEntityThird.getDetailOfWorkout());
     }
 }

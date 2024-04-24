@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import setup.PreparationForTests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 public class GroupPermissionsServiceTest extends PreparationForTests {
@@ -28,8 +28,10 @@ public class GroupPermissionsServiceTest extends PreparationForTests {
         boolean actualResult = groupPermissionsService.getPermissionsForService(
                 firstIdInteger, historyAdmin.getNameType().getId(), FlagPermissions.DELETE
         );
-        assertTrue(actualResult);
-        assertEquals(historyAdmin.getDelete(), true);
+        assertThat(actualResult)
+                .isNotNull()
+                .isTrue()
+                .isEqualTo(historyAdmin.getDelete());
     }
 
     @Test
@@ -38,8 +40,9 @@ public class GroupPermissionsServiceTest extends PreparationForTests {
         boolean actualResult = groupPermissionsService.getPermissionsForService(
                 secondIdInteger, historyUser.getNameType().getId(), FlagPermissions.DELETE
         );
-        assertFalse(actualResult);
-        assertEquals(historyUser.getDelete(), false);
+        assertThat(actualResult)
+                .isNotNull()
+                .isFalse()
+                .isEqualTo(historyUser.getDelete());
     }
-
 }

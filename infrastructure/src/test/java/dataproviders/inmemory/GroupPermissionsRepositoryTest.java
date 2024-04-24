@@ -12,8 +12,7 @@ import setup.PreparationForTests;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 public class GroupPermissionsRepositoryTest extends PreparationForTests {
@@ -38,8 +37,12 @@ public class GroupPermissionsRepositoryTest extends PreparationForTests {
     @Test
     @DisplayName("Новая группа разрешений должна создаться")
     public void shouldCreateGroupPermissions() {
-        assertEquals(groupPermissionsForExpectedFirst, actualResultFirstPermissions.get());
-        assertEquals(groupPermissionsForExpectedSecond, actualResultSecondPermissions.get());
+        assertThat(actualResultFirstPermissions.get())
+                .isNotNull()
+                .isEqualTo(groupPermissionsForExpectedFirst);
+        assertThat(actualResultSecondPermissions.get())
+                .isNotNull()
+                .isEqualTo(groupPermissionsForExpectedSecond);
     }
 
     @Test
@@ -47,15 +50,27 @@ public class GroupPermissionsRepositoryTest extends PreparationForTests {
     public void shouldFindGroupPermissionsInBD_ReturnGroupPermissionsAdminAndUser() {
         GroupPermissionsEntity actualResultFirstAdmin = groupPermissionsRepository.findByGroupPermissionsId(
                 firstIdInteger).get();
-        assertNotNull(actualResultFirstAdmin);
-        assertEquals(firstIdInteger, actualResultFirstAdmin.getId());
-        assertEquals("Admin", actualResultFirstAdmin.getName());
+
+        assertThat(actualResultFirstAdmin)
+                .isNotNull();
+        assertThat(actualResultFirstAdmin.getId())
+                .isNotNull()
+                .isEqualTo(firstIdInteger);
+        assertThat(actualResultFirstAdmin.getName())
+                .isNotNull()
+                .isEqualTo("Admin");
 
         GroupPermissionsEntity actualResultSecondUser = groupPermissionsRepository.findByGroupPermissionsId(
                 secondIdInteger).get();
-        assertNotNull(actualResultSecondUser);
-        assertEquals(secondIdInteger, actualResultSecondUser.getId());
-        assertEquals("User", actualResultSecondUser.getName());
+
+        assertThat(actualResultSecondUser)
+                .isNotNull();
+        assertThat(actualResultSecondUser.getId())
+                .isNotNull()
+                .isEqualTo(secondIdInteger);
+        assertThat(actualResultSecondUser.getName())
+                .isNotNull()
+                .isEqualTo("User");
     }
 
     @Test
@@ -79,21 +94,30 @@ public class GroupPermissionsRepositoryTest extends PreparationForTests {
                         firstIdInteger, nameTypeWorkoutType.getId()
                 ).get();
 
-        assertNotNull(permissionsForHistoryAdmin);
-        assertEquals(nameTypeHistory.getName(), permissionsForHistoryAdmin.getServicesList()
-                .iterator().next().getNameType().getName());
+        assertThat(permissionsForHistoryAdmin)
+                .isNotNull();
+        assertThat(nameTypeHistory.getName())
+                .isNotNull()
+                .isEqualTo(permissionsForHistoryAdmin.getServicesList().iterator().next().getNameType().getName());
 
-        assertNotNull(permissionsForDiaryAdmin);
-        assertEquals(nameTypeDiary.getName(), permissionsForDiaryAdmin.getServicesList()
-                .iterator().next().getNameType().getName());
+        assertThat(permissionsForDiaryAdmin)
+                .isNotNull();
+        assertThat(nameTypeDiary.getName())
+                .isNotNull()
+                .isEqualTo(permissionsForDiaryAdmin.getServicesList().iterator().next().getNameType().getName());
 
-        assertNotNull(permissionsForWorkoutAdmin);
-        assertEquals(nameTypeWorkout.getName(), permissionsForWorkoutAdmin.getServicesList()
-                .iterator().next().getNameType().getName());
+        assertThat(permissionsForWorkoutAdmin)
+                .isNotNull();
+        assertThat(nameTypeWorkout.getName())
+                .isNotNull()
+                .isEqualTo(permissionsForWorkoutAdmin.getServicesList().iterator().next().getNameType().getName());
 
-        assertNotNull(permissionsForTypeWorkoutTypeAdmin);
-        assertEquals(nameTypeWorkoutType.getName(), permissionsForTypeWorkoutTypeAdmin.getServicesList()
-                .iterator().next().getNameType().getName());
+        assertThat(permissionsForTypeWorkoutTypeAdmin)
+                .isNotNull();
+        assertThat(nameTypeWorkoutType.getName())
+                .isNotNull()
+                .isEqualTo(permissionsForTypeWorkoutTypeAdmin
+                        .getServicesList().iterator().next().getNameType().getName());
 
         GroupPermissionsEntity permissionsForHistoryUser =
                 groupPermissionsRepository.findByGroupPermissionsIdAndByTypeServiceId(
@@ -112,20 +136,29 @@ public class GroupPermissionsRepositoryTest extends PreparationForTests {
                         secondIdInteger, nameTypeWorkoutType.getId()
                 ).get();
 
-        assertNotNull(permissionsForHistoryUser);
-        assertEquals(nameTypeHistory.getName(), permissionsForHistoryUser.getServicesList()
-                .iterator().next().getNameType().getName());
+        assertThat(permissionsForHistoryUser)
+                .isNotNull();
+        assertThat(nameTypeHistory.getName())
+                .isNotNull()
+                .isEqualTo(permissionsForHistoryAdmin.getServicesList().iterator().next().getNameType().getName());
 
-        assertNotNull(permissionsForDiaryUser);
-        assertEquals(nameTypeDiary.getName(), permissionsForDiaryUser.getServicesList()
-                .iterator().next().getNameType().getName());
+        assertThat(permissionsForDiaryAdmin)
+                .isNotNull();
+        assertThat(nameTypeDiary.getName())
+                .isNotNull()
+                .isEqualTo(permissionsForDiaryAdmin.getServicesList().iterator().next().getNameType().getName());
 
-        assertNotNull(permissionsForWorkoutUser);
-        assertEquals(nameTypeWorkout.getName(), permissionsForWorkoutUser.getServicesList()
-                .iterator().next().getNameType().getName());
+        assertThat(permissionsForWorkoutAdmin)
+                .isNotNull();
+        assertThat(nameTypeWorkout.getName())
+                .isNotNull()
+                .isEqualTo(permissionsForWorkoutAdmin.getServicesList().iterator().next().getNameType().getName());
 
-        assertNotNull(permissionsForTypeWorkoutTypeUser);
-        assertEquals(nameTypeWorkoutType.getName(), permissionsForTypeWorkoutTypeUser.getServicesList()
-                .iterator().next().getNameType().getName());
+        assertThat(permissionsForWorkoutAdmin)
+                .isNotNull();
+        assertThat(nameTypeWorkout.getName())
+                .isNotNull()
+                .isEqualTo(permissionsForWorkoutAdmin.getServicesList().iterator().next().getNameType().getName());
+
     }
 }
