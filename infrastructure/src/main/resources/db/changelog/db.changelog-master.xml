@@ -7,4 +7,11 @@
         logicalFilePath="db.changelog.xml">
     <include file="v-1.0/data/001-create-user-table.xml" relativeToChangelogFile="true"/>
     <include file="v-1.0/data/002-insert-user.xml" relativeToChangelogFile="true"/>
+    <include file="v-1.0/data/003-create-name-service-table.xml" relativeToChangelogFile="true"/>
+    <include file="v-1.0/data/004-insert-name-service.xml" relativeToChangelogFile="true"/>
+    <include file="v-1.0/data/005-create-type-service-table.xml" relativeToChangelogFile="true"/>
+    <include file="v-1.0/data/006-insert-type-service.xml" relativeToChangelogFile="true"/>
+    <include file="v-1.0/data/007-create-group-permissions-table.xml" relativeToChangelogFile="true"/>
+    <include file="v-1.0/data/008-create-group-to-type-service-table.xml" relativeToChangelogFile="true"/>
+    <include file="v-1.0/data/009-insert-group-permissions.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
