@@ -18,10 +18,8 @@ public interface TypeWorkoutMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "typeWorkoutCreateDto.typeName", target = "typeName")
     @Mapping(source = "typeWorkoutCreateDto.caloriePerHour", target = "caloriePerHour")
-    @Mapping(source = "idTypeService", target = "idTypeService")
     @Mapping(source = "detailOfTypeWorkoutEntity", target = "detailOfTypeWorkoutEntity")
     TypeWorkoutEntity toTypeWorkoutEntityFromDtoCreate(TypeWorkoutCreateDto typeWorkoutCreateDto,
-                                                       Integer idTypeService,
                                                        DetailOfTypeWorkoutEntity detailOfTypeWorkoutEntity);
 
     @Mapping(source = "typeWorkoutEntity.id", target = "typeWorkoutId")
@@ -38,7 +36,6 @@ public interface TypeWorkoutMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "typeWorkoutUpdateDto.typeName", target = "typeName")
     @Mapping(source = "typeWorkoutUpdateDto.caloriePerHour", target = "caloriePerHour")
-    @Mapping(target = "idTypeService", ignore = true)
     @Mapping(target = "detailOfTypeWorkoutEntity", ignore = true)
     void updateTypeWorkoutEntityFromDtoUpdate(@MappingTarget TypeWorkoutEntity typeWorkoutEntity,
                                               TypeWorkoutUpdateDto typeWorkoutUpdateDto);

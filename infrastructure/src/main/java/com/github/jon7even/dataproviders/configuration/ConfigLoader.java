@@ -42,14 +42,14 @@ public class ConfigLoader {
             System.out.println("Конфигурация загружена");
 
             config = MainConfig.builder()
-                    .BD_USER(properties.getProperty("BD_USER"))
-                    .BD_PASSWORD(properties.getProperty("BD_PASSWORD"))
-                    .BD_DRIVER(properties.getProperty("BD_DRIVER"))
-                    .BD_SOURCE_URL(properties.getProperty("BD_SOURCE_URL"))
-                    .LIQUIBASE_SCHEMA(properties.getProperty("LIQUIBASE_SCHEMA"))
-                    .MAIN_SCHEMA(properties.getProperty("MAIN_SCHEMA"))
-                    .LIQUIBASE_CHANGE_LOG(properties.getProperty("LIQUIBASE_CHANGE_LOG"))
-                    .BAN_LIST_ADD_LOGIN(banList)
+                    .bdUser(properties.getProperty("BD_USER"))
+                    .bdPassword(properties.getProperty("BD_PASSWORD"))
+                    .bdDriver(properties.getProperty("BD_DRIVER"))
+                    .bdSourceUrl(properties.getProperty("BD_SOURCE_URL"))
+                    .liquibaseSchema(properties.getProperty("LIQUIBASE_SCHEMA"))
+                    .mainSchema(properties.getProperty("MAIN_SCHEMA"))
+                    .liquibaseChangeLog(properties.getProperty("LIQUIBASE_CHANGE_LOG"))
+                    .banListAddLogin(banList)
                     .build();
         } catch (IOException e) {
             System.out.println("Что то пошло не так при загрузке конфигурационного файла");

@@ -27,8 +27,7 @@ public interface WorkoutMapper {
     @Mapping(source = "workoutCreateDto.currentWeightUser", target = "currentWeightUser")
     @Mapping(source = "workoutCreateDto.personalNote", target = "personalNote")
     @Mapping(source = "workoutCreateDto.detailOfWorkout", target = "detailOfWorkout")
-    @Mapping(source = "idTypeService", target = "idTypeService")
-    WorkoutEntity toWorkoutEntityFromDtoCreate(WorkoutCreateDto workoutCreateDto, Integer idTypeService);
+    WorkoutEntity toWorkoutEntityFromDtoCreate(WorkoutCreateDto workoutCreateDto);
 
     @Mapping(source = "workoutEntity.id", target = "id")
     @Mapping(source = "workoutEntity.idDiary", target = "idDiary")
@@ -52,7 +51,6 @@ public interface WorkoutMapper {
     @Mapping(source = "workoutUpdate.currentWeightUser", target = "currentWeightUser")
     @Mapping(source = "workoutUpdate.personalNote", target = "personalNote")
     @Mapping(source = "workoutUpdate.detailOfWorkout", target = "detailOfWorkout")
-    @Mapping(target = "idTypeService", ignore = true)
     void updateWorkoutEntityFromDtoUpdate(@MappingTarget WorkoutEntity workoutEntity, WorkoutUpdateDto workoutUpdate);
 
     @Mapping(source = "workoutEntity.id", target = "id")

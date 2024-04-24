@@ -22,8 +22,7 @@ public interface DiaryMapper {
     @Mapping(source = "diaryCreateDto.growthUser", target = "growthUser")
     @Mapping(source = "now", target = "createdOn")
     @Mapping(source = "now", target = "updatedOn")
-    @Mapping(source = "idTypeService", target = "idTypeService")
-    DiaryEntity toDiaryEntityFromDtoCreate(DiaryCreateDto diaryCreateDto, LocalDateTime now, Integer idTypeService);
+    DiaryEntity toDiaryEntityFromDtoCreate(DiaryCreateDto diaryCreateDto, LocalDateTime now);
 
     @Mapping(source = "diaryEntity.weightUser", target = "weightUser")
     @Mapping(source = "diaryEntity.growthUser", target = "growthUser")
@@ -38,6 +37,5 @@ public interface DiaryMapper {
     @Mapping(source = "diaryUpdateDto.growthUser", target = "growthUser")
     @Mapping(target = "createdOn", ignore = true)
     @Mapping(source = "diaryUpdateDto.updatedOn", target = "updatedOn")
-    @Mapping(target = "idTypeService", ignore = true)
     void updateDiaryEntityFromDtoUpdate(@MappingTarget DiaryEntity diaryEntity, DiaryUpdateDto diaryUpdateDto);
 }

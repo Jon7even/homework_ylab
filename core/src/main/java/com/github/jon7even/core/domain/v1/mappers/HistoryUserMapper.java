@@ -22,10 +22,8 @@ public interface HistoryUserMapper {
     @Mapping(source = "historyUserCreateDto.userId", target = "userId")
     @Mapping(source = "localDateTime", target = "dateTimeOn")
     @Mapping(source = "historyUserCreateDto.event", target = "event")
-    @Mapping(source = "idTypeService", target = "idTypeService")
     HistoryUserEntity toEntityFromHistoryUserCreateDto(HistoryUserCreateDto historyUserCreateDto,
-                                                       LocalDateTime localDateTime,
-                                                       Integer idTypeService);
+                                                       LocalDateTime localDateTime);
 
     @Mapping(source = "historyUser.id", target = "id")
     @Mapping(source = "historyUser.userId", target = "userId")

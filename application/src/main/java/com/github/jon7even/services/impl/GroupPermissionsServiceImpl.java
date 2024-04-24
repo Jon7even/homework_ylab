@@ -1,14 +1,14 @@
 package com.github.jon7even.services.impl;
 
 import com.github.jon7even.core.domain.v1.dao.GroupPermissionsDao;
+import com.github.jon7even.core.domain.v1.dto.permission.GroupPermissionsServiceDto;
 import com.github.jon7even.core.domain.v1.entities.permissions.GroupPermissionsEntity;
 import com.github.jon7even.core.domain.v1.entities.permissions.TypeServiceEntity;
 import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
+import com.github.jon7even.core.domain.v1.mappers.GroupPermissionsMapper;
 import com.github.jon7even.core.domain.v1.mappers.GroupPermissionsMapperImpl;
 import com.github.jon7even.dataproviders.inmemory.GroupPermissionsRepository;
-import com.github.jon7even.core.domain.v1.dto.permission.GroupPermissionsServiceDto;
-import com.github.jon7even.core.domain.v1.mappers.GroupPermissionsMapper;
 import com.github.jon7even.services.GroupPermissionsService;
 
 /**

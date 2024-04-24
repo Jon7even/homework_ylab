@@ -2,19 +2,19 @@ package com.github.jon7even.services.impl;
 
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.dao.WorkoutDao;
-import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
-import com.github.jon7even.core.domain.v1.entities.workout.WorkoutEntity;
-import com.github.jon7even.core.domain.v1.exception.*;
-import com.github.jon7even.core.domain.v1.mappers.WorkoutMapperImpl;
-import com.github.jon7even.dataproviders.configuration.ConfigLoader;
-import com.github.jon7even.dataproviders.inmemory.WorkoutRepository;
-import com.github.jon7even.dataproviders.jdbc.UserJdbcRepository;
 import com.github.jon7even.core.domain.v1.dto.typeworkout.TypeWorkoutResponseDto;
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutCreateDto;
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutFullResponseDto;
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutShortResponseDto;
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutUpdateDto;
+import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
+import com.github.jon7even.core.domain.v1.entities.workout.WorkoutEntity;
+import com.github.jon7even.core.domain.v1.exception.*;
 import com.github.jon7even.core.domain.v1.mappers.WorkoutMapper;
+import com.github.jon7even.core.domain.v1.mappers.WorkoutMapperImpl;
+import com.github.jon7even.dataproviders.configuration.ConfigLoader;
+import com.github.jon7even.dataproviders.inmemory.WorkoutRepository;
+import com.github.jon7even.dataproviders.jdbc.UserJdbcRepository;
 import com.github.jon7even.services.DiaryService;
 import com.github.jon7even.services.GroupPermissionsService;
 import com.github.jon7even.services.TypeWorkoutService;
@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions.READ;
-import static com.github.jon7even.dataproviders.inmemory.constants.InitialCommonDataInDb.SERVICE_WORKOUT;
 
 /**
  * Реализация сервиса взаимодействия с тренировками
@@ -36,6 +35,7 @@ import static com.github.jon7even.dataproviders.inmemory.constants.InitialCommon
  */
 public class WorkoutServiceImpl implements WorkoutService {
     private static WorkoutServiceImpl instance;
+    private static final Integer SERVICE_WORKOUT_ID = 3;
     private final UserDao userRepository;
     private final TypeWorkoutService typeWorkoutService;
     private final WorkoutDao workoutRepository;
@@ -68,7 +68,7 @@ public class WorkoutServiceImpl implements WorkoutService {
                 workoutCreateDto.getIdTypeWorkout(), workoutCreateDto.getTimeStartOn().toLocalDate()
         );
         WorkoutEntity workoutEntityForSaveInRepository = workoutMapper.toWorkoutEntityFromDtoCreate(
-                workoutCreateDto, SERVICE_WORKOUT.getId()
+                workoutCreateDto
         );
         System.out.println("Тренировка для сохранения собрана: " + workoutEntityForSaveInRepository);
 
@@ -212,7 +212,7 @@ public class WorkoutServiceImpl implements WorkoutService {
         System.out.println("Пользователь с requesterId="
                 + requesterId + "запрашивает разрешение на операцию: " + flagPermissions);
         if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId),
-                SERVICE_WORKOUT.getId(), flagPermissions)) {
+                SERVICE_WORKOUT_ID, flagPermissions)) {
             System.out.println("Разрешение на эту операцию получено.");
         } else {
             System.out.println("У пользователя нет доступа на эту операцию");

@@ -27,9 +27,9 @@ public class ConnectionManagerImpl implements ConnectionManager {
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(
-                        config.getBD_SOURCE_URL(),
-                        config.getBD_USER(),
-                        config.getBD_PASSWORD()
+                        config.getBdSourceUrl(),
+                        config.getBdUser(),
+                        config.getBdPassword()
                 );
                 System.out.println("Соединение с БД установлено");
             } catch (SQLException exception) {

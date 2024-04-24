@@ -1,12 +1,12 @@
 package com.github.jon7even.services.impl;
 
 import com.github.jon7even.core.domain.v1.dao.UserDao;
+import com.github.jon7even.core.domain.v1.dto.user.UserLoginAuthDto;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.AccessDeniedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.dataproviders.configuration.ConfigLoader;
 import com.github.jon7even.dataproviders.jdbc.UserJdbcRepository;
-import com.github.jon7even.core.domain.v1.dto.user.UserLoginAuthDto;
 import com.github.jon7even.services.AuthorizationService;
 
 /**

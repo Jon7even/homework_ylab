@@ -29,7 +29,7 @@ public class UserJdbcRepository implements UserDao {
     private final UserRowMapper userEntityRowMapper;
 
     public UserJdbcRepository(MainConfig config) {
-        BAN_LIST_ADD_LOGIN = config.getBAN_LIST_ADD_LOGIN();
+        BAN_LIST_ADD_LOGIN = config.getBanListAddLogin();
         this.config = config;
         this.connectionManager = new ConnectionManagerImpl(config);
         this.userEntityRowMapper = UserRowMapper.getInstance();
@@ -44,7 +44,7 @@ public class UserJdbcRepository implements UserDao {
         }
         Connection connection = connectionManager.getConnection();
         String queryCreate = String.format("INSERT INTO %s.user (login, password, id_group)"
-                + "     VALUES (?,?,?) RETURNING ID", config.getMAIN_SCHEMA());
+                + "     VALUES (?,?,?) RETURNING ID", config.getMainSchema());
 
         try (PreparedStatement statement = connection.prepareStatement(queryCreate)) {
             statement.setString(1, userEntity.getLogin());
@@ -84,7 +84,7 @@ public class UserJdbcRepository implements UserDao {
         Connection connection = connectionManager.getConnection();
         String queryUpdate = String.format("UPDATE %s.user "
                 + "  SET login = ?, password = ?, id_group = ? "
-                + "WHERE id = ?", config.getMAIN_SCHEMA());
+                + "WHERE id = ?", config.getMainSchema());
 
         try (PreparedStatement statement = connection.prepareStatement(queryUpdate)) {
             statement.setString(1, userEntity.getLogin());
@@ -112,7 +112,7 @@ public class UserJdbcRepository implements UserDao {
         String sqlFindUser = String.format("SELECT * " +
                         "  FROM %s.user " +
                         " WHERE id = ?",
-                config.getMAIN_SCHEMA());
+                config.getMainSchema());
         try (PreparedStatement statement = connection.prepareStatement(sqlFindUser)) {
             statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
@@ -136,7 +136,7 @@ public class UserJdbcRepository implements UserDao {
         String sqlFindUser = String.format("SELECT * " +
                         "  FROM %s.user " +
                         " WHERE login = ?",
-                config.getMAIN_SCHEMA());
+                config.getMainSchema());
         try (PreparedStatement statement = connection.prepareStatement(sqlFindUser)) {
             statement.setString(1, userLogin);
             ResultSet resultSet = statement.executeQuery();
@@ -159,7 +159,7 @@ public class UserJdbcRepository implements UserDao {
         Connection connection = connectionManager.getConnection();
         String sqlFindUser = String.format("SELECT * " +
                         "  FROM %s.user ",
-                config.getMAIN_SCHEMA());
+                config.getMainSchema());
         try (PreparedStatement statement = connection.prepareStatement(sqlFindUser)) {
             ResultSet resultSet = statement.executeQuery();
             List<UserEntity> usersFromBD = new ArrayList<>();

@@ -35,10 +35,10 @@ public class LiquibaseManagerImpl implements LiquibaseManager {
         try {
             Database database = DatabaseFactory.getInstance()
                     .findCorrectDatabaseImplementation(new JdbcConnection(connection));
-            database.setDefaultSchemaName(config.getMAIN_SCHEMA());
-            database.setLiquibaseSchemaName(config.getLIQUIBASE_SCHEMA());
+            database.setDefaultSchemaName(config.getMainSchema());
+            database.setLiquibaseSchemaName(config.getLiquibaseSchema());
             Liquibase liquibase = new Liquibase(
-                    config.getLIQUIBASE_CHANGE_LOG(), new ClassLoaderResourceAccessor(), database
+                    config.getLiquibaseChangeLog(), new ClassLoaderResourceAccessor(), database
             );
             liquibase.update(new Contexts());
             connection.setAutoCommit(true);
@@ -58,10 +58,10 @@ public class LiquibaseManagerImpl implements LiquibaseManager {
         try {
             Database database = DatabaseFactory.getInstance()
                     .findCorrectDatabaseImplementation(new JdbcConnection(connection));
-            database.setDefaultSchemaName(config.getMAIN_SCHEMA());
-            database.setLiquibaseSchemaName(config.getLIQUIBASE_SCHEMA());
+            database.setDefaultSchemaName(config.getMainSchema());
+            database.setLiquibaseSchemaName(config.getLiquibaseSchema());
             Liquibase liquibase = new Liquibase(
-                    config.getLIQUIBASE_CHANGE_LOG(), new ClassLoaderResourceAccessor(), database
+                    config.getLiquibaseChangeLog(), new ClassLoaderResourceAccessor(), database
             );
             liquibase.dropAll();
             connection.setAutoCommit(true);
@@ -78,8 +78,8 @@ public class LiquibaseManagerImpl implements LiquibaseManager {
     private void initSchema() {
         String sqlQuerySchema = String.format("CREATE SCHEMA IF NOT EXISTS %s;"
                         + "CREATE SCHEMA IF NOT EXISTS %s;",
-                config.getLIQUIBASE_SCHEMA(),
-                config.getMAIN_SCHEMA()
+                config.getLiquibaseSchema(),
+                config.getMainSchema()
         );
         Connection connection = new ConnectionManagerImpl(config).getConnection();
 

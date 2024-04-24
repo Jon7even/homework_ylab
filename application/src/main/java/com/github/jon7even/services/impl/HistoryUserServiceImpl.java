@@ -2,19 +2,19 @@ package com.github.jon7even.services.impl;
 
 import com.github.jon7even.core.domain.v1.dao.HistoryUserDao;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
+import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
+import com.github.jon7even.core.domain.v1.dto.history.HistoryUserResponseByAdminDto;
+import com.github.jon7even.core.domain.v1.dto.history.HistoryUserResponseByUserDto;
 import com.github.jon7even.core.domain.v1.entities.history.HistoryUserEntity;
 import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
 import com.github.jon7even.core.domain.v1.exception.AccessDeniedException;
 import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
+import com.github.jon7even.core.domain.v1.mappers.HistoryUserMapper;
 import com.github.jon7even.core.domain.v1.mappers.HistoryUserMapperImpl;
 import com.github.jon7even.dataproviders.configuration.ConfigLoader;
 import com.github.jon7even.dataproviders.inmemory.HistoryUserRepository;
 import com.github.jon7even.dataproviders.jdbc.UserJdbcRepository;
-import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
-import com.github.jon7even.core.domain.v1.dto.history.HistoryUserResponseByAdminDto;
-import com.github.jon7even.core.domain.v1.dto.history.HistoryUserResponseByUserDto;
-import com.github.jon7even.core.domain.v1.mappers.HistoryUserMapper;
 import com.github.jon7even.services.GroupPermissionsService;
 import com.github.jon7even.services.HistoryUserService;
 
@@ -26,7 +26,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions.READ;
-import static com.github.jon7even.dataproviders.inmemory.constants.InitialCommonDataInDb.SERVICE_HISTORY;
 
 /**
  * Реализация сервиса для взаимодействия с историей действий пользователя
@@ -36,6 +35,7 @@ import static com.github.jon7even.dataproviders.inmemory.constants.InitialCommon
  */
 public class HistoryUserServiceImpl implements HistoryUserService {
     private static HistoryUserServiceImpl instance;
+    private static final Integer SERVICE_HISTORY_ID = 1;
     private final HistoryUserDao historyUserRepository;
     private final HistoryUserMapper historyUserMapper;
     private final UserDao userRepository;
@@ -61,7 +61,7 @@ public class HistoryUserServiceImpl implements HistoryUserService {
         System.out.println("К нам пришло новое событие от пользователя: " + historyUserCreateDto);
         historyUserRepository.createHistoryOfUser(
                         historyUserMapper.toEntityFromHistoryUserCreateDto(
-                                historyUserCreateDto, LocalDateTime.now(), SERVICE_HISTORY.getId()))
+                                historyUserCreateDto, LocalDateTime.now()))
                 .orElseThrow(() -> new NotCreatedException("History User"));
     }
 
@@ -132,7 +132,7 @@ public class HistoryUserServiceImpl implements HistoryUserService {
         System.out.println("Пользователь с requesterId="
                 + requesterId + "запрашивает разрешение на операцию: " + flagPermissions);
         if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId),
-                SERVICE_HISTORY.getId(), flagPermissions)) {
+                SERVICE_HISTORY_ID, flagPermissions)) {
             System.out.println("Разрешение на эту операцию получено.");
         } else {
             System.out.println("У пользователя нет доступа на эту операцию");

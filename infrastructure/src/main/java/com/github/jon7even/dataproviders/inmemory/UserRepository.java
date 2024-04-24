@@ -31,7 +31,7 @@ public class UserRepository implements UserDao {
 
     private UserRepository() {
         ConfigLoader configLoader = ConfigLoader.getInstance();
-        BAN_LIST_ADD_LOGIN = configLoader.getConfig().getBAN_LIST_ADD_LOGIN();
+        BAN_LIST_ADD_LOGIN = configLoader.getConfig().getBanListAddLogin();
         ++idGenerator;
         mapOfUsers.put(ADMIN_FIRST_USER.getId(), ADMIN_FIRST_USER);
     }

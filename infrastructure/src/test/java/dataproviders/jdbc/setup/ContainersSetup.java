@@ -25,14 +25,14 @@ public class ContainersSetup extends PreparationForTests {
     protected static void setUpContainers() {
         configLoader = ConfigLoader.getInstance();
         mainConfig = MainConfig.builder()
-                .BD_USER(container.getUsername())
-                .BD_PASSWORD(container.getPassword())
-                .BD_DRIVER(container.getDriverClassName())
-                .BD_SOURCE_URL(container.getJdbcUrl())
-                .LIQUIBASE_SCHEMA(configLoader.getConfig().getLIQUIBASE_SCHEMA())
-                .MAIN_SCHEMA(configLoader.getConfig().getMAIN_SCHEMA())
-                .LIQUIBASE_CHANGE_LOG(configLoader.getConfig().getLIQUIBASE_CHANGE_LOG())
-                .BAN_LIST_ADD_LOGIN(configLoader.getConfig().getBAN_LIST_ADD_LOGIN())
+                .bdUser(container.getUsername())
+                .bdPassword(container.getPassword())
+                .bdDriver(container.getDriverClassName())
+                .bdSourceUrl(container.getJdbcUrl())
+                .liquibaseSchema(configLoader.getConfig().getLiquibaseSchema())
+                .mainSchema(configLoader.getConfig().getMainSchema())
+                .liquibaseChangeLog(configLoader.getConfig().getLiquibaseChangeLog())
+                .banListAddLogin(configLoader.getConfig().getBanListAddLogin())
                 .build();
         userJdbcRepository = new UserJdbcRepository(mainConfig);
         liquibaseManager = new LiquibaseManagerImpl(mainConfig);

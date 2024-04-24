@@ -1,14 +1,5 @@
 package setup;
 
-import com.github.jon7even.core.domain.v1.entities.history.HistoryUserEntity;
-import com.github.jon7even.core.domain.v1.entities.permissions.GroupPermissionsEntity;
-import com.github.jon7even.core.domain.v1.entities.permissions.NameType;
-import com.github.jon7even.core.domain.v1.entities.permissions.TypeServiceEntity;
-import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
-import com.github.jon7even.core.domain.v1.entities.workout.DetailOfTypeWorkoutEntity;
-import com.github.jon7even.core.domain.v1.entities.workout.DiaryEntity;
-import com.github.jon7even.core.domain.v1.entities.workout.TypeWorkoutEntity;
-import com.github.jon7even.core.domain.v1.entities.workout.WorkoutEntity;
 import com.github.jon7even.core.domain.v1.dto.diary.DiaryCreateDto;
 import com.github.jon7even.core.domain.v1.dto.diary.DiaryUpdateDto;
 import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
@@ -23,6 +14,15 @@ import com.github.jon7even.core.domain.v1.dto.user.UserShortResponseDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserUpdateDto;
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutCreateDto;
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutFullResponseDto;
+import com.github.jon7even.core.domain.v1.entities.history.HistoryUserEntity;
+import com.github.jon7even.core.domain.v1.entities.permissions.GroupPermissionsEntity;
+import com.github.jon7even.core.domain.v1.entities.permissions.NameType;
+import com.github.jon7even.core.domain.v1.entities.permissions.TypeServiceEntity;
+import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
+import com.github.jon7even.core.domain.v1.entities.workout.DetailOfTypeWorkoutEntity;
+import com.github.jon7even.core.domain.v1.entities.workout.DiaryEntity;
+import com.github.jon7even.core.domain.v1.entities.workout.TypeWorkoutEntity;
+import com.github.jon7even.core.domain.v1.entities.workout.WorkoutEntity;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -288,7 +288,6 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
                 .typeName("Простая ходьба")
                 .caloriePerHour(200)
-                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
 
         typeWorkoutEntityRunning = TypeWorkoutEntity.builder()
@@ -296,7 +295,6 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
                 .typeName("Бег на улице")
                 .caloriePerHour(500)
-                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
 
         typeWorkoutEntityStrength = TypeWorkoutEntity.builder()
@@ -304,7 +302,6 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityExercises)
                 .typeName("Силовая тренировка")
                 .caloriePerHour(520)
-                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
 
         typeWorkoutEntityTreadmill = TypeWorkoutEntity.builder()
@@ -312,7 +309,6 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
                 .typeName("Бег на беговой дорожке")
                 .caloriePerHour(400)
-                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
 
         typeWorkoutEntityBicycling = TypeWorkoutEntity.builder()
@@ -320,7 +316,6 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
                 .typeName("Велоспорт")
                 .caloriePerHour(450)
-                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
 
         typeWorkoutEntityYoga = TypeWorkoutEntity.builder()
@@ -328,7 +323,6 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityNotDetails)
                 .typeName("Занятия йогой")
                 .caloriePerHour(225)
-                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
 
         typeWorkoutEntitySwimming = TypeWorkoutEntity.builder()
@@ -336,7 +330,6 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
                 .typeName("Плавать в бассейне")
                 .caloriePerHour(230)
-                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
 
         typeWorkoutEntityTennis = TypeWorkoutEntity.builder()
@@ -344,7 +337,6 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityNotDetails)
                 .typeName("Игра в теннис")
                 .caloriePerHour(400)
-                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
 
         typeWorkoutEntitySkiing = TypeWorkoutEntity.builder()
@@ -352,7 +344,6 @@ public class PreparationForTests {
                 .detailOfTypeWorkoutEntity(detailOfTypeWorkoutEntityTraveled)
                 .typeName("Ходьба на лыжах")
                 .caloriePerHour(485)
-                .idTypeService(idTypeServiceTypeWorkout)
                 .build();
     }
 
@@ -414,11 +405,13 @@ public class PreparationForTests {
                 .idGroupPermissions(secondIdInteger)
                 .build();
         userEntityForUpdateFirst = UserEntity.builder()
+                .id(firstIdLong)
                 .login("UpdatedUserFirst")
                 .password("UpdatedUserFirst")
                 .idGroupPermissions(secondIdInteger)
                 .build();
         userEntityForUpdateSecond = UserEntity.builder()
+                .id(secondIdLong)
                 .login("UpdatedUserSecond")
                 .password("UpdatedUserSecond")
                 .idGroupPermissions(secondIdInteger)
@@ -652,42 +645,36 @@ public class PreparationForTests {
                 .userId(firstIdLong)
                 .dateTimeOn(timeStartFirst)
                 .event("First event")
-                .idTypeService(idTypeServiceHistory)
                 .build();
         historyEntitySecond = HistoryUserEntity.builder()
                 .id(secondIdLong)
                 .userId(secondIdLong)
                 .dateTimeOn(timeStartSecond)
                 .event("Second event")
-                .idTypeService(idTypeServiceHistory)
                 .build();
         historyEntityThird = HistoryUserEntity.builder()
                 .id(thirdIdLong)
                 .userId(thirdIdLong)
                 .dateTimeOn(timeStartThird)
                 .event("Third event")
-                .idTypeService(idTypeServiceHistory)
                 .build();
 
         HistoryUserEntity firstAdmin = HistoryUserEntity.builder()
                 .id(firstIdLong)
                 .userId(firstIdLong)
                 .dateTimeOn(timeStartFirst)
-                .idTypeService(idTypeServiceHistory)
                 .event("First event")
                 .build();
         HistoryUserEntity secondAdmin = HistoryUserEntity.builder()
                 .id(firstIdLong)
                 .userId(firstIdLong)
                 .dateTimeOn(timeEndSecond)
-                .idTypeService(idTypeServiceHistory)
                 .event("Second event")
                 .build();
         HistoryUserEntity thirdAdmin = HistoryUserEntity.builder()
                 .id(firstIdLong)
                 .userId(firstIdLong)
                 .dateTimeOn(timeStartThird)
-                .idTypeService(idTypeServiceHistory)
                 .event("Third event")
                 .build();
 
@@ -696,21 +683,18 @@ public class PreparationForTests {
                 .userId(secondIdLong)
                 .dateTimeOn(timeStartFirst)
                 .event("First event")
-                .idTypeService(idTypeServiceHistory)
                 .build();
         HistoryUserEntity secondUser = HistoryUserEntity.builder()
                 .id(secondIdLong)
                 .userId(secondIdLong)
                 .dateTimeOn(timeEndSecond)
                 .event("Second event")
-                .idTypeService(idTypeServiceHistory)
                 .build();
         HistoryUserEntity thirdUser = HistoryUserEntity.builder()
                 .id(secondIdLong)
                 .userId(secondIdLong)
                 .dateTimeOn(timeStartThird)
                 .event("Third event")
-                .idTypeService(idTypeServiceHistory)
                 .build();
 
         historyUserEntityListAdminFirst = new ArrayList<>(List.of(firstAdmin, secondAdmin, thirdAdmin));
@@ -732,6 +716,7 @@ public class PreparationForTests {
     protected DiaryEntity diaryEntitySecond;
 
     protected void initDiaryEntity() {
+        initLocalDateTime();
         diaryEntityFirst = DiaryEntity.builder()
                 .id(firstIdLong)
                 .userId(firstIdLong)
@@ -739,7 +724,6 @@ public class PreparationForTests {
                 .growthUser(growthUserFirst)
                 .createdOn(timeStartFirst)
                 .updatedOn(timeEndFirst)
-                .idTypeService(idTypeServiceDiary)
                 .build();
         diaryEntitySecond = DiaryEntity.builder()
                 .id(secondIdLong)
@@ -748,7 +732,6 @@ public class PreparationForTests {
                 .growthUser(growthUserSecond)
                 .createdOn(timeStartSecond)
                 .updatedOn(timeEndSecond)
-                .idTypeService(idTypeServiceDiary)
                 .build();
     }
 
@@ -890,7 +873,6 @@ public class PreparationForTests {
                 .currentWeightUser(weightUserFirst)
                 .personalNote("One Workout")
                 .detailOfWorkout("My One Workout")
-                .idTypeService(idTypeServiceWorkout)
                 .build();
         workoutEntitySecond = WorkoutEntity.builder()
                 .id(secondIdLong)
@@ -902,7 +884,6 @@ public class PreparationForTests {
                 .currentWeightUser(weightUserSecond)
                 .personalNote("Second Workout")
                 .detailOfWorkout("My Second Workout")
-                .idTypeService(idTypeServiceWorkout)
                 .build();
         workoutEntityThird = WorkoutEntity.builder()
                 .id(thirdIdLong)
@@ -914,7 +895,6 @@ public class PreparationForTests {
                 .currentWeightUser(weightUserThird)
                 .personalNote("Third Workout")
                 .detailOfWorkout("Без деталей")
-                .idTypeService(idTypeServiceWorkout)
                 .build();
     }
 }

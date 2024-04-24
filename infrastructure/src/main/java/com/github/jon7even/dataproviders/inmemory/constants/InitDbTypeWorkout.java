@@ -36,7 +36,6 @@ public final class InitDbTypeWorkout {
             .detailOfTypeWorkoutEntity(DETAIL_OF_DISTANCE_TRAVELED)
             .typeName("Простая ходьба")
             .caloriePerHour(200)
-            .idTypeService(4)
             .build();
 
     public final static TypeWorkoutEntity RUNNING = TypeWorkoutEntity.builder()
@@ -44,7 +43,6 @@ public final class InitDbTypeWorkout {
             .detailOfTypeWorkoutEntity(DETAIL_OF_DISTANCE_TRAVELED)
             .typeName("Бег на улице")
             .caloriePerHour(500)
-            .idTypeService(4)
             .build();
 
     public final static TypeWorkoutEntity STRENGTH_TRAINING = TypeWorkoutEntity.builder()
@@ -52,7 +50,6 @@ public final class InitDbTypeWorkout {
             .detailOfTypeWorkoutEntity(DETAIL_OF_EXERCISES_PERFORMED)
             .typeName("Силовая тренировка")
             .caloriePerHour(520)
-            .idTypeService(4)
             .build();
 
     public final static TypeWorkoutEntity TREADMILL = TypeWorkoutEntity.builder()
@@ -60,7 +57,6 @@ public final class InitDbTypeWorkout {
             .detailOfTypeWorkoutEntity(DETAIL_OF_DISTANCE_TRAVELED)
             .typeName("Бег на беговой дорожке")
             .caloriePerHour(400)
-            .idTypeService(4)
             .build();
 
     public final static TypeWorkoutEntity BICYCLING = TypeWorkoutEntity.builder()
@@ -68,7 +64,6 @@ public final class InitDbTypeWorkout {
             .detailOfTypeWorkoutEntity(DETAIL_OF_DISTANCE_TRAVELED)
             .typeName("Велоспорт")
             .caloriePerHour(450)
-            .idTypeService(4)
             .build();
 
     public final static TypeWorkoutEntity YOGA = TypeWorkoutEntity.builder()
@@ -76,7 +71,6 @@ public final class InitDbTypeWorkout {
             .detailOfTypeWorkoutEntity(DETAIL_OF_NOT_DETAILS)
             .typeName("Занятия йогой")
             .caloriePerHour(225)
-            .idTypeService(4)
             .build();
 
     public final static TypeWorkoutEntity SWIMMING_POOL = TypeWorkoutEntity.builder()
@@ -84,7 +78,6 @@ public final class InitDbTypeWorkout {
             .detailOfTypeWorkoutEntity(DETAIL_OF_DISTANCE_TRAVELED)
             .typeName("Плавать в бассейне")
             .caloriePerHour(230)
-            .idTypeService(4)
             .build();
 
     public final static TypeWorkoutEntity TENNIS = TypeWorkoutEntity.builder()
@@ -92,7 +85,6 @@ public final class InitDbTypeWorkout {
             .detailOfTypeWorkoutEntity(DETAIL_OF_NOT_DETAILS)
             .typeName("Игра в теннис")
             .caloriePerHour(400)
-            .idTypeService(4)
             .build();
 
     public final static TypeWorkoutEntity SKIING = TypeWorkoutEntity.builder()
@@ -100,6 +92,5 @@ public final class InitDbTypeWorkout {
             .detailOfTypeWorkoutEntity(DETAIL_OF_DISTANCE_TRAVELED)
             .typeName("Ходьба на лыжах")
             .caloriePerHour(485)
-            .idTypeService(4)
             .build();
 }

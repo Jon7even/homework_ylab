@@ -20,5 +20,4 @@ public class DiaryEntity {
     private Float growthUser;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
-    private Integer idTypeService;
 }

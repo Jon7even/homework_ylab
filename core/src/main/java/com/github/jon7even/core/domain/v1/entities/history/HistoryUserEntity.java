@@ -18,5 +18,4 @@ public class HistoryUserEntity {
     private Long userId;
     private LocalDateTime dateTimeOn;
     private String event;
-    private Integer idTypeService;
 }

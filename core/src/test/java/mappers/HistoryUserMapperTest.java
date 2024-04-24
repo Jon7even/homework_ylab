@@ -28,7 +28,7 @@ public class HistoryUserMapperTest extends PreparationForTests {
     @DisplayName("Должен произойти правильный маппинг в сущность для создания новой истории")
     public void should_toEntityFromHistoryUserCreateDto_ReturnEntityNotId() {
         HistoryUserEntity actualResult = historyUserMapper.toEntityFromHistoryUserCreateDto(
-                historyUserCreateDtoFirst, timeStartFirst, idTypeServiceHistory
+                historyUserCreateDtoFirst, timeStartFirst
         );
 
         assertThat(actualResult)

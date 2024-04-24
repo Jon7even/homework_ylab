@@ -30,7 +30,7 @@ public class TypeWorkoutMapperTest extends PreparationForTests {
     @DisplayName("Маппинг из DTO в сущность для создания нового типа тренировки")
     public void should_toTypeWorkoutEntityFromDtoCreate_ReturnEntityNotId() {
         TypeWorkoutEntity actualResultWalking = typeWorkoutMapper.toTypeWorkoutEntityFromDtoCreate(
-                typeWorkoutCreateDtoWalking, idTypeServiceTypeWorkout, detailOfTypeWorkoutEntityTraveled
+                typeWorkoutCreateDtoWalking, detailOfTypeWorkoutEntityTraveled
         );
 
         assertThat(actualResultWalking)
@@ -47,9 +47,6 @@ public class TypeWorkoutMapperTest extends PreparationForTests {
         assertThat(actualResultWalking.getDetailOfTypeWorkoutEntity())
                 .isNotNull()
                 .isEqualTo(typeWorkoutEntityWalking.getDetailOfTypeWorkoutEntity());
-        assertThat(actualResultWalking.getIdTypeService())
-                .isNotNull()
-                .isEqualTo(typeWorkoutEntityWalking.getIdTypeService());
     }
 
     @Test
@@ -95,7 +92,6 @@ public class TypeWorkoutMapperTest extends PreparationForTests {
                 .detailOfTypeWorkoutEntity(typeWorkoutEntityWalking.getDetailOfTypeWorkoutEntity())
                 .typeName(typeWorkoutEntityWalking.getTypeName())
                 .caloriePerHour(typeWorkoutEntityWalking.getCaloriePerHour())
-                .idTypeService(typeWorkoutEntityWalking.getIdTypeService())
                 .build();
 
         assertThat(actualResult)

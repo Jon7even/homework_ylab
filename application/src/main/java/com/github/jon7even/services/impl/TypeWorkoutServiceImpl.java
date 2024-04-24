@@ -22,7 +22,6 @@ import java.util.List;
 
 import static com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions.UPDATE;
 import static com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions.WRITE;
-import static com.github.jon7even.dataproviders.inmemory.constants.InitialCommonDataInDb.SERVICE_TYPE_WORKOUT;
 
 /**
  * Реализация сервиса взаимодействия с типами тренировок
@@ -32,6 +31,7 @@ import static com.github.jon7even.dataproviders.inmemory.constants.InitialCommon
  */
 public class TypeWorkoutServiceImpl implements TypeWorkoutService {
     private static TypeWorkoutServiceImpl instance;
+    private static final Integer SERVICE_TYPE_WORKOUT_ID = 4;
     private final TypeWorkoutMapper typeWorkoutMapper;
     private final TypeWorkoutDao typeWorkoutRepository;
     private final GroupPermissionsService groupPermissionsService;
@@ -62,7 +62,7 @@ public class TypeWorkoutServiceImpl implements TypeWorkoutService {
         );
 
         TypeWorkoutEntity typeWorkoutEntityForSaveInRepository = typeWorkoutMapper.toTypeWorkoutEntityFromDtoCreate(
-                typeWorkoutCreateDto, SERVICE_TYPE_WORKOUT.getId(), detailOfTypeWorkoutEntity
+                typeWorkoutCreateDto, detailOfTypeWorkoutEntity
         );
         System.out.println("Новый тип тренировки для сохранения собран: " + typeWorkoutEntityForSaveInRepository);
 
@@ -161,7 +161,7 @@ public class TypeWorkoutServiceImpl implements TypeWorkoutService {
         System.out.println("Пользователь с requesterId="
                 + requesterId + "запрашивает разрешение на операцию: " + flagPermissions);
         if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId),
-                SERVICE_TYPE_WORKOUT.getId(), flagPermissions)) {
+                SERVICE_TYPE_WORKOUT_ID, flagPermissions)) {
             System.out.println("Разрешение на эту операцию получено.");
         } else {
             System.out.println("У пользователя нет доступа на эту операцию");

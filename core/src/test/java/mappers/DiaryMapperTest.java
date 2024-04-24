@@ -25,7 +25,7 @@ public class DiaryMapperTest extends PreparationForTests {
     @DisplayName("Маппинг из DTO в сущность для создания нового дневника")
     public void should_toDiaryEntityFromDtoCreate_ReturnEntityNotId() {
         DiaryEntity actualResultFirst = diaryMapper.toDiaryEntityFromDtoCreate(
-                diaryCreateDtoFirst, diaryEntityFirst.getCreatedOn(), idTypeServiceDiary
+                diaryCreateDtoFirst, diaryEntityFirst.getCreatedOn()
         );
 
         assertThat(actualResultFirst)
@@ -50,7 +50,7 @@ public class DiaryMapperTest extends PreparationForTests {
                 .isNotEqualTo(diaryEntityFirst.getUpdatedOn());
 
         DiaryEntity actualResultSecond = diaryMapper.toDiaryEntityFromDtoCreate(
-                diaryCreateDtoSecond, diaryEntitySecond.getCreatedOn(), idTypeServiceDiary
+                diaryCreateDtoSecond, diaryEntitySecond.getCreatedOn()
         );
         assertThat(actualResultSecond)
                 .isNotNull();
@@ -124,7 +124,6 @@ public class DiaryMapperTest extends PreparationForTests {
                 .growthUser(diaryEntityFirst.getGrowthUser())
                 .createdOn(diaryEntityFirst.getCreatedOn())
                 .updatedOn(diaryEntityFirst.getUpdatedOn())
-                .idTypeService(diaryEntityFirst.getIdTypeService())
                 .build();
 
         assertThat(actualResult)

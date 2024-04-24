@@ -24,5 +24,4 @@ public class WorkoutEntity {
     private Float currentWeightUser;
     private String personalNote;
     private String detailOfWorkout;
-    private Integer idTypeService;
 }

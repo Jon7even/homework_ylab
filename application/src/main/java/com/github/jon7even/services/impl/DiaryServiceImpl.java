@@ -1,21 +1,19 @@
 package com.github.jon7even.services.impl;
 
 import com.github.jon7even.core.domain.v1.dao.DiaryDao;
+import com.github.jon7even.core.domain.v1.dto.diary.DiaryCreateDto;
+import com.github.jon7even.core.domain.v1.dto.diary.DiaryResponseDto;
+import com.github.jon7even.core.domain.v1.dto.diary.DiaryUpdateDto;
 import com.github.jon7even.core.domain.v1.entities.workout.DiaryEntity;
 import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.exception.NotUpdatedException;
+import com.github.jon7even.core.domain.v1.mappers.DiaryMapper;
 import com.github.jon7even.core.domain.v1.mappers.DiaryMapperImpl;
 import com.github.jon7even.dataproviders.inmemory.DiaryRepository;
-import com.github.jon7even.core.domain.v1.dto.diary.DiaryCreateDto;
-import com.github.jon7even.core.domain.v1.dto.diary.DiaryResponseDto;
-import com.github.jon7even.core.domain.v1.dto.diary.DiaryUpdateDto;
-import com.github.jon7even.core.domain.v1.mappers.DiaryMapper;
 import com.github.jon7even.services.DiaryService;
 
 import java.time.LocalDateTime;
-
-import static com.github.jon7even.dataproviders.inmemory.constants.InitialCommonDataInDb.SERVICE_DIARY;
 
 /**
  * Реализация сервиса для взаимодействия с дневником пользователя
@@ -25,6 +23,7 @@ import static com.github.jon7even.dataproviders.inmemory.constants.InitialCommon
  */
 public class DiaryServiceImpl implements DiaryService {
     private static DiaryServiceImpl instance;
+    private static final Integer SERVICE_DIARY_ID = 2;
     private final DiaryDao diaryRepository;
     private final DiaryMapper diaryMapper;
 
@@ -45,7 +44,7 @@ public class DiaryServiceImpl implements DiaryService {
         System.out.println("К нам пришел на создание новый дневник: " + diaryCreateDto);
 
         DiaryEntity diaryForSaveInRepository = diaryMapper.toDiaryEntityFromDtoCreate(
-                diaryCreateDto, LocalDateTime.now(), SERVICE_DIARY.getId()
+                diaryCreateDto, LocalDateTime.now()
         );
         System.out.println("Дневник для сохранения собран: " + diaryForSaveInRepository);
 

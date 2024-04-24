@@ -1,17 +1,17 @@
 package com.github.jon7even.services.impl;
 
 import com.github.jon7even.core.domain.v1.dao.UserDao;
-import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
-import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
-import com.github.jon7even.core.domain.v1.exception.NotFoundException;
-import com.github.jon7even.core.domain.v1.mappers.UserMapperImpl;
-import com.github.jon7even.dataproviders.configuration.ConfigLoader;
-import com.github.jon7even.dataproviders.jdbc.UserJdbcRepository;
 import com.github.jon7even.core.domain.v1.dto.user.UserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserLoginAuthDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserShortResponseDto;
+import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
+import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
+import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.mappers.UserMapper;
+import com.github.jon7even.core.domain.v1.mappers.UserMapperImpl;
+import com.github.jon7even.dataproviders.configuration.ConfigLoader;
+import com.github.jon7even.dataproviders.jdbc.UserJdbcRepository;
 import com.github.jon7even.services.UserService;
 
 /**
@@ -22,6 +22,7 @@ import com.github.jon7even.services.UserService;
  */
 public class UserServiceImpl implements UserService {
     private static UserServiceImpl instance;
+    private static final Integer SERVICE_USER_ID = 5;
     private final UserDao userRepository;
     private final UserMapper userMapper;
 
