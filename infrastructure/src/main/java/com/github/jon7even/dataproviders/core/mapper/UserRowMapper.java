@@ -1,4 +1,4 @@
-package com.github.jon7even.dataproviders.core.impl.mapper;
+package com.github.jon7even.dataproviders.core.mapper;
 
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.dataproviders.core.RowMapper;

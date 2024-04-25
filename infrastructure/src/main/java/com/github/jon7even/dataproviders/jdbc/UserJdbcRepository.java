@@ -6,7 +6,7 @@ import com.github.jon7even.core.domain.v1.exception.BadLoginException;
 import com.github.jon7even.dataproviders.configuration.MainConfig;
 import com.github.jon7even.dataproviders.core.ConnectionManager;
 import com.github.jon7even.dataproviders.core.impl.ConnectionManagerImpl;
-import com.github.jon7even.dataproviders.core.impl.mapper.UserRowMapper;
+import com.github.jon7even.dataproviders.core.mapper.UserRowMapper;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
@@ -24,8 +24,8 @@ import java.util.*;
 @Slf4j
 public class UserJdbcRepository implements UserDao {
     private static Set<String> BAN_LIST_ADD_LOGIN;
-    private final ConnectionManager connectionManager;
     private final MainConfig config;
+    private final ConnectionManager connectionManager;
     private final UserRowMapper userEntityRowMapper;
 
     public UserJdbcRepository(MainConfig config) {
