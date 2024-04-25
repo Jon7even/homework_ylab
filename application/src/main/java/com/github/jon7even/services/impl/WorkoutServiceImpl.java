@@ -13,8 +13,8 @@ import com.github.jon7even.core.domain.v1.exception.*;
 import com.github.jon7even.core.domain.v1.mappers.WorkoutMapper;
 import com.github.jon7even.core.domain.v1.mappers.WorkoutMapperImpl;
 import com.github.jon7even.dataproviders.configuration.ConfigLoader;
-import com.github.jon7even.dataproviders.inmemory.WorkoutRepository;
 import com.github.jon7even.dataproviders.jdbc.UserJdbcRepository;
+import com.github.jon7even.dataproviders.jdbc.WorkoutJdbcRepository;
 import com.github.jon7even.services.DiaryService;
 import com.github.jon7even.services.GroupPermissionsService;
 import com.github.jon7even.services.TypeWorkoutService;
@@ -53,7 +53,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     private WorkoutServiceImpl() {
         ConfigLoader configLoader = ConfigLoader.getInstance();
         this.userRepository = new UserJdbcRepository(configLoader.getConfig());
-        this.workoutRepository = WorkoutRepository.getInstance();
+        this.workoutRepository = new WorkoutJdbcRepository(configLoader.getConfig());
         this.diaryService = DiaryServiceImpl.getInstance();
         this.typeWorkoutService = TypeWorkoutServiceImpl.getInstance();
         this.workoutMapper = new WorkoutMapperImpl();
@@ -93,7 +93,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     public void deleteWorkoutByWorkoutIdAndOwnerId(Long workoutId, Long requesterId) {
         System.out.println("Пользователь requesterId=" + requesterId
-                + "шлет запрос на удаление своей тренировки по workoutId=" + workoutId);
+                + " запрашивает удаление своей тренировки по workoutId=" + workoutId);
         isOwnerWorkout(getWorkoutEntityById(workoutId), requesterId);
         workoutRepository.deleteWorkoutByWorkoutId(workoutId);
     }
@@ -165,7 +165,7 @@ public class WorkoutServiceImpl implements WorkoutService {
         System.out.println("Начинаем проверку является ли пользователь владельцем тренировки");
         Long diaryId = diaryService.getIdDiaryByUserId(requesterId);
         if (foundWorkoutEntity.getIdDiary().equals(diaryId)) {
-            System.out.println("Проверка завершена, запрос высылает владелец");
+            System.out.println("Проверка завершена, запрос выполняет владелец");
         } else {
             System.out.println("Пользователь не является владельцем тренировки");
             throw new AccessDeniedException(String.format("For [requesterId=%d]", requesterId));
@@ -174,7 +174,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
     private void validateWorkoutByTypeToday(Long idTypeWorkout, LocalDate dayOfWorkout) {
         System.out.println("Проверяю не загружена ли тренировка с с таким типом в эту дату");
-        if (workoutRepository.findByWorkoutByWorkoutIdAndDate(idTypeWorkout, dayOfWorkout).isPresent()) {
+        if (workoutRepository.findByWorkoutByTypeWorkoutIdAndDate(idTypeWorkout, dayOfWorkout).isPresent()) {
             System.out.println("С таким типом тренировка уже есть в этот день");
             throw new AlreadyExistException(String.format("Workout witch [idTypeWorkout=%d]", idTypeWorkout));
         } else {

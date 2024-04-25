@@ -44,7 +44,7 @@ public interface WorkoutDao {
      * @param dayOfWorkout  день в который была тренировка
      * @return тренировку Entity, если она подпадает под параметры поиска
      */
-    Optional<WorkoutEntity> findByWorkoutByWorkoutIdAndDate(Long idTypeWorkout, LocalDate dayOfWorkout);
+    Optional<WorkoutEntity> findByWorkoutByTypeWorkoutIdAndDate(Long idTypeWorkout, LocalDate dayOfWorkout);
 
     /**
      * Метод для поиска всех тренировок по ID дневника

@@ -43,12 +43,12 @@ public class TypeWorkoutJdbcRepository implements TypeWorkoutDao {
     public Optional<TypeWorkoutEntity> createTypeWorkout(TypeWorkoutEntity typeWorkoutEntity) {
         log.debug("Пришел запрос на создание нового типа тренировки {}", typeWorkoutEntity);
         Connection connection = connectionManager.getConnection();
-        String queryCreate = String.format("""
+        String queryCreateTypeWorkout = String.format("""
                         INSERT INTO %s.type_workout (type_name, calorie, detail_id) 
                         VALUES (?,?,?) 
                         RETURNING ID """,
                 config.getMainSchema());
-        try (PreparedStatement statement = connection.prepareStatement(queryCreate)) {
+        try (PreparedStatement statement = connection.prepareStatement(queryCreateTypeWorkout)) {
             statement.setString(1, typeWorkoutEntity.getTypeName());
             statement.setInt(2, typeWorkoutEntity.getCaloriePerHour());
             statement.setInt(3, typeWorkoutEntity.getDetailOfTypeWorkoutEntity().getId());

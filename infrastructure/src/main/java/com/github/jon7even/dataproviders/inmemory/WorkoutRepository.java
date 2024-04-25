@@ -64,7 +64,7 @@ public class WorkoutRepository implements WorkoutDao {
     }
 
     @Override
-    public Optional<WorkoutEntity> findByWorkoutByWorkoutIdAndDate(Long idTypeWorkout, LocalDate dayOfWorkout) {
+    public Optional<WorkoutEntity> findByWorkoutByTypeWorkoutIdAndDate(Long idTypeWorkout, LocalDate dayOfWorkout) {
         System.out.println("Ищу тренировку с idWorkoutType=" + idTypeWorkout + " и датой=" + dayOfWorkout.toString());
         return mapOfWorkouts.values().stream()
                 .filter(workoutEntity -> workoutEntity.getIdTypeWorkout().equals(idTypeWorkout))

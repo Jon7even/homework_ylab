@@ -32,7 +32,7 @@
             <column name="end_on" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="time_rest" type="INT">
+            <column name="time_rest" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
             <column name="weight" type="FLOAT">

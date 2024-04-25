@@ -43,12 +43,12 @@ public class UserJdbcRepository implements UserDao {
             throw new BadLoginException("New User");
         }
         Connection connection = connectionManager.getConnection();
-        String queryCreate = String.format("""
+        String queryCreateUser = String.format("""
                         INSERT INTO %s.user (login, password, id_group)
                         VALUES (?,?,?) 
                         RETURNING ID""",
                 config.getMainSchema());
-        try (PreparedStatement statement = connection.prepareStatement(queryCreate)) {
+        try (PreparedStatement statement = connection.prepareStatement(queryCreateUser)) {
             statement.setString(1, userEntity.getLogin());
             statement.setString(2, userEntity.getPassword());
             statement.setInt(3, userEntity.getIdGroupPermissions());

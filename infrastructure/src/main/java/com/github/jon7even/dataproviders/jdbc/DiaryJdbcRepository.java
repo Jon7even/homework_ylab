@@ -36,12 +36,12 @@ public class DiaryJdbcRepository implements DiaryDao {
     public Optional<DiaryEntity> createDiary(DiaryEntity diaryEntity) {
         log.debug("Пришел запрос на создание нового дневника {}", diaryEntity);
         Connection connection = connectionManager.getConnection();
-        String queryCreate = String.format("""
+        String queryCreateDiary = String.format("""
                         INSERT INTO %s.diary (user_id, weight, growth, created_on, updated_on) 
                         VALUES (?,?,?,?,?) 
                         RETURNING ID """,
                 config.getMainSchema());
-        try (PreparedStatement statement = connection.prepareStatement(queryCreate)) {
+        try (PreparedStatement statement = connection.prepareStatement(queryCreateDiary)) {
             statement.setLong(1, diaryEntity.getUserId());
             statement.setFloat(2, diaryEntity.getWeightUser());
             statement.setFloat(3, diaryEntity.getGrowthUser());
