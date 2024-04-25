@@ -38,7 +38,7 @@ public class WorkoutRepository implements WorkoutDao {
         mapOfWorkouts.put(workoutId, workoutEntity);
 
         System.out.println("В БД добавлена новая тренировка: " + workoutEntity);
-        return findByWorkoutByWorkoutId(workoutId);
+        return findWorkoutByWorkoutId(workoutId);
     }
 
     @Override
@@ -54,11 +54,11 @@ public class WorkoutRepository implements WorkoutDao {
         mapOfWorkouts.put(workoutId, workoutEntity);
         System.out.println("В БД произошло обновление. Старые данные: " + oldWorkout
                 + "\n Новые данные: " + workoutEntity);
-        return findByWorkoutByWorkoutId(workoutId);
+        return findWorkoutByWorkoutId(workoutId);
     }
 
     @Override
-    public Optional<WorkoutEntity> findByWorkoutByWorkoutId(Long workoutId) {
+    public Optional<WorkoutEntity> findWorkoutByWorkoutId(Long workoutId) {
         System.out.println("Ищу тренировку с workoutId=" + workoutId);
         return Optional.ofNullable(mapOfWorkouts.get(workoutId));
     }

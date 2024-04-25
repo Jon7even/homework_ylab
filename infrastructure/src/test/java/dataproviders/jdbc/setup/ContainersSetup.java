@@ -5,11 +5,7 @@ import com.github.jon7even.dataproviders.configuration.ConfigLoader;
 import com.github.jon7even.dataproviders.configuration.MainConfig;
 import com.github.jon7even.dataproviders.core.LiquibaseManager;
 import com.github.jon7even.dataproviders.core.impl.LiquibaseManagerImpl;
-import com.github.jon7even.dataproviders.jdbc.DiaryJdbcRepository;
-import com.github.jon7even.dataproviders.jdbc.HistoryUserJdbcRepository;
-import com.github.jon7even.dataproviders.jdbc.TypeWorkoutJdbcRepository;
-import com.github.jon7even.dataproviders.jdbc.UserJdbcRepository;
-import dataproviders.jdbc.TypeWorkoutJdbcRepositoryTest;
+import com.github.jon7even.dataproviders.jdbc.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +21,7 @@ public class ContainersSetup extends PreparationForTests {
     protected static HistoryUserJdbcRepository historyUserJdbcRepository;
     protected static DiaryJdbcRepository diaryJdbcRepository;
     protected static TypeWorkoutJdbcRepository typeWorkoutJdbcRepository;
+    protected static WorkoutJdbcRepository workoutJdbcRepository;
     protected static MainConfig mainConfig;
     protected static ConfigLoader configLoader;
     protected static LiquibaseManager liquibaseManager;
@@ -49,6 +46,7 @@ public class ContainersSetup extends PreparationForTests {
         historyUserJdbcRepository = new HistoryUserJdbcRepository(mainConfig);
         diaryJdbcRepository = new DiaryJdbcRepository(mainConfig);
         typeWorkoutJdbcRepository = new TypeWorkoutJdbcRepository(mainConfig);
+        workoutJdbcRepository = new WorkoutJdbcRepository(mainConfig);
     }
 
     @AfterEach

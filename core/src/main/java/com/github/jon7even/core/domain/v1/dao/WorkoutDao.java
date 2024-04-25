@@ -35,7 +35,7 @@ public interface WorkoutDao {
      * @param workoutId существующий ID тренировки
      * @return тренировку Entity, если она есть в системе
      */
-    Optional<WorkoutEntity> findByWorkoutByWorkoutId(Long workoutId);
+    Optional<WorkoutEntity> findWorkoutByWorkoutId(Long workoutId);
 
     /**
      * Метод для поиска определенной тренировки по дню и типу

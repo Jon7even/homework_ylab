@@ -86,7 +86,7 @@ public class WorkoutJdbcRepository implements WorkoutDao {
     public Optional<WorkoutEntity> updateWorkout(WorkoutEntity workoutEntity) {
         log.debug("Пришел запрос на обновление тренировки {}", workoutEntity);
         Long workoutId = workoutEntity.getId();
-        Optional<WorkoutEntity> oldWorkout = findByWorkoutByWorkoutId(workoutId);
+        Optional<WorkoutEntity> oldWorkout = findWorkoutByWorkoutId(workoutId);
         if (oldWorkout.isPresent()) {
             log.debug("Тренировка есть в системе, продолжаем обновление");
         } else {
@@ -133,7 +133,7 @@ public class WorkoutJdbcRepository implements WorkoutDao {
     }
 
     @Override
-    public Optional<WorkoutEntity> findByWorkoutByWorkoutId(Long workoutId) {
+    public Optional<WorkoutEntity> findWorkoutByWorkoutId(Long workoutId) {
         log.debug("Пришел запрос на получение данных тренировки по workoutId={}", workoutId);
         Connection connection = connectionManager.getConnection();
         String sqlFindTypeWorkoutById = String.format("""
@@ -240,7 +240,7 @@ public class WorkoutJdbcRepository implements WorkoutDao {
     @Override
     public void deleteWorkoutByWorkoutId(Long workoutId) {
         log.debug("Пришел запрос на удаление тренировки по workoutId={}", workoutId);
-        Optional<WorkoutEntity> oldWorkout = findByWorkoutByWorkoutId(workoutId);
+        Optional<WorkoutEntity> oldWorkout = findWorkoutByWorkoutId(workoutId);
         if (oldWorkout.isEmpty()) {
             log.warn("Тренировки нет с таким workoutId={}", workoutId);
         } else {

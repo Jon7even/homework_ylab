@@ -706,14 +706,16 @@ public class PreparationForTests {
     protected Float weightUserThird = 85.1F;
     protected Float weightUserUpdateFirst = 76.2F;
     protected Float weightUserUpdateSecond = 83.4F;
-
+    protected Float weightUserUpdateThird = 63.4F;
     protected Float growthUserFirst = 165.1F;
     protected Float growthUserSecond = 177.7F;
+    protected Float growthUserThird = 157.7F;
     protected Float growthUserUpdateFirst = 165.3F;
     protected Float growthUserUpdateSecond = 177.9F;
 
     protected DiaryEntity diaryEntityFirst;
     protected DiaryEntity diaryEntitySecond;
+    protected DiaryEntity diaryEntityThird;
     protected DiaryEntity diaryEntityForUpdateFirst;
     protected DiaryEntity diaryEntityForUpdateSecond;
 
@@ -734,6 +736,14 @@ public class PreparationForTests {
                 .growthUser(growthUserSecond)
                 .createdOn(timeStartSecond)
                 .updatedOn(timeEndSecond)
+                .build();
+        diaryEntityThird = DiaryEntity.builder()
+                .id(thirdIdLong)
+                .userId(thirdIdLong)
+                .weightUser(weightUserThird)
+                .growthUser(growthUserThird)
+                .createdOn(timeStartThird)
+                .updatedOn(timeUpdateThird)
                 .build();
         diaryEntityForUpdateFirst = DiaryEntity.builder()
                 .id(firstIdLong)

@@ -101,7 +101,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     public boolean isExistWorkoutByWorkoutId(Long workoutId) {
         System.out.println("Проверяю существует ли тренировка с workoutId=" + workoutId);
-        return workoutRepository.findByWorkoutByWorkoutId(workoutId).isPresent();
+        return workoutRepository.findWorkoutByWorkoutId(workoutId).isPresent();
     }
 
     @Override
@@ -155,7 +155,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
     private WorkoutEntity getWorkoutEntityById(Long workoutId) {
         System.out.println("Начинаю получать тренировку по workoutId=" + workoutId);
-        WorkoutEntity foundWorkoutEntity = workoutRepository.findByWorkoutByWorkoutId(workoutId)
+        WorkoutEntity foundWorkoutEntity = workoutRepository.findWorkoutByWorkoutId(workoutId)
                 .orElseThrow(() -> new NotFoundException(String.format("Workout by [workoutId=%s]", workoutId)));
         System.out.println("Тренировка существует с workoutId=" + workoutId);
         return foundWorkoutEntity;
