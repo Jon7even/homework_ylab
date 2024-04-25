@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class HistoryRowMapper implements RowMapper {
+public class HistoryRowMapper implements RowMapper<HistoryUserEntity> {
     private static HistoryRowMapper instance;
 
     public static HistoryRowMapper getInstance() {

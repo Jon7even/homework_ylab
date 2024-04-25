@@ -80,23 +80,23 @@ public class UserJdbcRepository implements UserDao {
 
     @Override
     public Optional<UserEntity> updateUser(UserEntity userEntity) {
-        log.debug("Пришел пользователь на обновление {}", userEntity);
+        log.debug("Пришел запрос на обновление пользователя {}", userEntity);
         Long userId = userEntity.getId();
         Optional<UserEntity> oldUser = findByUserId(userId);
         if (oldUser.isPresent()) {
             log.debug("Пользователь есть в системе, продолжаем обновление");
         } else {
-            log.warn("Пользователя нет с таким ID userId={}", userId);
+            log.warn("Пользователя нет с таким userId={}", userId);
             return Optional.empty();
         }
 
         Connection connection = connectionManager.getConnection();
-        String queryUpdate = String.format("""
+        String queryUpdateUser = String.format("""
                         UPDATE %s.user 
                            SET login = ?, password = ?, id_group = ? 
                          WHERE id = ?""",
                 config.getMainSchema());
-        try (PreparedStatement statement = connection.prepareStatement(queryUpdate)) {
+        try (PreparedStatement statement = connection.prepareStatement(queryUpdateUser)) {
             statement.setString(1, userEntity.getLogin());
             statement.setString(2, userEntity.getPassword());
             statement.setInt(3, userEntity.getIdGroupPermissions());

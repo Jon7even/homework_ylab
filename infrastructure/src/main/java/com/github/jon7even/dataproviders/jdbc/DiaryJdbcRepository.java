@@ -75,23 +75,23 @@ public class DiaryJdbcRepository implements DiaryDao {
 
     @Override
     public Optional<DiaryEntity> updateDiary(DiaryEntity diaryEntity) {
-        log.debug("Пришел дневник на обновление {}", diaryEntity);
+        log.debug("Пришел запрос на обновление дневника {}", diaryEntity);
         Long diaryId = diaryEntity.getId();
         Optional<DiaryEntity> oldDiary = findByUserId(diaryId);
         if (oldDiary.isPresent()) {
             log.debug("Дневник есть в системе, продолжаем обновление");
         } else {
-            log.warn("Дневника нет с таким ID userId={}", diaryId);
+            log.warn("Дневника нет с таким userId={}", diaryId);
             return Optional.empty();
         }
 
         Connection connection = connectionManager.getConnection();
-        String queryUpdate = String.format("""
+        String queryUpdateDiary = String.format("""
                         UPDATE %s.diary 
                            SET user_id = ?, weight = ?, growth = ?, created_on = ?, updated_on = ?
                          WHERE id = ?""",
                 config.getMainSchema());
-        try (PreparedStatement statement = connection.prepareStatement(queryUpdate)) {
+        try (PreparedStatement statement = connection.prepareStatement(queryUpdateDiary)) {
             statement.setLong(1, diaryEntity.getUserId());
             statement.setFloat(2, diaryEntity.getWeightUser());
             statement.setFloat(3, diaryEntity.getGrowthUser());

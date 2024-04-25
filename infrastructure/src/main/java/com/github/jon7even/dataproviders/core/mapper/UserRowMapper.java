@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class UserRowMapper implements RowMapper {
+public class UserRowMapper implements RowMapper<UserEntity> {
     private static UserRowMapper instance;
 
     public static UserRowMapper getInstance() {

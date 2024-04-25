@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class DiaryRowMapper implements RowMapper {
+public class DiaryRowMapper implements RowMapper<DiaryEntity> {
     private static DiaryRowMapper instance;
 
     public static DiaryRowMapper getInstance() {
