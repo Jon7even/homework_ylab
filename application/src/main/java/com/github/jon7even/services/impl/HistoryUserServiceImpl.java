@@ -13,7 +13,6 @@ import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.mappers.HistoryUserMapper;
 import com.github.jon7even.core.domain.v1.mappers.HistoryUserMapperImpl;
 import com.github.jon7even.dataproviders.configuration.ConfigLoader;
-import com.github.jon7even.dataproviders.inmemory.HistoryUserRepository;
 import com.github.jon7even.dataproviders.jdbc.HistoryUserJdbcRepository;
 import com.github.jon7even.dataproviders.jdbc.UserJdbcRepository;
 import com.github.jon7even.services.GroupPermissionsService;

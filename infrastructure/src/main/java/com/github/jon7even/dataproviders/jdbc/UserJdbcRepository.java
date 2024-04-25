@@ -43,9 +43,11 @@ public class UserJdbcRepository implements UserDao {
             throw new BadLoginException("New User");
         }
         Connection connection = connectionManager.getConnection();
-        String queryCreate = String.format("INSERT INTO %s.user (login, password, id_group)"
-                + "     VALUES (?,?,?) RETURNING ID", config.getMainSchema());
-
+        String queryCreate = String.format("""
+                        INSERT INTO %s.user (login, password, id_group)
+                        VALUES (?,?,?) 
+                        RETURNING ID""",
+                config.getMainSchema());
         try (PreparedStatement statement = connection.prepareStatement(queryCreate)) {
             statement.setString(1, userEntity.getLogin());
             statement.setString(2, userEntity.getPassword());
@@ -89,10 +91,11 @@ public class UserJdbcRepository implements UserDao {
         }
 
         Connection connection = connectionManager.getConnection();
-        String queryUpdate = String.format("UPDATE %s.user "
-                + "  SET login = ?, password = ?, id_group = ? "
-                + "WHERE id = ?", config.getMainSchema());
-
+        String queryUpdate = String.format("""
+                        UPDATE %s.user 
+                           SET login = ?, password = ?, id_group = ? 
+                         WHERE id = ?""",
+                config.getMainSchema());
         try (PreparedStatement statement = connection.prepareStatement(queryUpdate)) {
             statement.setString(1, userEntity.getLogin());
             statement.setString(2, userEntity.getPassword());
@@ -122,9 +125,10 @@ public class UserJdbcRepository implements UserDao {
     public Optional<UserEntity> findByUserId(Long userId) {
         log.debug("Пришел запрос на получение данных пользователя по ID={}", userId);
         Connection connection = connectionManager.getConnection();
-        String sqlFindUser = String.format("SELECT * " +
-                        "  FROM %s.user " +
-                        " WHERE id = ?",
+        String sqlFindUser = String.format("""
+                        SELECT *
+                          FROM %s.user 
+                         WHERE id = ? """,
                 config.getMainSchema());
         try (PreparedStatement statement = connection.prepareStatement(sqlFindUser)) {
             statement.setLong(1, userId);
@@ -153,9 +157,10 @@ public class UserJdbcRepository implements UserDao {
     public Optional<UserEntity> findByUserLogin(String userLogin) {
         log.debug("Пришел запрос на получение данных пользователя по login={}", userLogin);
         Connection connection = connectionManager.getConnection();
-        String sqlFindUser = String.format("SELECT * " +
-                        "  FROM %s.user " +
-                        " WHERE login = ?",
+        String sqlFindUser = String.format("""
+                        SELECT *
+                          FROM %s.user 
+                         WHERE login = ?""",
                 config.getMainSchema());
         try (PreparedStatement statement = connection.prepareStatement(sqlFindUser)) {
             statement.setString(1, userLogin);
@@ -184,8 +189,9 @@ public class UserJdbcRepository implements UserDao {
     public List<UserEntity> getAllUsers() {
         log.debug("Пришел запрос на получение данных всех пользователей");
         Connection connection = connectionManager.getConnection();
-        String sqlFindUser = String.format("SELECT * " +
-                        "  FROM %s.user ",
+        String sqlFindUser = String.format("""
+                        SELECT *
+                          FROM %s.user """,
                 config.getMainSchema());
         try (PreparedStatement statement = connection.prepareStatement(sqlFindUser)) {
             ResultSet resultSet = statement.executeQuery();

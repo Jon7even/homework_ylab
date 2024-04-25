@@ -3,7 +3,6 @@ package dataproviders.jdbc;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.BadLoginException;
 import dataproviders.jdbc.setup.ContainersSetup;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,28 +12,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UserJdbcRepositoryTest extends ContainersSetup {
-    private Optional<UserEntity> actualResultUserFirst;
-
-    private Optional<UserEntity> actualResultUserSecond;
-
     private Integer sizeListRepositoryUser = 3;
-
-    @BeforeEach
-    public void setUp() {
-        initUsersEntity();
-        actualResultUserFirst = userJdbcRepository.createUser(userEntityForCreateFirst);
-        actualResultUserSecond = userJdbcRepository.createUser(userEntityForCreateSecond);
-    }
 
     @Test
     @DisplayName("Новый пользователь должен создаться c релевантными полями")
-    public void shouldCreateNewUser() {
+    public void shouldCreateNewUser_ReturnNewUser() {
         assertThat(userEntityFirst)
                 .isNotNull()
-                .isEqualTo(actualResultUserFirst.get());
+                .isEqualTo(userInDbFirst);
         assertThat(userEntitySecond)
                 .isNotNull()
-                .isEqualTo(actualResultUserSecond.get());
+                .isEqualTo(userInDbSecond);
     }
 
     @Test
@@ -120,8 +108,8 @@ public class UserJdbcRepositoryTest extends ContainersSetup {
                 .isEqualTo(userEntityForUpdateSecond);
 
         assertThat(userJdbcRepository.findByUserId(userEntityForUpdateFirst.getId()))
-                .isNotEqualTo(actualResultUserFirst);
+                .isNotEqualTo(userInDbFirst);
         assertThat(userJdbcRepository.findByUserId(userEntityForUpdateSecond.getId()))
-                .isNotEqualTo(actualResultUserSecond);
+                .isNotEqualTo(userInDbSecond);
     }
 }

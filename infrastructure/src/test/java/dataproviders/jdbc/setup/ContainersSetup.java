@@ -1,9 +1,11 @@
 package dataproviders.jdbc.setup;
 
+import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.dataproviders.configuration.ConfigLoader;
 import com.github.jon7even.dataproviders.configuration.MainConfig;
 import com.github.jon7even.dataproviders.core.LiquibaseManager;
 import com.github.jon7even.dataproviders.core.impl.LiquibaseManagerImpl;
+import com.github.jon7even.dataproviders.jdbc.HistoryUserJdbcRepository;
 import com.github.jon7even.dataproviders.jdbc.UserJdbcRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,12 +16,15 @@ import setup.PreparationForTests;
 
 @Testcontainers
 public class ContainersSetup extends PreparationForTests {
+    @Container
+    private static final Postgres16TC container = Postgres16TC.getInstance();
     protected static UserJdbcRepository userJdbcRepository;
+    protected static HistoryUserJdbcRepository historyUserJdbcRepository;
     protected static MainConfig mainConfig;
     protected static ConfigLoader configLoader;
     protected static LiquibaseManager liquibaseManager;
-    @Container
-    private static final Postgres16TC container = Postgres16TC.getInstance();
+    protected UserEntity userInDbFirst;
+    protected UserEntity userInDbSecond;
 
     @BeforeAll
     protected static void setUpContainers() {
@@ -36,6 +41,7 @@ public class ContainersSetup extends PreparationForTests {
                 .build();
         userJdbcRepository = new UserJdbcRepository(mainConfig);
         liquibaseManager = new LiquibaseManagerImpl(mainConfig);
+        historyUserJdbcRepository = new HistoryUserJdbcRepository(mainConfig);
     }
 
     @AfterEach
@@ -46,6 +52,9 @@ public class ContainersSetup extends PreparationForTests {
     @BeforeEach
     protected void setUpBd() {
         liquibaseManager.initMigrate();
+        initUsersEntity();
+        userInDbFirst = userJdbcRepository.createUser(userEntityForCreateFirst).get();
+        userInDbSecond = userJdbcRepository.createUser(userEntityForCreateSecond).get();
     }
 
     @AfterEach

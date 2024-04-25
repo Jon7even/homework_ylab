@@ -39,9 +39,11 @@ public class HistoryUserJdbcRepository implements HistoryUserDao {
     public Optional<HistoryUserEntity> createHistoryOfUser(HistoryUserEntity historyUserEntity) {
         log.debug("Пришел запрос на добавление нового действия пользователя {}", historyUserEntity);
         Connection connection = connectionManager.getConnection();
-        String queryCreate = String.format("INSERT INTO %s.history (user_id, created_on, event)"
-                + "     VALUES (?,?,?) RETURNING ID", config.getMainSchema());
-
+        String queryCreate = String.format("""
+                     INSERT INTO %s.history (user_id, created_on, event) 
+                     VALUES (?,?,?) 
+                     RETURNING ID """,
+                config.getMainSchema());
         try (PreparedStatement statement = connection.prepareStatement(queryCreate)) {
             statement.setLong(1, historyUserEntity.getUserId());
             statement.setObject(2, historyUserEntity.getDateTimeOn());
@@ -79,7 +81,7 @@ public class HistoryUserJdbcRepository implements HistoryUserDao {
         String sqlFindAllHistoryById = String.format("""
                         SELECT *
                           FROM %s.history
-                         WHERE user_id=?""",
+                         WHERE user_id=? """,
                 config.getMainSchema());
         try (PreparedStatement statement = connection.prepareStatement(sqlFindAllHistoryById)) {
             statement.setLong(1, userId);
