@@ -38,7 +38,7 @@ public class HistoryUserJdbcRepositoryTest extends ContainersSetup {
 
     @Test
     @DisplayName("Новое событие должно создаться c релевантными полями")
-    public void shouldCreateNewHistoryUser() {
+    public void shouldCreateNewHistoryUser_ReturnNewHistoryUser() {
         assertThat(actualResultHistoryFirst)
                 .isNotNull()
                 .isEqualTo(expectedResultHistoryFirst);

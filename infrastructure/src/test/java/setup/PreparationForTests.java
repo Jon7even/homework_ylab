@@ -714,6 +714,8 @@ public class PreparationForTests {
 
     protected DiaryEntity diaryEntityFirst;
     protected DiaryEntity diaryEntitySecond;
+    protected DiaryEntity diaryEntityForUpdateFirst;
+    protected DiaryEntity diaryEntityForUpdateSecond;
 
     protected void initDiaryEntity() {
         initLocalDateTime();
@@ -731,6 +733,22 @@ public class PreparationForTests {
                 .weightUser(weightUserSecond)
                 .growthUser(growthUserSecond)
                 .createdOn(timeStartSecond)
+                .updatedOn(timeEndSecond)
+                .build();
+        diaryEntityForUpdateFirst = DiaryEntity.builder()
+                .id(firstIdLong)
+                .userId(firstIdLong)
+                .weightUser(weightUserUpdateFirst)
+                .growthUser(growthUserUpdateFirst)
+                .createdOn(timeUpdateFirst)
+                .updatedOn(timeEndFirst)
+                .build();
+        diaryEntityForUpdateSecond = DiaryEntity.builder()
+                .id(secondIdLong)
+                .userId(secondIdLong)
+                .weightUser(weightUserUpdateSecond)
+                .growthUser(growthUserUpdateSecond)
+                .createdOn(timeUpdateFirst)
                 .updatedOn(timeEndSecond)
                 .build();
     }

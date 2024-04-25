@@ -5,6 +5,7 @@ import com.github.jon7even.dataproviders.configuration.ConfigLoader;
 import com.github.jon7even.dataproviders.configuration.MainConfig;
 import com.github.jon7even.dataproviders.core.LiquibaseManager;
 import com.github.jon7even.dataproviders.core.impl.LiquibaseManagerImpl;
+import com.github.jon7even.dataproviders.jdbc.DiaryJdbcRepository;
 import com.github.jon7even.dataproviders.jdbc.HistoryUserJdbcRepository;
 import com.github.jon7even.dataproviders.jdbc.UserJdbcRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -20,6 +21,7 @@ public class ContainersSetup extends PreparationForTests {
     private static final Postgres16TC container = Postgres16TC.getInstance();
     protected static UserJdbcRepository userJdbcRepository;
     protected static HistoryUserJdbcRepository historyUserJdbcRepository;
+    protected static DiaryJdbcRepository diaryJdbcRepository;
     protected static MainConfig mainConfig;
     protected static ConfigLoader configLoader;
     protected static LiquibaseManager liquibaseManager;
@@ -42,6 +44,7 @@ public class ContainersSetup extends PreparationForTests {
         userJdbcRepository = new UserJdbcRepository(mainConfig);
         liquibaseManager = new LiquibaseManagerImpl(mainConfig);
         historyUserJdbcRepository = new HistoryUserJdbcRepository(mainConfig);
+        diaryJdbcRepository = new DiaryJdbcRepository(mainConfig);
     }
 
     @AfterEach
