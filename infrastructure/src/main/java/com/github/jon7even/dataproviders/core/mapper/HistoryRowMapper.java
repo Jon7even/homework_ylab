@@ -2,11 +2,14 @@ package com.github.jon7even.dataproviders.core.mapper;
 
 import com.github.jon7even.core.domain.v1.entities.history.HistoryUserEntity;
 import com.github.jon7even.dataproviders.core.RowMapper;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HistoryRowMapper implements RowMapper {
     private static HistoryRowMapper instance;
 
@@ -15,9 +18,6 @@ public class HistoryRowMapper implements RowMapper {
             instance = new HistoryRowMapper();
         }
         return instance;
-    }
-
-    private HistoryRowMapper() {
     }
 
     @Override

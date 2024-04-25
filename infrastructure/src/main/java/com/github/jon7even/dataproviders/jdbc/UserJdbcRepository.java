@@ -60,7 +60,7 @@ public class UserJdbcRepository implements UserDao {
                 userEntity.setId(idKeyHolder);
                 log.debug("Пользователю присвоен новый ID={}", idKeyHolder);
             } else {
-                log.error("ID пользователю не присвоен!");
+                log.error("ID пользователю не присвоен");
             }
 
             log.debug("В БД добавлен новый пользователь {}", userEntity);
@@ -123,14 +123,14 @@ public class UserJdbcRepository implements UserDao {
 
     @Override
     public Optional<UserEntity> findByUserId(Long userId) {
-        log.debug("Пришел запрос на получение данных пользователя по ID={}", userId);
+        log.debug("Пришел запрос на получение данных пользователя по userId={}", userId);
         Connection connection = connectionManager.getConnection();
-        String sqlFindUser = String.format("""
+        String sqlFindUserById = String.format("""
                         SELECT *
                           FROM %s.user 
                          WHERE id = ? """,
                 config.getMainSchema());
-        try (PreparedStatement statement = connection.prepareStatement(sqlFindUser)) {
+        try (PreparedStatement statement = connection.prepareStatement(sqlFindUserById)) {
             statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
 
@@ -148,7 +148,7 @@ public class UserJdbcRepository implements UserDao {
                 System.out.println("Код ошибки: " + throwables.getErrorCode());
                 throwables = throwables.getNextException();
             }
-            log.error("БД не нашла пользователя по ID. Смотрите ошибки выше.");
+            log.error("БД не нашла пользователя по userId. Смотрите ошибки выше.");
             return Optional.empty();
         }
     }
@@ -157,12 +157,12 @@ public class UserJdbcRepository implements UserDao {
     public Optional<UserEntity> findByUserLogin(String userLogin) {
         log.debug("Пришел запрос на получение данных пользователя по login={}", userLogin);
         Connection connection = connectionManager.getConnection();
-        String sqlFindUser = String.format("""
+        String sqlFindUserByLogin = String.format("""
                         SELECT *
                           FROM %s.user 
                          WHERE login = ?""",
                 config.getMainSchema());
-        try (PreparedStatement statement = connection.prepareStatement(sqlFindUser)) {
+        try (PreparedStatement statement = connection.prepareStatement(sqlFindUserByLogin)) {
             statement.setString(1, userLogin);
             ResultSet resultSet = statement.executeQuery();
 
@@ -180,7 +180,7 @@ public class UserJdbcRepository implements UserDao {
                 System.out.println("Код ошибки: " + throwables.getErrorCode());
                 throwables = throwables.getNextException();
             }
-            log.error("БД не нашла пользователя по логину. Смотрите ошибки выше.");
+            log.error("БД не нашла пользователя по userLogin. Смотрите ошибки выше.");
             return Optional.empty();
         }
     }

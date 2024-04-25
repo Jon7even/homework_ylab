@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     private UserServiceImpl() {
         ConfigLoader configLoader = ConfigLoader.getInstance();
         this.userRepository = new UserJdbcRepository(configLoader.getConfig());
-        userMapper = new UserMapperImpl();
+        this.userMapper = new UserMapperImpl();
     }
 
     @Override

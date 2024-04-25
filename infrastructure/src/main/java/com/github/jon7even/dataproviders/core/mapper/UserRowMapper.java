@@ -2,10 +2,13 @@ package com.github.jon7even.dataproviders.core.mapper;
 
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.dataproviders.core.RowMapper;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserRowMapper implements RowMapper {
     private static UserRowMapper instance;
 
@@ -14,9 +17,6 @@ public class UserRowMapper implements RowMapper {
             instance = new UserRowMapper();
         }
         return instance;
-    }
-
-    private UserRowMapper() {
     }
 
     @Override

@@ -53,11 +53,11 @@ public class WorkoutServiceImpl implements WorkoutService {
     private WorkoutServiceImpl() {
         ConfigLoader configLoader = ConfigLoader.getInstance();
         this.userRepository = new UserJdbcRepository(configLoader.getConfig());
-        workoutRepository = WorkoutRepository.getInstance();
-        diaryService = DiaryServiceImpl.getInstance();
-        typeWorkoutService = TypeWorkoutServiceImpl.getInstance();
-        workoutMapper = new WorkoutMapperImpl();
-        groupPermissionsService = GroupPermissionsServiceImpl.getInstance();
+        this.workoutRepository = WorkoutRepository.getInstance();
+        this.diaryService = DiaryServiceImpl.getInstance();
+        this.typeWorkoutService = TypeWorkoutServiceImpl.getInstance();
+        this.workoutMapper = new WorkoutMapperImpl();
+        this.groupPermissionsService = GroupPermissionsServiceImpl.getInstance();
     }
 
     @Override

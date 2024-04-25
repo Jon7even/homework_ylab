@@ -52,8 +52,8 @@ public class HistoryUserServiceImpl implements HistoryUserService {
         ConfigLoader configLoader = ConfigLoader.getInstance();
         this.historyUserRepository = new HistoryUserJdbcRepository(configLoader.getConfig());
         this.userRepository = new UserJdbcRepository(configLoader.getConfig());
-        historyUserMapper = new HistoryUserMapperImpl();
-        groupPermissionsService = GroupPermissionsServiceImpl.getInstance();
+        this.historyUserMapper = new HistoryUserMapperImpl();
+        this.groupPermissionsService = GroupPermissionsServiceImpl.getInstance();
     }
 
     @Override

@@ -40,9 +40,9 @@ public class HistoryUserJdbcRepository implements HistoryUserDao {
         log.debug("Пришел запрос на добавление нового действия пользователя {}", historyUserEntity);
         Connection connection = connectionManager.getConnection();
         String queryCreate = String.format("""
-                     INSERT INTO %s.history (user_id, created_on, event) 
-                     VALUES (?,?,?) 
-                     RETURNING ID """,
+                        INSERT INTO %s.history (user_id, created_on, event) 
+                        VALUES (?,?,?) 
+                        RETURNING ID """,
                 config.getMainSchema());
         try (PreparedStatement statement = connection.prepareStatement(queryCreate)) {
             statement.setLong(1, historyUserEntity.getUserId());
@@ -56,7 +56,7 @@ public class HistoryUserJdbcRepository implements HistoryUserDao {
                 historyUserEntity.setId(idKeyHolder);
                 log.debug("Событию присвоен новый ID={}", idKeyHolder);
             } else {
-                log.error("ID событию не присвоено!");
+                log.error("ID событию не присвоен");
             }
 
             log.debug("В БД добавлено новое событие {}", historyUserEntity);
@@ -102,7 +102,7 @@ public class HistoryUserJdbcRepository implements HistoryUserDao {
                 System.out.println("Код ошибки: " + throwables.getErrorCode());
                 throwables = throwables.getNextException();
             }
-            log.error("БД не нашла список пользователей. Смотрите ошибки выше.");
+            log.error("БД не нашла события пользователя по userId. Смотрите ошибки выше.");
             return Collections.emptyList();
         }
     }

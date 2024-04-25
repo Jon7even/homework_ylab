@@ -45,11 +45,11 @@ public class TypeWorkoutServiceImpl implements TypeWorkoutService {
     }
 
     private TypeWorkoutServiceImpl() {
-        typeWorkoutRepository = TypeWorkoutRepository.getInstance();
-        typeWorkoutMapper = new TypeWorkoutMapperImpl();
-        groupPermissionsService = GroupPermissionsServiceImpl.getInstance();
         ConfigLoader configLoader = ConfigLoader.getInstance();
         this.userRepository = new UserJdbcRepository(configLoader.getConfig());
+        this.typeWorkoutRepository = TypeWorkoutRepository.getInstance();
+        this.typeWorkoutMapper = new TypeWorkoutMapperImpl();
+        this.groupPermissionsService = GroupPermissionsServiceImpl.getInstance();
     }
 
     @Override

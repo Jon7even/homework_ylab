@@ -10,7 +10,8 @@ import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.exception.NotUpdatedException;
 import com.github.jon7even.core.domain.v1.mappers.DiaryMapper;
 import com.github.jon7even.core.domain.v1.mappers.DiaryMapperImpl;
-import com.github.jon7even.dataproviders.inmemory.DiaryRepository;
+import com.github.jon7even.dataproviders.configuration.ConfigLoader;
+import com.github.jon7even.dataproviders.jdbc.DiaryJdbcRepository;
 import com.github.jon7even.services.DiaryService;
 
 import java.time.LocalDateTime;
@@ -35,8 +36,10 @@ public class DiaryServiceImpl implements DiaryService {
     }
 
     private DiaryServiceImpl() {
-        diaryRepository = DiaryRepository.getInstance();
-        diaryMapper = new DiaryMapperImpl();
+        ConfigLoader configLoader = ConfigLoader.getInstance();
+        this.diaryRepository = new DiaryJdbcRepository(configLoader.getConfig());
+        this.diaryMapper = new DiaryMapperImpl();
+
     }
 
     @Override

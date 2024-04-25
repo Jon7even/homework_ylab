@@ -30,8 +30,8 @@ public class GroupPermissionsServiceImpl implements GroupPermissionsService {
     }
 
     private GroupPermissionsServiceImpl() {
-        groupRepository = GroupPermissionsRepository.getInstance();
-        groupPermissionsMapper = new GroupPermissionsMapperImpl();
+        this.groupRepository = GroupPermissionsRepository.getInstance();
+        this.groupPermissionsMapper = new GroupPermissionsMapperImpl();
     }
 
     @Override
