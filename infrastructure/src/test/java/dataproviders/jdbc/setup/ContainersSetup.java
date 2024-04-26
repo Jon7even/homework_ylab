@@ -22,6 +22,7 @@ public class ContainersSetup extends PreparationForTests {
     protected static DiaryJdbcRepository diaryJdbcRepository;
     protected static TypeWorkoutJdbcRepository typeWorkoutJdbcRepository;
     protected static WorkoutJdbcRepository workoutJdbcRepository;
+    protected static GroupPermissionsJdbcRepository groupPermissionsJdbcRepository;
     protected static MainConfig mainConfig;
     protected static ConfigLoader configLoader;
     protected static LiquibaseManager liquibaseManager;
@@ -47,6 +48,7 @@ public class ContainersSetup extends PreparationForTests {
         diaryJdbcRepository = new DiaryJdbcRepository(mainConfig);
         typeWorkoutJdbcRepository = new TypeWorkoutJdbcRepository(mainConfig);
         workoutJdbcRepository = new WorkoutJdbcRepository(mainConfig);
+        groupPermissionsJdbcRepository = new GroupPermissionsJdbcRepository(mainConfig);
     }
 
     @AfterEach

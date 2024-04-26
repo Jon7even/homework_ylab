@@ -26,23 +26,23 @@ public class GroupPermissionsServiceTest extends PreparationForTests {
     @DisplayName("Сервис разрешений должен вернуть разрешение true")
     public void getPermissionsForService_ReturnTrue() {
         boolean actualResult = groupPermissionsService.getPermissionsForService(
-                firstIdInteger, historyAdmin.getNameType().getId(), FlagPermissions.DELETE
+                firstIdInteger, historyTypeAdmin.getNameType().getId(), FlagPermissions.DELETE
         );
         assertThat(actualResult)
                 .isNotNull()
                 .isTrue()
-                .isEqualTo(historyAdmin.getDelete());
+                .isEqualTo(historyTypeAdmin.getDelete());
     }
 
     @Test
     @DisplayName("Сервис разрешений должен вернуть разрешение false")
     public void getPermissionsForService_ReturnFalse() {
         boolean actualResult = groupPermissionsService.getPermissionsForService(
-                secondIdInteger, historyUser.getNameType().getId(), FlagPermissions.DELETE
+                secondIdInteger, historyTypeUser.getNameType().getId(), FlagPermissions.DELETE
         );
         assertThat(actualResult)
                 .isNotNull()
                 .isFalse()
-                .isEqualTo(historyUser.getDelete());
+                .isEqualTo(historyTypeUser.getDelete());
     }
 }

@@ -444,14 +444,18 @@ public class PreparationForTests {
     protected NameType nameTypeDiary;
     protected NameType nameTypeWorkout;
     protected NameType nameTypeWorkoutType;
-    protected TypeServiceEntity historyAdmin;
-    protected TypeServiceEntity diaryAdmin;
-    protected TypeServiceEntity workoutAdmin;
+    protected NameType nameTypeUser;
+
+    protected TypeServiceEntity historyTypeAdmin;
+    protected TypeServiceEntity diaryTypeAdmin;
     protected TypeServiceEntity workoutTypeAdmin;
-    protected TypeServiceEntity historyUser;
-    protected TypeServiceEntity diaryUser;
-    protected TypeServiceEntity workoutUser;
+    protected TypeServiceEntity typeWorkoutTypeAdmin;
+    protected TypeServiceEntity userTypeAdmin;
+    protected TypeServiceEntity historyTypeUser;
+    protected TypeServiceEntity diaryTypeUser;
     protected TypeServiceEntity workoutTypeUser;
+    protected TypeServiceEntity typeWorkoutTypeUser;
+    protected TypeServiceEntity userTypeUser;
 
     protected void initGroupPermissions() {
         nameTypeHistory = NameType.builder()
@@ -470,8 +474,12 @@ public class PreparationForTests {
                 .id(4)
                 .name("TypeWorkout Service")
                 .build();
+        nameTypeUser = NameType.builder()
+                .id(5)
+                .name("User Service")
+                .build();
 
-        historyAdmin = TypeServiceEntity.builder()
+        historyTypeAdmin = TypeServiceEntity.builder()
                 .id(1)
                 .nameType(nameTypeHistory)
                 .update(true)
@@ -480,7 +488,7 @@ public class PreparationForTests {
                 .delete(true)
                 .build();
 
-        diaryAdmin = TypeServiceEntity.builder()
+        diaryTypeAdmin = TypeServiceEntity.builder()
                 .id(2)
                 .nameType(nameTypeDiary)
                 .update(true)
@@ -489,7 +497,7 @@ public class PreparationForTests {
                 .delete(true)
                 .build();
 
-        workoutAdmin = TypeServiceEntity.builder()
+        workoutTypeAdmin = TypeServiceEntity.builder()
                 .id(3)
                 .nameType(nameTypeWorkout)
                 .update(true)
@@ -498,7 +506,7 @@ public class PreparationForTests {
                 .delete(true)
                 .build();
 
-        workoutTypeAdmin = TypeServiceEntity.builder()
+        typeWorkoutTypeAdmin = TypeServiceEntity.builder()
                 .id(4)
                 .nameType(nameTypeWorkoutType)
                 .update(true)
@@ -507,8 +515,17 @@ public class PreparationForTests {
                 .delete(true)
                 .build();
 
-        historyUser = TypeServiceEntity.builder()
+        userTypeAdmin = TypeServiceEntity.builder()
                 .id(5)
+                .nameType(nameTypeUser)
+                .update(true)
+                .write(true)
+                .read(true)
+                .delete(true)
+                .build();
+
+        historyTypeUser = TypeServiceEntity.builder()
+                .id(6)
                 .nameType(nameTypeHistory)
                 .update(false)
                 .write(false)
@@ -516,18 +533,9 @@ public class PreparationForTests {
                 .delete(false)
                 .build();
 
-        diaryUser = TypeServiceEntity.builder()
-                .id(6)
-                .nameType(nameTypeDiary)
-                .update(false)
-                .write(false)
-                .read(false)
-                .delete(false)
-                .build();
-
-        workoutUser = TypeServiceEntity.builder()
+        diaryTypeUser = TypeServiceEntity.builder()
                 .id(7)
-                .nameType(nameTypeWorkout)
+                .nameType(nameTypeDiary)
                 .update(false)
                 .write(false)
                 .read(false)
@@ -536,6 +544,15 @@ public class PreparationForTests {
 
         workoutTypeUser = TypeServiceEntity.builder()
                 .id(8)
+                .nameType(nameTypeWorkout)
+                .update(false)
+                .write(false)
+                .read(false)
+                .delete(false)
+                .build();
+
+        typeWorkoutTypeUser = TypeServiceEntity.builder()
+                .id(9)
                 .nameType(nameTypeWorkoutType)
                 .update(false)
                 .write(false)
@@ -543,12 +560,21 @@ public class PreparationForTests {
                 .delete(false)
                 .build();
 
+        userTypeUser = TypeServiceEntity.builder()
+                .id(10)
+                .nameType(nameTypeUser)
+                .update(false)
+                .write(false)
+                .read(false)
+                .delete(false)
+                .build();
+
         adminListPermissionsFirst = new HashSet<>(
-                Set.of(historyUser, diaryUser, workoutUser, workoutTypeUser)
+                Set.of(historyTypeUser, diaryTypeUser, workoutTypeUser, typeWorkoutTypeUser)
         );
 
         userListPermissionsSecond = new HashSet<>(
-                Set.of(historyAdmin, diaryAdmin, workoutAdmin, workoutTypeAdmin)
+                Set.of(historyTypeAdmin, diaryTypeAdmin, workoutTypeAdmin, typeWorkoutTypeAdmin)
         );
 
         groupPermissionsForCreateFirst = GroupPermissionsEntity.builder()
@@ -706,14 +732,18 @@ public class PreparationForTests {
     protected Float weightUserThird = 85.1F;
     protected Float weightUserUpdateFirst = 76.2F;
     protected Float weightUserUpdateSecond = 83.4F;
-
+    protected Float weightUserUpdateThird = 63.4F;
     protected Float growthUserFirst = 165.1F;
     protected Float growthUserSecond = 177.7F;
+    protected Float growthUserThird = 157.7F;
     protected Float growthUserUpdateFirst = 165.3F;
     protected Float growthUserUpdateSecond = 177.9F;
 
     protected DiaryEntity diaryEntityFirst;
     protected DiaryEntity diaryEntitySecond;
+    protected DiaryEntity diaryEntityThird;
+    protected DiaryEntity diaryEntityForUpdateFirst;
+    protected DiaryEntity diaryEntityForUpdateSecond;
 
     protected void initDiaryEntity() {
         initLocalDateTime();
@@ -731,6 +761,30 @@ public class PreparationForTests {
                 .weightUser(weightUserSecond)
                 .growthUser(growthUserSecond)
                 .createdOn(timeStartSecond)
+                .updatedOn(timeEndSecond)
+                .build();
+        diaryEntityThird = DiaryEntity.builder()
+                .id(thirdIdLong)
+                .userId(thirdIdLong)
+                .weightUser(weightUserThird)
+                .growthUser(growthUserThird)
+                .createdOn(timeStartThird)
+                .updatedOn(timeUpdateThird)
+                .build();
+        diaryEntityForUpdateFirst = DiaryEntity.builder()
+                .id(firstIdLong)
+                .userId(firstIdLong)
+                .weightUser(weightUserUpdateFirst)
+                .growthUser(growthUserUpdateFirst)
+                .createdOn(timeUpdateFirst)
+                .updatedOn(timeEndFirst)
+                .build();
+        diaryEntityForUpdateSecond = DiaryEntity.builder()
+                .id(secondIdLong)
+                .userId(secondIdLong)
+                .weightUser(weightUserUpdateSecond)
+                .growthUser(growthUserUpdateSecond)
+                .createdOn(timeUpdateFirst)
                 .updatedOn(timeEndSecond)
                 .build();
     }
