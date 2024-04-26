@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="015-create-type-workout-table" author="Jon7even" context="dev" dbms="postgresql">
+
+        <createSequence
+                schemaName="main"
+                sequenceName="id_type_workout_seq"
+                dataType="BIGINT"
+                startValue="1"
+                incrementBy="1"
+                maxValue="77777"
+                cycle="false"/>
+
+        <createTable tableName="type_workout" schemaName="main">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="id_type_workout_seq">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_type_workout"/>
+            </column>
+            <column name="type_name" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="calorie" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="detail_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableSchemaName="main"
+                                 baseTableName="type_workout"
+                                 baseColumnNames="detail_id"
+                                 constraintName="fk_type_workout_on_detail"
+                                 referencedTableSchemaName="main"
+                                 referencedTableName="detail_type"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+</databaseChangeLog>

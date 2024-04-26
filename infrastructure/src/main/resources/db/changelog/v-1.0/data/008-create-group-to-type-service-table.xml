@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="008-create-group-to-type-service-table" author="Jon7even" context="dev" dbms="postgresql">
+
+        <createTable tableName="permission_type" schemaName="main">
+            <column name="group_id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="pk_permission_type"/>
+            </column>
+            <column name="type_service_id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="pk_permission_type"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableSchemaName="main"
+                                 baseTableName="permission_type"
+                                 baseColumnNames="group_id"
+                                 constraintName="fk_permission_type_to_group"
+                                 referencedTableSchemaName="main"
+                                 referencedTableName="permission"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableSchemaName="main"
+                                 baseTableName="permission_type"
+                                 baseColumnNames="type_service_id"
+                                 constraintName="fk_permission_type_to_type_service"
+                                 referencedTableSchemaName="main"
+                                 referencedTableName="type_service"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+</databaseChangeLog>

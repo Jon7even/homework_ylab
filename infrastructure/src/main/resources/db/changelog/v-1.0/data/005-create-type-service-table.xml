@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="005-create-type-service-table" author="Jon7even" context="dev" dbms="postgresql">
+
+        <createSequence
+                schemaName="main"
+                sequenceName="id_type_service_seq"
+                dataType="INT"
+                startValue="1"
+                incrementBy="1"
+                maxValue="77777"
+                cycle="false"/>
+
+        <createTable tableName="type_service" schemaName="main">
+            <column name="id" type="INT" defaultValueSequenceNext="id_type_service_seq">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_type_service"/>
+            </column>
+            <column name="name_service_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="write" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="read" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delete" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableSchemaName="main"
+                                 baseTableName="type_service"
+                                 baseColumnNames="name_service_id"
+                                 constraintName="fk_type_on_name_service"
+                                 referencedTableSchemaName="main"
+                                 referencedTableName="name_service"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+</databaseChangeLog>

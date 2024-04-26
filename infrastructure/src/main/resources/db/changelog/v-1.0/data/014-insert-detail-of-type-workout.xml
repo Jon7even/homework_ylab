@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="014-insert-detail-of-type-workout" author="Jon7even" context="dev" dbms="postgresql">
+
+        <insert tableName="detail_type" schemaName="main">
+            <column name="name" value="Пройденное расстояние (м)"/>
+            <column name="filling_required" value="true"/>
+        </insert>
+        <insert tableName="detail_type" schemaName="main">
+            <column name="name" value="Количество выполненных упражнений"/>
+            <column name="filling_required" value="true"/>
+        </insert>
+        <insert tableName="detail_type" schemaName="main">
+            <column name="name" value="Занятие не требует дополнительных параметров"/>
+            <column name="filling_required" value="false"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

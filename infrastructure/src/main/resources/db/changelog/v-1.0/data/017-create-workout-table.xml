@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="017-create-workout-table" author="Jon7even" context="dev" dbms="postgresql">
+
+        <createSequence
+                schemaName="main"
+                sequenceName="id_workout_seq"
+                dataType="BIGINT"
+                startValue="1"
+                incrementBy="1"
+                maxValue="777777777"
+                cycle="false"/>
+
+        <createTable tableName="workout" schemaName="main">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="id_workout_seq">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_workout"/>
+            </column>
+            <column name="diary_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_workout_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time_rest" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weight" type="FLOAT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="note" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="detail" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableSchemaName="main"
+                                 baseTableName="workout"
+                                 baseColumnNames="diary_id"
+                                 constraintName="fk_workout_on_diary"
+                                 referencedTableSchemaName="main"
+                                 referencedTableName="diary"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableSchemaName="main"
+                                 baseTableName="workout"
+                                 baseColumnNames="type_workout_id"
+                                 constraintName="fk_workout_on_type_workout"
+                                 referencedTableSchemaName="main"
+                                 referencedTableName="type_workout"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+</databaseChangeLog>
