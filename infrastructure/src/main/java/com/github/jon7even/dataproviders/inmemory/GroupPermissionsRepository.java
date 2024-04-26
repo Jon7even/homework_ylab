@@ -29,13 +29,14 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
 
     private GroupPermissionsRepository() {
         ++idGenerator;
-        mapOfGroupsPermissions.put(InitialCommonDataInDb.DEFAULT_ID_GROUP_PERMISSIONS_ADMIN, InitDbGroupPermissions.BASE_GROUP_PERMISSIONS_FOR_ADMIN);
+        mapOfGroupsPermissions.put(InitialCommonDataInDb.DEFAULT_ID_GROUP_PERMISSIONS_ADMIN,
+                InitDbGroupPermissions.BASE_GROUP_PERMISSIONS_FOR_ADMIN);
         ++idGenerator;
-        mapOfGroupsPermissions.put(InitialCommonDataInDb.DEFAULT_ID_GROUP_PERMISSIONS_USER, InitDbGroupPermissions.BASE_GROUP_PERMISSIONS_FOR_USER);
+        mapOfGroupsPermissions.put(InitialCommonDataInDb.DEFAULT_ID_GROUP_PERMISSIONS_USER,
+                InitDbGroupPermissions.BASE_GROUP_PERMISSIONS_FOR_USER);
     }
 
-    @Override
-    public Optional<GroupPermissionsEntity> createGroupPermissions(GroupPermissionsEntity groupPermissionsEntity) {
+    private Optional<GroupPermissionsEntity> createGroupPermissions(GroupPermissionsEntity groupPermissionsEntity) {
         Integer groupPermissionsId = ++idGenerator;
         groupPermissionsEntity.setId(groupPermissionsId);
         mapOfGroupsPermissions.put(groupPermissionsId, groupPermissionsEntity);
@@ -44,8 +45,7 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
         return findByGroupPermissionsId(groupPermissionsId);
     }
 
-    @Override
-    public Optional<GroupPermissionsEntity> updateGroupPermissions(GroupPermissionsEntity groupPermissionsEntity) {
+    private Optional<GroupPermissionsEntity> updateGroupPermissions(GroupPermissionsEntity groupPermissionsEntity) {
         Integer groupPermissionsId = groupPermissionsEntity.getId();
         GroupPermissionsEntity oldGroup;
 
@@ -68,8 +68,8 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
     }
 
     @Override
-    public Optional<GroupPermissionsEntity> findByGroupPermissionsIdAndByTypeServiceId(Integer groupPermissionsId,
-                                                                                       Integer nameTypeServiceId) {
+    public Optional<GroupPermissionsEntity> findByGroupPermissionsByIdAndByTypeServiceId(Integer groupPermissionsId,
+                                                                                         Integer nameTypeServiceId) {
         System.out.println("Ищу группу с groupPermissionsId=" + groupPermissionsId
                 + " и nameTypeServiceId=" + nameTypeServiceId);
         Optional<GroupPermissionsEntity> foundGroupWithAllType = findByGroupPermissionsId(groupPermissionsId);
@@ -91,8 +91,7 @@ public class GroupPermissionsRepository implements GroupPermissionsDao {
         }
     }
 
-    @Override
-    public List<GroupPermissionsEntity> getAllGroupsOfPermissions() {
+    private List<GroupPermissionsEntity> getAllGroupsOfPermissions() {
         System.out.println("Получаю список всех групп разрешений");
         return mapOfGroupsPermissions.values().stream().toList();
     }

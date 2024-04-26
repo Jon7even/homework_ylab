@@ -2,7 +2,6 @@ package com.github.jon7even.core.domain.v1.dao;
 
 import com.github.jon7even.core.domain.v1.entities.permissions.GroupPermissionsEntity;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -12,22 +11,6 @@ import java.util.Optional;
  * @version 1.0
  */
 public interface GroupPermissionsDao {
-    /**
-     * Метод для создания новой группы разрешений
-     *
-     * @param groupPermissionsEntity новая группа с разрешениями без ID
-     * @return новая Entity группа с разрешениями со сгенерированным ID
-     */
-    Optional<GroupPermissionsEntity> createGroupPermissions(GroupPermissionsEntity groupPermissionsEntity);
-
-    /**
-     * Метод для обновления существующей группы с разрешениями
-     *
-     * @param groupPermissionsEntity существующая группа с разрешениями с ID
-     * @return обновленная Entity группа с разрешениями, если он есть в системе
-     */
-    Optional<GroupPermissionsEntity> updateGroupPermissions(GroupPermissionsEntity groupPermissionsEntity);
-
     /**
      * Метод для поиска определенной группы по ID с разрешениями и всеми имеющимися сервисами
      *
@@ -43,14 +26,6 @@ public interface GroupPermissionsDao {
      * @param nameTypeServiceId  существующий ID сервиса
      * @return определенную Entity группу с разрешениями для определенного сервиса
      */
-    Optional<GroupPermissionsEntity> findByGroupPermissionsIdAndByTypeServiceId(Integer groupPermissionsId,
-                                                                                Integer nameTypeServiceId);
-
-    /**
-     * Метод для поиска всех групп с разрешениями и всеми имеющимися сервисами
-     *
-     * @return весь найденный список Entity всех найденных групп с разрешениями для всех сервисов
-     * без параметров сортировки
-     */
-    List<GroupPermissionsEntity> getAllGroupsOfPermissions();
+    Optional<GroupPermissionsEntity> findByGroupPermissionsByIdAndByTypeServiceId(Integer groupPermissionsId,
+                                                                                  Integer nameTypeServiceId);
 }

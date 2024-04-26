@@ -77,20 +77,20 @@ public class GroupPermissionsRepositoryTest extends PreparationForTests {
     @DisplayName("Получить разрешения для конкретной группы и конкретного сервиса")
     public void findByGroupPermissionsIdAndByTypeServiceId_ReturnPermissionsForActualService() {
         GroupPermissionsEntity permissionsForHistoryAdmin =
-                groupPermissionsRepository.findByGroupPermissionsIdAndByTypeServiceId(
+                groupPermissionsRepository.findByGroupPermissionsByIdAndByTypeServiceId(
                         firstIdInteger, nameTypeHistory.getId()
                 ).get();
 
         GroupPermissionsEntity permissionsForDiaryAdmin =
-                groupPermissionsRepository.findByGroupPermissionsIdAndByTypeServiceId(
+                groupPermissionsRepository.findByGroupPermissionsByIdAndByTypeServiceId(
                         firstIdInteger, nameTypeDiary.getId()
                 ).get();
         GroupPermissionsEntity permissionsForWorkoutAdmin =
-                groupPermissionsRepository.findByGroupPermissionsIdAndByTypeServiceId(
+                groupPermissionsRepository.findByGroupPermissionsByIdAndByTypeServiceId(
                         firstIdInteger, nameTypeWorkout.getId()
                 ).get();
         GroupPermissionsEntity permissionsForTypeWorkoutTypeAdmin =
-                groupPermissionsRepository.findByGroupPermissionsIdAndByTypeServiceId(
+                groupPermissionsRepository.findByGroupPermissionsByIdAndByTypeServiceId(
                         firstIdInteger, nameTypeWorkoutType.getId()
                 ).get();
 
@@ -120,19 +120,19 @@ public class GroupPermissionsRepositoryTest extends PreparationForTests {
                         .getServicesList().iterator().next().getNameType().getName());
 
         GroupPermissionsEntity permissionsForHistoryUser =
-                groupPermissionsRepository.findByGroupPermissionsIdAndByTypeServiceId(
+                groupPermissionsRepository.findByGroupPermissionsByIdAndByTypeServiceId(
                         secondIdInteger, nameTypeHistory.getId()
                 ).get();
         GroupPermissionsEntity permissionsForDiaryUser =
-                groupPermissionsRepository.findByGroupPermissionsIdAndByTypeServiceId(
+                groupPermissionsRepository.findByGroupPermissionsByIdAndByTypeServiceId(
                         secondIdInteger, nameTypeDiary.getId()
                 ).get();
         GroupPermissionsEntity permissionsForWorkoutUser =
-                groupPermissionsRepository.findByGroupPermissionsIdAndByTypeServiceId(
+                groupPermissionsRepository.findByGroupPermissionsByIdAndByTypeServiceId(
                         secondIdInteger, nameTypeWorkout.getId()
                 ).get();
         GroupPermissionsEntity permissionsForTypeWorkoutTypeUser =
-                groupPermissionsRepository.findByGroupPermissionsIdAndByTypeServiceId(
+                groupPermissionsRepository.findByGroupPermissionsByIdAndByTypeServiceId(
                         secondIdInteger, nameTypeWorkoutType.getId()
                 ).get();
 

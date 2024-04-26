@@ -8,7 +8,8 @@ import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermiss
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.mappers.GroupPermissionsMapper;
 import com.github.jon7even.core.domain.v1.mappers.GroupPermissionsMapperImpl;
-import com.github.jon7even.dataproviders.inmemory.GroupPermissionsRepository;
+import com.github.jon7even.dataproviders.configuration.ConfigLoader;
+import com.github.jon7even.dataproviders.jdbc.GroupPermissionsJdbcRepository;
 import com.github.jon7even.services.GroupPermissionsService;
 
 /**
@@ -30,7 +31,8 @@ public class GroupPermissionsServiceImpl implements GroupPermissionsService {
     }
 
     private GroupPermissionsServiceImpl() {
-        this.groupRepository = GroupPermissionsRepository.getInstance();
+        ConfigLoader configLoader = ConfigLoader.getInstance();
+        this.groupRepository = new GroupPermissionsJdbcRepository(configLoader.getConfig());
         this.groupPermissionsMapper = new GroupPermissionsMapperImpl();
     }
 
@@ -65,7 +67,7 @@ public class GroupPermissionsServiceImpl implements GroupPermissionsService {
                                                                                 Integer nameTypeServiceId) {
         System.out.println("Начинаю получать сущность GroupPermissionsEntity по заданным параметрам");
 
-        return groupRepository.findByGroupPermissionsIdAndByTypeServiceId(groupPermissionsId, nameTypeServiceId)
+        return groupRepository.findByGroupPermissionsByIdAndByTypeServiceId(groupPermissionsId, nameTypeServiceId)
                 .orElseThrow(() -> new NotFoundException(
                         String.format("GroupPermissions by groupPermissionsId=%d and nameTypeServiceId=%d",
                                 groupPermissionsId, nameTypeServiceId)
