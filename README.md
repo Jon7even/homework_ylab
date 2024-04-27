@@ -6,13 +6,14 @@
 >
 >
 > # Ссылка на текущий PR
-> 1. [Link PR №1](https://github.com/Jon7even/homework_ylab/pull/1)
+> 1. [Link PR №1](https://github.com/Jon7even/homework_ylab/pull/3)
 >
 >
 >
 > # Список ссылок на ТЗ
 > 1. [Link HW №1](https://github.com/Jon7even/homework_ylab/tree/main/docs/tasks/technical-task-1.md)
 > 2. [Link HW №2](https://github.com/Jon7even/homework_ylab/tree/main/docs/tasks/technical-task-2.md)
+> 3. [Link HW №3](https://github.com/Jon7even/homework_ylab/tree/main/docs/tasks/technical-task-3.md)
 >
 >
 >
@@ -75,6 +76,7 @@
 > - перевести на микросервисную архитектуру
 > - перевести на Spring Boot
 > - увеличить покрытие кода тестами
+> - перевести остальную часть компонентов на @Slf4j
 
 ## Сборка и запуск
 
@@ -90,7 +92,8 @@
   сам деактивируется.
 - После всех проделанных выше действий есть 2 варианта запустить проект:
 - 1). Запустить проект в IntelliJ IDEA исполняемый файл `TrainingDiaryApp.java`
-- 2). Запустить собранный jar (временно не работающий метод, скоро исправим):
+- 2). Запустить собранный jar (временно не работающий метод, скоро исправим, но вы при компиляции можете
+  указать напрямую ссылки на конфиги в `ConfigLoader.java` и все заработает):
     - Собранный общий jar из папки `target` модуля `presentation` запускаем командой:
       `java -jar presentation-1.0-SNAPSHOT-jar-with-dependencies.jar`
     - Или из папки с проектом: `java -jar presentation\target\presentation-1.0-SNAPSHOT-jar-with-dependencies.jar`
