@@ -1,11 +1,9 @@
 package com.github.jon7even.view.menu.main;
 
-import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
-import com.github.jon7even.dataproviders.inmemory.constants.InitialCommonDataInDb;
 import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
-import com.github.jon7even.services.GroupPermissionsService;
-import com.github.jon7even.services.impl.GroupPermissionsServiceImpl;
+import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
+import com.github.jon7even.dataproviders.inmemory.constants.InitialCommonDataInDb;
 import com.github.jon7even.view.menu.admin.MainAdminMenuCommand;
 import com.github.jon7even.view.menu.diary.MainDiaryMenuCommand;
 import com.github.jon7even.view.menu.user.MainUserMenuCommand;
@@ -24,24 +22,22 @@ import static com.github.jon7even.view.ru.LocalMessages.MAIN_MENU;
  * @version 1.0
  */
 public class MainMenuCommand extends ServiceCommand {
-    private final GroupPermissionsService groupPermissionsService;
 
     public MainMenuCommand(UserInMemoryDto userService) {
         setUserInMemory(userService);
-        groupPermissionsService = GroupPermissionsServiceImpl.getInstance();
     }
 
     @Override
     public void handle() {
         Scanner scanner = getScanner();
-        boolean secret = groupPermissionsService.getPermissionsForService(
+        boolean secret = getGroupPermissionsService().getPermissionsForService(
                 getUserInMemory().getIdGroupPermissions(),
                 InitialCommonDataInDb.SERVICE_USER.getId(),
                 FlagPermissions.READ
         );
 
         if (secret) {
-            getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+            getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                     .userId(getUserInMemory().getId())
                     .event("Просмотр главного меню приложения роль - администратор")
                     .build());
@@ -57,7 +53,7 @@ public class MainMenuCommand extends ServiceCommand {
                 default -> setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
             }
         } else {
-            getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+            getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                     .userId(getUserInMemory().getId())
                     .event("Просмотр главного меню приложения роль - пользователь")
                     .build());

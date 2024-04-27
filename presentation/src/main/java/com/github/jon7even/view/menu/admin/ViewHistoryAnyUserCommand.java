@@ -3,8 +3,6 @@ package com.github.jon7even.view.menu.admin;
 import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.history.HistoryUserResponseByAdminDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
-import com.github.jon7even.services.HistoryUserService;
-import com.github.jon7even.services.impl.HistoryUserServiceImpl;
 import com.github.jon7even.utils.DateTimeFormat;
 import com.github.jon7even.view.menu.main.ExitFromAppCommand;
 import com.github.jon7even.view.menu.main.MainMenuCommand;
@@ -23,17 +21,14 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class ViewHistoryAnyUserCommand extends ServiceCommand {
-    private final HistoryUserService historyUserService;
-
     public ViewHistoryAnyUserCommand(UserInMemoryDto userService) {
-        historyUserService = HistoryUserServiceImpl.getInstance();
         setUserInMemory(userService);
     }
 
     @Override
     public void handle() {
         Scanner scanner = getScanner();
-        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+        getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                 .userId(getUserInMemory().getId())
                 .event("Просмотр меню поиска истории действий любого пользователя")
                 .build());
@@ -42,12 +37,12 @@ public class ViewHistoryAnyUserCommand extends ServiceCommand {
         Long userId = scanner.nextLong();
         System.out.println(LocalMessages.MENU_ADMINISTRATOR_VIEWING_HOLD);
 
-        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+        getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                 .userId(getUserInMemory().getId())
                 .event("Просмотр истории пользователя с userId=" + userId)
                 .build());
 
-        List<HistoryUserResponseByAdminDto> historyList = historyUserService.findAllHistoryByAdminIdSortByDeskDate(
+        List<HistoryUserResponseByAdminDto> historyList = getHistoryUserService().findAllHistoryByAdminIdSortByDeskDate(
                 userId, getUserInMemory().getId()
         );
 

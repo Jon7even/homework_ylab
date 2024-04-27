@@ -4,10 +4,6 @@ import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserLoginAuthDto;
 import com.github.jon7even.core.domain.v1.exception.AccessDeniedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
-import com.github.jon7even.services.AuthorizationService;
-import com.github.jon7even.services.UserService;
-import com.github.jon7even.services.impl.AuthorizationServiceImpl;
-import com.github.jon7even.services.impl.UserServiceImpl;
 import com.github.jon7even.view.menu.main.MainMenuCommand;
 import com.github.jon7even.view.menu.main.ServiceCommand;
 import com.github.jon7even.view.menu.main.StartCommand;
@@ -23,12 +19,8 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class AuthorizationCommand extends ServiceCommand {
-    private final AuthorizationService authorizationService;
-    private final UserService userService;
 
     public AuthorizationCommand() {
-        authorizationService = AuthorizationServiceImpl.getInstance();
-        userService = UserServiceImpl.getInstance();
     }
 
     @Override
@@ -45,11 +37,11 @@ public class AuthorizationCommand extends ServiceCommand {
         userLoginAuthDto.setPassword(scanner.nextLine());
 
         try {
-            if (authorizationService.processAuthorization(userLoginAuthDto)) {
+            if (getAuthorizationService().processAuthorization(userLoginAuthDto)) {
                 System.out.println(LocalMessages.AUTH_SUCCESS);
-                setUserInMemory(userService.findUserForAuthorization(userLoginAuthDto));
+                setUserInMemory(getUserService().findUserForAuthorization(userLoginAuthDto));
 
-                getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                         .userId(getUserInMemory().getId())
                         .event("Успешная авторизация пользователя")
                         .build());

@@ -24,7 +24,7 @@ public class MainAdminMenuCommand extends ServiceCommand {
     @Override
     public void handle() {
         Scanner scanner = getScanner();
-        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+        getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                 .userId(getUserInMemory().getId())
                 .event("Просмотр главного меню администратора")
                 .build());

@@ -1,5 +1,6 @@
 package com.github.jon7even.services.impl;
 
+import com.github.jon7even.core.domain.v1.dao.GroupPermissionsDao;
 import com.github.jon7even.core.domain.v1.dao.TypeWorkoutDao;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.dto.typeworkout.*;
@@ -12,9 +13,6 @@ import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.exception.NotUpdatedException;
 import com.github.jon7even.core.domain.v1.mappers.TypeWorkoutMapper;
 import com.github.jon7even.core.domain.v1.mappers.TypeWorkoutMapperImpl;
-import com.github.jon7even.dataproviders.configuration.ConfigLoader;
-import com.github.jon7even.dataproviders.jdbc.TypeWorkoutJdbcRepository;
-import com.github.jon7even.dataproviders.jdbc.UserJdbcRepository;
 import com.github.jon7even.services.GroupPermissionsService;
 import com.github.jon7even.services.TypeWorkoutService;
 
@@ -30,26 +28,18 @@ import static com.github.jon7even.core.domain.v1.entities.permissions.enums.Flag
  * @version 1.0
  */
 public class TypeWorkoutServiceImpl implements TypeWorkoutService {
-    private static TypeWorkoutServiceImpl instance;
     private static final Integer SERVICE_TYPE_WORKOUT_ID = 4;
-    private final TypeWorkoutMapper typeWorkoutMapper;
-    private final TypeWorkoutDao typeWorkoutRepository;
-    private final GroupPermissionsService groupPermissionsService;
     private final UserDao userRepository;
+    private final TypeWorkoutDao typeWorkoutRepository;
+    private final TypeWorkoutMapper typeWorkoutMapper;
+    private final GroupPermissionsService groupPermissionsService;
 
-    public static TypeWorkoutServiceImpl getInstance() {
-        if (instance == null) {
-            instance = new TypeWorkoutServiceImpl();
-        }
-        return instance;
-    }
-
-    private TypeWorkoutServiceImpl() {
-        ConfigLoader configLoader = ConfigLoader.getInstance();
-        this.userRepository = new UserJdbcRepository(configLoader.getConfig());
-        this.typeWorkoutRepository = new TypeWorkoutJdbcRepository(configLoader.getConfig());
+    public TypeWorkoutServiceImpl(UserDao userRepository, TypeWorkoutDao typeWorkoutRepository,
+                                  GroupPermissionsDao groupPermissionsDao) {
+        this.userRepository = userRepository;
+        this.typeWorkoutRepository = typeWorkoutRepository;
         this.typeWorkoutMapper = new TypeWorkoutMapperImpl();
-        this.groupPermissionsService = GroupPermissionsServiceImpl.getInstance();
+        this.groupPermissionsService = new GroupPermissionsServiceImpl(groupPermissionsDao);
     }
 
     @Override

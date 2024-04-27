@@ -1,5 +1,6 @@
 package com.github.jon7even.services.impl;
 
+import com.github.jon7even.core.domain.v1.dao.GroupPermissionsDao;
 import com.github.jon7even.core.domain.v1.dao.HistoryUserDao;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
@@ -12,9 +13,6 @@ import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.mappers.HistoryUserMapper;
 import com.github.jon7even.core.domain.v1.mappers.HistoryUserMapperImpl;
-import com.github.jon7even.dataproviders.configuration.ConfigLoader;
-import com.github.jon7even.dataproviders.jdbc.HistoryUserJdbcRepository;
-import com.github.jon7even.dataproviders.jdbc.UserJdbcRepository;
 import com.github.jon7even.services.GroupPermissionsService;
 import com.github.jon7even.services.HistoryUserService;
 
@@ -34,26 +32,18 @@ import static com.github.jon7even.core.domain.v1.entities.permissions.enums.Flag
  * @version 1.0
  */
 public class HistoryUserServiceImpl implements HistoryUserService {
-    private static HistoryUserServiceImpl instance;
     private static final Integer SERVICE_HISTORY_ID = 1;
+    private final UserDao userRepository;
     private final HistoryUserDao historyUserRepository;
     private final HistoryUserMapper historyUserMapper;
-    private final UserDao userRepository;
     private final GroupPermissionsService groupPermissionsService;
 
-    public static HistoryUserServiceImpl getInstance() {
-        if (instance == null) {
-            instance = new HistoryUserServiceImpl();
-        }
-        return instance;
-    }
-
-    private HistoryUserServiceImpl() {
-        ConfigLoader configLoader = ConfigLoader.getInstance();
-        this.historyUserRepository = new HistoryUserJdbcRepository(configLoader.getConfig());
-        this.userRepository = new UserJdbcRepository(configLoader.getConfig());
+    public HistoryUserServiceImpl(UserDao userRepository, HistoryUserDao historyUserRepository,
+                                  GroupPermissionsDao groupPermissionsDao) {
+        this.userRepository = userRepository;
+        this.historyUserRepository = historyUserRepository;
+        this.groupPermissionsService = new GroupPermissionsServiceImpl(groupPermissionsDao);
         this.historyUserMapper = new HistoryUserMapperImpl();
-        this.groupPermissionsService = GroupPermissionsServiceImpl.getInstance();
     }
 
     @Override

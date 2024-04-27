@@ -4,12 +4,8 @@ import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutFullResponseDto;
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutShortResponseDto;
-import com.github.jon7even.services.DiaryService;
 import com.github.jon7even.services.ServiceCalculationOfStats;
-import com.github.jon7even.services.WorkoutService;
-import com.github.jon7even.services.impl.DiaryServiceImpl;
 import com.github.jon7even.services.impl.ServiceCalculationOfStatsImpl;
-import com.github.jon7even.services.impl.WorkoutServiceImpl;
 import com.github.jon7even.utils.DateTimeFormat;
 import com.github.jon7even.view.menu.main.ExitFromAppCommand;
 import com.github.jon7even.view.menu.main.MainMenuCommand;
@@ -28,28 +24,24 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class FindWorkoutCommand extends ServiceCommand {
-    private final DiaryService diaryService;
-    private final WorkoutService workoutService;
     private final ServiceCalculationOfStats serviceCalculationOfStats;
 
     public FindWorkoutCommand(UserInMemoryDto userService) {
         setUserInMemory(userService);
-        workoutService = WorkoutServiceImpl.getInstance();
-        diaryService = DiaryServiceImpl.getInstance();
         serviceCalculationOfStats = ServiceCalculationOfStatsImpl.getInstance();
     }
 
     @Override
     public void handle() {
         Long userId = getUserInMemory().getId();
-        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+        getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                 .userId(userId)
                 .event("Просмотр меню поиска тренировок")
                 .build());
-        Long diaryId = diaryService.getIdDiaryByUserId(userId);
+        Long diaryId = getDiaryService().getIdDiaryByUserId(userId);
         Scanner scanner = getScanner();
         List<WorkoutShortResponseDto> listExistsWorkoutsByUser =
-                workoutService.findAllWorkoutByOwnerDiaryBySortByDeskDate(diaryId, userId);
+                getWorkoutService().findAllWorkoutByOwnerDiaryBySortByDeskDate(diaryId, userId);
         System.out.println(LocalMessages.WORKOUT_FIND_MENU);
         System.out.printf(LocalMessages.WORKOUT_VIEWING_LIST_HEADER, "своих");
 
@@ -72,9 +64,9 @@ public class FindWorkoutCommand extends ServiceCommand {
             scanner.nextLine();
             long workoutId = listExistsWorkoutsByUser.get(localIdWorkout).getId();
 
-            if (workoutService.isExistWorkoutByWorkoutId(workoutId)) {
-                WorkoutFullResponseDto workoutForDelete = workoutService.getWorkoutById(workoutId);
-                getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+            if (getWorkoutService().isExistWorkoutByWorkoutId(workoutId)) {
+                WorkoutFullResponseDto workoutForDelete = getWorkoutService().getWorkoutById(workoutId);
+                getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                         .userId(userId)
                         .event("Просмотр тренировки workoutId=" + workoutId)
                         .build());
@@ -97,7 +89,7 @@ public class FindWorkoutCommand extends ServiceCommand {
                         workoutForDelete.getPersonalNote()
                 );
             } else {
-                getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                         .userId(userId)
                         .event("Попытка поиска несуществующей тренировки workoutId=" + workoutId)
                         .build());

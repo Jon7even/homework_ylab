@@ -4,8 +4,6 @@ import com.github.jon7even.core.domain.v1.dto.diary.DiaryCreateDto;
 import com.github.jon7even.core.domain.v1.dto.diary.DiaryResponseDto;
 import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
-import com.github.jon7even.services.DiaryService;
-import com.github.jon7even.services.impl.DiaryServiceImpl;
 import com.github.jon7even.utils.DateTimeFormat;
 import com.github.jon7even.view.menu.main.ExitFromAppCommand;
 import com.github.jon7even.view.menu.main.MainMenuCommand;
@@ -24,21 +22,19 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class CreateMyDiaryCommand extends ServiceCommand {
-    private final DiaryService diaryService;
 
     public CreateMyDiaryCommand(UserInMemoryDto userService) {
         setUserInMemory(userService);
-        diaryService = DiaryServiceImpl.getInstance();
     }
 
     @Override
     public void handle() {
-        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+        getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                 .userId(getUserInMemory().getId())
                 .event("Попытка создания нового дневника")
                 .build());
 
-        if (diaryService.isExistByUserId(getUserInMemory().getId())) {
+        if (getDiaryService().isExistByUserId(getUserInMemory().getId())) {
             System.out.println(LocalMessages.MENU_DIARY_ALREADY_EXIST_FAILURE);
             setCommandNextMenu(new MainMenuCommand(getUserInMemory()));
         } else {
@@ -53,9 +49,9 @@ public class CreateMyDiaryCommand extends ServiceCommand {
             diaryCreateDto.setGrowthUser(growthUser);
 
             System.out.println(LocalMessages.MENU_DIARY_CREATE_HOLD);
-            DiaryResponseDto createdDiary = diaryService.createDiary(diaryCreateDto);
+            DiaryResponseDto createdDiary = getDiaryService().createDiary(diaryCreateDto);
 
-            getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+            getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                     .userId(getUserInMemory().getId())
                     .event("Впервые создали свой дневник")
                     .build());

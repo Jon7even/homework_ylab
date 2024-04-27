@@ -1,17 +1,13 @@
 package com.github.jon7even.view.menu.admin;
 
-import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
-import com.github.jon7even.dataproviders.inmemory.constants.InitialCommonDataInDb;
 import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.typeworkout.DetailOfTypeWorkoutResponseDto;
 import com.github.jon7even.core.domain.v1.dto.typeworkout.TypeWorkoutCreateDto;
 import com.github.jon7even.core.domain.v1.dto.typeworkout.TypeWorkoutResponseDto;
 import com.github.jon7even.core.domain.v1.dto.typeworkout.TypeWorkoutShortDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
-import com.github.jon7even.services.GroupPermissionsService;
-import com.github.jon7even.services.TypeWorkoutService;
-import com.github.jon7even.services.impl.GroupPermissionsServiceImpl;
-import com.github.jon7even.services.impl.TypeWorkoutServiceImpl;
+import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
+import com.github.jon7even.dataproviders.inmemory.constants.InitialCommonDataInDb;
 import com.github.jon7even.view.menu.main.ExitFromAppCommand;
 import com.github.jon7even.view.menu.main.MainMenuCommand;
 import com.github.jon7even.view.menu.main.ServiceCommand;
@@ -29,31 +25,27 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class AddTypeWorkoutAdminCommand extends ServiceCommand {
-    private final TypeWorkoutService typeWorkoutService;
-    private final GroupPermissionsService groupPermissionsService;
-
     public AddTypeWorkoutAdminCommand(UserInMemoryDto userService) {
         setUserInMemory(userService);
-        typeWorkoutService = TypeWorkoutServiceImpl.getInstance();
-        groupPermissionsService = GroupPermissionsServiceImpl.getInstance();
     }
 
     @Override
     public void handle() {
         Scanner scanner = getScanner();
         Long userId = getUserInMemory().getId();
-        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+        getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                 .userId(userId)
                 .event("Просмотр меню добавления нового типа тренировки")
                 .build());
         System.out.println(LocalMessages.ADD_NEW_TYPE_WORKOUT_MENU);
 
-        boolean isPermissionWrite = groupPermissionsService.getPermissionsForService(
-                getUserInMemory().getIdGroupPermissions(), InitialCommonDataInDb.SERVICE_TYPE_WORKOUT.getId(), FlagPermissions.WRITE
+        boolean isPermissionWrite = getGroupPermissionsService().getPermissionsForService(
+                getUserInMemory().getIdGroupPermissions(),
+                InitialCommonDataInDb.SERVICE_TYPE_WORKOUT.getId(), FlagPermissions.WRITE
         );
 
         if (isPermissionWrite) {
-            List<TypeWorkoutShortDto> listExistsTypeWorkout = typeWorkoutService.findAllTypeWorkoutsNoSort();
+            List<TypeWorkoutShortDto> listExistsTypeWorkout = getTypeWorkoutService().findAllTypeWorkoutsNoSort();
             System.out.println(LocalMessages.ADD_NEW_TYPE_WORKOUT_WAIT);
             System.out.print(LocalMessages.TYPE_WORKOUT_VIEWING_LIST_HEADER);
             listExistsTypeWorkout.forEach(t -> System.out.printf(
@@ -68,7 +60,7 @@ public class AddTypeWorkoutAdminCommand extends ServiceCommand {
             Integer caloriePerHour = scanner.nextInt();
 
             List<DetailOfTypeWorkoutResponseDto> listDetailsOfTypeWorkout =
-                    typeWorkoutService.findAllDetailOfTypeWorkoutNoSort();
+                    getTypeWorkoutService().findAllDetailOfTypeWorkoutNoSort();
             System.out.print(LocalMessages.TYPE_WORKOUT_VIEWING_LIST_DETAILS_HEADER);
             listDetailsOfTypeWorkout.forEach(t -> System.out.printf(
                     LocalMessages.TYPE_WORKOUT_VIEWING_LIST_DETAILS_BODY,
@@ -78,7 +70,7 @@ public class AddTypeWorkoutAdminCommand extends ServiceCommand {
             System.out.println(LocalMessages.ADD_NEW_TYPE_WORKOUT_GO_ID_DETAIL_TYPE);
             Integer detailOfTypeId = scanner.nextInt();
 
-            if (typeWorkoutService.isExistDetailOfTypeByDetailOfTypeId(detailOfTypeId)) {
+            if (getTypeWorkoutService().isExistDetailOfTypeByDetailOfTypeId(detailOfTypeId)) {
                 TypeWorkoutCreateDto typeWorkoutForSaveInDB = TypeWorkoutCreateDto.builder()
                         .requesterId(userId)
                         .typeName(nameTypeWorkout)
@@ -87,8 +79,8 @@ public class AddTypeWorkoutAdminCommand extends ServiceCommand {
                         .build();
 
                 TypeWorkoutResponseDto createdNewTypeWorkout =
-                        typeWorkoutService.createTypeWorkout(typeWorkoutForSaveInDB);
-                getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                        getTypeWorkoutService().createTypeWorkout(typeWorkoutForSaveInDB);
+                getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                         .userId(userId)
                         .event("Создание нового типа тренировки с Id=" + createdNewTypeWorkout.getTypeWorkoutId())
                         .build());
@@ -100,7 +92,7 @@ public class AddTypeWorkoutAdminCommand extends ServiceCommand {
                         createdNewTypeWorkout.getCaloriePerHour(),
                         createdNewTypeWorkout.getCaloriePerHour());
             } else {
-                getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                         .userId(userId)
                         .event("Попытка добавить новый тип тренировки с несуществующей детализацией detailOfTypeId="
                                 + detailOfTypeId)
@@ -109,7 +101,7 @@ public class AddTypeWorkoutAdminCommand extends ServiceCommand {
             }
 
         } else {
-            getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+            getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                     .userId(userId)
                     .event("Попытка добавить новый тип тренировки - нет доступа")
                     .build());

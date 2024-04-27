@@ -20,7 +20,7 @@ public class SignOutCommand extends ServiceCommand {
     @Override
     public void handle() {
         System.out.println(LocalMessages.SIGN_OUT);
-        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+        getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                 .userId(getUserInMemory().getId())
                 .event("Выход из своего аккаунта")
                 .build());

@@ -23,7 +23,7 @@ public class GroupPermissionsMapperTest extends PreparationForTests {
     @DisplayName("Должен произойти правильный маппинг в DTO для отображения разрешения группы для сервиса")
     public void toPermissionsServiceDtoFromEntity_ReturnDtoForService() {
         GroupPermissionsServiceDto actualResult = permissionsMapper.toPermissionsServiceDtoFromEntity(
-                groupPermissionsForExpectedFirst, historyAdmin
+                groupPermissionsForExpectedFirst, historyTypeAdmin
         );
         assertThat(actualResult)
                 .isNotNull();
@@ -37,18 +37,18 @@ public class GroupPermissionsMapperTest extends PreparationForTests {
 
         assertThat(actualResult.getNameService())
                 .isNotNull()
-                .isEqualTo(historyAdmin.getNameType().getName());
+                .isEqualTo(historyTypeAdmin.getNameType().getName());
         assertThat(actualResult.getWrite())
                 .isNotNull()
-                .isEqualTo(historyAdmin.getWrite());
+                .isEqualTo(historyTypeAdmin.getWrite());
         assertThat(actualResult.getRead())
                 .isNotNull()
-                .isEqualTo(historyAdmin.getRead());
+                .isEqualTo(historyTypeAdmin.getRead());
         assertThat(actualResult.getUpdate())
                 .isNotNull()
-                .isEqualTo(historyAdmin.getUpdate());
+                .isEqualTo(historyTypeAdmin.getUpdate());
         assertThat(actualResult.getDelete())
                 .isNotNull()
-                .isEqualTo(historyAdmin.getDelete());
+                .isEqualTo(historyTypeAdmin.getDelete());
     }
 }

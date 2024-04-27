@@ -8,8 +8,6 @@ import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermiss
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.mappers.GroupPermissionsMapper;
 import com.github.jon7even.core.domain.v1.mappers.GroupPermissionsMapperImpl;
-import com.github.jon7even.dataproviders.configuration.ConfigLoader;
-import com.github.jon7even.dataproviders.jdbc.GroupPermissionsJdbcRepository;
 import com.github.jon7even.services.GroupPermissionsService;
 
 /**
@@ -19,20 +17,11 @@ import com.github.jon7even.services.GroupPermissionsService;
  * @version 1.0
  */
 public class GroupPermissionsServiceImpl implements GroupPermissionsService {
-    private static GroupPermissionsServiceImpl instance;
     private final GroupPermissionsDao groupRepository;
     private final GroupPermissionsMapper groupPermissionsMapper;
 
-    public static GroupPermissionsServiceImpl getInstance() {
-        if (instance == null) {
-            instance = new GroupPermissionsServiceImpl();
-        }
-        return instance;
-    }
-
-    private GroupPermissionsServiceImpl() {
-        ConfigLoader configLoader = ConfigLoader.getInstance();
-        this.groupRepository = new GroupPermissionsJdbcRepository(configLoader.getConfig());
+    public GroupPermissionsServiceImpl(GroupPermissionsDao groupPermissionsRepository) {
+        this.groupRepository = groupPermissionsRepository;
         this.groupPermissionsMapper = new GroupPermissionsMapperImpl();
     }
 

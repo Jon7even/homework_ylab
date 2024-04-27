@@ -2,8 +2,6 @@ package com.github.jon7even.view.menu.workout;
 
 import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
-import com.github.jon7even.services.DiaryService;
-import com.github.jon7even.services.impl.DiaryServiceImpl;
 import com.github.jon7even.view.menu.diary.CreateMyDiaryCommand;
 import com.github.jon7even.view.menu.main.ExitFromAppCommand;
 import com.github.jon7even.view.menu.main.MainMenuCommand;
@@ -20,21 +18,19 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class MainMenuWorkoutCommand extends ServiceCommand {
-    private final DiaryService diaryService;
 
     public MainMenuWorkoutCommand(UserInMemoryDto userService) {
         setUserInMemory(userService);
-        diaryService = DiaryServiceImpl.getInstance();
     }
 
     @Override
     public void handle() {
-        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+        getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                 .userId(getUserInMemory().getId())
                 .event("Просмотр главного меню тренировок")
                 .build());
 
-        if (!diaryService.isExistByUserId(getUserInMemory().getId())) {
+        if (!getDiaryService().isExistByUserId(getUserInMemory().getId())) {
             System.out.println(LocalMessages.MENU_DIARY_NOT_FOUND);
             setCommandNextMenu(new CreateMyDiaryCommand(getUserInMemory()));
         } else {

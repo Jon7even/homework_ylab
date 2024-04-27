@@ -10,8 +10,6 @@ import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.mappers.UserMapper;
 import com.github.jon7even.core.domain.v1.mappers.UserMapperImpl;
-import com.github.jon7even.dataproviders.configuration.ConfigLoader;
-import com.github.jon7even.dataproviders.jdbc.UserJdbcRepository;
 import com.github.jon7even.services.UserService;
 
 /**
@@ -21,22 +19,13 @@ import com.github.jon7even.services.UserService;
  * @version 1.0
  */
 public class UserServiceImpl implements UserService {
-    private static UserServiceImpl instance;
     private static final Integer SERVICE_USER_ID = 5;
     private final UserDao userRepository;
     private final UserMapper userMapper;
 
-    public static UserServiceImpl getInstance() {
-        if (instance == null) {
-            instance = new UserServiceImpl();
-        }
-        return instance;
-    }
-
-    private UserServiceImpl() {
-        ConfigLoader configLoader = ConfigLoader.getInstance();
-        this.userRepository = new UserJdbcRepository(configLoader.getConfig());
+    public UserServiceImpl(UserDao userRepository) {
         this.userMapper = new UserMapperImpl();
+        this.userRepository = userRepository;
     }
 
     @Override

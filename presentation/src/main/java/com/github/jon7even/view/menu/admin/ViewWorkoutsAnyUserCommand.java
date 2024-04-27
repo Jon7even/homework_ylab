@@ -4,12 +4,8 @@ import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutFullResponseDto;
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutShortResponseDto;
-import com.github.jon7even.services.DiaryService;
 import com.github.jon7even.services.ServiceCalculationOfStats;
-import com.github.jon7even.services.WorkoutService;
-import com.github.jon7even.services.impl.DiaryServiceImpl;
 import com.github.jon7even.services.impl.ServiceCalculationOfStatsImpl;
-import com.github.jon7even.services.impl.WorkoutServiceImpl;
 import com.github.jon7even.utils.DateTimeFormat;
 import com.github.jon7even.view.menu.main.ExitFromAppCommand;
 import com.github.jon7even.view.menu.main.MainMenuCommand;
@@ -28,21 +24,17 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class ViewWorkoutsAnyUserCommand extends ServiceCommand {
-    private final DiaryService diaryService;
-    private final WorkoutService workoutService;
     private final ServiceCalculationOfStats serviceCalculationOfStats;
 
     public ViewWorkoutsAnyUserCommand(UserInMemoryDto userService) {
-        workoutService = WorkoutServiceImpl.getInstance();
         setUserInMemory(userService);
         serviceCalculationOfStats = ServiceCalculationOfStatsImpl.getInstance();
-        diaryService = DiaryServiceImpl.getInstance();
     }
 
     @Override
     public void handle() {
         Scanner scanner = getScanner();
-        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+        getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                 .userId(getUserInMemory().getId())
                 .event("Просмотр меню поиска тренировок любого пользователя")
                 .build());
@@ -51,14 +43,14 @@ public class ViewWorkoutsAnyUserCommand extends ServiceCommand {
         Long userId = scanner.nextLong();
         System.out.println(LocalMessages.MENU_ADMINISTRATOR_VIEWING_HOLD);
 
-        if (diaryService.isExistByUserId(userId)) {
-            getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+        if (getDiaryService().isExistByUserId(userId)) {
+            getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                     .userId(getUserInMemory().getId())
                     .event("Просмотр тренировок пользователя с userId=" + userId)
                     .build());
 
             List<WorkoutShortResponseDto> listExistsWorkoutsByUser =
-                    workoutService.findAllWorkoutByAdminDiaryBySortByDeskDate(userId, getUserInMemory().getId());
+                    getWorkoutService().findAllWorkoutByAdminDiaryBySortByDeskDate(userId, getUserInMemory().getId());
             System.out.println(LocalMessages.WORKOUT_FIND_MENU);
             System.out.printf(LocalMessages.WORKOUT_VIEWING_LIST_HEADER, "чужих");
 
@@ -81,9 +73,9 @@ public class ViewWorkoutsAnyUserCommand extends ServiceCommand {
                 scanner.nextLine();
                 long workoutId = listExistsWorkoutsByUser.get(localIdWorkout).getId();
 
-                if (workoutService.isExistWorkoutByWorkoutId(workoutId)) {
-                    WorkoutFullResponseDto workoutForDelete = workoutService.getWorkoutById(workoutId);
-                    getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                if (getWorkoutService().isExistWorkoutByWorkoutId(workoutId)) {
+                    WorkoutFullResponseDto workoutForDelete = getWorkoutService().getWorkoutById(workoutId);
+                    getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                             .userId(userId)
                             .event("Просмотр тренировки workoutId=" + workoutId)
                             .build());
@@ -106,7 +98,7 @@ public class ViewWorkoutsAnyUserCommand extends ServiceCommand {
                             workoutForDelete.getPersonalNote()
                     );
                 } else {
-                    getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                    getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                             .userId(userId)
                             .event("Попытка поиска несуществующей тренировки workoutId=" + workoutId)
                             .build());
@@ -116,7 +108,7 @@ public class ViewWorkoutsAnyUserCommand extends ServiceCommand {
 
             }
         } else {
-            getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+            getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                     .userId(userId)
                     .event("Попытка просмотреть несуществующий дневник пользователя userId=" + userId)
                     .build());

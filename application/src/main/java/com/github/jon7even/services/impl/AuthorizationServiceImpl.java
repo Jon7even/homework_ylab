@@ -5,8 +5,6 @@ import com.github.jon7even.core.domain.v1.dto.user.UserLoginAuthDto;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.AccessDeniedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
-import com.github.jon7even.dataproviders.configuration.ConfigLoader;
-import com.github.jon7even.dataproviders.jdbc.UserJdbcRepository;
 import com.github.jon7even.services.AuthorizationService;
 
 /**
@@ -16,19 +14,10 @@ import com.github.jon7even.services.AuthorizationService;
  * @version 1.0
  */
 public class AuthorizationServiceImpl implements AuthorizationService {
-    private static AuthorizationServiceImpl instance;
     private final UserDao userRepository;
 
-    public static AuthorizationServiceImpl getInstance() {
-        if (instance == null) {
-            instance = new AuthorizationServiceImpl();
-        }
-        return instance;
-    }
-
-    private AuthorizationServiceImpl() {
-        ConfigLoader configLoader = ConfigLoader.getInstance();
-        this.userRepository = new UserJdbcRepository(configLoader.getConfig());
+    public AuthorizationServiceImpl(UserDao userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override

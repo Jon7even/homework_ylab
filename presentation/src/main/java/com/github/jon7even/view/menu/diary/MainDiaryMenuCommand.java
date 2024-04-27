@@ -2,8 +2,6 @@ package com.github.jon7even.view.menu.diary;
 
 import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
-import com.github.jon7even.services.DiaryService;
-import com.github.jon7even.services.impl.DiaryServiceImpl;
 import com.github.jon7even.view.menu.main.ExitFromAppCommand;
 import com.github.jon7even.view.menu.main.MainMenuCommand;
 import com.github.jon7even.view.menu.main.ServiceCommand;
@@ -19,21 +17,19 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class MainDiaryMenuCommand extends ServiceCommand {
-    private final DiaryService diaryService;
 
     public MainDiaryMenuCommand(UserInMemoryDto userService) {
         setUserInMemory(userService);
-        diaryService = DiaryServiceImpl.getInstance();
     }
 
     @Override
     public void handle() {
-        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+        getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                 .userId(getUserInMemory().getId())
                 .event("Просмотр главного меню дневника")
                 .build());
 
-        if (!diaryService.isExistByUserId(getUserInMemory().getId())) {
+        if (!getDiaryService().isExistByUserId(getUserInMemory().getId())) {
             System.out.println(LocalMessages.MENU_DIARY_NOT_FOUND);
             setCommandNextMenu(new CreateMyDiaryCommand(getUserInMemory()));
         } else {

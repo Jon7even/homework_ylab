@@ -4,8 +4,6 @@ import com.github.jon7even.core.domain.v1.dto.user.UserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserShortResponseDto;
 import com.github.jon7even.core.domain.v1.exception.BadLoginException;
 import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
-import com.github.jon7even.services.UserService;
-import com.github.jon7even.services.impl.UserServiceImpl;
 import com.github.jon7even.view.config.Settings;
 import com.github.jon7even.view.menu.main.ServiceCommand;
 import com.github.jon7even.view.menu.main.StartCommand;
@@ -21,10 +19,8 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class RegisterNewUserCommand extends ServiceCommand {
-    private final UserService userService;
 
     public RegisterNewUserCommand() {
-        userService = UserServiceImpl.getInstance();
     }
 
     @Override
@@ -43,7 +39,7 @@ public class RegisterNewUserCommand extends ServiceCommand {
         userCreateDto.setIdGroupPermissions(Settings.DEFAULT_ID_FOR_GROUP);
 
         try {
-            UserShortResponseDto createdUser = userService.createUser(userCreateDto);
+            UserShortResponseDto createdUser = getUserService().createUser(userCreateDto);
             System.out.println(LocalMessages.REGISTER_NEW_USER_SUCCESS + createdUser.getLogin());
             System.out.println(LocalMessages.REGISTER_NEXT_ITERATOR);
             setCommandNextMenu(new AuthorizationCommand());

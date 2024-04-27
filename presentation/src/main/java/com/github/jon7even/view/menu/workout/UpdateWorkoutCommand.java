@@ -1,6 +1,5 @@
 package com.github.jon7even.view.menu.workout;
 
-import com.github.jon7even.core.domain.v1.exception.IncorrectTimeException;
 import com.github.jon7even.core.domain.v1.dto.diary.DiaryUpdateDto;
 import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.typeworkout.DetailOfTypeWorkoutResponseDto;
@@ -9,14 +8,9 @@ import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutFullResponseDto;
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutShortResponseDto;
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutUpdateDto;
-import com.github.jon7even.services.DiaryService;
+import com.github.jon7even.core.domain.v1.exception.IncorrectTimeException;
 import com.github.jon7even.services.ServiceCalculationOfStats;
-import com.github.jon7even.services.TypeWorkoutService;
-import com.github.jon7even.services.WorkoutService;
-import com.github.jon7even.services.impl.DiaryServiceImpl;
 import com.github.jon7even.services.impl.ServiceCalculationOfStatsImpl;
-import com.github.jon7even.services.impl.TypeWorkoutServiceImpl;
-import com.github.jon7even.services.impl.WorkoutServiceImpl;
 import com.github.jon7even.utils.DataTimeValidator;
 import com.github.jon7even.utils.DateTimeFormat;
 import com.github.jon7even.view.config.Settings;
@@ -40,30 +34,24 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class UpdateWorkoutCommand extends ServiceCommand {
-    private final DiaryService diaryService;
-    private final TypeWorkoutService typeWorkoutService;
-    private final WorkoutService workoutService;
     private final ServiceCalculationOfStats serviceCalculationOfStats;
 
     public UpdateWorkoutCommand(UserInMemoryDto userService) {
         setUserInMemory(userService);
-        typeWorkoutService = TypeWorkoutServiceImpl.getInstance();
-        workoutService = WorkoutServiceImpl.getInstance();
-        diaryService = DiaryServiceImpl.getInstance();
         serviceCalculationOfStats = ServiceCalculationOfStatsImpl.getInstance();
     }
 
     @Override
     public void handle() {
         Long userId = getUserInMemory().getId();
-        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+        getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                 .userId(userId)
                 .event("Просмотр меню редактирования тренировки")
                 .build());
-        Long diaryId = diaryService.getIdDiaryByUserId(userId);
+        Long diaryId = getDiaryService().getIdDiaryByUserId(userId);
 
         List<WorkoutShortResponseDto> listExistsWorkoutsByUser =
-                workoutService.findAllWorkoutByOwnerDiaryBySortByDeskDate(diaryId, userId);
+                getWorkoutService().findAllWorkoutByOwnerDiaryBySortByDeskDate(diaryId, userId);
         System.out.println(LocalMessages.WORKOUT_UPDATE_MENU);
         System.out.printf(LocalMessages.WORKOUT_VIEWING_LIST_HEADER, "своих");
 
@@ -87,9 +75,9 @@ public class UpdateWorkoutCommand extends ServiceCommand {
             scanner.nextLine();
             long workoutId = listExistsWorkoutsByUser.get(localIdWorkout).getId();
 
-            if (workoutService.isExistWorkoutByWorkoutId(workoutId)) {
+            if (getWorkoutService().isExistWorkoutByWorkoutId(workoutId)) {
 
-                WorkoutFullResponseDto workoutForUpdate = workoutService.getWorkoutById(workoutId);
+                WorkoutFullResponseDto workoutForUpdate = getWorkoutService().getWorkoutById(workoutId);
 
                 int minutesOfWorkoutUpdate = serviceCalculationOfStats.getRealMinutesOfWorkoutFromWorkoutDto(
                         workoutForUpdate
@@ -110,7 +98,7 @@ public class UpdateWorkoutCommand extends ServiceCommand {
                 );
 
                 System.out.println(LocalMessages.WORKOUT_UPDATE_PREPARE);
-                List<TypeWorkoutShortDto> listExistsTypeWorkout = typeWorkoutService.findAllTypeWorkoutsNoSort();
+                List<TypeWorkoutShortDto> listExistsTypeWorkout = getTypeWorkoutService().findAllTypeWorkoutsNoSort();
                 System.out.print(LocalMessages.TYPE_WORKOUT_VIEWING_LIST_HEADER);
                 listExistsTypeWorkout.forEach(t -> System.out.printf(
                         LocalMessages.TYPE_WORKOUT_VIEWING_LIST_BODY,
@@ -121,7 +109,7 @@ public class UpdateWorkoutCommand extends ServiceCommand {
                 Long typeWorkoutId = scanner.nextLong();
                 scanner.nextLine();
 
-                if (typeWorkoutService.isExistTypeWorkoutByTypeWorkoutId(typeWorkoutId)) {
+                if (getTypeWorkoutService().isExistTypeWorkoutByTypeWorkoutId(typeWorkoutId)) {
                     try {
                         LocalDateTime currentTime = LocalDateTime.now();
                         System.out.println(LocalMessages.WORKOUT_GO_TIME_START);
@@ -150,7 +138,7 @@ public class UpdateWorkoutCommand extends ServiceCommand {
 
                         String detailOfWorkout = Settings.NAME_WITHOUT_DETAILS;
                         DetailOfTypeWorkoutResponseDto detailOfTypeWorkout =
-                                typeWorkoutService.findTypeWorkoutByTypeWorkoutId(typeWorkoutId)
+                                getTypeWorkoutService().findTypeWorkoutByTypeWorkoutId(typeWorkoutId)
                                         .getDetailOfTypeWorkoutResponseDto();
 
                         if (detailOfTypeWorkout.getIsFillingRequired()) {
@@ -170,7 +158,8 @@ public class UpdateWorkoutCommand extends ServiceCommand {
                                 .detailOfWorkout(detailOfWorkout)
                                 .build();
 
-                        WorkoutFullResponseDto workoutUpdatedDto = workoutService.updateWorkout(workoutForUpdateInDB);
+                        WorkoutFullResponseDto workoutUpdatedDto =
+                                getWorkoutService().updateWorkout(workoutForUpdateInDB);
 
                         DiaryUpdateDto diaryForUpdateInDb = DiaryUpdateDto.builder()
                                 .userId(userId)
@@ -179,9 +168,9 @@ public class UpdateWorkoutCommand extends ServiceCommand {
                         if (Objects.equals(timeEnd.getDayOfYear(), currentTime.getDayOfYear())) {
                             diaryForUpdateInDb.setUpdatedOn(timeEnd);
                         }
-                        diaryService.updateDiary(diaryForUpdateInDb);
+                        getDiaryService().updateDiary(diaryForUpdateInDb);
 
-                        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                        getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                                 .userId(userId)
                                 .event("Успешное обновление тренировки с id=" + workoutUpdatedDto.getId())
                                 .build());
@@ -211,7 +200,7 @@ public class UpdateWorkoutCommand extends ServiceCommand {
                     }
 
                 } else {
-                    getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                    getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                             .userId(userId)
                             .event("Попытка отредактировать тренировку по несуществующему typeWorkoutId="
                                     + typeWorkoutId)
@@ -220,7 +209,7 @@ public class UpdateWorkoutCommand extends ServiceCommand {
                 }
 
             } else {
-                getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+                getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                         .userId(userId)
                         .event("Попытка отредактировать несуществующую тренировку workoutId=" + workoutId)
                         .build());

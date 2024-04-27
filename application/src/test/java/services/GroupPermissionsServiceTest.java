@@ -1,12 +1,15 @@
 package services;
 
+import com.github.jon7even.core.domain.v1.dao.GroupPermissionsDao;
 import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
+import com.github.jon7even.dataproviders.inmemory.GroupPermissionsRepository;
 import com.github.jon7even.services.impl.GroupPermissionsServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import setup.PreparationForTests;
 
@@ -16,9 +19,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class GroupPermissionsServiceTest extends PreparationForTests {
     @InjectMocks
     private GroupPermissionsServiceImpl groupPermissionsService;
+    @Mock
+    private GroupPermissionsDao groupPermissionsDao;
 
     @BeforeEach
     public void setUp() {
+        groupPermissionsDao = GroupPermissionsRepository.getInstance();
+        groupPermissionsService = new GroupPermissionsServiceImpl(groupPermissionsDao);
         initGroupPermissions();
     }
 

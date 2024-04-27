@@ -3,8 +3,6 @@ package com.github.jon7even.view.menu.user;
 import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.history.HistoryUserResponseByUserDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
-import com.github.jon7even.services.HistoryUserService;
-import com.github.jon7even.services.impl.HistoryUserServiceImpl;
 import com.github.jon7even.utils.DateTimeFormat;
 import com.github.jon7even.view.menu.main.ExitFromAppCommand;
 import com.github.jon7even.view.menu.main.MainMenuCommand;
@@ -22,22 +20,19 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class ViewMyHistoryCommand extends ServiceCommand {
-    private final HistoryUserService historyUserService;
-
     public ViewMyHistoryCommand(UserInMemoryDto userService) {
-        historyUserService = HistoryUserServiceImpl.getInstance();
         setUserInMemory(userService);
     }
 
     @Override
     public void handle() {
         Scanner scanner = getScanner();
-        getHistoryService().createHistoryOfUser(HistoryUserCreateDto.builder()
+        getHistoryUserService().createHistoryOfUser(HistoryUserCreateDto.builder()
                 .userId(getUserInMemory().getId())
                 .event("Просмотр своей истории действий")
                 .build());
 
-        List<HistoryUserResponseByUserDto> historyList = historyUserService.findAllHistoryByOwnerIdSortByDeskDate(
+        List<HistoryUserResponseByUserDto> historyList = getHistoryUserService().findAllHistoryByOwnerIdSortByDeskDate(
                 getUserInMemory().getId()
         );
 
