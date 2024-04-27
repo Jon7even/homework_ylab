@@ -39,6 +39,7 @@
         <log4j.version>2.23.1</log4j.version>
         <maven.assembly.version>2.4</maven.assembly.version>
         <assertJ.version>3.25.2</assertJ.version>
+        <jakarta.version>6.0.0</jakarta.version>
     </properties>
 
     <dependencies>
