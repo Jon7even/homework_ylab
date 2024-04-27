@@ -14,7 +14,8 @@
         <module>application</module>
         <module>core</module>
         <module>infrastructure</module>
-        <module>presentation</module>
+        <module>presentation/console</module>
+        <module>presentation/controller</module>
     </modules>
 
     <properties>

@@ -6,7 +6,7 @@
         <artifactId>training-diary</artifactId>
         <groupId>com.github.jon7even</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <name>Training Diary Presentation</name>
     <modelVersion>4.0.0</modelVersion>
