@@ -1,7 +1,10 @@
 ﻿#------DataBase------
 POSTGRES_VERSION=16.2-alpine3.19
-EXTERNAL_PORT=5432
+EXTERNAL_PORT_POSTGRES=5432
 
 DB_NAME=td_main
 DB_USER=server_user
 DB_PASS=qwerty
+
+#------Tomcat------
+EXTERNAL_PORT_TOMCAT=8080

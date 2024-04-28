@@ -1,4 +1,4 @@
-package com.github.jon7even.config;
+package com.github.jon7even.services.config;
 
 import com.github.jon7even.core.domain.v1.dao.*;
 import com.github.jon7even.dataproviders.configuration.ConfigLoader;

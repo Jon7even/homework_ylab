@@ -40,6 +40,8 @@
         <maven.assembly.version>2.4</maven.assembly.version>
         <assertJ.version>3.25.2</assertJ.version>
         <jakarta.version>6.0.0</jakarta.version>
+        <maven.war.plugin.version>3.3.2</maven.war.plugin.version>
+        <jackson.version>2.15.3</jackson.version>
     </properties>
 
     <dependencies>

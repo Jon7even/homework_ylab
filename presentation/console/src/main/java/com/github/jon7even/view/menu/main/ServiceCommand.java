@@ -1,6 +1,6 @@
 package com.github.jon7even.view.menu.main;
 
-import com.github.jon7even.config.BeanConfig;
+import com.github.jon7even.services.config.BeanConfig;
 import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
 import com.github.jon7even.services.*;
