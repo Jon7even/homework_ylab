@@ -34,7 +34,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <liquibase.version>4.9.1</liquibase.version>
-        <posgres.version>42.5.4</posgres.version>
+        <posgres.version>42.7.3</posgres.version>
         <testcontainers.version>1.19.7</testcontainers.version>
         <log4j.version>2.23.1</log4j.version>
         <maven.assembly.version>2.4</maven.assembly.version>
@@ -92,5 +92,16 @@
         </dependency>
 
     </dependencies>
+
+    <profiles>
+
+        <profile>
+            <id>no-tests-webapp</id>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+
+    </profiles>
 
 </project>

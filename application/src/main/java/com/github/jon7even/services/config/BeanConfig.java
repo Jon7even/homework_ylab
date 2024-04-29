@@ -2,6 +2,7 @@ package com.github.jon7even.services.config;
 
 import com.github.jon7even.core.domain.v1.dao.*;
 import com.github.jon7even.dataproviders.configuration.ConfigLoader;
+import com.github.jon7even.dataproviders.configuration.MainConfig;
 import com.github.jon7even.dataproviders.jdbc.*;
 import lombok.Getter;
 
@@ -22,6 +23,7 @@ public class BeanConfig {
         return instance;
     }
 
+    private final MainConfig mainConfig;
     private final GroupPermissionsDao groupPermissionsDao;
     private final UserDao userDao;
     private final DiaryDao diaryDao;
@@ -30,12 +32,12 @@ public class BeanConfig {
     private final HistoryUserDao historyUserDao;
 
     private BeanConfig() {
-        ConfigLoader configLoader = ConfigLoader.getInstance();
-        groupPermissionsDao = new GroupPermissionsJdbcRepository(configLoader.getConfig());
-        userDao = new UserJdbcRepository(configLoader.getConfig());
-        diaryDao = new DiaryJdbcRepository(configLoader.getConfig());
-        typeWorkoutDao = new TypeWorkoutJdbcRepository(configLoader.getConfig());
-        workoutDao = new WorkoutJdbcRepository(configLoader.getConfig());
-        historyUserDao = new HistoryUserJdbcRepository(configLoader.getConfig());
+        mainConfig = ConfigLoader.getInstance().getConfig();
+        groupPermissionsDao = new GroupPermissionsJdbcRepository(mainConfig);
+        userDao = new UserJdbcRepository(mainConfig);
+        diaryDao = new DiaryJdbcRepository(mainConfig);
+        typeWorkoutDao = new TypeWorkoutJdbcRepository(mainConfig);
+        workoutDao = new WorkoutJdbcRepository(mainConfig);
+        historyUserDao = new HistoryUserJdbcRepository(mainConfig);
     }
 }

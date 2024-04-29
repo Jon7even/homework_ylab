@@ -20,8 +20,8 @@ import static java.nio.file.Paths.get;
 public class ConfigLoader {
     private static ConfigLoader instance;
     private static MainConfig config;
-    public static final String PROPERTIES = "/application.yaml";
-    public static final String BAN_LIST = "/BanListAddLogin.properties";
+    private static final String PROPERTIES = "/application.yaml";
+    private static final String BAN_LIST = "/BanListAddLogin.properties";
 
     public static ConfigLoader getInstance() {
         if (instance == null) {
@@ -55,6 +55,7 @@ public class ConfigLoader {
             System.out.println("Что то пошло не так при загрузке конфигурационного файла");
             throw new RuntimeException(e);
         } catch (URISyntaxException e) {
+            System.out.println("Что то пошло не так при чтении пути");
             throw new RuntimeException(e);
         }
     }
