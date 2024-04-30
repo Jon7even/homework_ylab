@@ -13,10 +13,11 @@ import static com.github.jon7even.view.config.Settings.RUN_APP;
 import static com.github.jon7even.view.ru.LocalException.INCORRECT_INPUT;
 
 /**
- * Запуск приложения
- *
  * @author Jon7even
  * @version 1.0
+ * @deprecated Запуск приложения в консоле
+ * Теперь приложение переведено на сервлеты. Чтобы заработал данный модуль, требуется сборку выполнять с этого
+ * пакета. Далее, отключить Loggable в сервисах или наоборот подключить её зависимость. Настроить ссылку на настройки.
  */
 public class TrainingDiaryApp {
     public static void main(String[] args) {

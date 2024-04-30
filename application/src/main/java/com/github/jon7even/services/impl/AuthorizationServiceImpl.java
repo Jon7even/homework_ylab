@@ -1,5 +1,6 @@
 package com.github.jon7even.services.impl;
 
+import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.dto.user.UserLoginAuthDto;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
@@ -13,6 +14,7 @@ import com.github.jon7even.services.AuthorizationService;
  * @author Jon7even
  * @version 1.0
  */
+@Loggable
 public class AuthorizationServiceImpl implements AuthorizationService {
     private final UserDao userRepository;
 

@@ -4,7 +4,6 @@ import com.github.jon7even.core.domain.v1.dao.*;
 import com.github.jon7even.dataproviders.configuration.ConfigLoader;
 import com.github.jon7even.dataproviders.configuration.MainConfig;
 import com.github.jon7even.dataproviders.jdbc.*;
-import lombok.Getter;
 
 /**
  * Утилитарный класс-конфигуратор для внедрения репозиториев
@@ -12,7 +11,6 @@ import lombok.Getter;
  * @author Jon7even
  * @version 1.0
  */
-@Getter
 public class BeanConfig {
     private static BeanConfig instance;
 
@@ -39,5 +37,33 @@ public class BeanConfig {
         typeWorkoutDao = new TypeWorkoutJdbcRepository(mainConfig);
         workoutDao = new WorkoutJdbcRepository(mainConfig);
         historyUserDao = new HistoryUserJdbcRepository(mainConfig);
+    }
+
+    public MainConfig getMainConfig() {
+        return mainConfig;
+    }
+
+    public GroupPermissionsDao getGroupPermissionsDao() {
+        return groupPermissionsDao;
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public DiaryDao getDiaryDao() {
+        return diaryDao;
+    }
+
+    public TypeWorkoutDao getTypeWorkoutDao() {
+        return typeWorkoutDao;
+    }
+
+    public WorkoutDao getWorkoutDao() {
+        return workoutDao;
+    }
+
+    public HistoryUserDao getHistoryUserDao() {
+        return historyUserDao;
     }
 }

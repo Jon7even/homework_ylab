@@ -1,5 +1,6 @@
 package com.github.jon7even.services.impl;
 
+import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.dto.user.UserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
@@ -18,6 +19,7 @@ import com.github.jon7even.services.UserService;
  * @author Jon7even
  * @version 1.0
  */
+@Loggable
 public class UserServiceImpl implements UserService {
     private static final Integer SERVICE_USER_ID = 5;
     private final UserDao userRepository;

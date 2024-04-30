@@ -1,5 +1,6 @@
 package com.github.jon7even.services.impl;
 
+import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dao.DiaryDao;
 import com.github.jon7even.core.domain.v1.dto.diary.DiaryCreateDto;
 import com.github.jon7even.core.domain.v1.dto.diary.DiaryResponseDto;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
  * @author Jon7even
  * @version 1.0
  */
+@Loggable
 public class DiaryServiceImpl implements DiaryService {
     private static final Integer SERVICE_DIARY_ID = 2;
     private final DiaryDao diaryRepository;

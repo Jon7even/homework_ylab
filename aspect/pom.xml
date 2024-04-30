@@ -6,11 +6,10 @@
         <artifactId>training-diary</artifactId>
         <groupId>com.github.jon7even</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
-    <name>Training Diary Application</name>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>application</artifactId>
+
+    <artifactId>aspect</artifactId>
 
     <properties>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -21,24 +20,9 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.github.jon7even</groupId>
-            <artifactId>infrastructure</artifactId>
-            <version>${td.version}</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>${assertJ.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.jon7even</groupId>
-            <artifactId>aspect</artifactId>
-            <version>${td.version}</version>
-            <scope>compile</scope>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
 
     </dependencies>
@@ -50,15 +34,8 @@
                 <artifactId>aspectj-maven-plugin</artifactId>
                 <version>${aspectj.plugin.version}</version>
                 <configuration>
-                    <weaveDependencies>
-                        <weaveDependency>
-                            <groupId>com.github.jon7even</groupId>
-                            <artifactId>aspect</artifactId>
-                        </weaveDependency>
-                    </weaveDependencies>
-                    <complianceLevel>16</complianceLevel>
-                    <source>16</source>
-                    <target>16</target>
+                    <complianceLevel>1.8</complianceLevel>
+                    <target>1.8</target>
                     <showWeaveInfo>true</showWeaveInfo>
                     <verbose>true</verbose>
                     <Xlint>ignore</Xlint>
@@ -72,7 +49,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 

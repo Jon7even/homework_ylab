@@ -14,8 +14,8 @@
         <module>application</module>
         <module>core</module>
         <module>infrastructure</module>
-        <module>presentation/console</module>
         <module>presentation/controller</module>
+        <module>aspect</module>
     </modules>
 
     <properties>
@@ -42,6 +42,8 @@
         <jakarta.version>6.0.0</jakarta.version>
         <maven.war.plugin.version>3.3.2</maven.war.plugin.version>
         <jackson.version>2.15.3</jackson.version>
+        <aspectj.version>1.9.7</aspectj.version>
+        <aspectj.plugin.version>1.14.0</aspectj.plugin.version>
     </properties>
 
     <dependencies>
@@ -97,6 +99,23 @@
 
         <profile>
             <id>no-tests-webapp</id>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>webapp</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>application</module>
+                <module>core</module>
+                <module>infrastructure</module>
+                <module>presentation/controller</module>
+                <module>aspect</module>
+            </modules>
             <properties>
                 <maven.test.skip>true</maven.test.skip>
             </properties>

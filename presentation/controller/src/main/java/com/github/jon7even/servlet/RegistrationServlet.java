@@ -2,6 +2,7 @@ package com.github.jon7even.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dto.user.UserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserShortResponseDto;
 import com.github.jon7even.services.UserService;
@@ -20,6 +21,7 @@ import java.io.IOException;
  * @author Jon7even
  * @version 1.0
  */
+@Loggable
 @WebServlet("/auth/register")
 public class RegistrationServlet extends HttpServlet {
     private final ObjectMapper objectMapper;

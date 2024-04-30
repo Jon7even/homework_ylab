@@ -1,5 +1,6 @@
 package com.github.jon7even.services.impl;
 
+import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dao.GroupPermissionsDao;
 import com.github.jon7even.core.domain.v1.dto.permission.GroupPermissionsServiceDto;
 import com.github.jon7even.core.domain.v1.entities.permissions.GroupPermissionsEntity;
@@ -16,6 +17,7 @@ import com.github.jon7even.services.GroupPermissionsService;
  * @author Jon7even
  * @version 1.0
  */
+@Loggable
 public class GroupPermissionsServiceImpl implements GroupPermissionsService {
     private final GroupPermissionsDao groupRepository;
     private final GroupPermissionsMapper groupPermissionsMapper;

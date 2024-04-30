@@ -61,7 +61,6 @@
                     <webXml>src/main/java/com/github/jon7even/webapp/WEB-INF/web.xml</webXml>
                     <warName>/api</warName>
                 </configuration>
-
             </plugin>
 
         </plugins>

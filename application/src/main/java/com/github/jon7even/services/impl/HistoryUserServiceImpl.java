@@ -1,5 +1,6 @@
 package com.github.jon7even.services.impl;
 
+import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dao.GroupPermissionsDao;
 import com.github.jon7even.core.domain.v1.dao.HistoryUserDao;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
@@ -31,6 +32,7 @@ import static com.github.jon7even.core.domain.v1.entities.permissions.enums.Flag
  * @author Jon7even
  * @version 1.0
  */
+@Loggable
 public class HistoryUserServiceImpl implements HistoryUserService {
     private static final Integer SERVICE_HISTORY_ID = 1;
     private final UserDao userRepository;

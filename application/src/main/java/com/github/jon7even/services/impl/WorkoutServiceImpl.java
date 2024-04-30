@@ -1,5 +1,6 @@
 package com.github.jon7even.services.impl;
 
+import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dao.*;
 import com.github.jon7even.core.domain.v1.dto.typeworkout.TypeWorkoutResponseDto;
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutCreateDto;
@@ -29,6 +30,7 @@ import static com.github.jon7even.core.domain.v1.entities.permissions.enums.Flag
  * @author Jon7even
  * @version 1.0
  */
+@Loggable
 public class WorkoutServiceImpl implements WorkoutService {
     private static final Integer SERVICE_WORKOUT_ID = 3;
     private final UserDao userRepository;
