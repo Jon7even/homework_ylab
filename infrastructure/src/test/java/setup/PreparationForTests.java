@@ -44,6 +44,8 @@ public class PreparationForTests {
     protected Integer secondIdInteger = 2;
     protected Integer thirdIdInteger = 3;
     protected Integer fourthIdInteger = 4;
+    protected Integer DEFAULT_ADMIN_GROUP = firstIdInteger;
+    protected Integer DEFAULT_USER_GROUP = secondIdInteger;
     protected UserEntity userEntityFirst;
     protected UserEntity userEntityForCreateFirst;
     protected UserEntity userEntityForUpdateFirst;
@@ -422,7 +424,6 @@ public class PreparationForTests {
         userCreateDtoFirst = UserCreateDto.builder()
                 .login("UserDtoCreate")
                 .password("UserDtoUpdate")
-                .idGroupPermissions(1)
                 .build();
         userUpdateDtoFirst = UserUpdateDto.builder()
                 .password("newPassword")

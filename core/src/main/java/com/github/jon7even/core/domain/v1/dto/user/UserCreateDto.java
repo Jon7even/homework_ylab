@@ -18,5 +18,4 @@ import lombok.NoArgsConstructor;
 public class UserCreateDto {
     private String login;
     private String password;
-    private Integer idGroupPermissions;
 }

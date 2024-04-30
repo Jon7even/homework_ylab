@@ -26,7 +26,7 @@ public class UserMapperTest extends PreparationForTests {
     @Test
     @DisplayName("Должен произойти правильный маппинг в сущность для создания новых данных в БД")
     public void toEntityFromDtoCreate_ReturnEntityNotId() {
-        UserEntity actualResult = userMapper.toEntityFromDtoCreate(userCreateDtoFirst);
+        UserEntity actualResult = userMapper.toEntityFromDtoCreate(userCreateDtoFirst, DEFAULT_USER_GROUP);
 
         assertThat(actualResult)
                 .isNotNull();
@@ -41,7 +41,7 @@ public class UserMapperTest extends PreparationForTests {
                 .isEqualTo(userCreateDtoFirst.getPassword());
         assertThat(actualResult.getIdGroupPermissions())
                 .isNotNull()
-                .isEqualTo(userCreateDtoFirst.getIdGroupPermissions());
+                .isEqualTo(DEFAULT_USER_GROUP);
     }
 
     @Test

@@ -13,6 +13,8 @@ import com.github.jon7even.core.domain.v1.mappers.UserMapper;
 import com.github.jon7even.core.domain.v1.mappers.UserMapperImpl;
 import com.github.jon7even.services.UserService;
 
+import static com.github.jon7even.services.constants.Constants.DEFAULT_USER_GROUP;
+
 /**
  * Реализация сервиса взаимодействия с пользователями
  *
@@ -34,7 +36,7 @@ public class UserServiceImpl implements UserService {
     public UserShortResponseDto createUser(UserCreateDto userCreateDto) {
         System.out.println("К нам пришел новый пользователь: " + userCreateDto);
 
-        UserEntity userForSaveInRepository = userMapper.toEntityFromDtoCreate(userCreateDto);
+        UserEntity userForSaveInRepository = userMapper.toEntityFromDtoCreate(userCreateDto, DEFAULT_USER_GROUP);
         System.out.println("Пользователь для сохранения собран: " + userForSaveInRepository);
 
         UserEntity createdUser = userRepository.createUser(userForSaveInRepository)

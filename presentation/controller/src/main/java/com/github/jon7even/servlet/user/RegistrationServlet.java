@@ -1,4 +1,4 @@
-package com.github.jon7even.servlet;
+package com.github.jon7even.servlet.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -22,7 +22,7 @@ import java.io.IOException;
  * @version 1.0
  */
 @Loggable
-@WebServlet("/auth/register")
+@WebServlet("/user/register")
 public class RegistrationServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
     private UserService userService;

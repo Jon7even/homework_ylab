@@ -20,8 +20,8 @@ public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "userCreateDto.login", target = "login")
     @Mapping(source = "userCreateDto.password", target = "password")
-    @Mapping(source = "userCreateDto.idGroupPermissions", target = "idGroupPermissions")
-    UserEntity toEntityFromDtoCreate(UserCreateDto userCreateDto);
+    @Mapping(source = "idGroupPermissions", target = "idGroupPermissions")
+    UserEntity toEntityFromDtoCreate(UserCreateDto userCreateDto, Integer idGroupPermissions);
 
     @Mapping(source = "idUser", target = "id")
     @Mapping(source = "userLogin", target = "login")
