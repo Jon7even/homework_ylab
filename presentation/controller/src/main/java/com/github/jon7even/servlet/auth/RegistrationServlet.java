@@ -1,4 +1,4 @@
-package com.github.jon7even.servlet.user;
+package com.github.jon7even.servlet.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -15,6 +15,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+import static com.github.jon7even.constants.ControllerConstants.DEFAULT_CONTENT_JSON;
+import static com.github.jon7even.constants.ControllerConstants.DEFAULT_ENCODING;
+
 /**
  * Обработка Http запросов на регистрацию новых пользователей
  *
@@ -22,7 +25,7 @@ import java.io.IOException;
  * @version 1.0
  */
 @Loggable
-@WebServlet("/user/register")
+@WebServlet("/auth/sign-up")
 public class RegistrationServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
     private UserService userService;
@@ -49,7 +52,8 @@ public class RegistrationServlet extends HttpServlet {
         UserShortResponseDto userShortResponseDto = userService.createUser(userCreateDto);
 
         resp.setStatus(HttpServletResponse.SC_CREATED);
-        resp.setContentType("application/json");
+        resp.setContentType(DEFAULT_CONTENT_JSON);
+        resp.setCharacterEncoding(DEFAULT_ENCODING);
         resp.getWriter().write(objectMapper.writeValueAsString(userShortResponseDto));
     }
 }

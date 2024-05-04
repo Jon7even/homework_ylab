@@ -5,12 +5,14 @@
 > И помните, что главное - это регулярность.
 >
 >
-> # Ссылка на текущий PR
-> 1. [Link PR №1](https://github.com/Jon7even/homework_ylab/pull/3)
+> # Ссылки на PR
+> 1. [Link PR №1](https://github.com/Jon7even/homework_ylab/pull/1)
+> 2. [Link PR №2](https://github.com/Jon7even/homework_ylab/pull/2)
+> 3. [Link PR №3](https://github.com/Jon7even/homework_ylab/pull/3)
 >
 >
 >
-> # Список ссылок на ТЗ
+> # Ссылки на ТЗ
 > 1. [Link HW №1](https://github.com/Jon7even/homework_ylab/tree/main/docs/tasks/technical-task-1.md)
 > 2. [Link HW №2](https://github.com/Jon7even/homework_ylab/tree/main/docs/tasks/technical-task-2.md)
 > 3. [Link HW №3](https://github.com/Jon7even/homework_ylab/tree/main/docs/tasks/technical-task-3.md)

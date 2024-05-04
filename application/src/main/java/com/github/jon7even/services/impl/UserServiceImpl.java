@@ -21,7 +21,6 @@ import static com.github.jon7even.services.constants.Constants.DEFAULT_USER_GROU
  * @author Jon7even
  * @version 1.0
  */
-@Loggable
 public class UserServiceImpl implements UserService {
     private static final Integer SERVICE_USER_ID = 5;
     private final UserDao userRepository;
@@ -32,6 +31,7 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+    @Loggable
     @Override
     public UserShortResponseDto createUser(UserCreateDto userCreateDto) {
         System.out.println("К нам пришел новый пользователь: " + userCreateDto);
