@@ -1,8 +1,8 @@
 package com.github.jon7even.services;
 
 import com.github.jon7even.core.domain.v1.dto.user.UserCreateDto;
-import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
-import com.github.jon7even.core.domain.v1.dto.user.UserLoginAuthDto;
+import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
+import com.github.jon7even.core.domain.v1.dto.user.UserLogInAuthDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserShortResponseDto;
 
 /**
@@ -26,5 +26,5 @@ public interface UserService {
      * @param userLoginAuthDto заполненный объект DTO
      * @return объект DTO UserInMemoryDto
      */
-    UserInMemoryDto findUserForAuthorization(UserLoginAuthDto userLoginAuthDto);
+    UserLogInResponseDto findUserForAuthorization(UserLogInAuthDto userLoginAuthDto);
 }

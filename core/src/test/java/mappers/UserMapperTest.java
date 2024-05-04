@@ -1,6 +1,6 @@
 package mappers;
 
-import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
+import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserShortResponseDto;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.mappers.UserMapper;
@@ -79,7 +79,7 @@ public class UserMapperTest extends PreparationForTests {
     @Test
     @DisplayName("Должен произойти правильный маппинг в модель для пользователя в памяти")
     public void toInMemoryDtoFromEntity_UserInMemoryDto() {
-        UserInMemoryDto actualResult = userMapper.toInMemoryDtoFromEntity(userEntityFirst);
+        UserLogInResponseDto actualResult = userMapper.toInMemoryDtoFromEntity(userEntityFirst);
 
         assertThat(actualResult)
                 .isNotNull();

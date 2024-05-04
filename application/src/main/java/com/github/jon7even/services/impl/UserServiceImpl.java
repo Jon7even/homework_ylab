@@ -3,8 +3,8 @@ package com.github.jon7even.services.impl;
 import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.dto.user.UserCreateDto;
-import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
-import com.github.jon7even.core.domain.v1.dto.user.UserLoginAuthDto;
+import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
+import com.github.jon7even.core.domain.v1.dto.user.UserLogInAuthDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserShortResponseDto;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserInMemoryDto findUserForAuthorization(UserLoginAuthDto userLoginAuthDto) {
+    public UserLogInResponseDto findUserForAuthorization(UserLogInAuthDto userLoginAuthDto) {
         System.out.println("Поиск пользователя по логину: " + userLoginAuthDto);
         UserEntity foundUserEntity = userRepository.findByUserLogin(userLoginAuthDto.getLogin())
                 .orElseThrow(() -> new NotFoundException("User by login"));

@@ -3,8 +3,10 @@ package com.github.jon7even.listener;
 
 import com.github.jon7even.dataproviders.core.LiquibaseManager;
 import com.github.jon7even.dataproviders.core.impl.LiquibaseManagerImpl;
+import com.github.jon7even.services.AuthorizationService;
 import com.github.jon7even.services.UserService;
 import com.github.jon7even.services.config.BeanConfig;
+import com.github.jon7even.services.impl.AuthorizationServiceImpl;
 import com.github.jon7even.services.impl.UserServiceImpl;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
@@ -28,8 +30,13 @@ public class ContextListener implements ServletContextListener {
         liquibaseManager.initMigrate();
         System.out.println("Сохраняю сервисы в контекст");
         ServletContext servletContext = event.getServletContext();
+
         UserService userService = new UserServiceImpl(beanConfig.getUserDao());
         servletContext.setAttribute("userService", userService);
+
+        AuthorizationService authService = new AuthorizationServiceImpl(beanConfig.getUserDao());
+        servletContext.setAttribute("authService", authService);
+
         System.out.println("Приложение успешно запущено");
     }
 

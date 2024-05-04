@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserInMemoryDto {
+public class UserLogInResponseDto {
     private Long id;
     private String login;
     private Integer idGroupPermissions;

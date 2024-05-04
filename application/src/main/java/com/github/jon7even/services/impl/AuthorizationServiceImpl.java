@@ -2,7 +2,7 @@ package com.github.jon7even.services.impl;
 
 import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
-import com.github.jon7even.core.domain.v1.dto.user.UserLoginAuthDto;
+import com.github.jon7even.core.domain.v1.dto.user.UserLogInAuthDto;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.AccessDeniedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
@@ -23,7 +23,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     }
 
     @Override
-    public boolean processAuthorization(UserLoginAuthDto userLoginAuthDto) {
+    public boolean processAuthorization(UserLogInAuthDto userLoginAuthDto) {
         System.out.println("К нам пришел пользователь на авторизацию: " + userLoginAuthDto);
         UserEntity userFromBd = userRepository.findByUserLogin(userLoginAuthDto.getLogin())
                 .orElseThrow(() -> new NotFoundException(

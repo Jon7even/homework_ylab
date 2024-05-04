@@ -50,10 +50,9 @@ public class RegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserCreateDto userCreateDto = objectMapper.readValue(req.getReader(), UserCreateDto.class);
         UserShortResponseDto userShortResponseDto = userService.createUser(userCreateDto);
-
-        resp.setStatus(HttpServletResponse.SC_CREATED);
         resp.setContentType(DEFAULT_CONTENT_JSON);
         resp.setCharacterEncoding(DEFAULT_ENCODING);
         resp.getWriter().write(objectMapper.writeValueAsString(userShortResponseDto));
+        resp.setStatus(HttpServletResponse.SC_CREATED);
     }
 }

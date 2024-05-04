@@ -1,6 +1,6 @@
 package com.github.jon7even.services;
 
-import com.github.jon7even.core.domain.v1.dto.user.UserLoginAuthDto;
+import com.github.jon7even.core.domain.v1.dto.user.UserLogInAuthDto;
 
 /**
  * Интерфейс для взаимодействия с сервисом авторизации
@@ -15,5 +15,5 @@ public interface AuthorizationService {
      * @param userLoginAuthDto заполненный пользователем объект DTO
      * @return boolean с ответом - правильно ли введен пароль
      */
-    boolean processAuthorization(UserLoginAuthDto userLoginAuthDto);
+    boolean processAuthorization(UserLogInAuthDto userLoginAuthDto);
 }
