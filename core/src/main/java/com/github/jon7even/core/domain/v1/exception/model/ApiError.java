@@ -2,6 +2,7 @@ package com.github.jon7even.core.domain.v1.exception.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
@@ -15,8 +16,8 @@ import static com.github.jon7even.core.domain.v1.constant.DataTimePattern.DATE_T
  * @author Jon7even
  * @version 1.0
  */
+@Data
 @Builder
-@ToString
 @RequiredArgsConstructor
 public class ApiError {
     private final String reason;
