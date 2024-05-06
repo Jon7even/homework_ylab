@@ -95,6 +95,7 @@ public class RegistrationServlet extends HttpServlet {
             }
 
             UserShortResponseDto userShortResponseDto = userService.createUser(userCreateDto);
+
             resp.setContentType(DEFAULT_CONTENT_JSON);
             resp.setCharacterEncoding(DEFAULT_ENCODING);
             resp.getWriter().write(objectMapper.writeValueAsString(userShortResponseDto));

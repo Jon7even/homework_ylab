@@ -6,6 +6,7 @@ import com.github.jon7even.core.domain.v1.dto.diary.DiaryCreateDto;
 import com.github.jon7even.core.domain.v1.dto.diary.DiaryResponseDto;
 import com.github.jon7even.core.domain.v1.dto.diary.DiaryUpdateDto;
 import com.github.jon7even.core.domain.v1.entities.workout.DiaryEntity;
+import com.github.jon7even.core.domain.v1.exception.AlreadyExistException;
 import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.exception.NotUpdatedException;
@@ -36,6 +37,10 @@ public class DiaryServiceImpl implements DiaryService {
     public DiaryResponseDto createDiary(DiaryCreateDto diaryCreateDto) {
         System.out.println("К нам пришел на создание новый дневник: " + diaryCreateDto);
 
+        if (diaryRepository.findByUserId(diaryCreateDto.getUserId()).isPresent()) {
+            throw new AlreadyExistException(String.format("Diary witch [userId=%d]", diaryCreateDto.getUserId()));
+        }
+
         DiaryEntity diaryForSaveInRepository = diaryMapper.toDiaryEntityFromDtoCreate(
                 diaryCreateDto, LocalDateTime.now()
         );
@@ -57,7 +62,7 @@ public class DiaryServiceImpl implements DiaryService {
     }
 
     @Override
-    public void updateDiary(DiaryUpdateDto diaryUpdateDto) {
+    public DiaryResponseDto updateDiary(DiaryUpdateDto diaryUpdateDto) {
         diaryUpdateDto.setUpdatedOn(LocalDateTime.now());
         System.out.println("Начинаем обновлять дневник, вот что нужно обновить: " + diaryUpdateDto);
         DiaryEntity diaryEntityForUpdate = getDiaryEntityByUserId(diaryUpdateDto.getUserId());
@@ -66,8 +71,10 @@ public class DiaryServiceImpl implements DiaryService {
         diaryMapper.updateDiaryEntityFromDtoUpdate(diaryEntityForUpdate, diaryUpdateDto);
 
         System.out.println("Сохраняю получившийся дневник: " + diaryEntityForUpdate);
-        diaryRepository.updateDiary(diaryEntityForUpdate)
+        DiaryEntity updatedDiary = diaryRepository.updateDiary(diaryEntityForUpdate)
                 .orElseThrow(() -> new NotUpdatedException(diaryUpdateDto.toString()));
+        System.out.println("Дневник обновлен: " + updatedDiary);
+        return diaryMapper.toDiaryResponseDtoFromEntity(updatedDiary);
     }
 
     @Override

@@ -115,8 +115,7 @@ public class AuthorizationServlet extends HttpServlet {
                 resp.getWriter().write(objectMapper.writeValueAsString(error));
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
-        } catch (
-                NotFoundException e) {
+        } catch (NotFoundException e) {
             System.out.println(e.getMessage());
             resp.setContentType(DEFAULT_CONTENT_JSON);
             resp.setCharacterEncoding(DEFAULT_ENCODING);
@@ -128,8 +127,7 @@ public class AuthorizationServlet extends HttpServlet {
             resp.getWriter().write(objectMapper.writeValueAsString(error));
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
-        } catch (
-                Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             resp.setContentType(DEFAULT_CONTENT_JSON);
             resp.setCharacterEncoding(DEFAULT_ENCODING);

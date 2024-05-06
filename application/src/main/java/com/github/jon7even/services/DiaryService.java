@@ -32,7 +32,7 @@ public interface DiaryService {
      *
      * @param diaryUpdateDto заполненный объект DTO
      */
-    void updateDiary(DiaryUpdateDto diaryUpdateDto);
+    DiaryResponseDto updateDiary(DiaryUpdateDto diaryUpdateDto);
 
     /**
      * Метод, который даёт однозначный ответ есть ли дневник у пользователя
