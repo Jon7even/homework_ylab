@@ -1,15 +1,19 @@
 package com.github.jon7even.servlet.auth;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dto.user.UserLogInAuthDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
+import com.github.jon7even.core.domain.v1.exception.MethodArgumentNotValidException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.exception.model.ApiError;
 import com.github.jon7even.services.AuthorizationService;
 import com.github.jon7even.services.UserService;
+import com.github.jon7even.validator.Validator;
+import com.github.jon7even.validator.impl.UserLogInAuthDtoValidator;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,8 +24,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import static com.github.jon7even.constants.ControllerConstants.DEFAULT_CONTENT_JSON;
-import static com.github.jon7even.constants.ControllerConstants.DEFAULT_ENCODING;
+import static com.github.jon7even.constants.ControllerContent.DEFAULT_CONTENT_JSON;
+import static com.github.jon7even.constants.ControllerContent.DEFAULT_ENCODING;
+import static com.github.jon7even.constants.ControllerPath.PATH_URL_AUTH;
+import static com.github.jon7even.constants.ControllerPath.PATH_URL_SIGN_IN;
 
 /**
  * Обработка Http запросов на авторизацию пользователей
@@ -30,9 +36,10 @@ import static com.github.jon7even.constants.ControllerConstants.DEFAULT_ENCODING
  * @version 1.0
  */
 @Loggable
-@WebServlet("/auth/sign-in")
+@WebServlet(PATH_URL_AUTH + PATH_URL_SIGN_IN)
 public class AuthorizationServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
+    private final Validator<UserLogInAuthDto> validator;
     private UserService userService;
     private AuthorizationService authService;
 
@@ -40,6 +47,7 @@ public class AuthorizationServlet extends HttpServlet {
         this.objectMapper = new ObjectMapper();
         this.objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         this.objectMapper.registerModule(new JavaTimeModule());
+        this.validator = UserLogInAuthDtoValidator.getInstance();
     }
 
     @Override
@@ -56,7 +64,38 @@ public class AuthorizationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            UserLogInAuthDto userLogInAuthDto = objectMapper.readValue(req.getReader(), UserLogInAuthDto.class);
+            UserLogInAuthDto userLogInAuthDto = null;
+            try {
+                userLogInAuthDto = objectMapper.readValue(req.getReader(), UserLogInAuthDto.class);
+            } catch (JsonMappingException e) {
+                System.out.println(e.getMessage());
+                resp.setContentType(DEFAULT_CONTENT_JSON);
+                resp.setCharacterEncoding(DEFAULT_ENCODING);
+                ApiError error = ApiError.builder()
+                        .reason("BAD_REQUEST")
+                        .message("Тело запроса не может быть пустым")
+                        .timestamp(LocalDateTime.now())
+                        .build();
+                resp.getWriter().write(objectMapper.writeValueAsString(error));
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return;
+            }
+
+            try {
+                validator.validate(userLogInAuthDto);
+            } catch (MethodArgumentNotValidException e) {
+                resp.setContentType(DEFAULT_CONTENT_JSON);
+                resp.setCharacterEncoding(DEFAULT_ENCODING);
+                ApiError error = ApiError.builder()
+                        .reason("BAD_REQUEST")
+                        .message(e.getMessage())
+                        .timestamp(LocalDateTime.now())
+                        .build();
+                resp.getWriter().write(objectMapper.writeValueAsString(error));
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return;
+            }
+
             UserLogInResponseDto userLogInResponseDto = userService.findUserForAuthorization(userLogInAuthDto);
 
             if (authService.processAuthorization(userLogInAuthDto)) {
@@ -74,7 +113,8 @@ public class AuthorizationServlet extends HttpServlet {
                 resp.getWriter().write(objectMapper.writeValueAsString(error));
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
-        } catch (NotFoundException e) {
+        } catch (
+                NotFoundException e) {
             System.out.println(e.getMessage());
             resp.setContentType(DEFAULT_CONTENT_JSON);
             resp.setCharacterEncoding(DEFAULT_ENCODING);
@@ -86,7 +126,8 @@ public class AuthorizationServlet extends HttpServlet {
             resp.getWriter().write(objectMapper.writeValueAsString(error));
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             System.out.println(e.getMessage());
             resp.setContentType(DEFAULT_CONTENT_JSON);
             resp.setCharacterEncoding(DEFAULT_ENCODING);

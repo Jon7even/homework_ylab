@@ -17,8 +17,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import static com.github.jon7even.constants.ControllerConstants.DEFAULT_CONTENT_JSON;
-import static com.github.jon7even.constants.ControllerConstants.DEFAULT_ENCODING;
+import static com.github.jon7even.constants.ControllerContent.DEFAULT_CONTENT_JSON;
+import static com.github.jon7even.constants.ControllerContent.DEFAULT_ENCODING;
+import static com.github.jon7even.constants.ControllerPath.PATH_URL_AUTH;
+import static com.github.jon7even.constants.ControllerPath.PATH_URL_SIGN_OUT;
 
 /**
  * Обработка Http запросов на выход пользователя из системы
@@ -27,7 +29,7 @@ import static com.github.jon7even.constants.ControllerConstants.DEFAULT_ENCODING
  * @version 1.0
  */
 @Loggable
-@WebServlet("/auth/sign-out")
+@WebServlet(PATH_URL_AUTH + PATH_URL_SIGN_OUT)
 public class LogoutServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
     private AuthorizationService authService;
