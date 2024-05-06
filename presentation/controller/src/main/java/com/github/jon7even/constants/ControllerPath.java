@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
  * @version 1.0
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ControllerPath {
+public final class ControllerPath {
     public static final String PATH_URL_AUTH = "/auth";
     public static final String PATH_URL_SIGN_IN = "/sign-in";
     public static final String PATH_URL_SIGN_UP = "/sign-up";

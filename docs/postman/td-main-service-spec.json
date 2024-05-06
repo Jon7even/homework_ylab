@@ -1,197 +1,2141 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-    "name": "Training Diary - тесты основного сервиса",
-    "description": "Коллекция тестов для проверки приложения \"Training Diary\" API v1.0",
-    "title": "\"Training Diary\" API сервер",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "users",
-      "item": [
-        {
-          "name": "User create First",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 201\", function () {\r",
-                  "    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
-                  "});\r",
-                  "pm.test(\"Has user create response\", function () {\r",
-                  "    pm.response.to.be.withBody;\r",
-                  "    pm.response.to.be.json;\r",
-                  "});\r",
-                  "pm.test(\"Test user 'name' field\", function () {\r",
-                  "    var jsonData = pm.response.json();\r",
-                  "    pm.expect(jsonData).to.have.property('login');\r",
-                  "    pm.expect(jsonData.login, '\"login\" must be \"UserFirst\"').to.eql('UserFirst');\r",
-                  "});\r"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "*/*"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"login\": \"UserFirst\",\n  \"password\": \"pass\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/auth/sign-up",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "auth",
-                "sign-up"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "User create Second",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 201\", function () {\r",
-                  "    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
-                  "});\r",
-                  "pm.test(\"Has user create response\", function () {\r",
-                  "    pm.response.to.be.withBody;\r",
-                  "    pm.response.to.be.json;\r",
-                  "});\r",
-                  "pm.test(\"Test user 'name' field\", function () {\r",
-                  "    var jsonData = pm.response.json();\r",
-                  "    pm.expect(jsonData).to.have.property('login');\r",
-                  "    pm.expect(jsonData.login, '\"login\" must be \"UserSecond\"').to.eql('UserSecond');\r",
-                  "});\r"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "*/*"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"login\": \"UserSecond\",\n  \"password\": \"pass\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/auth/sign-up",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "auth",
-                "sign-up"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "User create Third",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 201\", function () {\r",
-                  "    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
-                  "});\r",
-                  "pm.test(\"Has user create response\", function () {\r",
-                  "    pm.response.to.be.withBody;\r",
-                  "    pm.response.to.be.json;\r",
-                  "});\r",
-                  "pm.test(\"Test user 'name' field\", function () {\r",
-                  "    var jsonData = pm.response.json();\r",
-                  "    pm.expect(jsonData).to.have.property('login');\r",
-                  "    pm.expect(jsonData.login, '\"login\" must be \"UserThird\"').to.eql('UserThird');\r",
-                  "});\r"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "*/*"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"login\": \"UserThird\",\n  \"password\": \"pass\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/auth/sign-up",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "auth",
-                "sign-up"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    }
-  ],
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "http://localhost:8080/api",
-      "type": "string"
-    }
-  ]
+	"info": {
+		"name": "Training Diary - тесты основного сервиса",
+		"description": "Коллекция тестов для проверки приложения \"Training Diary\" API v1.0",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "sign-up",
+					"item": [
+						{
+							"name": "validation",
+							"item": [
+								{
+									"name": "User create Fail Empty Body",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"message\" must be \"Тело запроса не может быть пустым\"').to.eql('Тело запроса не может быть пустым');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/sign-up",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User create Fail Empty Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"message\" must be \"[login] not validated, reason: [не может быть пустым]\"').to.eql('[login] not validated, reason: [не может быть пустым]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/sign-up",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User create Fail Size Login Min",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"message\" must be \"[login] not validated, reason: [количество символов в поле должно находиться в диапазоне от 3 до 64 символов]\"').to.eql('[login] not validated, reason: [количество символов в поле должно находиться в диапазоне от 3 до 64 символов]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"12\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/sign-up",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User create Fail Size Login Max",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"message\" must be \"[login] not validated, reason: [количество символов в поле должно находиться в диапазоне от 3 до 64 символов]\"').to.eql('[login] not validated, reason: [количество символов в поле должно находиться в диапазоне от 3 до 64 символов]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"12300000000000000000000000000000000000000000000000000000000000000\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/sign-up",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User create Fail Empty Password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"[password] not validated, reason: [не может быть пустым]\"').to.eql('[password] not validated, reason: [не может быть пустым]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"123\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/sign-up",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User create Fail Size Password Min",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"[password] not validated, reason: [количество символов в поле должно находиться в диапазоне от 4 до 128 символов]\"').to.eql('[password] not validated, reason: [количество символов в поле должно находиться в диапазоне от 4 до 128 символов]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"123\",\r\n    \"password\": \"123\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/sign-up",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User create Fail Size Password Max",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"[password] not validated, reason: [количество символов в поле должно находиться в диапазоне от 4 до 128 символов]\"').to.eql('[password] not validated, reason: [количество символов в поле должно находиться в диапазоне от 4 до 128 символов]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"123\",\r\n    \"password\": \"1230000000000000000000000000000000000000000000000000000000000000012300000000000000000000000000000000000000000000000000000000000000\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/sign-up",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "User create First",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has user create response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test user 'login' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('login');\r",
+											"    pm.expect(jsonData.login, '\"login\" must be \"UserFirst\"').to.eql('UserFirst');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "cbcadf72-61b6-479a-803f-7812e225f51e"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "5aba94c1-e1c5-4724-a095-4ccb1ec03284"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"UserFirst\",\n  \"password\": \"pass\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-up",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-up"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User create Second",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has user create response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test user 'login' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('login');\r",
+											"    pm.expect(jsonData.login, '\"login\" must be \"UserSecond\"').to.eql('UserSecond');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "fe0ee0fd-a46b-4723-8e86-84e56b11f399"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "aa63955c-5234-4f63-a1fc-6ff529ff9e76"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"UserSecond\",\n  \"password\": \"pass\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-up",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-up"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User create Third",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has user create response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test user 'login' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('login');\r",
+											"    pm.expect(jsonData.login, '\"login\" must be \"UserThird\"').to.eql('UserThird');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "6d0e9d1c-e061-4312-8506-454e7e7f8fbb"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "cc155a8d-1210-4c56-bc53-2cd128fa147e"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"UserThird\",\n  \"password\": \"pass\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-up",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-up"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User create Fail Login Exist First",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"message\" must be \"Пользователь уже есть в системе\"').to.eql('Пользователь уже есть в системе');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "33eaff76-5a10-4d3e-bf39-d20c2060274e"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "45bff825-bf4d-46fd-9c21-7574ed508e73"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"UserFirst\",\n  \"password\": \"pass\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-up",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-up"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User create Fail Login Exist Second",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"message\" must be \"Пользователь уже есть в системе\"').to.eql('Пользователь уже есть в системе');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "deebd9d0-f736-4d39-a23c-43811043dcfc"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "80dc14c7-8cda-464c-8985-9e37c89da81e"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"UserSecond\",\n  \"password\": \"pass\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-up",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-up"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User create Fail Login Exist Third",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"message\" must be \"Пользователь уже есть в системе\"').to.eql('Пользователь уже есть в системе');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "17e5ac29-a716-453b-a80a-0c254edc4bbd"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "209a82b3-1fbe-4645-bcab-40edd5a4d0ef"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"UserThird\",\n  \"password\": \"pass\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-up",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-up"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User create Fail Login Rezervation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"message\" must be \"Такой логин зарезервирован системой\"').to.eql('Такой логин зарезервирован системой');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "ef57028a-e941-4516-802b-20c9ea08be2a"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "5708b9e7-8d1e-4557-8bd3-9c65790d21b2"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"admin\",\n  \"password\": \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-up",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-up"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "sign-in",
+					"item": [
+						{
+							"name": "validation",
+							"item": [
+								{
+									"name": "User create Fail Empty Body",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"message\" must be \"Тело запроса не может быть пустым\"').to.eql('Тело запроса не может быть пустым');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/sign-in",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"sign-in"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User create Fail Empty Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"message\" must be \"[login] not validated, reason: [не может быть пустым]\"').to.eql('[login] not validated, reason: [не может быть пустым]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/sign-in",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"sign-in"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User create Fail Size Login Min",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"message\" must be \"[login] not validated, reason: [количество символов в поле должно находиться в диапазоне от 3 до 64 символов]\"').to.eql('[login] not validated, reason: [количество символов в поле должно находиться в диапазоне от 3 до 64 символов]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"12\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/sign-in",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"sign-in"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User create Fail Size Login Max",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"message\" must be \"[login] not validated, reason: [количество символов в поле должно находиться в диапазоне от 3 до 64 символов]\"').to.eql('[login] not validated, reason: [количество символов в поле должно находиться в диапазоне от 3 до 64 символов]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"12\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/sign-in",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"sign-in"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User create Fail Empty Password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"[password] not validated, reason: [не может быть пустым]\"').to.eql('[password] not validated, reason: [не может быть пустым]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"123\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/sign-in",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"sign-in"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User create Fail Size Password Min",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"[password] not validated, reason: [количество символов в поле должно находиться в диапазоне от 4 до 128 символов]\"').to.eql('[password] not validated, reason: [количество символов в поле должно находиться в диапазоне от 4 до 128 символов]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"123\",\r\n    \"password\": \"123\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/sign-in",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"sign-in"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "User create Fail Size Password Max",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"[password] not validated, reason: [количество символов в поле должно находиться в диапазоне от 4 до 128 символов]\"').to.eql('[password] not validated, reason: [количество символов в поле должно находиться в диапазоне от 4 до 128 символов]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"123\",\r\n    \"password\": \"1230000000000000000000000000000000000000000000000000000000000000012300000000000000000000000000000000000000000000000000000000000000\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/sign-in",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"sign-in"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "User authorization Fail Not Found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([404]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"NOT_FOUND\"').to.eql('NOT_FOUND');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"message\" must be \"Такой пользователь не найден\"').to.eql('Такой пользователь не найден');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "221a0fb6-8373-4519-85d7-bb89eeb94c36"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "bcf6d9d5-1935-4fd7-a5cb-feb205d8816f"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"UserFirst1\",\n  \"password\": \"pass\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-in",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-in"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User authorization Fail Bad Password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"message\" must be \"Пароль указан неверно\"').to.eql('Пароль указан неверно');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "07cd35d9-b4a2-41cb-b178-5766ad808f55"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "5a9125d8-e2ce-4461-8e45-866c27e63745"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"UserFirst\",\n  \"password\": \"pass1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-in",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-in"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User authorization First",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has user create response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test user 'id' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('id');\r",
+											"    pm.expect(jsonData.id, '\"id\" must be \"2\"').to.eql(2);\r",
+											"});\r",
+											"pm.test(\"Test user 'login' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('login');\r",
+											"    pm.expect(jsonData.login, '\"login\" must be \"UserFirst\"').to.eql('UserFirst');\r",
+											"});\r",
+											"pm.test(\"Test user 'idGroupPermissions' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('idGroupPermissions');\r",
+											"    pm.expect(jsonData.idGroupPermissions, '\"idGroupPermissions\" must be \"2\"').to.eql(2);\r",
+											"});\r",
+											"pm.test(\"Cookie JSESSIONID is present\", () => {\r",
+											"  pm.expect(pm.cookies.has('JSESSIONID')).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "6b806855-3a5e-434b-893f-00014288ba3f"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "4717afa2-b564-4f15-97b1-670aa1db97ee"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"UserFirst\",\n  \"password\": \"pass\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-in",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-in"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User authorization Second",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has user create response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test user 'id' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('id');\r",
+											"    pm.expect(jsonData.id, '\"id\" must be \"3\"').to.eql(3);\r",
+											"});\r",
+											"pm.test(\"Test user 'login' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('login');\r",
+											"    pm.expect(jsonData.login, '\"login\" must be \"UserSecond\"').to.eql('UserSecond');\r",
+											"});\r",
+											"pm.test(\"Test user 'idGroupPermissions' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('idGroupPermissions');\r",
+											"    pm.expect(jsonData.idGroupPermissions, '\"idGroupPermissions\" must be \"2\"').to.eql(2);\r",
+											"});\r",
+											"pm.test(\"Cookie JSESSIONID is present\", () => {\r",
+											"  pm.expect(pm.cookies.has('JSESSIONID')).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "3df07e8d-c61f-46a4-80a5-a4d81b49291f"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "7eceab75-4483-4d4c-ac7d-d59f0bf56316"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"UserSecond\",\n  \"password\": \"pass\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-in",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-in"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User authorization Third",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has user create response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test user 'id' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('id');\r",
+											"    pm.expect(jsonData.id, '\"id\" must be \"4\"').to.eql(4);\r",
+											"});\r",
+											"pm.test(\"Test user 'login' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('login');\r",
+											"    pm.expect(jsonData.login, '\"login\" must be \"UserThird\"').to.eql('UserThird');\r",
+											"});\r",
+											"pm.test(\"Test user 'idGroupPermissions' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('idGroupPermissions');\r",
+											"    pm.expect(jsonData.idGroupPermissions, '\"idGroupPermissions\" must be \"2\"').to.eql(2);\r",
+											"});\r",
+											"pm.test(\"Cookie JSESSIONID is present\", () => {\r",
+											"  pm.expect(pm.cookies.has('JSESSIONID')).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "6298f61a-4cbe-4a63-8bd6-0f8b3f492b2c"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "fb3fc33c-da3b-4e00-9ed5-f9b73ddaa01a"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"UserThird\",\n  \"password\": \"pass\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-in",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-in"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User authorization Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has user create response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test user 'id' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('id');\r",
+											"    pm.expect(jsonData.id, '\"id\" must be \"1\"').to.eql(1);\r",
+											"});\r",
+											"pm.test(\"Test user 'login' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('login');\r",
+											"    pm.expect(jsonData.login, '\"login\" must be \"admin\"').to.eql('admin');\r",
+											"});\r",
+											"pm.test(\"Test user 'idGroupPermissions' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('idGroupPermissions');\r",
+											"    pm.expect(jsonData.idGroupPermissions, '\"idGroupPermissions\" must be \"1\"').to.eql(1);\r",
+											"});\r",
+											"pm.test(\"Cookie JSESSIONID is present\", () => {\r",
+											"  pm.expect(pm.cookies.has('JSESSIONID')).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "7aa60b4f-077d-4ed2-a56f-ce38998d7f6d"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "a2b0c9dc-2924-441a-9197-9128eb9048a9"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"admin\",\n  \"password\": \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-in",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-in"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "sign-out",
+					"item": [
+						{
+							"name": "User authorization Second",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has user create response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test user 'id' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('id');\r",
+											"    pm.expect(jsonData.id, '\"id\" must be \"3\"').to.eql(3);\r",
+											"});\r",
+											"pm.test(\"Test user 'login' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('login');\r",
+											"    pm.expect(jsonData.login, '\"login\" must be \"UserSecond\"').to.eql('UserSecond');\r",
+											"});\r",
+											"pm.test(\"Test user 'idGroupPermissions' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('idGroupPermissions');\r",
+											"    pm.expect(jsonData.idGroupPermissions, '\"idGroupPermissions\" must be \"2\"').to.eql(2);\r",
+											"});\r",
+											"pm.test(\"Cookie JSESSIONID is present\", () => {\r",
+											"  pm.expect(pm.cookies.has('JSESSIONID')).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "634363dd-2dc9-421f-99fb-fad60f9b255b"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "31ddd0c4-f1a8-4ce5-ae76-c0d521160293"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"UserSecond\",\n  \"password\": \"pass\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-in",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-in"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User LogOut Second",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([204]);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "58e6229f-e4b5-40a3-9519-6f6016852d06"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "e7e50178-f921-4662-b792-2ce068077c11"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-out",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-out"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User LogOut Second Fail Already Log Out",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 403\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([403]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"FORBIDDEN\"').to.eql('FORBIDDEN');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"Вы не авторизованы\"').to.eql('Вы не авторизованы');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "862d699e-d0ac-47ca-96c0-4f41b3801d3c"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "a67cf950-3608-467f-8e4b-26314204c933"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-out",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-out"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User authorization Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has user create response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test user 'id' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('id');\r",
+											"    pm.expect(jsonData.id, '\"id\" must be \"1\"').to.eql(1);\r",
+											"});\r",
+											"pm.test(\"Test user 'login' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('login');\r",
+											"    pm.expect(jsonData.login, '\"login\" must be \"admin\"').to.eql('admin');\r",
+											"});\r",
+											"pm.test(\"Test user 'idGroupPermissions' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('idGroupPermissions');\r",
+											"    pm.expect(jsonData.idGroupPermissions, '\"idGroupPermissions\" must be \"1\"').to.eql(1);\r",
+											"});\r",
+											"pm.test(\"Cookie JSESSIONID is present\", () => {\r",
+											"  pm.expect(pm.cookies.has('JSESSIONID')).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "51cca89c-4d29-4a0d-8306-2d05cdb21636"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "5741a6aa-d1f8-4378-89a3-ed8b571923c2"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"admin\",\n  \"password\": \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-in",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-in"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080/api",
+			"type": "string"
+		}
+	]
 }

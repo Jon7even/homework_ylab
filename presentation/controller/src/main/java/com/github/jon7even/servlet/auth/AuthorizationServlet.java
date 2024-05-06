@@ -99,6 +99,8 @@ public class AuthorizationServlet extends HttpServlet {
             UserLogInResponseDto userLogInResponseDto = userService.findUserForAuthorization(userLogInAuthDto);
 
             if (authService.processAuthorization(userLogInAuthDto)) {
+                resp.setContentType(DEFAULT_CONTENT_JSON);
+                resp.setCharacterEncoding(DEFAULT_ENCODING);
                 req.getSession().setAttribute("user", userLogInResponseDto);
                 resp.getWriter().write(objectMapper.writeValueAsString(userLogInResponseDto));
                 resp.setStatus(HttpServletResponse.SC_OK);
