@@ -3,8 +3,8 @@ package com.github.jon7even.services.impl;
 import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.dto.user.UserCreateDto;
-import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserLogInAuthDto;
+import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserShortResponseDto;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
@@ -21,6 +21,7 @@ import static com.github.jon7even.services.constants.Constants.DEFAULT_USER_GROU
  * @author Jon7even
  * @version 1.0
  */
+@Loggable
 public class UserServiceImpl implements UserService {
     private static final Integer SERVICE_USER_ID = 5;
     private final UserDao userRepository;
@@ -31,7 +32,6 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    @Loggable
     @Override
     public UserShortResponseDto createUser(UserCreateDto userCreateDto) {
         System.out.println("К нам пришел новый пользователь: " + userCreateDto);
@@ -52,5 +52,14 @@ public class UserServiceImpl implements UserService {
 
         System.out.println("Найден пользователь по логину: " + foundUserEntity);
         return userMapper.toInMemoryDtoFromEntity(foundUserEntity);
+    }
+
+    @Override
+    public Long findByUserIdByLogin(String userLogin) {
+        System.out.println("Запрашивают ID пользователя по userLogin: " + userLogin);
+        return userRepository.findByUserLogin(userLogin)
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("User with [userLogin=%s]", userLogin))
+                ).getId();
     }
 }

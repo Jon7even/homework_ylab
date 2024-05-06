@@ -6,19 +6,20 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
 /**
- * Обработка поведения логирования методов, которые помечены аннотацией @Loggable
+ * Обработка замера времени выполнения методов, которые помечены аннотацией @Loggable
  *
  * @author Jon7even
  * @version 1.0
  */
 @Aspect
-public class LoggableAspect {
+public class LoggableSpeedOfMethodAspect {
+
     @Pointcut("within(@com.github.jon7even.annotations.Loggable *) && execution(* * (..))")
-    public void annotatedByLoggable() {
+    public void annotatedByLoggableTimeExecution() {
     }
 
-    @Around("annotatedByLoggable()")
-    public Object logging(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    @Around("annotatedByLoggableTimeExecution()")
+    public Object loggingTimeExecution(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         System.out.println("Calling method " + proceedingJoinPoint.getSignature());
         long start = System.currentTimeMillis();
         Object result = proceedingJoinPoint.proceed();

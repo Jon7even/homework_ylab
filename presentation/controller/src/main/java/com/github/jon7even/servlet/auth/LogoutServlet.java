@@ -6,6 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
 import com.github.jon7even.core.domain.v1.exception.model.ApiError;
+import com.github.jon7even.services.AuthorizationService;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -29,6 +30,7 @@ import static com.github.jon7even.constants.ControllerConstants.DEFAULT_ENCODING
 @WebServlet("/auth/sign-out")
 public class LogoutServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
+    private AuthorizationService authService;
 
     public LogoutServlet() {
         this.objectMapper = new ObjectMapper();
@@ -39,6 +41,7 @@ public class LogoutServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        this.authService = (AuthorizationService) getServletContext().getAttribute("authService");
     }
 
     /**
@@ -52,6 +55,7 @@ public class LogoutServlet extends HttpServlet {
 
         if (userFromSession != null) {
             session.invalidate();
+            authService.processLogOut(userFromSession);
             resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } else {
             resp.setContentType(DEFAULT_CONTENT_JSON);

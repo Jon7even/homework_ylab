@@ -1,8 +1,8 @@
 package com.github.jon7even.services;
 
 import com.github.jon7even.core.domain.v1.dto.user.UserCreateDto;
-import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserLogInAuthDto;
+import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserShortResponseDto;
 
 /**
@@ -27,4 +27,12 @@ public interface UserService {
      * @return объект DTO UserInMemoryDto
      */
     UserLogInResponseDto findUserForAuthorization(UserLogInAuthDto userLoginAuthDto);
+
+    /**
+     * Метод для поиска ID пользователя, если он есть в системе
+     *
+     * @param userLogin существующий login пользователя
+     * @return пользователь, если он есть в системе
+     */
+    Long findByUserIdByLogin(String userLogin);
 }

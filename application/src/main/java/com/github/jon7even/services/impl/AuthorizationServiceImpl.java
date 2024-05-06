@@ -3,6 +3,7 @@ package com.github.jon7even.services.impl;
 import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
 import com.github.jon7even.core.domain.v1.dto.user.UserLogInAuthDto;
+import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.services.AuthorizationService;
@@ -35,5 +36,10 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             System.out.printf("Доступ запрещен, пароль введен неверно [userLogin=%s]%n", userLoginAuthDto.getLogin());
             return false;
         }
+    }
+
+    @Override
+    public void processLogOut(UserLogInResponseDto userLogInResponseDto) {
+        System.out.println("Пользователь выходит из приложения: " + userLogInResponseDto);
     }
 }
