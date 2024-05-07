@@ -55,8 +55,7 @@ public class DiaryServiceImpl implements DiaryService {
     @Override
     public DiaryResponseDto findDiaryByDiaryId(Long diaryId) {
         System.out.println("Начинаю получать дневник по diaryId=" + diaryId);
-        DiaryEntity foundDiaryEntity = diaryRepository.findByDiaryId(diaryId)
-                .orElseThrow(() -> new NotFoundException(String.format("Diary by [diaryId=%s]", diaryId)));
+        DiaryEntity foundDiaryEntity = getDiaryEntityByDiaryId(diaryId);
         System.out.println("Дневник существует с diaryId=" + diaryId);
         return diaryMapper.toDiaryResponseDtoFromEntity(foundDiaryEntity);
     }
@@ -78,7 +77,7 @@ public class DiaryServiceImpl implements DiaryService {
     }
 
     @Override
-    public boolean isExistByUserId(Long userId) {
+    public Boolean isExistByUserId(Long userId) {
         System.out.println("Проверяю существует ли дневник у пользователя userId=" + userId);
         return diaryRepository.findByUserId(userId).isPresent();
     }
@@ -96,9 +95,21 @@ public class DiaryServiceImpl implements DiaryService {
         return getDiaryEntityByUserId(userId).getId();
     }
 
+    @Override
+    public Long getIdUserByDiaryId(Long diaryId) {
+        System.out.println("Начинаю получать ID пользователя по diaryId=" + diaryId);
+        return getDiaryEntityByDiaryId(diaryId).getId();
+    }
+
     private DiaryEntity getDiaryEntityByUserId(Long userId) {
         System.out.println("Начинаю получать дневник пользователя с userId=" + userId);
         return diaryRepository.findByUserId(userId)
                 .orElseThrow(() -> new NotFoundException(String.format("Diary by [userId=%s]", userId)));
+    }
+
+    private DiaryEntity getDiaryEntityByDiaryId(Long diaryId) {
+        System.out.println("Начинаю получать дневник пользователя с diaryId=" + diaryId);
+        return diaryRepository.findByDiaryId(diaryId)
+                .orElseThrow(() -> new NotFoundException(String.format("Diary by [diaryId=%s]", diaryId)));
     }
 }

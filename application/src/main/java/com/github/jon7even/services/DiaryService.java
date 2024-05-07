@@ -40,7 +40,7 @@ public interface DiaryService {
      * @param userId существующий ID пользователя
      * @return boolean с ответом - есть ли дневник
      */
-    boolean isExistByUserId(Long userId);
+    Boolean isExistByUserId(Long userId);
 
     /**
      * Метод, который получает дневник по ID пользователя
@@ -57,4 +57,12 @@ public interface DiaryService {
      * @return ID дневника
      */
     Long getIdDiaryByUserId(Long userId);
+
+    /**
+     * Метод, который получает ID пользователя по ID дневника
+     *
+     * @param diaryId существующий ID дневника
+     * @return ID пользователя, если он есть в системе
+     */
+    Long getIdUserByDiaryId(Long diaryId);
 }

@@ -29,10 +29,10 @@ public interface UserService {
     UserLogInResponseDto findUserForAuthorization(UserLogInAuthDto userLoginAuthDto);
 
     /**
-     * Метод для поиска ID пользователя, если он есть в системе
+     * Метод для поиска ID пользователя по его логину, если он есть в системе
      *
      * @param userLogin существующий login пользователя
-     * @return пользователь, если он есть в системе
+     * @return ID пользователя, если он есть в системе
      */
-    Long findByUserIdByLogin(String userLogin);
+    Long getUserIdByLogin(String userLogin);
 }

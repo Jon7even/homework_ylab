@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long findByUserIdByLogin(String userLogin) {
+    public Long getUserIdByLogin(String userLogin) {
         System.out.println("Запрашивают ID пользователя по userLogin: " + userLogin);
         return userRepository.findByUserLogin(userLogin)
                 .orElseThrow(() -> new NotFoundException(
