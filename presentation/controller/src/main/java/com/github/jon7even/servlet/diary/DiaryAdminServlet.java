@@ -1,19 +1,18 @@
-package com.github.jon7even.servlet.auth;
+package com.github.jon7even.servlet.diary;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.jon7even.annotations.Loggable;
-import com.github.jon7even.core.domain.v1.dto.user.UserLogInAuthDto;
+import com.github.jon7even.core.domain.v1.dto.diary.DiaryResponseDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
+import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
 import com.github.jon7even.core.domain.v1.exception.MethodArgumentNotValidException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.exception.model.ApiError;
-import com.github.jon7even.services.AuthorizationService;
-import com.github.jon7even.services.UserService;
-import com.github.jon7even.validator.ValidatorDto;
-import com.github.jon7even.validator.impl.UserLogInAuthDtoValidatorDto;
+import com.github.jon7even.services.DiaryService;
+import com.github.jon7even.services.GroupPermissionsService;
+import com.github.jon7even.validator.impl.LongValidator;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,63 +25,84 @@ import java.time.LocalDateTime;
 
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_CONTENT_JSON;
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_ENCODING;
-import static com.github.jon7even.constants.ControllerPath.PATH_URL_AUTH;
-import static com.github.jon7even.constants.ControllerPath.PATH_URL_SIGN_IN;
+import static com.github.jon7even.constants.ControllerParam.PARAM_USER_ID;
+import static com.github.jon7even.constants.ControllerPath.PATH_URL_ADMIN;
+import static com.github.jon7even.constants.ControllerPath.PATH_URL_DIARY;
+import static com.github.jon7even.services.impl.DiaryServiceImpl.SERVICE_DIARY_ID;
 
 /**
- * Обработка Http запросов на авторизацию пользователей
+ * Обработка Http запросов от групп, у которых есть на это разрешение с ресурсом дневник
  *
  * @author Jon7even
  * @version 1.0
  */
 @Loggable
-@WebServlet(PATH_URL_AUTH + PATH_URL_SIGN_IN)
-public class AuthorizationServlet extends HttpServlet {
+@WebServlet(PATH_URL_ADMIN + PATH_URL_DIARY)
+public class DiaryAdminServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
-    private final ValidatorDto<UserLogInAuthDto> validatorDto;
-    private UserService userService;
-    private AuthorizationService authService;
+    private final LongValidator validator;
+    private DiaryService diaryService;
+    private GroupPermissionsService groupPermissionsService;
 
-    public AuthorizationServlet() {
+    public DiaryAdminServlet() {
         this.objectMapper = new ObjectMapper();
         this.objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         this.objectMapper.registerModule(new JavaTimeModule());
-        this.validatorDto = UserLogInAuthDtoValidatorDto.getInstance();
+        this.validator = LongValidator.getInstance();
     }
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        this.userService = (UserService) getServletContext().getAttribute("userService");
-        this.authService = (AuthorizationService) getServletContext().getAttribute("authService");
+        this.diaryService = (DiaryService) getServletContext().getAttribute("diaryService");
+        this.groupPermissionsService = (GroupPermissionsService) getServletContext().getAttribute("accessService");
     }
 
     /**
-     * @param req  запрос на авторизацию пользователя UserLogInAuthDto
-     * @param resp ответ пользователю статус 200 и удаление сессии у пользователя
+     * @param req  запрос на получение дневника по ID дневника
+     * @param resp ответ пользователю статус 200 и найденный дневник DiaryResponseDto
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Long requesterId;
+        var session = req.getSession();
+        UserLogInResponseDto userFromSession = (UserLogInResponseDto) session.getAttribute("user");
+        if (userFromSession != null) {
+            requesterId = userFromSession.getId();
+        } else {
+            resp.setContentType(DEFAULT_CONTENT_JSON);
+            resp.setCharacterEncoding(DEFAULT_ENCODING);
+            ApiError error = ApiError.builder()
+                    .reason("UNAUTHORIZED")
+                    .message("Вы не авторизованы")
+                    .timestamp(LocalDateTime.now())
+                    .build();
+            resp.getWriter().write(objectMapper.writeValueAsString(error));
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+
         try {
-            UserLogInAuthDto userLogInAuthDto = null;
-            try {
-                userLogInAuthDto = objectMapper.readValue(req.getReader(), UserLogInAuthDto.class);
-            } catch (JsonMappingException e) {
-                System.out.println(e.getMessage());
+            boolean accessToAction = groupPermissionsService.getPermissionsForService(
+                    userFromSession.getIdGroupPermissions(), SERVICE_DIARY_ID, FlagPermissions.READ
+            );
+            if (!accessToAction) {
                 resp.setContentType(DEFAULT_CONTENT_JSON);
                 resp.setCharacterEncoding(DEFAULT_ENCODING);
                 ApiError error = ApiError.builder()
-                        .reason("BAD_REQUEST")
-                        .message("Тело запроса не может быть пустым")
+                        .reason("FORBIDDEN")
+                        .message("У вас нет доступа к этой операции")
                         .timestamp(LocalDateTime.now())
                         .build();
                 resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 return;
             }
 
+            String userId = req.getParameter(PARAM_USER_ID);
+
             try {
-                validatorDto.validate(userLogInAuthDto);
+                validator.validate(userId, PARAM_USER_ID);
             } catch (MethodArgumentNotValidException e) {
                 resp.setContentType(DEFAULT_CONTENT_JSON);
                 resp.setCharacterEncoding(DEFAULT_ENCODING);
@@ -96,32 +116,19 @@ public class AuthorizationServlet extends HttpServlet {
                 return;
             }
 
-            UserLogInResponseDto userLogInResponseDto = userService.findUserForAuthorization(userLogInAuthDto);
+            DiaryResponseDto diaryResponseDto = diaryService.getDiaryDtoByUserId(Long.valueOf(userId));
 
-            if (authService.processAuthorization(userLogInAuthDto)) {
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                req.getSession().setAttribute("user", userLogInResponseDto);
-                resp.getWriter().write(objectMapper.writeValueAsString(userLogInResponseDto));
-                resp.setStatus(HttpServletResponse.SC_OK);
-            } else {
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("BAD_REQUEST")
-                        .message("Пароль указан неверно")
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            }
+            resp.setContentType(DEFAULT_CONTENT_JSON);
+            resp.setCharacterEncoding(DEFAULT_ENCODING);
+            resp.getWriter().write(objectMapper.writeValueAsString(diaryResponseDto));
+            resp.setStatus(HttpServletResponse.SC_OK);
         } catch (NotFoundException e) {
             System.out.println(e.getMessage());
             resp.setContentType(DEFAULT_CONTENT_JSON);
             resp.setCharacterEncoding(DEFAULT_ENCODING);
             ApiError error = ApiError.builder()
                     .reason("NOT_FOUND")
-                    .message("Такой пользователь не найден")
+                    .message("Такого дневника не существует")
                     .timestamp(LocalDateTime.now())
                     .build();
             resp.getWriter().write(objectMapper.writeValueAsString(error));
@@ -141,3 +148,4 @@ public class AuthorizationServlet extends HttpServlet {
         }
     }
 }
+

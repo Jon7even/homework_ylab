@@ -15,9 +15,9 @@ import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.exception.model.ApiError;
 import com.github.jon7even.services.DiaryService;
-import com.github.jon7even.validator.Validator;
-import com.github.jon7even.validator.impl.DiaryCreateDtoValidator;
-import com.github.jon7even.validator.impl.DiaryUpdateDtoValidator;
+import com.github.jon7even.validator.ValidatorDto;
+import com.github.jon7even.validator.impl.DiaryCreateDtoValidatorDto;
+import com.github.jon7even.validator.impl.DiaryUpdateDtoValidatorDto;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,27 +31,28 @@ import java.time.LocalDateTime;
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_CONTENT_JSON;
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_ENCODING;
 import static com.github.jon7even.constants.ControllerPath.PATH_URL_DIARY;
+import static com.github.jon7even.constants.ControllerPath.PATH_URL_USER;
 
 /**
- * Обработка Http запросов для работы с дневником
+ * Обработка Http запросов от пользователей для работы с дневником
  *
  * @author Jon7even
  * @version 1.0
  */
 @Loggable
-@WebServlet(PATH_URL_DIARY)
-public class DiaryServlet extends HttpServlet {
+@WebServlet(PATH_URL_USER + PATH_URL_DIARY)
+public class DiaryUserServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
-    private final Validator<DiaryCreateDto> validatorCreate;
-    private final Validator<DiaryUpdateDto> validatorUpdate;
+    private final ValidatorDto<DiaryCreateDto> validatorDtoCreate;
+    private final ValidatorDto<DiaryUpdateDto> validatorDtoUpdate;
     private DiaryService diaryService;
 
-    public DiaryServlet() {
+    public DiaryUserServlet() {
         this.objectMapper = new ObjectMapper();
         this.objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         this.objectMapper.registerModule(new JavaTimeModule());
-        this.validatorCreate = DiaryCreateDtoValidator.getInstance();
-        this.validatorUpdate = DiaryUpdateDtoValidator.getInstance();
+        this.validatorDtoCreate = DiaryCreateDtoValidatorDto.getInstance();
+        this.validatorDtoUpdate = DiaryUpdateDtoValidatorDto.getInstance();
     }
 
     @Override
@@ -159,7 +160,7 @@ public class DiaryServlet extends HttpServlet {
             }
 
             try {
-                validatorCreate.validate(diaryCreateDto);
+                validatorDtoCreate.validate(diaryCreateDto);
             } catch (MethodArgumentNotValidException e) {
                 resp.setContentType(DEFAULT_CONTENT_JSON);
                 resp.setCharacterEncoding(DEFAULT_ENCODING);
@@ -259,7 +260,7 @@ public class DiaryServlet extends HttpServlet {
             }
 
             try {
-                validatorUpdate.validate(diaryUpdateDto);
+                validatorDtoUpdate.validate(diaryUpdateDto);
             } catch (MethodArgumentNotValidException e) {
                 resp.setContentType(DEFAULT_CONTENT_JSON);
                 resp.setCharacterEncoding(DEFAULT_ENCODING);

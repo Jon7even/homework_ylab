@@ -1,24 +1,24 @@
 package com.github.jon7even.validator.impl;
 
-import com.github.jon7even.core.domain.v1.dto.user.UserLogInAuthDto;
+import com.github.jon7even.core.domain.v1.dto.user.UserCreateDto;
 import com.github.jon7even.core.domain.v1.exception.MethodArgumentNotValidException;
-import com.github.jon7even.validator.Validator;
+import com.github.jon7even.validator.ValidatorDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class UserLogInAuthDtoValidator implements Validator<UserLogInAuthDto> {
-    private static UserLogInAuthDtoValidator instance;
+public class UserCreateDtoValidatorDto implements ValidatorDto<UserCreateDto> {
+    private static UserCreateDtoValidatorDto instance;
 
-    public static UserLogInAuthDtoValidator getInstance() {
+    public static UserCreateDtoValidatorDto getInstance() {
         if (instance == null) {
-            instance = new UserLogInAuthDtoValidator();
+            instance = new UserCreateDtoValidatorDto();
         }
         return instance;
     }
 
     @Override
-    public void validate(UserLogInAuthDto dto) {
+    public void validate(UserCreateDto dto) {
         if (dto == null) {
             throw new MethodArgumentNotValidException("Object DTO", "не может быть пустым");
         }
@@ -42,4 +42,3 @@ public class UserLogInAuthDtoValidator implements Validator<UserLogInAuthDto> {
         }
     }
 }
-

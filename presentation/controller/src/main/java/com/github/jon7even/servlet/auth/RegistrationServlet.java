@@ -12,8 +12,8 @@ import com.github.jon7even.core.domain.v1.exception.MethodArgumentNotValidExcept
 import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
 import com.github.jon7even.core.domain.v1.exception.model.ApiError;
 import com.github.jon7even.services.UserService;
-import com.github.jon7even.validator.Validator;
-import com.github.jon7even.validator.impl.UserCreateDtoValidator;
+import com.github.jon7even.validator.ValidatorDto;
+import com.github.jon7even.validator.impl.UserCreateDtoValidatorDto;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -39,14 +39,14 @@ import static com.github.jon7even.constants.ControllerPath.PATH_URL_SIGN_UP;
 @WebServlet(PATH_URL_AUTH + PATH_URL_SIGN_UP)
 public class RegistrationServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
-    private final Validator<UserCreateDto> validator;
+    private final ValidatorDto<UserCreateDto> validatorDto;
     private UserService userService;
 
     public RegistrationServlet() {
         this.objectMapper = new ObjectMapper();
         this.objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         this.objectMapper.registerModule(new JavaTimeModule());
-        this.validator = UserCreateDtoValidator.getInstance();
+        this.validatorDto = UserCreateDtoValidatorDto.getInstance();
     }
 
     @Override
@@ -80,7 +80,7 @@ public class RegistrationServlet extends HttpServlet {
             }
 
             try {
-                validator.validate(userCreateDto);
+                validatorDto.validate(userCreateDto);
             } catch (MethodArgumentNotValidException e) {
                 resp.setContentType(DEFAULT_CONTENT_JSON);
                 resp.setCharacterEncoding(DEFAULT_ENCODING);

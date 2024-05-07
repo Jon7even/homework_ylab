@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
  */
 @Loggable
 public class DiaryServiceImpl implements DiaryService {
-    private static final Integer SERVICE_DIARY_ID = 2;
+    public static final Integer SERVICE_DIARY_ID = 2;
     private final DiaryDao diaryRepository;
     private final DiaryMapper diaryMapper;
 

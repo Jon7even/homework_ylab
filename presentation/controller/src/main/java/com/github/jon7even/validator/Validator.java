@@ -1,16 +1,12 @@
 package com.github.jon7even.validator;
 
-/**
- * Интерфейс для валидации входящих DTO в контроллерах
- *
- * @author Jon7even
- * @version 1.0
- */
 public interface Validator<T> {
     /**
-     * Метод для валидации входящих DTO
+     * Метод для валидации входящих отдельных объектов
      *
-     * @param dto объект для валидации
+     * @param obj  объект для валидации
+     * @param name имя поля
      */
-    void validate(T dto);
+    void validate(T obj, String name);
 }
+

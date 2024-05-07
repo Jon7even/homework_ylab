@@ -1,24 +1,24 @@
 package com.github.jon7even.validator.impl;
 
-import com.github.jon7even.core.domain.v1.dto.diary.DiaryCreateDto;
+import com.github.jon7even.core.domain.v1.dto.diary.DiaryUpdateDto;
 import com.github.jon7even.core.domain.v1.exception.MethodArgumentNotValidException;
-import com.github.jon7even.validator.Validator;
+import com.github.jon7even.validator.ValidatorDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class DiaryCreateDtoValidator implements Validator<DiaryCreateDto> {
-    private static DiaryCreateDtoValidator instance;
+public class DiaryUpdateDtoValidatorDto implements ValidatorDto<DiaryUpdateDto> {
+    private static DiaryUpdateDtoValidatorDto instance;
 
-    public static DiaryCreateDtoValidator getInstance() {
+    public static DiaryUpdateDtoValidatorDto getInstance() {
         if (instance == null) {
-            instance = new DiaryCreateDtoValidator();
+            instance = new DiaryUpdateDtoValidatorDto();
         }
         return instance;
     }
 
     @Override
-    public void validate(DiaryCreateDto dto) {
+    public void validate(DiaryUpdateDto dto) {
         if (dto == null) {
             throw new MethodArgumentNotValidException("Object DTO", "не может быть пустым");
         }
