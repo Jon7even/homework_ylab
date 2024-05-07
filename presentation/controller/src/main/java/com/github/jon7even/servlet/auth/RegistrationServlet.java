@@ -26,6 +26,7 @@ import java.time.LocalDateTime;
 
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_CONTENT_JSON;
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_ENCODING;
+import static com.github.jon7even.constants.ControllerContext.USER_SERVICE;
 import static com.github.jon7even.constants.ControllerPath.PATH_URL_AUTH;
 import static com.github.jon7even.constants.ControllerPath.PATH_URL_SIGN_UP;
 
@@ -52,7 +53,7 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        this.userService = (UserService) getServletContext().getAttribute("userService");
+        this.userService = (UserService) getServletContext().getAttribute(USER_SERVICE);
     }
 
     /**

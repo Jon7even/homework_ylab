@@ -18,6 +18,6 @@ public final class ControllerPath {
     public static final String PATH_URL_SIGN_IN = "/sign-in";
     public static final String PATH_URL_SIGN_UP = "/sign-up";
     public static final String PATH_URL_SIGN_OUT = "/sign-out";
-
     public static final String PATH_URL_DIARY = "/diary";
+    public static final String PATH_URL_TYPE_WORKOUT = "/type/workout";
 }

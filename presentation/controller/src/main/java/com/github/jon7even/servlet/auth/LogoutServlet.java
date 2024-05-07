@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_CONTENT_JSON;
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_ENCODING;
+import static com.github.jon7even.constants.ControllerContext.AUTH_SERVICE;
 import static com.github.jon7even.constants.ControllerPath.PATH_URL_AUTH;
 import static com.github.jon7even.constants.ControllerPath.PATH_URL_SIGN_OUT;
 
@@ -43,7 +44,7 @@ public class LogoutServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        this.authService = (AuthorizationService) getServletContext().getAttribute("authService");
+        this.authService = (AuthorizationService) getServletContext().getAttribute(AUTH_SERVICE);
     }
 
     /**

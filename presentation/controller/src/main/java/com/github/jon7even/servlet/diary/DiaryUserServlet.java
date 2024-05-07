@@ -30,6 +30,7 @@ import java.time.LocalDateTime;
 
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_CONTENT_JSON;
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_ENCODING;
+import static com.github.jon7even.constants.ControllerContext.DIARY_SERVICE;
 import static com.github.jon7even.constants.ControllerPath.PATH_URL_DIARY;
 import static com.github.jon7even.constants.ControllerPath.PATH_URL_USER;
 
@@ -58,7 +59,7 @@ public class DiaryUserServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        this.diaryService = (DiaryService) getServletContext().getAttribute("diaryService");
+        this.diaryService = (DiaryService) getServletContext().getAttribute(DIARY_SERVICE);
     }
 
     /**

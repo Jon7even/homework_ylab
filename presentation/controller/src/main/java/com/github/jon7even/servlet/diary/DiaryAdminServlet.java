@@ -25,6 +25,8 @@ import java.time.LocalDateTime;
 
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_CONTENT_JSON;
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_ENCODING;
+import static com.github.jon7even.constants.ControllerContext.DIARY_SERVICE;
+import static com.github.jon7even.constants.ControllerContext.PERMISSIONS_SERVICE;
 import static com.github.jon7even.constants.ControllerParam.PARAM_USER_ID;
 import static com.github.jon7even.constants.ControllerPath.PATH_URL_ADMIN;
 import static com.github.jon7even.constants.ControllerPath.PATH_URL_DIARY;
@@ -54,8 +56,8 @@ public class DiaryAdminServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        this.diaryService = (DiaryService) getServletContext().getAttribute("diaryService");
-        this.groupPermissionsService = (GroupPermissionsService) getServletContext().getAttribute("accessService");
+        this.diaryService = (DiaryService) getServletContext().getAttribute(DIARY_SERVICE);
+        this.groupPermissionsService = (GroupPermissionsService) getServletContext().getAttribute(PERMISSIONS_SERVICE);
     }
 
     /**
