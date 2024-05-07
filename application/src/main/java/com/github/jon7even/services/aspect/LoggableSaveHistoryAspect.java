@@ -4,6 +4,9 @@ import com.github.jon7even.core.domain.v1.dto.diary.DiaryCreateDto;
 import com.github.jon7even.core.domain.v1.dto.diary.DiaryResponseDto;
 import com.github.jon7even.core.domain.v1.dto.diary.DiaryUpdateDto;
 import com.github.jon7even.core.domain.v1.dto.history.HistoryUserCreateDto;
+import com.github.jon7even.core.domain.v1.dto.typeworkout.TypeWorkoutCreateDto;
+import com.github.jon7even.core.domain.v1.dto.typeworkout.TypeWorkoutResponseDto;
+import com.github.jon7even.core.domain.v1.dto.typeworkout.TypeWorkoutUpdateDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserLogInAuthDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
@@ -429,6 +432,91 @@ public class LoggableSaveHistoryAspect {
                             nameTypeServiceId,
                             flag)
                             + HistoryUserMessages.FAILURE.getMessage()
+            ));
+        }
+    }
+
+    /**
+     * Срез метода создания нового типа тренировки
+     */
+    @Pointcut("within(@com.github.jon7even.annotations.Loggable *) "
+            + "&& execution("
+            + "* com.github.jon7even.services.impl.TypeWorkoutServiceImpl.createTypeWorkout(..))")
+    public void createTypeWorkout() {
+    }
+
+    /**
+     * Реализация метода создания нового типа тренировки ДО возвращения результата от сервиса
+     */
+    @Before(value = "createTypeWorkout()")
+    public void createTypeWorkoutBefore(JoinPoint joinPoint) throws Throwable {
+        TypeWorkoutCreateDto typeWorkoutCreateDto = (TypeWorkoutCreateDto) Arrays.stream(joinPoint.getArgs())
+                .findFirst().get();
+
+        historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(typeWorkoutCreateDto.getRequesterId(),
+                String.format(HistoryUserMessages.TYPE_WORKOUT_CREATE.getMessage(),
+                        typeWorkoutCreateDto.getRequesterId())
+                        + HistoryUserMessages.IN_PROGRESS.getMessage()
+        ));
+    }
+
+    /**
+     * Реализация метода создания нового типа тренировки ПОСЛЕ возвращения результата от сервиса
+     */
+    @AfterReturning(value = "createTypeWorkout()", returning = "result")
+    public void createTypeWorkoutAfter(JoinPoint joinPoint, Object result) throws Throwable {
+        TypeWorkoutCreateDto typeWorkoutCreateDto = (TypeWorkoutCreateDto) Arrays.stream(joinPoint.getArgs())
+                .findFirst().get();
+        TypeWorkoutResponseDto typeWorkoutResponseDto = (TypeWorkoutResponseDto) result;
+
+        if (typeWorkoutResponseDto != null) {
+            historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(typeWorkoutCreateDto.getRequesterId(),
+                    String.format(HistoryUserMessages.TYPE_WORKOUT_CREATE.getMessage(),
+                            typeWorkoutCreateDto.getRequesterId())
+                            + HistoryUserMessages.SUCCESS.getMessage()
+            ));
+        }
+    }
+
+    /**
+     * Срез метода обновления существующего типа тренировки
+     */
+    @Pointcut("within(@com.github.jon7even.annotations.Loggable *) "
+            + "&& execution("
+            + "* com.github.jon7even.services.impl.TypeWorkoutServiceImpl.updateTypeWorkout(..))")
+    public void updateTypeWorkout() {
+    }
+
+    /**
+     * Реализация метода обновления типа тренировки ДО возвращения результата от сервиса
+     */
+    @Before(value = "updateTypeWorkout()")
+    public void updateTypeWorkoutBefore(JoinPoint joinPoint) throws Throwable {
+        TypeWorkoutUpdateDto typeWorkoutUpdateDto = (TypeWorkoutUpdateDto) Arrays.stream(joinPoint.getArgs())
+                .findFirst().get();
+        historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(typeWorkoutUpdateDto.getRequesterId(),
+                String.format(HistoryUserMessages.TYPE_WORKOUT_UPDATE.getMessage(),
+                        typeWorkoutUpdateDto.getRequesterId(),
+                        typeWorkoutUpdateDto.getTypeWorkoutId())
+                        + HistoryUserMessages.IN_PROGRESS.getMessage()
+        ));
+    }
+
+    /**
+     * Реализация метода обновления типа тренировки ПОСЛЕ возвращения результата от сервиса
+     */
+    @AfterReturning(value = "updateTypeWorkout()", returning = "result")
+    public void updateTypeWorkoutAfter(JoinPoint joinPoint, Object result) throws Throwable {
+        TypeWorkoutUpdateDto typeWorkoutUpdateDto = (TypeWorkoutUpdateDto) Arrays.stream(joinPoint.getArgs())
+                .findFirst().get();
+        TypeWorkoutResponseDto typeWorkoutResponseDto = (TypeWorkoutResponseDto) result;
+
+        if (typeWorkoutResponseDto != null) {
+            historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(typeWorkoutUpdateDto.getRequesterId(),
+                    String.format(HistoryUserMessages.TYPE_WORKOUT_UPDATE.getMessage(),
+                            typeWorkoutUpdateDto.getRequesterId(),
+                            typeWorkoutUpdateDto.getTypeWorkoutId())
+                            + HistoryUserMessages.IN_PROGRESS.getMessage()
             ));
         }
     }

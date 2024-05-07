@@ -24,6 +24,9 @@ public enum HistoryUserMessages {
     PERMISSION_GET_END("<Запрос получения разрешения пользователем userId=[%d] "
             + "из группы groupPermissionsId=[%d] "
             + "сервиса nameTypeServiceId=[%d] для действия flag[%s]>"),
+    TYPE_WORKOUT_CREATE("<Создание нового типа тренировки по userId=[%d]"),
+    TYPE_WORKOUT_UPDATE("<Обновление существующего типа тренировки по userId=[%d] и typeWorkoutId=[%d]"),
+
     /**
      * Какие процессы происходят с ресурсом
      */
