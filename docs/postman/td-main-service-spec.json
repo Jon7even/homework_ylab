@@ -446,12 +446,12 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "cbcadf72-61b6-479a-803f-7812e225f51e"
+										"uuid": "f56e82af-d2e4-4068-9524-3383c9fe24ea"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "5aba94c1-e1c5-4724-a095-4ccb1ec03284"
+										"uuid": "d421624c-7224-4e69-9d70-57c5058e4a33"
 									}
 								],
 								"body": {
@@ -511,12 +511,12 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "fe0ee0fd-a46b-4723-8e86-84e56b11f399"
+										"uuid": "8a8df85e-7b9e-4f2d-870e-c6b915f762b5"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "aa63955c-5234-4f63-a1fc-6ff529ff9e76"
+										"uuid": "984f846e-46c9-4cb7-85d6-9d5706e9a462"
 									}
 								],
 								"body": {
@@ -576,12 +576,12 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "6d0e9d1c-e061-4312-8506-454e7e7f8fbb"
+										"uuid": "7443dc2d-bdc2-4f49-a55c-3368a0c3dce2"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "cc155a8d-1210-4c56-bc53-2cd128fa147e"
+										"uuid": "0cf3d668-dce2-402d-abba-745afd8cdf02"
 									}
 								],
 								"body": {
@@ -652,12 +652,12 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "33eaff76-5a10-4d3e-bf39-d20c2060274e"
+										"uuid": "65eed54d-0941-4b1a-88c9-1fd40e7c8410"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "45bff825-bf4d-46fd-9c21-7574ed508e73"
+										"uuid": "b69cf1fb-57bf-4d47-99ff-6421f5b04e0f"
 									}
 								],
 								"body": {
@@ -728,12 +728,12 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "deebd9d0-f736-4d39-a23c-43811043dcfc"
+										"uuid": "ee776208-7eb9-4c64-bd00-d9f7dc145013"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "80dc14c7-8cda-464c-8985-9e37c89da81e"
+										"uuid": "a6a11df6-9e7a-4355-a1d8-c3b87925884b"
 									}
 								],
 								"body": {
@@ -804,12 +804,12 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "17e5ac29-a716-453b-a80a-0c254edc4bbd"
+										"uuid": "1ae5b6bc-f9da-475e-ae5e-59c480ffae1e"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "209a82b3-1fbe-4645-bcab-40edd5a4d0ef"
+										"uuid": "87c3bbb4-c0de-49e4-9603-d277ee1a6609"
 									}
 								],
 								"body": {
@@ -880,12 +880,12 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "ef57028a-e941-4516-802b-20c9ea08be2a"
+										"uuid": "a9db8ae3-3399-4a74-a0f3-10e73f6bdb3b"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "5708b9e7-8d1e-4557-8bd3-9c65790d21b2"
+										"uuid": "cbfed190-7e1a-4041-8473-a2069bb2afef"
 									}
 								],
 								"body": {
@@ -1351,12 +1351,12 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "221a0fb6-8373-4519-85d7-bb89eeb94c36"
+										"uuid": "f73bec70-0622-45fe-bebe-6ad3ca2ab186"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "bcf6d9d5-1935-4fd7-a5cb-feb205d8816f"
+										"uuid": "397802c2-766e-445a-8c2e-385c63b484f4"
 									}
 								],
 								"body": {
@@ -1427,12 +1427,12 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "07cd35d9-b4a2-41cb-b178-5766ad808f55"
+										"uuid": "21231c69-8c3f-4486-8817-84940daa07f8"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "5a9125d8-e2ce-4461-8e45-866c27e63745"
+										"uuid": "512412fa-7d65-4b4e-8bca-7bd7579192fb"
 									}
 								],
 								"body": {
@@ -1514,12 +1514,12 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "6b806855-3a5e-434b-893f-00014288ba3f"
+										"uuid": "5e891602-6a4b-491d-b309-3cfaaf41418d"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "4717afa2-b564-4f15-97b1-670aa1db97ee"
+										"uuid": "36e6e950-f001-404e-9c87-6530280213a0"
 									}
 								],
 								"body": {
@@ -1601,12 +1601,12 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "3df07e8d-c61f-46a4-80a5-a4d81b49291f"
+										"uuid": "0cad67ef-d901-4010-88fd-ea6aa8cc9dea"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "7eceab75-4483-4d4c-ac7d-d59f0bf56316"
+										"uuid": "31f21c6b-b2b6-4305-a120-f9a42fd42d18"
 									}
 								],
 								"body": {
@@ -1688,104 +1688,17 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "6298f61a-4cbe-4a63-8bd6-0f8b3f492b2c"
+										"uuid": "333327b6-0683-4ec3-be4f-e99a5251dfb5"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "fb3fc33c-da3b-4e00-9ed5-f9b73ddaa01a"
+										"uuid": "7b1963ea-b8d7-4d0d-b6eb-7f31249f9c67"
 									}
 								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\n  \"login\": \"UserThird\",\n  \"password\": \"pass\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/sign-in",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"sign-in"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "User authorization Admin",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
-											"});\r",
-											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
-											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
-											"});\r",
-											"pm.test(\"Has user create response\", function () {\r",
-											"    pm.response.to.be.withBody;\r",
-											"    pm.response.to.be.json;\r",
-											"});\r",
-											"pm.test(\"Test user 'id' field\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('id');\r",
-											"    pm.expect(jsonData.id, '\"id\" must be \"1\"').to.eql(1);\r",
-											"});\r",
-											"pm.test(\"Test user 'login' field\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('login');\r",
-											"    pm.expect(jsonData.login, '\"login\" must be \"admin\"').to.eql('admin');\r",
-											"});\r",
-											"pm.test(\"Test user 'idGroupPermissions' field\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('idGroupPermissions');\r",
-											"    pm.expect(jsonData.idGroupPermissions, '\"idGroupPermissions\" must be \"1\"').to.eql(1);\r",
-											"});\r",
-											"pm.test(\"Cookie JSESSIONID is present\", () => {\r",
-											"  pm.expect(pm.cookies.has('JSESSIONID')).to.be.true;\r",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"uuid": "7aa60b4f-077d-4ed2-a56f-ce38998d7f6d"
-									},
-									{
-										"key": "Accept",
-										"value": "*/*",
-										"uuid": "a2b0c9dc-2924-441a-9197-9128eb9048a9"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"login\": \"admin\",\n  \"password\": \"admin\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1867,12 +1780,12 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "634363dd-2dc9-421f-99fb-fad60f9b255b"
+										"uuid": "dc03cc8c-09fc-4d61-ac90-ebe2ac3f600b"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "31ddd0c4-f1a8-4ce5-ae76-c0d521160293"
+										"uuid": "443274a3-446e-4123-9f1a-abacb8dd2066"
 									}
 								],
 								"body": {
@@ -1929,12 +1842,12 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "58e6229f-e4b5-40a3-9519-6f6016852d06"
+										"uuid": "6c691f28-01dc-4187-af7f-ffc85c2f1e0c"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "e7e50178-f921-4662-b792-2ce068077c11"
+										"uuid": "45157716-9078-45be-81cb-8ee7a267c172"
 									}
 								],
 								"url": {
@@ -1996,12 +1909,12 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "862d699e-d0ac-47ca-96c0-4f41b3801d3c"
+										"uuid": "934b8dfa-a644-48a6-bc0f-b4b308df0580"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "a67cf950-3608-467f-8e4b-26314204c933"
+										"uuid": "a00d88cc-5357-4999-861a-576754f3e41a"
 									}
 								],
 								"url": {
@@ -2074,12 +1987,12 @@
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "51cca89c-4d29-4a0d-8306-2d05cdb21636"
+										"uuid": "7880f37a-33d5-4f4d-a361-343c6ded83aa"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "5741a6aa-d1f8-4378-89a3-ed8b571923c2"
+										"uuid": "3329c585-504c-4702-85a2-c4ff7563b460"
 									}
 								],
 								"body": {
@@ -2099,6 +2012,498 @@
 									"path": [
 										"auth",
 										"sign-in"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "diary",
+			"item": [
+				{
+					"name": "create",
+					"item": [
+						{
+							"name": "validation",
+							"item": [
+								{
+									"name": "Diary create Fail Empty Body",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"message\" must be \"Тело запроса не может быть пустым\"').to.eql('Тело запроса не может быть пустым');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/diary",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"diary"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Diary create First",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has user create response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test diary 'weightUser' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('weightUser');\r",
+											"    pm.expect(jsonData.weightUser, '\"weightUser\" must be \"77.7\"').to.eql(77.7);\r",
+											"});\r",
+											"pm.test(\"Test diary 'growthUser' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('growthUser');\r",
+											"    pm.expect(jsonData.growthUser, '\"growthUser\" must be \"177.7\"').to.eql(177.7);\r",
+											"});\r",
+											"pm.test(\"Test diary 'createdOn' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('createdOn');\r",
+											"    pm.expect(jsonData.createdOn, '\"createdOn\" must be not empty').to.not.empty;\r",
+											"});\r",
+											"pm.test(\"Test diary 'updatedOn' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('updatedOn');\r",
+											"    pm.expect(jsonData.updatedOn, '\"updatedOn\" must be not empty').to.not.empty;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "fdadad24-c390-46b3-a336-21575a520a4b"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "131dacb8-1947-437b-811d-21cbfbbf1b4f"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"weightUser\": 77.7,\n  \"growthUser\": 177.7\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/diary",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"diary"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "update",
+					"item": [
+						{
+							"name": "validation",
+							"item": [
+								{
+									"name": "Diary update Fail Empty Body",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"message\" must be \"Тело запроса не может быть пустым\"').to.eql('Тело запроса не может быть пустым');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/diary",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"diary"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Diary update First",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has user create response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test diary 'weightUser' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('weightUser');\r",
+											"    pm.expect(jsonData.weightUser, '\"weightUser\" must be \"87.7\"').to.eql(87.7);\r",
+											"});\r",
+											"pm.test(\"Test diary 'growthUser' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('growthUser');\r",
+											"    pm.expect(jsonData.growthUser, '\"growthUser\" must be \"187.7\"').to.eql(187.7);\r",
+											"});\r",
+											"pm.test(\"Test diary 'createdOn' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('createdOn');\r",
+											"    pm.expect(jsonData.createdOn, '\"createdOn\" must be not empty').to.not.empty;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Test diary 'updatedOn' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('updatedOn');\r",
+											"    pm.expect(jsonData.updatedOn, '\"updatedOn\" must be not empty').to.not.empty;\r",
+											"});\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "794d7d96-0778-446a-b8d4-c8a1cdacc52e"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "6efc2780-d333-42d4-b96f-a242b309e35c"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"weightUser\": 87.7,\n  \"growthUser\": 187.7\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/diary",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"diary"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Diary update Return In Create",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has user create response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test diary 'weightUser' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('weightUser');\r",
+											"    pm.expect(jsonData.weightUser, '\"weightUser\" must be \"77.7\"').to.eql(77.7);\r",
+											"});\r",
+											"pm.test(\"Test diary 'growthUser' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('growthUser');\r",
+											"    pm.expect(jsonData.growthUser, '\"growthUser\" must be \"177.7\"').to.eql(177.7);\r",
+											"});\r",
+											"pm.test(\"Test diary 'createdOn' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('createdOn');\r",
+											"    pm.expect(jsonData.createdOn, '\"createdOn\" must be not empty').to.not.empty;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Test diary 'updatedOn' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('updatedOn');\r",
+											"    pm.expect(jsonData.updatedOn, '\"updatedOn\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "dd7e76d3-d9d6-4ad4-93fe-e51ca2b3ad14"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "887f0493-ae44-4198-948e-d0b89d5460d9"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"weightUser\": 77.7,\n  \"growthUser\": 177.7\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/diary",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"diary"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get",
+					"item": [
+						{
+							"name": "Diary create First Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has user create response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test diary 'weightUser' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('weightUser');\r",
+											"    pm.expect(jsonData.weightUser, '\"weightUser\" must be \"77.7\"').to.eql(77.7);\r",
+											"});\r",
+											"pm.test(\"Test diary 'growthUser' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('growthUser');\r",
+											"    pm.expect(jsonData.growthUser, '\"growthUser\" must be \"177.7\"').to.eql(177.7);\r",
+											"});\r",
+											"pm.test(\"Test diary 'createdOn' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('createdOn');\r",
+											"    pm.expect(jsonData.createdOn, '\"createdOn\" must be not empty').to.not.empty;\r",
+											"});\r",
+											"pm.test(\"Test diary 'updatedOn' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('updatedOn');\r",
+											"    pm.expect(jsonData.updatedOn, '\"updatedOn\" must be not empty').to.not.empty;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "3110d9f0-4e5e-4d95-b84c-2c9749ff0020"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "bfbe4e1a-7b13-4159-b86d-0bcd9a202afa"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/diary",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"diary"
 									]
 								}
 							},
