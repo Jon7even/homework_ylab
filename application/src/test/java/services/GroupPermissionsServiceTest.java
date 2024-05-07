@@ -11,12 +11,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import services.setup.ContainersSetup;
 import setup.PreparationForTests;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-public class GroupPermissionsServiceTest extends PreparationForTests {
+public class GroupPermissionsServiceTest extends ContainersSetup {
     @InjectMocks
     private GroupPermissionsServiceImpl groupPermissionsService;
     @Mock

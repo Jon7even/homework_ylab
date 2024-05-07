@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import services.setup.ContainersSetup;
 import setup.PreparationForTests;
 
 import java.time.Duration;
@@ -13,7 +14,7 @@ import java.time.Duration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-public class ServiceCalculationOfStatsTest extends PreparationForTests {
+public class ServiceCalculationOfStatsTest extends ContainersSetup {
     private ServiceCalculationOfStatsImpl serviceCalculationOfStats;
 
     @BeforeEach
