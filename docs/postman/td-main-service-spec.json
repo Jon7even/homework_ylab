@@ -2025,35 +2025,119 @@
 			"name": "diary",
 			"item": [
 				{
-					"name": "create",
+					"name": "user",
 					"item": [
 						{
-							"name": "validation",
+							"name": "create",
 							"item": [
 								{
-									"name": "Diary create Fail Empty Body",
+									"name": "validation",
+									"item": [
+										{
+											"name": "Diary create Fail Empty Body",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"message\" must be \"Тело запроса не может быть пустым\"').to.eql('Тело запроса не может быть пустым');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/diary",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"diary"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Diary create First",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 400\", function () {\r",
-													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
 													"});\r",
 													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
 													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
 													"});\r",
-													"pm.test(\"Has ApiError response\", function () {\r",
+													"pm.test(\"Has user create response\", function () {\r",
 													"    pm.response.to.be.withBody;\r",
 													"    pm.response.to.be.json;\r",
+													"});\r",
+													"pm.test(\"Test diary 'weightUser' field\", function () {\r",
 													"    var jsonData = pm.response.json();\r",
-													"    pm.expect(jsonData).to.have.property('reason');\r",
-													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
-													"    pm.expect(jsonData).to.have.property('message');\r",
-													"    pm.expect(jsonData.message, '\"message\" must be \"Тело запроса не может быть пустым\"').to.eql('Тело запроса не может быть пустым');\r",
-													"    pm.expect(jsonData).to.have.property('timestamp');\r",
-													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
-													"});"
+													"    pm.expect(jsonData).to.have.property('weightUser');\r",
+													"    pm.expect(jsonData.weightUser, '\"weightUser\" must be \"77.7\"').to.eql(77.7);\r",
+													"});\r",
+													"pm.test(\"Test diary 'growthUser' field\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('growthUser');\r",
+													"    pm.expect(jsonData.growthUser, '\"growthUser\" must be \"177.7\"').to.eql(177.7);\r",
+													"});\r",
+													"pm.test(\"Test diary 'createdOn' field\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('createdOn');\r",
+													"    pm.expect(jsonData.createdOn, '\"createdOn\" must be not empty').to.not.empty;\r",
+													"});\r",
+													"pm.test(\"Test diary 'updatedOn' field\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('updatedOn');\r",
+													"    pm.expect(jsonData.updatedOn, '\"updatedOn\" must be not empty').to.not.empty;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -2062,10 +2146,21 @@
 									],
 									"request": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "fdadad24-c390-46b3-a336-21575a520a4b"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*",
+												"uuid": "131dacb8-1947-437b-811d-21cbfbbf1b4f"
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "",
+											"raw": "{\n  \"weightUser\": 77.7,\n  \"growthUser\": 177.7\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2073,11 +2168,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/diary",
+											"raw": "{{baseUrl}}/user/diary",
 											"host": [
 												"{{baseUrl}}"
 											],
 											"path": [
+												"user",
 												"diary"
 											]
 										}
@@ -2087,104 +2183,353 @@
 							]
 						},
 						{
-							"name": "Diary create First",
-							"event": [
+							"name": "update",
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 201\", function () {\r",
-											"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
-											"});\r",
-											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
-											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
-											"});\r",
-											"pm.test(\"Has user create response\", function () {\r",
-											"    pm.response.to.be.withBody;\r",
-											"    pm.response.to.be.json;\r",
-											"});\r",
-											"pm.test(\"Test diary 'weightUser' field\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('weightUser');\r",
-											"    pm.expect(jsonData.weightUser, '\"weightUser\" must be \"77.7\"').to.eql(77.7);\r",
-											"});\r",
-											"pm.test(\"Test diary 'growthUser' field\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('growthUser');\r",
-											"    pm.expect(jsonData.growthUser, '\"growthUser\" must be \"177.7\"').to.eql(177.7);\r",
-											"});\r",
-											"pm.test(\"Test diary 'createdOn' field\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('createdOn');\r",
-											"    pm.expect(jsonData.createdOn, '\"createdOn\" must be not empty').to.not.empty;\r",
-											"});\r",
-											"pm.test(\"Test diary 'updatedOn' field\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('updatedOn');\r",
-											"    pm.expect(jsonData.updatedOn, '\"updatedOn\" must be not empty').to.not.empty;\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"uuid": "fdadad24-c390-46b3-a336-21575a520a4b"
-									},
-									{
-										"key": "Accept",
-										"value": "*/*",
-										"uuid": "131dacb8-1947-437b-811d-21cbfbbf1b4f"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"weightUser\": 77.7,\n  \"growthUser\": 177.7\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+									"name": "validation",
+									"item": [
+										{
+											"name": "Diary update Fail Empty Body",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"message\" must be \"Тело запроса не может быть пустым\"').to.eql('Тело запроса не может быть пустым');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/diary",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"diary"
+													]
+												}
+											},
+											"response": []
 										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/diary",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"diary"
 									]
+								},
+								{
+									"name": "Diary update First",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has user create response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"pm.test(\"Test diary 'weightUser' field\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('weightUser');\r",
+													"    pm.expect(jsonData.weightUser, '\"weightUser\" must be \"87.7\"').to.eql(87.7);\r",
+													"});\r",
+													"pm.test(\"Test diary 'growthUser' field\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('growthUser');\r",
+													"    pm.expect(jsonData.growthUser, '\"growthUser\" must be \"187.7\"').to.eql(187.7);\r",
+													"});\r",
+													"pm.test(\"Test diary 'createdOn' field\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('createdOn');\r",
+													"    pm.expect(jsonData.createdOn, '\"createdOn\" must be not empty').to.not.empty;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Test diary 'updatedOn' field\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('updatedOn');\r",
+													"    pm.expect(jsonData.updatedOn, '\"updatedOn\" must be not empty').to.not.empty;\r",
+													"});\r",
+													"\r",
+													"\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "794d7d96-0778-446a-b8d4-c8a1cdacc52e"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*",
+												"uuid": "6efc2780-d333-42d4-b96f-a242b309e35c"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"weightUser\": 87.7,\n  \"growthUser\": 187.7\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/user/diary",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"diary"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Diary update Return In Create",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has user create response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"pm.test(\"Test diary 'weightUser' field\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('weightUser');\r",
+													"    pm.expect(jsonData.weightUser, '\"weightUser\" must be \"77.7\"').to.eql(77.7);\r",
+													"});\r",
+													"pm.test(\"Test diary 'growthUser' field\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('growthUser');\r",
+													"    pm.expect(jsonData.growthUser, '\"growthUser\" must be \"177.7\"').to.eql(177.7);\r",
+													"});\r",
+													"pm.test(\"Test diary 'createdOn' field\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('createdOn');\r",
+													"    pm.expect(jsonData.createdOn, '\"createdOn\" must be not empty').to.not.empty;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Test diary 'updatedOn' field\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('updatedOn');\r",
+													"    pm.expect(jsonData.updatedOn, '\"updatedOn\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "dd7e76d3-d9d6-4ad4-93fe-e51ca2b3ad14"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*",
+												"uuid": "887f0493-ae44-4198-948e-d0b89d5460d9"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"weightUser\": 77.7,\n  \"growthUser\": 177.7\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/user/diary",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"diary"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
+						},
+						{
+							"name": "get",
+							"item": [
+								{
+									"name": "Diary get First",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has user create response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"pm.test(\"Test diary 'weightUser' field\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('weightUser');\r",
+													"    pm.expect(jsonData.weightUser, '\"weightUser\" must be \"77.7\"').to.eql(77.7);\r",
+													"});\r",
+													"pm.test(\"Test diary 'growthUser' field\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('growthUser');\r",
+													"    pm.expect(jsonData.growthUser, '\"growthUser\" must be \"177.7\"').to.eql(177.7);\r",
+													"});\r",
+													"pm.test(\"Test diary 'createdOn' field\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('createdOn');\r",
+													"    pm.expect(jsonData.createdOn, '\"createdOn\" must be not empty').to.not.empty;\r",
+													"});\r",
+													"pm.test(\"Test diary 'updatedOn' field\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('updatedOn');\r",
+													"    pm.expect(jsonData.updatedOn, '\"updatedOn\" must be not empty').to.not.empty;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "3110d9f0-4e5e-4d95-b84c-2c9749ff0020"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*",
+												"uuid": "bfbe4e1a-7b13-4159-b86d-0bcd9a202afa"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/diary",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"diary"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
 				{
-					"name": "update",
+					"name": "admin",
 					"item": [
 						{
 							"name": "validation",
 							"item": [
 								{
-									"name": "Diary update Fail Empty Body",
+									"name": "First Diary get by Admin Fail Param Empty",
 									"event": [
 										{
 											"listen": "test",
@@ -2203,7 +2548,7 @@
 													"    pm.expect(jsonData).to.have.property('reason');\r",
 													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
 													"    pm.expect(jsonData).to.have.property('message');\r",
-													"    pm.expect(jsonData.message, '\"message\" must be \"Тело запроса не может быть пустым\"').to.eql('Тело запроса не может быть пустым');\r",
+													"    pm.expect(jsonData.message, '\"message\" [userId] not validated, reason: [не может быть пустым]\"').to.eql('[userId] not validated, reason: [не может быть пустым]');\r",
 													"    pm.expect(jsonData).to.have.property('timestamp');\r",
 													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
 													"});"
@@ -2211,27 +2556,277 @@
 												"type": "text/javascript",
 												"packages": {}
 											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
 									],
 									"request": {
-										"method": "PUT",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
+										"auth": {
+											"type": "noauth"
 										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "1a69c551-0685-4139-a2bc-6b0ccbc4fda5"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*",
+												"uuid": "902ee268-a080-4fbc-a208-b7101f1c093b"
+											}
+										],
 										"url": {
-											"raw": "{{baseUrl}}/diary",
+											"raw": "{{baseUrl}}/admin/diary?userId=",
 											"host": [
 												"{{baseUrl}}"
 											],
 											"path": [
+												"admin",
 												"diary"
+											],
+											"query": [
+												{
+													"key": "userId",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "First Diary get by Admin Fail Param String",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"[userId] not validated, reason: [должен быть числом]\"').to.eql('[userId] not validated, reason: [должен быть числом]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "946b6cdd-2509-4b97-92e6-aa28a72e959a"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*",
+												"uuid": "db460789-6dfc-45b6-8d2e-3111426e2fd1"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/admin/diary?userId=param",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"admin",
+												"diary"
+											],
+											"query": [
+												{
+													"key": "userId",
+													"value": "param"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "First Diary get by Admin Fail Param Exist Positive",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"[userId] not validated, reason: [должен быть положительным]\"').to.eql('[userId] not validated, reason: [должен быть положительным]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "0dc57668-fd81-454b-b7ee-14033b1fcbcf"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*",
+												"uuid": "876dbb17-40d2-4e11-9fce-15a27fe46787"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/admin/diary?userId=-1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"admin",
+												"diary"
+											],
+											"query": [
+												{
+													"key": "userId",
+													"value": "-1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "First Diary get by Admin Fail Not Exist Id",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"Такого дневника не существует\"').to.eql('Такого дневника не существует');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "807ff8cb-97f4-42bd-9c54-a7cf7af0c7c7"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*",
+												"uuid": "02bcd71c-ade1-4c0d-9771-1013ab53b1f2"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/admin/diary?userId=4",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"admin",
+												"diary"
+											],
+											"query": [
+												{
+													"key": "userId",
+													"value": "4"
+												}
 											]
 										}
 									},
@@ -2240,194 +2835,7 @@
 							]
 						},
 						{
-							"name": "Diary update First",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
-											"});\r",
-											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
-											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
-											"});\r",
-											"pm.test(\"Has user create response\", function () {\r",
-											"    pm.response.to.be.withBody;\r",
-											"    pm.response.to.be.json;\r",
-											"});\r",
-											"pm.test(\"Test diary 'weightUser' field\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('weightUser');\r",
-											"    pm.expect(jsonData.weightUser, '\"weightUser\" must be \"87.7\"').to.eql(87.7);\r",
-											"});\r",
-											"pm.test(\"Test diary 'growthUser' field\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('growthUser');\r",
-											"    pm.expect(jsonData.growthUser, '\"growthUser\" must be \"187.7\"').to.eql(187.7);\r",
-											"});\r",
-											"pm.test(\"Test diary 'createdOn' field\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('createdOn');\r",
-											"    pm.expect(jsonData.createdOn, '\"createdOn\" must be not empty').to.not.empty;\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Test diary 'updatedOn' field\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('updatedOn');\r",
-											"    pm.expect(jsonData.updatedOn, '\"updatedOn\" must be not empty').to.not.empty;\r",
-											"});\r",
-											"\r",
-											"\r",
-											"\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"uuid": "794d7d96-0778-446a-b8d4-c8a1cdacc52e"
-									},
-									{
-										"key": "Accept",
-										"value": "*/*",
-										"uuid": "6efc2780-d333-42d4-b96f-a242b309e35c"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"weightUser\": 87.7,\n  \"growthUser\": 187.7\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/diary",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"diary"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Diary update Return In Create",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
-											"});\r",
-											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
-											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
-											"});\r",
-											"pm.test(\"Has user create response\", function () {\r",
-											"    pm.response.to.be.withBody;\r",
-											"    pm.response.to.be.json;\r",
-											"});\r",
-											"pm.test(\"Test diary 'weightUser' field\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('weightUser');\r",
-											"    pm.expect(jsonData.weightUser, '\"weightUser\" must be \"77.7\"').to.eql(77.7);\r",
-											"});\r",
-											"pm.test(\"Test diary 'growthUser' field\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('growthUser');\r",
-											"    pm.expect(jsonData.growthUser, '\"growthUser\" must be \"177.7\"').to.eql(177.7);\r",
-											"});\r",
-											"pm.test(\"Test diary 'createdOn' field\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('createdOn');\r",
-											"    pm.expect(jsonData.createdOn, '\"createdOn\" must be not empty').to.not.empty;\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Test diary 'updatedOn' field\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('updatedOn');\r",
-											"    pm.expect(jsonData.updatedOn, '\"updatedOn\" must be not empty').to.not.empty;\r",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"uuid": "dd7e76d3-d9d6-4ad4-93fe-e51ca2b3ad14"
-									},
-									{
-										"key": "Accept",
-										"value": "*/*",
-										"uuid": "887f0493-ae44-4198-948e-d0b89d5460d9"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"weightUser\": 77.7,\n  \"growthUser\": 177.7\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/diary",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"diary"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "get",
-					"item": [
-						{
-							"name": "Diary create First Copy",
+							"name": "First Diary get by Admin",
 							"event": [
 								{
 									"listen": "test",
@@ -2482,28 +2890,327 @@
 							],
 							"request": {
 								"auth": {
-									"type": "basic"
+									"type": "noauth"
 								},
 								"method": "GET",
 								"header": [
 									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"uuid": "3110d9f0-4e5e-4d95-b84c-2c9749ff0020"
+										"uuid": "4ea468e9-e525-430d-ba57-7b2fea2cdd04"
 									},
 									{
 										"key": "Accept",
 										"value": "*/*",
-										"uuid": "bfbe4e1a-7b13-4159-b86d-0bcd9a202afa"
+										"uuid": "52ffaab2-6877-48d8-8154-dcebcd508e44"
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/diary",
+									"raw": "{{baseUrl}}/admin/diary?userId=1",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
+										"admin",
 										"diary"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin LogOut",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([204]);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "8f88e884-1f17-4173-accb-97122b0a1dfc"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "c4ed8959-7368-4f57-9008-9c6086f3b7bd"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-out",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-out"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "First Diary get by Admin Fail Not Authorized",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([401]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"UNAUTHORIZED\"').to.eql('UNAUTHORIZED');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"Вы не авторизованы\"').to.eql('Вы не авторизованы');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "3df0db8a-9035-4946-81b5-7b535f08e2e7"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "5ec22a77-6b26-45e1-a457-35e8122de96e"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/admin/diary?userId=1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"diary"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User authorization First",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has user create response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test user 'id' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('id');\r",
+											"    pm.expect(jsonData.id, '\"id\" must be \"2\"').to.eql(2);\r",
+											"});\r",
+											"pm.test(\"Test user 'login' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('login');\r",
+											"    pm.expect(jsonData.login, '\"login\" must be \"UserFirst\"').to.eql('UserFirst');\r",
+											"});\r",
+											"pm.test(\"Test user 'idGroupPermissions' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('idGroupPermissions');\r",
+											"    pm.expect(jsonData.idGroupPermissions, '\"idGroupPermissions\" must be \"2\"').to.eql(2);\r",
+											"});\r",
+											"pm.test(\"Cookie JSESSIONID is present\", () => {\r",
+											"  pm.expect(pm.cookies.has('JSESSIONID')).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "3c058e17-ec6f-4f1c-bb44-0051e4f0c041"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "0a05f103-0017-41ab-a008-1d7314f3cc42"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"UserFirst\",\n  \"password\": \"pass\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-in",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-in"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "First Diary get by Admin Fail Access denied",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 403\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([403]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"FORBIDDEN\"').to.eql('FORBIDDEN');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"У вас нет доступа к этой операции\"').to.eql('У вас нет доступа к этой операции');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "50ef3f61-c878-4606-874b-02a422ff3354"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "4b9c41a5-4474-4622-bf3b-590d68e76b2c"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/admin/diary?userId=1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"diary"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "1"
+										}
 									]
 								}
 							},
