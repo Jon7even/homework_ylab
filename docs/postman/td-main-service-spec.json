@@ -3143,7 +3143,7 @@
 							"response": []
 						},
 						{
-							"name": "First Diary get by Admin Fail Access denied",
+							"name": "First Diary get by Admin Fail Access Denied",
 							"event": [
 								{
 									"listen": "test",
@@ -4535,6 +4535,1101 @@
 									],
 									"path": [
 										"user",
+										"type",
+										"workout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User LogOut",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([204]);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "d5675d16-8f8f-4bbb-8797-36e9233cc1e7"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "c9ca732f-4480-42a6-9514-fdc2e9f73dbe"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-out",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-out"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get ALL Type Workout FAIL Not Authorized",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401 \", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([401]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"UNAUTHORIZED\"').to.eql('UNAUTHORIZED');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"Вы не авторизованы\"').to.eql('Вы не авторизованы');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "3157db7b-82ad-4f26-9df9-6481a5490fc2"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "434947e7-15ea-40d4-94db-dfe100547ab0"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user/type/workout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"type",
+										"workout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "admin",
+					"item": [
+						{
+							"name": "Create Type Workout FAIL Not Authorized",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401 \", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([401]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"UNAUTHORIZED\"').to.eql('UNAUTHORIZED');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"Вы не авторизованы\"').to.eql('Вы не авторизованы');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "9e2c0c21-f3cd-46fb-aed2-d950af954e3d"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "265ee1d6-fb3d-45d6-b753-4c5b1a30b317"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/admin/type/workout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"type",
+										"workout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User authorization Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has user create response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test user 'id' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('id');\r",
+											"    pm.expect(jsonData.id, '\"id\" must be \"1\"').to.eql(1);\r",
+											"});\r",
+											"pm.test(\"Test user 'login' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('login');\r",
+											"    pm.expect(jsonData.login, '\"login\" must be \"admin\"').to.eql('admin');\r",
+											"});\r",
+											"pm.test(\"Test user 'idGroupPermissions' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('idGroupPermissions');\r",
+											"    pm.expect(jsonData.idGroupPermissions, '\"idGroupPermissions\" must be \"1\"').to.eql(1);\r",
+											"});\r",
+											"pm.test(\"Cookie JSESSIONID is present\", () => {\r",
+											"  pm.expect(pm.cookies.has('JSESSIONID')).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "07fefe72-024e-44e6-b44d-2064d4fe04c3"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "dc76976c-dec2-4683-9ff8-5e93c888a16d"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"admin\",\n  \"password\": \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/sign-in",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"sign-in"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Type Workout by Admin First",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has Type of Workout response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'typeWorkoutId' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('typeWorkoutId');\r",
+											"    pm.expect(jsonData.typeWorkoutId, '\"typeWorkoutId\" must be \"10\"').to.eql(10);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'typeName' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('typeName');\r",
+											"    pm.expect(jsonData.typeName, '\"typeName\" must be \"Тренировка 10\"').to.eql(\"Тренировка 10\");\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'caloriePerHour' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('caloriePerHour');\r",
+											"    pm.expect(jsonData.caloriePerHour, '\"caloriePerHour\" must be \"248\"').to.eql(248);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('detailOfTypeWorkoutResponseDto');\r",
+											"    pm.expect(jsonData.detailOfTypeWorkoutResponseDto, '\"detailOfTypeWorkoutResponseDto\" must be not empty').to.not.empty;\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.id' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('id');\r",
+											"    pm.expect(jsonData.id, '\"id\" must be \"1\"').to.eql(1);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.name' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('name');\r",
+											"    pm.expect(jsonData.name, '\"name\" must be \"Пройденное расстояние (м)\"').to.eql(\"Пройденное расстояние (м)\");\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.isFillingRequired' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('isFillingRequired');\r",
+											"    pm.expect(jsonData.isFillingRequired, '\"isFillingRequired\" must be \"true\"').to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "a1e84bb9-618a-42eb-90d7-63c437294440"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "32965353-7368-4257-a5a2-893603a18c6c"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"requesterId\": 1,\r\n  \"typeName\": \"Тренировка 10\",\r\n  \"caloriePerHour\": 248,\r\n  \"detailOfTypeId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/type/workout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"type",
+										"workout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Type Workout by Admin Second",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has Type of Workout response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'typeWorkoutId' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('typeWorkoutId');\r",
+											"    pm.expect(jsonData.typeWorkoutId, '\"typeWorkoutId\" must be \"11\"').to.eql(11);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'typeName' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('typeName');\r",
+											"    pm.expect(jsonData.typeName, '\"typeName\" must be \"Тренировка 11\"').to.eql(\"Тренировка 11\");\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'caloriePerHour' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('caloriePerHour');\r",
+											"    pm.expect(jsonData.caloriePerHour, '\"caloriePerHour\" must be \"156\"').to.eql(156);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('detailOfTypeWorkoutResponseDto');\r",
+											"    pm.expect(jsonData.detailOfTypeWorkoutResponseDto, '\"detailOfTypeWorkoutResponseDto\" must be not empty').to.not.empty;\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.id' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('id');\r",
+											"    pm.expect(jsonData.id, '\"id\" must be \"2\"').to.eql(2);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.name' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('name');\r",
+											"    pm.expect(jsonData.name, '\"name\" must be \"Количество выполненных упражнений\"').to.eql(\"Количество выполненных упражнений\");\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.isFillingRequired' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('isFillingRequired');\r",
+											"    pm.expect(jsonData.isFillingRequired, '\"isFillingRequired\" must be \"true\"').to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "b863d708-61fa-4bc1-a02e-5978c8e6b654"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "8e51631b-1c80-411f-a9a3-756172045423"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"requesterId\": 1,\r\n  \"typeName\": \"Тренировка 11\",\r\n  \"caloriePerHour\": 156,\r\n  \"detailOfTypeId\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/type/workout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"type",
+										"workout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Type Workout by Admin Third",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has Type of Workout response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'typeWorkoutId' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('typeWorkoutId');\r",
+											"    pm.expect(jsonData.typeWorkoutId, '\"typeWorkoutId\" must be \"12\"').to.eql(12);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'typeName' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('typeName');\r",
+											"    pm.expect(jsonData.typeName, '\"typeName\" must be \"Тренировка 12\"').to.eql(\"Тренировка 12\");\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'caloriePerHour' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('caloriePerHour');\r",
+											"    pm.expect(jsonData.caloriePerHour, '\"caloriePerHour\" must be \"777\"').to.eql(777);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('detailOfTypeWorkoutResponseDto');\r",
+											"    pm.expect(jsonData.detailOfTypeWorkoutResponseDto, '\"detailOfTypeWorkoutResponseDto\" must be not empty').to.not.empty;\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.id' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('id');\r",
+											"    pm.expect(jsonData.id, '\"id\" must be \"3\"').to.eql(3);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.name' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('name');\r",
+											"    pm.expect(jsonData.name, '\"name\" must be \"Занятие не требует дополнительных параметров\"').to.eql(\"Занятие не требует дополнительных параметров\");\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.isFillingRequired' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('isFillingRequired');\r",
+											"    pm.expect(jsonData.isFillingRequired, '\"isFillingRequired\" must be \"false\"').to.eql(false);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "9338df0f-d9bc-44f0-8811-3084fc54a7ea"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "5e828c45-59e4-46fe-b35c-b62b52702f73"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"requesterId\": 4,\r\n  \"typeName\": \"Тренировка 12\",\r\n  \"caloriePerHour\": 777,\r\n  \"detailOfTypeId\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/type/workout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"type",
+										"workout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Type Workout by Admin First",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has Type of Workout response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'typeWorkoutId' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('typeWorkoutId');\r",
+											"    pm.expect(jsonData.typeWorkoutId, '\"typeWorkoutId\" must be \"10\"').to.eql(10);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'typeName' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('typeName');\r",
+											"    pm.expect(jsonData.typeName, '\"typeName\" must be \"Тренировка обновленная 10\"').to.eql(\"Тренировка обновленная 10\");\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'caloriePerHour' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('caloriePerHour');\r",
+											"    pm.expect(jsonData.caloriePerHour, '\"caloriePerHour\" must be \"249\"').to.eql(249);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('detailOfTypeWorkoutResponseDto');\r",
+											"    pm.expect(jsonData.detailOfTypeWorkoutResponseDto, '\"detailOfTypeWorkoutResponseDto\" must be not empty').to.not.empty;\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.id' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('id');\r",
+											"    pm.expect(jsonData.id, '\"id\" must be \"2\"').to.eql(2);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.name' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('name');\r",
+											"    pm.expect(jsonData.name, '\"name\" must be \"Количество выполненных упражнений\"').to.eql(\"Количество выполненных упражнений\");\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.isFillingRequired' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('isFillingRequired');\r",
+											"    pm.expect(jsonData.isFillingRequired, '\"isFillingRequired\" must be \"true\"').to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "621ee66a-7219-41cc-a816-9eb8639a84cc"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "ff6f4e06-f042-4b9d-bd42-9eb51eb2d02c"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"requesterId\": 1,\r\n  \"typeWorkoutId\": 10,\r\n  \"typeName\": \"Тренировка обновленная 10\",\r\n  \"caloriePerHour\": 249,\r\n  \"detailOfTypeId\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/type/workout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"type",
+										"workout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Type Workout by Admin Second",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has Type of Workout response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'typeWorkoutId' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('typeWorkoutId');\r",
+											"    pm.expect(jsonData.typeWorkoutId, '\"typeWorkoutId\" must be \"11\"').to.eql(11);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'typeName' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('typeName');\r",
+											"    pm.expect(jsonData.typeName, '\"typeName\" must be \"Тренировка обновленная 11\"').to.eql(\"Тренировка обновленная 11\");\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'caloriePerHour' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('caloriePerHour');\r",
+											"    pm.expect(jsonData.caloriePerHour, '\"caloriePerHour\" must be \"157\"').to.eql(157);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('detailOfTypeWorkoutResponseDto');\r",
+											"    pm.expect(jsonData.detailOfTypeWorkoutResponseDto, '\"detailOfTypeWorkoutResponseDto\" must be not empty').to.not.empty;\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.id' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('id');\r",
+											"    pm.expect(jsonData.id, '\"id\" must be \"1\"').to.eql(1);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.name' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('name');\r",
+											"    pm.expect(jsonData.name, '\"name\" must be \"Пройденное расстояние (м)\"').to.eql(\"Пройденное расстояние (м)\");\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.isFillingRequired' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('isFillingRequired');\r",
+											"    pm.expect(jsonData.isFillingRequired, '\"isFillingRequired\" must be \"true\"').to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "3429e666-e5eb-4b08-86a2-ca14778eadbc"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "69305653-c837-4e8f-8176-6fe8ff40af67"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"requesterId\": 1,\r\n  \"typeWorkoutId\": 11,\r\n  \"typeName\": \"Тренировка обновленная 11\",\r\n  \"caloriePerHour\": 157,\r\n  \"detailOfTypeId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/type/workout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"type",
+										"workout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Type Workout by Admin Third",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has Type of Workout response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'typeWorkoutId' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('typeWorkoutId');\r",
+											"    pm.expect(jsonData.typeWorkoutId, '\"typeWorkoutId\" must be \"12\"').to.eql(12);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'typeName' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('typeName');\r",
+											"    pm.expect(jsonData.typeName, '\"typeName\" must be \"Тренировка 12\"').to.eql(\"Тренировка 12\");\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'caloriePerHour' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('caloriePerHour');\r",
+											"    pm.expect(jsonData.caloriePerHour, '\"caloriePerHour\" must be \"7777\"').to.eql(7777);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto' field\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('detailOfTypeWorkoutResponseDto');\r",
+											"    pm.expect(jsonData.detailOfTypeWorkoutResponseDto, '\"detailOfTypeWorkoutResponseDto\" must be not empty').to.not.empty;\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.id' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('id');\r",
+											"    pm.expect(jsonData.id, '\"id\" must be \"3\"').to.eql(3);\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.name' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('name');\r",
+											"    pm.expect(jsonData.name, '\"name\" must be \"Занятие не требует дополнительных параметров\"').to.eql(\"Занятие не требует дополнительных параметров\");\r",
+											"});\r",
+											"pm.test(\"Test Type of Workout 'detailOfTypeWorkoutResponseDto.isFillingRequired' field\", function () {\r",
+											"    var jsonData = pm.response.json().detailOfTypeWorkoutResponseDto;\r",
+											"    pm.expect(jsonData).to.have.property('isFillingRequired');\r",
+											"    pm.expect(jsonData.isFillingRequired, '\"isFillingRequired\" must be \"false\"').to.eql(false);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "d7cb5316-1f35-47ad-b0a8-e46c832d302d"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "882b2945-f891-4a1d-88d3-0039a9d06a34"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"requesterId\": 4,\r\n  \"typeWorkoutId\": 12,\r\n  \"typeName\": \"Тренировка 12\",\r\n  \"caloriePerHour\": 7777,\r\n  \"detailOfTypeId\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/type/workout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"type",
+										"workout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Type Workout by Admin Fail Empty TypeName",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"[typeName] not validated, reason: [не может быть пустым]\"').to.eql('[typeName] not validated, reason: [не может быть пустым]');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "3f70b84d-827b-4e56-9fc3-693d76935203"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "74b534c4-cff7-491b-9e30-54ab9a80595c"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"requesterId\": 4,\r\n  \"typeName\": \"\",\r\n  \"caloriePerHour\": 777,\r\n  \"detailOfTypeId\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/type/workout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"type",
+										"workout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Type Workout by Admin Fail Empty TypeName",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"[typeName] not validated, reason: [не может быть пустым]\"').to.eql('[typeName] not validated, reason: [не может быть пустым]');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "2133ad53-f5cc-4133-a995-3306d779a48f"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "a49fb5e6-8c3c-403a-88b1-212f908767ee"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"requesterId\": 4,\r\n  \"typeWorkoutId\": 12,\r\n  \"typeName\": \" \",\r\n  \"caloriePerHour\": 7777,\r\n  \"detailOfTypeId\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/type/workout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
 										"type",
 										"workout"
 									]
