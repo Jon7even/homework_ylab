@@ -20,7 +20,10 @@ public enum HistoryUserMessages {
     DIARY_FIND_BY_USER_ID("<Поиск дневника по userId=[%d]>"),
     DIARY_FIND_BY_DIARY_ID("<Поиск дневника по diaryId=[%d]>"),
     DIARY_EXIST_BY_USER_ID("<Проверка существования дневника по userId=[%d]>"),
-
+    PERMISSION_GET_START("<Запрос получения разрешения пользователем userId=[%d] для действия>"),
+    PERMISSION_GET_END("<Запрос получения разрешения пользователем userId=[%d] "
+            + "из группы groupPermissionsId=[%d] "
+            + "сервиса nameTypeServiceId=[%d] для действия flag[%s]>"),
     /**
      * Какие процессы происходят с ресурсом
      */

@@ -83,8 +83,8 @@ public class DiaryAdminServlet extends HttpServlet {
         }
 
         try {
-            boolean accessToAction = groupPermissionsService.getPermissionsForService(
-                    userFromSession.getIdGroupPermissions(), SERVICE_DIARY_ID, FlagPermissions.READ
+            boolean accessToAction = groupPermissionsService.getPermissionForService(
+                    requesterId, userFromSession.getIdGroupPermissions(), SERVICE_DIARY_ID, FlagPermissions.READ
             );
             if (!accessToAction) {
                 resp.setContentType(DEFAULT_CONTENT_JSON);

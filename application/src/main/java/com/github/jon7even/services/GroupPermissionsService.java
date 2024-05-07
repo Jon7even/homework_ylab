@@ -13,11 +13,16 @@ public interface GroupPermissionsService {
     /**
      * Метод, который даёт однозначный ответ - разрешен ли доступ определенного пользователя к определенному сервису
      *
+     * @param requesterId существующий ID пользователя для идентификации
      * @param groupPermissionsId существующий ID группы, к которой пользователь относится
      * @param nameTypeServiceId  существующий ID сервиса
+     * @param flag какое действие необходимо проверить
      * @return boolean с ответом - разрешен ли доступ
      */
-    boolean getPermissionsForService(Integer groupPermissionsId, Integer nameTypeServiceId, FlagPermissions flag);
+    Boolean getPermissionForService(Long requesterId,
+                                     Integer groupPermissionsId,
+                                     Integer nameTypeServiceId,
+                                     FlagPermissions flag);
 
     /**
      * Метод, который отдает DTO со всеми флагами FlagPermissions для определенного пользователя к определенному сервису
@@ -26,5 +31,5 @@ public interface GroupPermissionsService {
      * @param nameTypeServiceId  существующий ID сервиса
      * @return определенную группу с разрешениями для определенного сервиса
      */
-    GroupPermissionsServiceDto getPermissionsForService(Integer groupPermissionsId, Integer nameTypeServiceId);
+    GroupPermissionsServiceDto getPermissionsForServices(Integer groupPermissionsId, Integer nameTypeServiceId);
 }

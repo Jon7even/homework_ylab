@@ -8,6 +8,7 @@ import com.github.jon7even.core.domain.v1.dto.user.UserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserLogInAuthDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserShortResponseDto;
+import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
 import com.github.jon7even.enums.HistoryUserMessages;
 import com.github.jon7even.services.DiaryService;
 import com.github.jon7even.services.HistoryUserService;
@@ -23,6 +24,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Обработка сохранения истории действий пользователей для методов, которые помечены аннотацией @Loggable
@@ -370,6 +372,62 @@ public class LoggableSaveHistoryAspect {
         } else {
             historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(userId,
                     String.format(HistoryUserMessages.DIARY_EXIST_BY_USER_ID.getMessage(), userId)
+                            + HistoryUserMessages.FAILURE.getMessage()
+            ));
+        }
+    }
+
+    /**
+     * Срез метода проверки доступа у пользователя к определенному действию
+     */
+    @Pointcut("within(@com.github.jon7even.annotations.Loggable *) "
+            + "&& execution("
+            + "* com.github.jon7even.services.impl.GroupPermissionsServiceImpl.getPermissionForService(..))")
+    public void getPermissionForService() {
+    }
+
+    /**
+     * Реализация метода получения доступа пользователя к определенному действию ДО возвращения результата от сервиса
+     */
+    @Before(value = "getPermissionForService()")
+    public void getPermissionForServiceBefore(JoinPoint joinPoint) throws Throwable {
+        Long userId = (Long) Arrays.stream(joinPoint.getArgs()).findFirst().get();
+
+        historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(userId,
+                String.format(HistoryUserMessages.PERMISSION_GET_START.getMessage(), userId)
+                        + HistoryUserMessages.IN_PROGRESS.getMessage()
+        ));
+    }
+
+    /**
+     * Реализация метода получения доступа пользователя к определенному действию ПОСЛЕ возвращения результата от сервиса
+     */
+    @AfterReturning(value = "getPermissionForService()", returning = "result")
+    public void getPermissionForServiceAfter(JoinPoint joinPoint, Object result) throws Throwable {
+        List<Object> args = Arrays.stream(joinPoint.getArgs()).toList();
+
+        Long userId = (Long) args.get(0);
+        Integer groupPermissionsId = (Integer) args.get(1);
+        Integer nameTypeServiceId = (Integer) args.get(2);
+        FlagPermissions flag = (FlagPermissions) args.get(3);
+        Boolean isAllowed = (Boolean) result;
+
+        if (isAllowed) {
+            historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(userId,
+                    String.format(HistoryUserMessages.PERMISSION_GET_END.getMessage(),
+                            userId,
+                            groupPermissionsId,
+                            nameTypeServiceId,
+                            flag)
+                            + HistoryUserMessages.SUCCESS.getMessage()
+            ));
+        } else {
+            historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(userId,
+                    String.format(HistoryUserMessages.PERMISSION_GET_END.getMessage(),
+                            userId,
+                            groupPermissionsId,
+                            nameTypeServiceId,
+                            flag)
                             + HistoryUserMessages.FAILURE.getMessage()
             ));
         }

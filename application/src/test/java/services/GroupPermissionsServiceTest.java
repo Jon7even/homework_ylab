@@ -32,8 +32,8 @@ public class GroupPermissionsServiceTest extends PreparationForTests {
     @Test
     @DisplayName("Сервис разрешений должен вернуть разрешение true")
     public void getPermissionsForService_ReturnTrue() {
-        boolean actualResult = groupPermissionsService.getPermissionsForService(
-                firstIdInteger, historyTypeAdmin.getNameType().getId(), FlagPermissions.DELETE
+        boolean actualResult = groupPermissionsService.getPermissionForService(
+                firstIdLong, firstIdInteger, historyTypeAdmin.getNameType().getId(), FlagPermissions.DELETE
         );
         assertThat(actualResult)
                 .isNotNull()
@@ -44,8 +44,8 @@ public class GroupPermissionsServiceTest extends PreparationForTests {
     @Test
     @DisplayName("Сервис разрешений должен вернуть разрешение false")
     public void getPermissionsForService_ReturnFalse() {
-        boolean actualResult = groupPermissionsService.getPermissionsForService(
-                secondIdInteger, historyTypeUser.getNameType().getId(), FlagPermissions.DELETE
+        boolean actualResult = groupPermissionsService.getPermissionForService(
+                firstIdLong, secondIdInteger, historyTypeUser.getNameType().getId(), FlagPermissions.DELETE
         );
         assertThat(actualResult)
                 .isNotNull()

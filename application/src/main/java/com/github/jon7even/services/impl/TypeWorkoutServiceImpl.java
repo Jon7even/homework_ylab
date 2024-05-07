@@ -152,7 +152,7 @@ public class TypeWorkoutServiceImpl implements TypeWorkoutService {
     private void validationOfPermissions(Long requesterId, FlagPermissions flagPermissions) {
         System.out.println("Пользователь с requesterId="
                 + requesterId + "запрашивает разрешение на операцию: " + flagPermissions);
-        if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId),
+        if (groupPermissionsService.getPermissionForService(requesterId, getGroupPermissionsId(requesterId),
                 SERVICE_TYPE_WORKOUT_ID, flagPermissions)) {
             System.out.println("Разрешение на эту операцию получено.");
         } else {
