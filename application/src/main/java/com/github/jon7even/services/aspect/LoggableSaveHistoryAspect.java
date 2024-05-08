@@ -516,7 +516,7 @@ public class LoggableSaveHistoryAspect {
                     String.format(HistoryUserMessages.TYPE_WORKOUT_UPDATE.getMessage(),
                             typeWorkoutUpdateDto.getRequesterId(),
                             typeWorkoutUpdateDto.getTypeWorkoutId())
-                            + HistoryUserMessages.IN_PROGRESS.getMessage()
+                            + HistoryUserMessages.SUCCESS.getMessage()
             ));
         }
     }

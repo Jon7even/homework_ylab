@@ -16,4 +16,5 @@ public final class ControllerContext {
     public static final String DIARY_SERVICE = "diaryService";
     public static final String PERMISSIONS_SERVICE = "accessService";
     public static final String TYPE_WORKOUT_SERVICE = "typeWorkoutService";
+    public static final String AUDIT_SERVICE = "auditService";
 }

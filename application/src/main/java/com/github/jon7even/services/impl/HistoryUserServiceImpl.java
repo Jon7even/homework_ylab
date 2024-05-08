@@ -82,6 +82,7 @@ public class HistoryUserServiceImpl implements HistoryUserService {
         System.out.println("requesterId=" + requesterId
                 + "хочет получить историю действий пользователя с userId=" + userId);
         isExistUserOrThrowException(requesterId);
+        isExistUserOrThrowException(userId);
         validationOfPermissions(requesterId, READ);
 
         List<HistoryUserEntity> listHistoryByUserId = historyUserRepository.findAllHistoryByUserId(userId);

@@ -50,6 +50,11 @@ public class ContextListener implements ServletContextListener {
         );
         servletContext.setAttribute(TYPE_WORKOUT_SERVICE, typeWorkoutService);
 
+        HistoryUserService historyUserService = new HistoryUserServiceImpl(
+                beanConfig.getUserDao(), beanConfig.getHistoryUserDao(), beanConfig.getGroupPermissionsDao()
+        );
+        servletContext.setAttribute(AUDIT_SERVICE, historyUserService);
+
         System.out.println("Приложение успешно запущено");
     }
 
