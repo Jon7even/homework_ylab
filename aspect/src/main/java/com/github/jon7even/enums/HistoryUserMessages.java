@@ -26,6 +26,7 @@ public enum HistoryUserMessages {
             + "сервиса nameTypeServiceId=[%d] для действия flag[%s]>"),
     TYPE_WORKOUT_CREATE("<Создание нового типа тренировки по userId=[%d]"),
     TYPE_WORKOUT_UPDATE("<Обновление существующего типа тренировки по userId=[%d] и typeWorkoutId=[%d]"),
+    AUDIT_GET("<Пользователь requesterId=[%d] просматривает историю действий пользователя userId=[%d]>"),
 
     /**
      * Какие процессы происходят с ресурсом

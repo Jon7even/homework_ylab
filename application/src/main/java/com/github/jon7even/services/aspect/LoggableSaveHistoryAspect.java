@@ -521,6 +521,45 @@ public class LoggableSaveHistoryAspect {
         }
     }
 
+    /**
+     * Срез метода просмотра истории действий пользователей
+     */
+    @Pointcut("within(@com.github.jon7even.annotations.Loggable *) "
+            + "&& execution("
+            + "* com.github.jon7even.services.impl.HistoryUserServiceImpl.findAllHistoryByAdminIdSortByDeskDate(..))")
+    public void findAllHistoryByAdminIdSortByDeskDate() {
+    }
+
+    /**
+     * Реализация метода просмотра истории действий пользователей ДО возвращения результата от сервиса
+     */
+    @Before(value = "findAllHistoryByAdminIdSortByDeskDate()")
+    public void findAllHistoryByAdminIdSortByDeskDateBefore(JoinPoint joinPoint) throws Throwable {
+        List<Object> args = Arrays.stream(joinPoint.getArgs()).toList();
+        Long userId = (Long) args.get(0);
+        Long requesterId = (Long) args.get(1);
+
+        historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(requesterId,
+                String.format(HistoryUserMessages.AUDIT_GET.getMessage(), userId, requesterId)
+                        + HistoryUserMessages.IN_PROGRESS.getMessage()
+        ));
+    }
+
+    /**
+     * Реализация просмотра истории действий пользователей ПОСЛЕ возвращения результата от сервиса
+     */
+    @AfterReturning(value = "findAllHistoryByAdminIdSortByDeskDate()")
+    public void findAllHistoryByAdminIdSortByDeskDateAfter(JoinPoint joinPoint) throws Throwable {
+        List<Object> args = Arrays.stream(joinPoint.getArgs()).toList();
+        Long userId = (Long) args.get(0);
+        Long requesterId = (Long) args.get(1);
+
+        historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(requesterId,
+                String.format(HistoryUserMessages.AUDIT_GET.getMessage(), userId, requesterId)
+                        + HistoryUserMessages.SUCCESS.getMessage()
+        ));
+    }
+
     private Long getUserIdByLogin(String login) {
         Long userId;
         try {
