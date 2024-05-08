@@ -1,8 +1,8 @@
 {
 	"info": {
 		"name": "Training Diary - тесты основного сервиса",
-		"description": "Коллекция тестов для проверки приложения \"Training Diary\" API v1.0"
-		"_exporter_id": "27169996"
+		"description": "Коллекция тестов для проверки приложения \"Training Diary\" API v1.0",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
