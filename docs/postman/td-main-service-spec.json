@@ -1,8 +1,8 @@
 {
 	"info": {
 		"name": "Training Diary - тесты основного сервиса",
-		"description": "Коллекция тестов для проверки приложения \"Training Diary\" API v1.0",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"description": "Коллекция тестов для проверки приложения \"Training Diary\" API v1.0"
+		"_exporter_id": "27169996"
 	},
 	"item": [
 		{
@@ -6523,7 +6523,77 @@
 				},
 				{
 					"name": "admin",
-					"item": []
+					"item": [
+						{
+							"name": "Get All Workouts By Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has audit response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "7806c8cb-503b-41fa-93f2-89b49484509e"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "21059e91-1bc5-4c45-abf1-c1c7141e5987"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/admin/workout?userId=1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"workout"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
