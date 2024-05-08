@@ -21,4 +21,5 @@ public final class ControllerPath {
     public static final String PATH_URL_DIARY = "/diary";
     public static final String PATH_URL_TYPE_WORKOUT = "/type/workout";
     public static final String PATH_URL_AUDIT = "/audit";
+    public static final String PATH_URL_WORKOUT = "/workout";
 }

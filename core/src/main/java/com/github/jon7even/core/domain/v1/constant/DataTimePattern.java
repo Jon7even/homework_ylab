@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DataTimePattern {
     public static final String DATE_TIME_DEFAULT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_TIME_IN = "dd-MM-yyyy HH:mm";
 }

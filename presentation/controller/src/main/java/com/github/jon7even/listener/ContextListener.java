@@ -14,7 +14,7 @@ import jakarta.servlet.annotation.WebListener;
 import static com.github.jon7even.constants.ControllerContext.*;
 
 /**
- * Слушатель для внедрения бинов для сервисов на все сервлеты и инициализация миграции БД
+ * Слушатель в котором происходит инициализация миграции БД и внедрение бинов для сервисов на все сервлеты
  *
  * @author Jon7even
  * @version 1.0
@@ -54,6 +54,11 @@ public class ContextListener implements ServletContextListener {
                 beanConfig.getUserDao(), beanConfig.getHistoryUserDao(), beanConfig.getGroupPermissionsDao()
         );
         servletContext.setAttribute(AUDIT_SERVICE, historyUserService);
+
+        WorkoutService workoutService = new WorkoutServiceImpl(beanConfig.getUserDao(), beanConfig.getWorkoutDao(),
+                beanConfig.getDiaryDao(), beanConfig.getTypeWorkoutDao(), beanConfig.getGroupPermissionsDao()
+        );
+        servletContext.setAttribute(WORKOUT_SERVICE, workoutService);
 
         System.out.println("Приложение успешно запущено");
     }

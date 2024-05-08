@@ -8,6 +8,7 @@ import com.github.jon7even.core.domain.v1.dto.workout.WorkoutUpdateDto;
 import com.github.jon7even.core.domain.v1.entities.workout.WorkoutEntity;
 import org.mapstruct.*;
 
+import java.time.Duration;
 import java.util.List;
 
 /**
@@ -23,11 +24,11 @@ public interface WorkoutMapper {
     @Mapping(source = "workoutCreateDto.idTypeWorkout", target = "idTypeWorkout")
     @Mapping(source = "workoutCreateDto.timeStartOn", target = "timeStartOn")
     @Mapping(source = "workoutCreateDto.timeEndOn", target = "timeEndOn")
-    @Mapping(source = "workoutCreateDto.timeOfRest", target = "timeOfRest")
+    @Mapping(source = "timeOfRest", target = "timeOfRest")
     @Mapping(source = "workoutCreateDto.currentWeightUser", target = "currentWeightUser")
     @Mapping(source = "workoutCreateDto.personalNote", target = "personalNote")
     @Mapping(source = "workoutCreateDto.detailOfWorkout", target = "detailOfWorkout")
-    WorkoutEntity toWorkoutEntityFromDtoCreate(WorkoutCreateDto workoutCreateDto);
+    WorkoutEntity toWorkoutEntityFromDtoCreate(WorkoutCreateDto workoutCreateDto, Duration timeOfRest);
 
     @Mapping(source = "workoutEntity.id", target = "id")
     @Mapping(source = "workoutEntity.idDiary", target = "idDiary")
@@ -47,11 +48,13 @@ public interface WorkoutMapper {
     @Mapping(source = "workoutUpdate.idTypeWorkout", target = "idTypeWorkout")
     @Mapping(source = "workoutUpdate.timeStartOn", target = "timeStartOn")
     @Mapping(source = "workoutUpdate.timeEndOn", target = "timeEndOn")
-    @Mapping(source = "workoutUpdate.timeOfRest", target = "timeOfRest")
+    @Mapping(source = "timeOfRest", target = "timeOfRest")
     @Mapping(source = "workoutUpdate.currentWeightUser", target = "currentWeightUser")
     @Mapping(source = "workoutUpdate.personalNote", target = "personalNote")
     @Mapping(source = "workoutUpdate.detailOfWorkout", target = "detailOfWorkout")
-    void updateWorkoutEntityFromDtoUpdate(@MappingTarget WorkoutEntity workoutEntity, WorkoutUpdateDto workoutUpdate);
+    void updateWorkoutEntityFromDtoUpdate(@MappingTarget WorkoutEntity workoutEntity,
+                                          WorkoutUpdateDto workoutUpdate,
+                                          Duration timeOfRest);
 
     @Mapping(source = "workoutEntity.id", target = "id")
     @Mapping(source = "workoutEntity.timeStartOn", target = "timeStartOn")

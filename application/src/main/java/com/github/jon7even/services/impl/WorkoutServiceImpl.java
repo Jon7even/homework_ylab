@@ -17,6 +17,7 @@ import com.github.jon7even.services.GroupPermissionsService;
 import com.github.jon7even.services.TypeWorkoutService;
 import com.github.jon7even.services.WorkoutService;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -59,8 +60,9 @@ public class WorkoutServiceImpl implements WorkoutService {
         validateWorkoutByTypeToday(
                 workoutCreateDto.getIdTypeWorkout(), workoutCreateDto.getTimeStartOn().toLocalDate()
         );
+        Duration timeOfRest = Duration.ofMinutes(workoutCreateDto.getTimeOfRest());
         WorkoutEntity workoutEntityForSaveInRepository = workoutMapper.toWorkoutEntityFromDtoCreate(
-                workoutCreateDto
+                workoutCreateDto, timeOfRest
         );
         System.out.println("Тренировка для сохранения собрана: " + workoutEntityForSaveInRepository);
 
@@ -101,7 +103,8 @@ public class WorkoutServiceImpl implements WorkoutService {
         System.out.println("Начинаем обновлять тренировку, вот что нужно обновить: " + workoutUpdateDto);
         WorkoutEntity workoutEntityForUpdate = getWorkoutEntityById(workoutUpdateDto.getId());
         LocalDate localDateOldWorkout = workoutEntityForUpdate.getTimeStartOn().toLocalDate();
-        workoutMapper.updateWorkoutEntityFromDtoUpdate(workoutEntityForUpdate, workoutUpdateDto);
+        Duration timeOfRest = Duration.ofMinutes(workoutUpdateDto.getTimeOfRest());
+        workoutMapper.updateWorkoutEntityFromDtoUpdate(workoutEntityForUpdate, workoutUpdateDto, timeOfRest);
 
         if (!localDateOldWorkout.equals(workoutEntityForUpdate.getTimeStartOn().toLocalDate())) {
             validateWorkoutByTypeToday(
