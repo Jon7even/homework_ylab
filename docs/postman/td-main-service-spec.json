@@ -1,10 +1,8 @@
 {
 	"info": {
-		"_postman_id": "ecdaf441-1584-41ae-ac34-aab4e60b30fb",
 		"name": "Training Diary - тесты основного сервиса",
 		"description": "Коллекция тестов для проверки приложения \"Training Diary\" API v1.0",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "27169996"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -5632,6 +5630,394 @@
 										"admin",
 										"type",
 										"workout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "audit",
+			"item": [
+				{
+					"name": "admin",
+					"item": [
+						{
+							"name": "validation",
+							"item": [
+								{
+									"name": "Get History Fail Param Empty",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"message\" [userId] not validated, reason: [не может быть пустым]\"').to.eql('[userId] not validated, reason: [не может быть пустым]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "86e4f36f-a448-4bec-8017-22ab95ba7647"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*",
+												"uuid": "468d0158-f6b2-46f4-ad85-af06c513ae9e"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/admin/audit?userId=",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"admin",
+												"audit"
+											],
+											"query": [
+												{
+													"key": "userId",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get History Fail Param String",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"[userId] not validated, reason: [должен быть числом]\"').to.eql('[userId] not validated, reason: [должен быть числом]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "81d8ddc6-1a96-47d9-993c-c7496e18a65f"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*",
+												"uuid": "e4c8393d-1102-4e85-b972-db333c2d1847"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/admin/audit?userId=param",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"admin",
+												"audit"
+											],
+											"query": [
+												{
+													"key": "userId",
+													"value": "param"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get History Fail Param Exist Positive",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"[userId] not validated, reason: [должен быть положительным]\"').to.eql('[userId] not validated, reason: [должен быть положительным]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "8121728f-fa67-4f81-a4f9-e7cd88f8d083"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*",
+												"uuid": "96932cbc-7610-4239-a303-a057a06148db"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/admin/audit?userId=-1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"admin",
+												"audit"
+											],
+											"query": [
+												{
+													"key": "userId",
+													"value": "-1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get History Fail Not Exist Id",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([404]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"NOT_FOUND\"').to.eql('NOT_FOUND');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"Такого пользователя не существует\"').to.eql('Такого пользователя не существует');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "2dffccbd-5987-4558-9c73-3eb617e01336"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*",
+												"uuid": "cc0307c6-4287-4fa8-a6ad-5584c908fce2"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/admin/audit?userId=5",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"admin",
+												"audit"
+											],
+											"query": [
+												{
+													"key": "userId",
+													"value": "5"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get History Admin by Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has audit response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "6fb05281-7217-45d8-88d7-7bc6fbf83a95"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "0420e8d7-a123-435c-95fe-7123a31a1e6f"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/admin/audit?userId=1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"audit"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "1"
+										}
 									]
 								}
 							},
