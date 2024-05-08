@@ -141,6 +141,7 @@ public class WorkoutServiceImpl implements WorkoutService {
         System.out.println("requesterId=" + requesterId
                 + "хочет получить список тренировок пользователя с userId=" + userId);
         isExistUserOrThrowException(userId);
+        isExistUserOrThrowException(requesterId);
         validationOfPermissions(requesterId, READ);
         List<WorkoutEntity> listFoundWorkouts = getListWorkoutEntityNotSort(getDiaryByUserId(userId));
         List<WorkoutEntity> sortedListWorkouts = sortListWorkoutsByDataDesk(listFoundWorkouts);
