@@ -6026,6 +6026,506 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "workout",
+			"item": [
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "Create Workout First",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has Workout response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "407ddc59-997a-401f-896f-ef23a7616ea1"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "1a3e85c2-53b5-4443-bee6-867012542693"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/user/workout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"workout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Workout Second",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has Workout response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "56e5bd4a-226a-4a4b-8eed-20aa4ae30c6f"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "5a9c7dfd-1b5e-4899-87f7-abde2163e48f"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 5,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя вторая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/user/workout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"workout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Workout Second",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has Workout response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "cc74f9f8-be1d-4f38-b998-d19589361e48"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "88b455f4-9822-4f0a-a3b2-52ca8425e235"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 1,\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 2,\r\n  \"timeStartOn\": \"07-05-2024 13:00\",\r\n  \"timeEndOn\": \"07-05-2024 17:00\",\r\n  \"timeOfRest\": 21,\r\n  \"currentWeightUser\": 81.5,\r\n  \"personalNote\": \"Моя первая обновленная тренировка\",\r\n  \"detailOfWorkout\": \"2 км\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/user/workout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"workout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Workout Second",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has audit response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "4b920b61-a5d6-46be-b7a0-f6f8763c90b0"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "8ac99b4e-24e8-4e32-814d-311dc6fc8035"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user/workout?workoutId=2",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"workout"
+									],
+									"query": [
+										{
+											"key": "workoutId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Workouts",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has audit response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "2c1c950c-dbe7-4657-807b-a67830d3ebc3"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "877362da-c2ff-4772-8eb5-7863ae81d666"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user/workout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"workout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Workout Second",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([204]);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "ece886fe-cf58-478f-9326-277841a37542"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "ef98a82b-ad03-40af-bf20-570801e7466d"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user/workout?workoutId=2",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"workout"
+									],
+									"query": [
+										{
+											"key": "workoutId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Workout Second After Delete Fail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([404]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"NOT_FOUND\"').to.eql('NOT_FOUND');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"Тренировки с таким ID не существует\"').to.eql('Тренировки с таким ID не существует');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"uuid": "e0124619-b4ad-4928-aebd-4bb9552ba7cd"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*",
+										"uuid": "18adb9fe-c5de-4e8e-b0ae-c0460259d6d2"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user/workout?workoutId=2",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"workout"
+									],
+									"query": [
+										{
+											"key": "workoutId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "admin",
+					"item": []
+				}
+			]
 		}
 	],
 	"event": [
