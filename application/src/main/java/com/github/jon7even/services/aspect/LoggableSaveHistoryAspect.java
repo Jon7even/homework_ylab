@@ -11,6 +11,9 @@ import com.github.jon7even.core.domain.v1.dto.user.UserCreateDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserLogInAuthDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserShortResponseDto;
+import com.github.jon7even.core.domain.v1.dto.workout.WorkoutCreateDto;
+import com.github.jon7even.core.domain.v1.dto.workout.WorkoutFullResponseDto;
+import com.github.jon7even.core.domain.v1.dto.workout.WorkoutUpdateDto;
 import com.github.jon7even.core.domain.v1.entities.permissions.enums.FlagPermissions;
 import com.github.jon7even.enums.HistoryUserMessages;
 import com.github.jon7even.services.DiaryService;
@@ -540,7 +543,7 @@ public class LoggableSaveHistoryAspect {
         Long requesterId = (Long) args.get(1);
 
         historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(requesterId,
-                String.format(HistoryUserMessages.AUDIT_GET.getMessage(), userId, requesterId)
+                String.format(HistoryUserMessages.AUDIT_GET.getMessage(), requesterId, userId)
                         + HistoryUserMessages.IN_PROGRESS.getMessage()
         ));
     }
@@ -555,7 +558,214 @@ public class LoggableSaveHistoryAspect {
         Long requesterId = (Long) args.get(1);
 
         historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(requesterId,
-                String.format(HistoryUserMessages.AUDIT_GET.getMessage(), userId, requesterId)
+                String.format(HistoryUserMessages.AUDIT_GET.getMessage(), requesterId, userId)
+                        + HistoryUserMessages.SUCCESS.getMessage()
+        ));
+    }
+
+    /**
+     * Срез метода просмотра списка тренировок любого пользователя по ID
+     */
+    @Pointcut("within(@com.github.jon7even.annotations.Loggable *) "
+            + "&& execution("
+            + "* com.github.jon7even.services.impl.WorkoutServiceImpl.findAllWorkoutByAdminDiaryBySortByDeskDate(..))")
+    public void findAllWorkoutByAdminDiaryBySortByDeskDate() {
+    }
+
+    /**
+     * Реализация метода просмотра списка тренировок ДО возвращения результата от сервиса
+     */
+    @Before(value = "findAllWorkoutByAdminDiaryBySortByDeskDate()")
+    public void findAllWorkoutByAdminDiaryBySortByDeskDateBefore(JoinPoint joinPoint) throws Throwable {
+        List<Object> args = Arrays.stream(joinPoint.getArgs()).toList();
+        Long userId = (Long) args.get(0);
+        Long requesterId = (Long) args.get(1);
+
+        historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(requesterId,
+                String.format(HistoryUserMessages.WORKOUT_ADMIN_GET_LIST.getMessage(), requesterId, userId)
+                        + HistoryUserMessages.IN_PROGRESS.getMessage()
+        ));
+    }
+
+    /**
+     * Реализация метода просмотра списка тренировок ПОСЛЕ возвращения результата от сервиса
+     */
+    @AfterReturning(value = "findAllWorkoutByAdminDiaryBySortByDeskDate()")
+    public void findAllWorkoutByAdminDiaryBySortByDeskDateAfter(JoinPoint joinPoint) throws Throwable {
+        List<Object> args = Arrays.stream(joinPoint.getArgs()).toList();
+        Long userId = (Long) args.get(0);
+        Long requesterId = (Long) args.get(1);
+
+        historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(requesterId,
+                String.format(HistoryUserMessages.WORKOUT_ADMIN_GET_LIST.getMessage(), requesterId, userId)
+                        + HistoryUserMessages.SUCCESS.getMessage()
+        ));
+    }
+
+    /**
+     * Срез метода сохранения новой тренировки
+     */
+    @Pointcut("within(@com.github.jon7even.annotations.Loggable *) "
+            + "&& execution("
+            + "* com.github.jon7even.services.impl.WorkoutServiceImpl.saveWorkout(..))")
+    public void saveWorkout() {
+    }
+
+    /**
+     * Реализация метода сохранения новой тренировки ДО возвращения результата от сервиса
+     */
+    @Before(value = "saveWorkout()")
+    public void saveWorkoutBefore(JoinPoint joinPoint) throws Throwable {
+        WorkoutCreateDto workoutCreateDto = (WorkoutCreateDto) Arrays.stream(joinPoint.getArgs())
+                .findFirst().get();
+
+        Long userId = getUserIdByDiaryId(workoutCreateDto.getIdDiary());
+
+        if (userId > 0) {
+            historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(userId,
+                    HistoryUserMessages.WORKOUT_CREATE.getMessage() + HistoryUserMessages.IN_PROGRESS.getMessage()
+            ));
+        }
+    }
+
+    /**
+     * Реализация метода сохранения новой тренировки ПОСЛЕ возвращения результата от сервиса
+     */
+    @AfterReturning(value = "saveWorkout()", returning = "result")
+    public void saveWorkoutAfter(JoinPoint joinPoint, Object result) throws Throwable {
+        WorkoutCreateDto workoutCreateDto = (WorkoutCreateDto) Arrays.stream(joinPoint.getArgs())
+                .findFirst().get();
+        WorkoutFullResponseDto workoutFullResponseDto = (WorkoutFullResponseDto) result;
+
+        Long userId = getUserIdByDiaryId(workoutCreateDto.getIdDiary());
+
+        if (userId > 0) {
+            historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(userId,
+                    String.format(HistoryUserMessages.WORKOUT_CREATE_SUCCESS.getMessage(),
+                            workoutFullResponseDto.getId())
+                            + HistoryUserMessages.SUCCESS.getMessage()
+            ));
+        }
+    }
+
+    /**
+     * Срез метода обновления существующей тренировки
+     */
+    @Pointcut("within(@com.github.jon7even.annotations.Loggable *) "
+            + "&& execution("
+            + "* com.github.jon7even.services.impl.WorkoutServiceImpl.updateWorkout(..))")
+    public void updateWorkout() {
+    }
+
+    /**
+     * Реализация метода обновления существующей тренировки ДО возвращения результата от сервиса
+     */
+    @Before(value = "updateWorkout()")
+    public void updateWorkoutBefore(JoinPoint joinPoint) throws Throwable {
+        WorkoutUpdateDto workoutUpdateDto = (WorkoutUpdateDto) Arrays.stream(joinPoint.getArgs()).findFirst().get();
+
+        Long userId = getUserIdByDiaryId(workoutUpdateDto.getIdDiary());
+
+        if (userId > 0) {
+            historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(userId,
+                    String.format(HistoryUserMessages.WORKOUT_UPDATE.getMessage(), workoutUpdateDto.getId())
+                            + HistoryUserMessages.IN_PROGRESS.getMessage()
+            ));
+        }
+    }
+
+    /**
+     * Реализация обновления существующей тренировки ПОСЛЕ возвращения результата от сервиса
+     */
+    @AfterReturning(value = "updateWorkout()", returning = "result")
+    public void updateWorkoutAfter(JoinPoint joinPoint, Object result) throws Throwable {
+        WorkoutUpdateDto workoutUpdateDto = (WorkoutUpdateDto) Arrays.stream(joinPoint.getArgs()).findFirst().get();
+        WorkoutFullResponseDto workoutFullResponseDto = (WorkoutFullResponseDto) result;
+
+        Long userId = getUserIdByDiaryId(workoutUpdateDto.getIdDiary());
+
+        if (userId > 0) {
+            if (workoutFullResponseDto != null) {
+                historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(userId,
+                        String.format(HistoryUserMessages.WORKOUT_UPDATE.getMessage(), workoutUpdateDto.getId())
+                                + HistoryUserMessages.SUCCESS.getMessage()
+                ));
+            }
+        }
+    }
+
+    /**
+     * Срез метода удаления существующей тренировки
+     */
+    @Pointcut("within(@com.github.jon7even.annotations.Loggable *) "
+            + "&& execution("
+            + "* com.github.jon7even.services.impl.WorkoutServiceImpl.deleteWorkoutByWorkoutIdAndOwnerId(..))")
+    public void deleteWorkoutByWorkoutIdAndOwnerId() {
+    }
+
+    /**
+     * Реализация метода удаления существующей тренировки ДО возвращения результата от сервиса
+     */
+    @Before(value = "deleteWorkoutByWorkoutIdAndOwnerId()")
+    public void deleteWorkoutByWorkoutIdAndOwnerIdBefore(JoinPoint joinPoint) throws Throwable {
+        List<Object> args = Arrays.stream(joinPoint.getArgs()).toList();
+        Long workoutId = (Long) args.get(0);
+        Long requesterId = (Long) args.get(1);
+
+        historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(requesterId,
+                String.format(HistoryUserMessages.WORKOUT_DELETE.getMessage(), workoutId)
+                        + HistoryUserMessages.IN_PROGRESS.getMessage()
+        ));
+    }
+
+    /**
+     * Реализация удаления существующей тренировки ПОСЛЕ возвращения результата от сервиса
+     */
+    @AfterReturning(value = "deleteWorkoutByWorkoutIdAndOwnerId()")
+    public void deleteWorkoutByWorkoutIdAndOwnerIdAfter(JoinPoint joinPoint) throws Throwable {
+        List<Object> args = Arrays.stream(joinPoint.getArgs()).toList();
+        Long workoutId = (Long) args.get(0);
+        Long requesterId = (Long) args.get(1);
+
+        historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(requesterId,
+                String.format(HistoryUserMessages.WORKOUT_DELETE.getMessage(), workoutId)
+                        + HistoryUserMessages.SUCCESS.getMessage()
+        ));
+    }
+
+    /**
+     * Срез метода получения списка тренировок
+     */
+    @Pointcut("within(@com.github.jon7even.annotations.Loggable *) "
+            + "&& execution("
+            + "* com.github.jon7even.services.impl.WorkoutServiceImpl.findAllWorkoutByOwnerDiaryBySortByDeskDate(..))")
+    public void findAllWorkoutByOwnerDiaryBySortByDeskDate() {
+    }
+
+    /**
+     * Реализация метода удаления существующей тренировки ДО возвращения результата от сервиса
+     */
+    @Before(value = "findAllWorkoutByOwnerDiaryBySortByDeskDate()")
+    public void findAllWorkoutByOwnerDiaryBySortByDeskDateBefore(JoinPoint joinPoint) throws Throwable {
+        List<Object> args = Arrays.stream(joinPoint.getArgs()).toList();
+        Long requesterId = (Long) args.get(1);
+
+        historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(requesterId,
+                HistoryUserMessages.WORKOUT_USER_GET_LIST.getMessage()
+                        + HistoryUserMessages.IN_PROGRESS.getMessage()
+        ));
+    }
+
+    /**
+     * Реализация удаления существующей тренировки ПОСЛЕ возвращения результата от сервиса
+     */
+    @AfterReturning(value = "findAllWorkoutByOwnerDiaryBySortByDeskDate()")
+    public void findAllWorkoutByOwnerDiaryBySortByDeskDateAfter(JoinPoint joinPoint) throws Throwable {
+        List<Object> args = Arrays.stream(joinPoint.getArgs()).toList();
+        Long requesterId = (Long) args.get(1);
+
+        historyUserService.createHistoryOfUser(getHistoryUserForCreateDto(requesterId,
+                HistoryUserMessages.WORKOUT_USER_GET_LIST.getMessage()
                         + HistoryUserMessages.SUCCESS.getMessage()
         ));
     }

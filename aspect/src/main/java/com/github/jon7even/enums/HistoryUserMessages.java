@@ -24,9 +24,15 @@ public enum HistoryUserMessages {
     PERMISSION_GET_END("<Запрос получения разрешения пользователем userId=[%d] "
             + "из группы groupPermissionsId=[%d] "
             + "сервиса nameTypeServiceId=[%d] для действия flag[%s]>"),
-    TYPE_WORKOUT_CREATE("<Создание нового типа тренировки по userId=[%d]"),
-    TYPE_WORKOUT_UPDATE("<Обновление существующего типа тренировки по userId=[%d] и typeWorkoutId=[%d]"),
+    TYPE_WORKOUT_CREATE("<Создание нового типа тренировки по userId=[%d]>"),
+    TYPE_WORKOUT_UPDATE("<Обновление существующего типа тренировки по userId=[%d] и typeWorkoutId=[%d]>"),
     AUDIT_GET("<Пользователь requesterId=[%d] просматривает историю действий пользователя userId=[%d]>"),
+    WORKOUT_ADMIN_GET_LIST("<Пользователь requesterId=[%d] просматривает список тренировок пользователя userId=[%d]>"),
+    WORKOUT_CREATE("<Создание новой тренировки>"),
+    WORKOUT_CREATE_SUCCESS("<Создание новой тренировки, получен workoutId=[%d]>"),
+    WORKOUT_UPDATE("<Обновление существующей тренировки по workoutId=[%d]>"),
+    WORKOUT_DELETE("<Удаление существующей тренировки по workoutId=[%d]>"),
+    WORKOUT_USER_GET_LIST("<Просмотр списка своих тренировок>"),
 
     /**
      * Какие процессы происходят с ресурсом
