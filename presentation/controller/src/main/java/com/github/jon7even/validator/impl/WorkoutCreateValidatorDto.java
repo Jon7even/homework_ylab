@@ -1,15 +1,19 @@
 package com.github.jon7even.validator.impl;
 
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutCreateDto;
-import com.github.jon7even.core.domain.v1.exception.MethodArgumentNotValidException;
 import com.github.jon7even.validator.ValidatorDto;
 
-import static com.github.jon7even.constants.ControllerParam.*;
+import static com.github.jon7even.validator.constants.NameOfFieldsForValidation.*;
 
 public class WorkoutCreateValidatorDto implements ValidatorDto<WorkoutCreateDto> {
-    private final LongValidator validatorLong;
-    private final StringValidator validatorString;
     private static WorkoutCreateValidatorDto instance;
+    private final ObjectValidator objectValidator;
+    private final NumberValidator numberValidator;
+
+    private WorkoutCreateValidatorDto() {
+        this.objectValidator = ObjectValidator.getInstance();
+        this.numberValidator = NumberValidator.getInstance();
+    }
 
     public static WorkoutCreateValidatorDto getInstance() {
         if (instance == null) {
@@ -18,20 +22,14 @@ public class WorkoutCreateValidatorDto implements ValidatorDto<WorkoutCreateDto>
         return instance;
     }
 
-    private WorkoutCreateValidatorDto() {
-        this.validatorLong = LongValidator.getInstance();
-        this.validatorString = StringValidator.getInstance();
-    }
-
     @Override
     public void validate(WorkoutCreateDto dto) {
-        if (dto == null) {
-            throw new MethodArgumentNotValidException("Object DTO", "не может быть пустым");
-        }
-        validatorLong.validate(String.valueOf(dto.getIdDiary()), DIARY_ID);
-        validatorLong.validate(String.valueOf(dto.getIdTypeWorkout()), TYPE_WORKOUT_ID);
-        validatorLong.validate(String.valueOf(dto.getIdTypeWorkout()), TIME_OF_REST);
-        validatorString.validate(dto.getPersonalNote(), "personalNote");
-        validatorString.validate(dto.getDetailOfWorkout(), "detailOfWorkout");
+        objectValidator.validate(dto, OBJECT_DTO);
+        numberValidator.validate(dto.getIdDiary(), DIARY_ID);
+        numberValidator.validate(dto.getIdTypeWorkout(), TYPE_WORKOUT_ID);
+        numberValidator.validate(dto.getTimeOfRest(), TIME_OF_REST);
+        numberValidator.validate(dto.getCurrentWeightUser(), CURRENT_WEIGHT);
+        objectValidator.validate(dto.getPersonalNote(), PERSONAL_NOTE);
+        objectValidator.validate(dto.getDetailOfWorkout(), DETAIL_OF_WORKOUT);
     }
 }

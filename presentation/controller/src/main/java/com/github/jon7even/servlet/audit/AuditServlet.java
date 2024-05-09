@@ -11,7 +11,7 @@ import com.github.jon7even.core.domain.v1.exception.MethodArgumentNotValidExcept
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.exception.model.ApiError;
 import com.github.jon7even.services.HistoryUserService;
-import com.github.jon7even.validator.impl.LongValidator;
+import com.github.jon7even.validator.impl.ParamValidator;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -40,14 +40,14 @@ import static com.github.jon7even.constants.ControllerPath.PATH_URL_AUDIT;
 @WebServlet(PATH_URL_ADMIN + PATH_URL_AUDIT)
 public class AuditServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
-    private final LongValidator validator;
+    private final ParamValidator validator;
     private HistoryUserService auditUserService;
 
     public AuditServlet() {
         this.objectMapper = new ObjectMapper();
         this.objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         this.objectMapper.registerModule(new JavaTimeModule());
-        this.validator = LongValidator.getInstance();
+        this.validator = ParamValidator.getInstance();
     }
 
     @Override

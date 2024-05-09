@@ -18,7 +18,7 @@ import com.github.jon7even.core.domain.v1.exception.model.ApiError;
 import com.github.jon7even.services.DiaryService;
 import com.github.jon7even.services.WorkoutService;
 import com.github.jon7even.validator.ValidatorDto;
-import com.github.jon7even.validator.impl.LongValidator;
+import com.github.jon7even.validator.impl.NumberValidator;
 import com.github.jon7even.validator.impl.WorkoutCreateValidatorDto;
 import com.github.jon7even.validator.impl.WorkoutUpdateValidatorDto;
 import jakarta.servlet.ServletConfig;
@@ -53,15 +53,15 @@ public class WorkoutUserServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
     private WorkoutService workoutService;
     private DiaryService diaryService;
-    private final LongValidator validator;
+    private final NumberValidator validator;
     private final ValidatorDto<WorkoutCreateDto> createValidatorDto;
-    private final ValidatorDto<com.github.jon7even.core.domain.v1.dto.workout.WorkoutUpdateDto> updateValidatorDto;
+    private final ValidatorDto<WorkoutUpdateDto> updateValidatorDto;
 
     public WorkoutUserServlet() {
         this.objectMapper = new ObjectMapper();
         this.objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         this.objectMapper.registerModule(new JavaTimeModule());
-        this.validator = LongValidator.getInstance();
+        this.validator = NumberValidator.getInstance();
         this.createValidatorDto = WorkoutCreateValidatorDto.getInstance();
         this.updateValidatorDto = WorkoutUpdateValidatorDto.getInstance();
     }

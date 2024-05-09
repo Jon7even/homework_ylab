@@ -30,7 +30,7 @@ public class GroupPermissionsServiceImpl implements GroupPermissionsService {
     @Override
     public Boolean getPermissionForService(Long requesterId, Integer groupPermissionsId,
                                            Integer nameTypeServiceId, FlagPermissions flag) {
-        System.out.println("Начинаем определять разрешение для пользователя с requesterId= " + requesterId
+        System.out.println("Начинаем определять разрешение для пользователя с requesterId=" + requesterId
                 + " из группы groupPermissionsId=" + groupPermissionsId
                 + " и сервиса с nameTypeServiceId=" + nameTypeServiceId
                 + " с флагом разрешения flag=" + flag);

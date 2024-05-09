@@ -80,7 +80,7 @@ public class HistoryUserServiceImpl implements HistoryUserService {
     @Override
     public List<HistoryUserResponseByAdminDto> findAllHistoryByAdminIdSortByDeskDate(Long userId, Long requesterId) {
         System.out.println("requesterId=" + requesterId
-                + "хочет получить историю действий пользователя с userId=" + userId);
+                + " хочет получить историю действий пользователя с userId=" + userId);
         isExistUserOrThrowException(requesterId);
         isExistUserOrThrowException(userId);
         validationOfPermissions(requesterId, READ);

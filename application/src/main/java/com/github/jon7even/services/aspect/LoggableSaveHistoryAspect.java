@@ -363,7 +363,7 @@ public class LoggableSaveHistoryAspect {
     }
 
     /**
-     * Реализация проверки существования дневника ПОСЛЕ возвращения результата от сервиса
+     * Реализация метода проверки существования дневника ПОСЛЕ возвращения результата от сервиса
      */
     @AfterReturning(value = "isExistByUserId()", returning = "result")
     public void isExistByUserIdAfter(JoinPoint joinPoint, Object result) throws Throwable {
@@ -549,7 +549,7 @@ public class LoggableSaveHistoryAspect {
     }
 
     /**
-     * Реализация просмотра истории действий пользователей ПОСЛЕ возвращения результата от сервиса
+     * Реализация метода просмотра истории действий пользователей ПОСЛЕ возвращения результата от сервиса
      */
     @AfterReturning(value = "findAllHistoryByAdminIdSortByDeskDate()")
     public void findAllHistoryByAdminIdSortByDeskDateAfter(JoinPoint joinPoint) throws Throwable {
@@ -675,7 +675,7 @@ public class LoggableSaveHistoryAspect {
     }
 
     /**
-     * Реализация обновления существующей тренировки ПОСЛЕ возвращения результата от сервиса
+     * Реализация метода обновления существующей тренировки ПОСЛЕ возвращения результата от сервиса
      */
     @AfterReturning(value = "updateWorkout()", returning = "result")
     public void updateWorkoutAfter(JoinPoint joinPoint, Object result) throws Throwable {
@@ -719,7 +719,7 @@ public class LoggableSaveHistoryAspect {
     }
 
     /**
-     * Реализация удаления существующей тренировки ПОСЛЕ возвращения результата от сервиса
+     * Реализация метода удаления существующей тренировки ПОСЛЕ возвращения результата от сервиса
      */
     @AfterReturning(value = "deleteWorkoutByWorkoutIdAndOwnerId()")
     public void deleteWorkoutByWorkoutIdAndOwnerIdAfter(JoinPoint joinPoint) throws Throwable {
@@ -743,7 +743,7 @@ public class LoggableSaveHistoryAspect {
     }
 
     /**
-     * Реализация метода удаления существующей тренировки ДО возвращения результата от сервиса
+     * Реализация метода получения списка тренировок ДО возвращения результата от сервиса
      */
     @Before(value = "findAllWorkoutByOwnerDiaryBySortByDeskDate()")
     public void findAllWorkoutByOwnerDiaryBySortByDeskDateBefore(JoinPoint joinPoint) throws Throwable {
@@ -757,7 +757,7 @@ public class LoggableSaveHistoryAspect {
     }
 
     /**
-     * Реализация удаления существующей тренировки ПОСЛЕ возвращения результата от сервиса
+     * Реализация метода получения списка тренировок ПОСЛЕ возвращения результата от сервиса
      */
     @AfterReturning(value = "findAllWorkoutByOwnerDiaryBySortByDeskDate()")
     public void findAllWorkoutByOwnerDiaryBySortByDeskDateAfter(JoinPoint joinPoint) throws Throwable {

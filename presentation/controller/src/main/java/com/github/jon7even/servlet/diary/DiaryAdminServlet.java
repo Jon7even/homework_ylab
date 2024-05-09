@@ -12,7 +12,7 @@ import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.exception.model.ApiError;
 import com.github.jon7even.services.DiaryService;
 import com.github.jon7even.services.GroupPermissionsService;
-import com.github.jon7even.validator.impl.LongValidator;
+import com.github.jon7even.validator.impl.ParamValidator;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -42,7 +42,7 @@ import static com.github.jon7even.services.impl.DiaryServiceImpl.SERVICE_DIARY_I
 @WebServlet(PATH_URL_ADMIN + PATH_URL_DIARY)
 public class DiaryAdminServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
-    private final LongValidator validator;
+    private final ParamValidator validator;
     private DiaryService diaryService;
     private GroupPermissionsService groupPermissionsService;
 
@@ -50,7 +50,7 @@ public class DiaryAdminServlet extends HttpServlet {
         this.objectMapper = new ObjectMapper();
         this.objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         this.objectMapper.registerModule(new JavaTimeModule());
-        this.validator = LongValidator.getInstance();
+        this.validator = ParamValidator.getInstance();
     }
 
     @Override

@@ -6,12 +6,12 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class LongValidator implements Validator<String> {
-    private static LongValidator instance;
+public class ParamValidator implements Validator<String> {
+    private static ParamValidator instance;
 
-    public static LongValidator getInstance() {
+    public static ParamValidator getInstance() {
         if (instance == null) {
-            instance = new LongValidator();
+            instance = new ParamValidator();
         }
         return instance;
     }

@@ -4,9 +4,15 @@ import com.github.jon7even.core.domain.v1.dto.user.UserLogInAuthDto;
 import com.github.jon7even.core.domain.v1.exception.MethodArgumentNotValidException;
 import com.github.jon7even.validator.ValidatorDto;
 
+import static com.github.jon7even.validator.constants.NameOfFieldsForValidation.*;
+
 public class UserLogInAuthDtoValidatorDto implements ValidatorDto<UserLogInAuthDto> {
-    private final StringValidator stringValidator;
     private static UserLogInAuthDtoValidatorDto instance;
+    private final ObjectValidator objectValidator;
+
+    private UserLogInAuthDtoValidatorDto() {
+        this.objectValidator = ObjectValidator.getInstance();
+    }
 
     public static UserLogInAuthDtoValidatorDto getInstance() {
         if (instance == null) {
@@ -15,27 +21,19 @@ public class UserLogInAuthDtoValidatorDto implements ValidatorDto<UserLogInAuthD
         return instance;
     }
 
-    private UserLogInAuthDtoValidatorDto() {
-        this.stringValidator = StringValidator.getInstance();
-    }
-
     @Override
     public void validate(UserLogInAuthDto dto) {
-        if (dto == null) {
-            throw new MethodArgumentNotValidException("Object DTO", "не может быть пустым");
-        }
+        objectValidator.validate(dto, OBJECT_DTO);
 
-        stringValidator.validate(dto.getLogin(), "login");
-
+        objectValidator.validate(dto.getLogin(), LOGIN);
         if (dto.getLogin().length() < 3 || dto.getLogin().length() > 64) {
-            throw new MethodArgumentNotValidException("login",
+            throw new MethodArgumentNotValidException(LOGIN,
                     "количество символов в поле должно находиться в диапазоне от 3 до 64 символов");
         }
 
-        stringValidator.validate(dto.getPassword(), "password");
-
+        objectValidator.validate(dto.getPassword(), PASSWORD);
         if (dto.getPassword().length() < 4 || dto.getPassword().length() > 128) {
-            throw new MethodArgumentNotValidException("password",
+            throw new MethodArgumentNotValidException(PASSWORD,
                     "количество символов в поле должно находиться в диапазоне от 4 до 128 символов");
         }
     }
