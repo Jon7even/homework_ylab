@@ -13,8 +13,8 @@ import com.github.jon7even.core.domain.v1.exception.AlreadyExistException;
 import com.github.jon7even.core.domain.v1.exception.MethodArgumentNotValidException;
 import com.github.jon7even.core.domain.v1.exception.NotCreatedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
-import com.github.jon7even.core.domain.v1.exception.model.ApiError;
 import com.github.jon7even.services.DiaryService;
+import com.github.jon7even.servlet.handler.ErrorHandlerServlet;
 import com.github.jon7even.validator.ValidatorDto;
 import com.github.jon7even.validator.impl.DiaryCreateDtoValidatorDto;
 import com.github.jon7even.validator.impl.DiaryUpdateDtoValidatorDto;
@@ -26,7 +26,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_CONTENT_JSON;
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_ENCODING;
@@ -47,6 +46,7 @@ public class DiaryUserServlet extends HttpServlet {
     private final ValidatorDto<DiaryCreateDto> validatorDtoCreate;
     private final ValidatorDto<DiaryUpdateDto> validatorDtoUpdate;
     private DiaryService diaryService;
+    private final ErrorHandlerServlet errorHandlerServlet;
 
     public DiaryUserServlet() {
         this.objectMapper = new ObjectMapper();
@@ -54,6 +54,7 @@ public class DiaryUserServlet extends HttpServlet {
         this.objectMapper.registerModule(new JavaTimeModule());
         this.validatorDtoCreate = DiaryCreateDtoValidatorDto.getInstance();
         this.validatorDtoUpdate = DiaryUpdateDtoValidatorDto.getInstance();
+        this.errorHandlerServlet = ErrorHandlerServlet.getInstance();
     }
 
     @Override
@@ -74,15 +75,11 @@ public class DiaryUserServlet extends HttpServlet {
         if (userFromSession != null) {
             userId = userFromSession.getId();
         } else {
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("UNAUTHORIZED")
-                    .message("Вы не авторизованы")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            errorHandlerServlet.handleError(resp, "Пользователь не авторизовался",
+                    "UNAUTHORIZED",
+                    "Вы не авторизованы",
+                    HttpServletResponse.SC_UNAUTHORIZED
+            );
             return;
         }
         try {
@@ -93,28 +90,18 @@ public class DiaryUserServlet extends HttpServlet {
             resp.getWriter().write(objectMapper.writeValueAsString(diaryResponseDto));
             resp.setStatus(HttpServletResponse.SC_OK);
         } catch (NotFoundException e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("NOT_FOUND")
-                    .message("Такого дневника не существует")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "NOT_FOUND",
+                    "Дневника с таким ID не существует",
+                    HttpServletResponse.SC_NOT_FOUND
+            );
             return;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("INTERNAL_SERVER_ERROR")
-                    .message("Ошибка сервера")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "INTERNAL_SERVER_ERROR",
+                    "Ошибка сервера",
+                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            );
         }
     }
 
@@ -130,16 +117,11 @@ public class DiaryUserServlet extends HttpServlet {
             try {
                 diaryCreateDto = objectMapper.readValue(req.getReader(), DiaryCreateDto.class);
             } catch (JsonMappingException e) {
-                System.out.println(e.getMessage());
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("BAD_REQUEST")
-                        .message("Тело запроса не может быть пустым")
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                errorHandlerServlet.handleError(resp, e.getMessage(),
+                        "BAD_REQUEST",
+                        "Тело запроса не может быть пустым",
+                        HttpServletResponse.SC_BAD_REQUEST
+                );
                 return;
             }
 
@@ -148,30 +130,22 @@ public class DiaryUserServlet extends HttpServlet {
             if (userFromSession != null) {
                 diaryCreateDto.setUserId(userFromSession.getId());
             } else {
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("UNAUTHORIZED")
-                        .message("Вы не авторизованы")
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                errorHandlerServlet.handleError(resp, "Пользователь не авторизовался",
+                        "UNAUTHORIZED",
+                        "Вы не авторизованы",
+                        HttpServletResponse.SC_UNAUTHORIZED
+                );
                 return;
             }
 
             try {
                 validatorDtoCreate.validate(diaryCreateDto);
             } catch (MethodArgumentNotValidException e) {
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("BAD_REQUEST")
-                        .message(e.getMessage())
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                errorHandlerServlet.handleError(resp, e.getMessage(),
+                        "BAD_REQUEST",
+                        e.getMessage(),
+                        HttpServletResponse.SC_BAD_REQUEST
+                );
                 return;
             }
 
@@ -182,40 +156,25 @@ public class DiaryUserServlet extends HttpServlet {
             resp.getWriter().write(objectMapper.writeValueAsString(diaryResponseDto));
             resp.setStatus(HttpServletResponse.SC_CREATED);
         } catch (AlreadyExistException e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("CONFLICT")
-                    .message("Дневник уже существует")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_CONFLICT);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "CONFLICT",
+                    "Дневник уже существует",
+                    HttpServletResponse.SC_CONFLICT
+            );
             return;
         } catch (NotCreatedException e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("NOT_FOUND")
-                    .message("Такой пользователь не найден")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "NOT_FOUND",
+                    "Дневник уже существует",
+                    HttpServletResponse.SC_NOT_FOUND
+            );
             return;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("INTERNAL_SERVER_ERROR")
-                    .message("Ошибка сервера")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "INTERNAL_SERVER_ERROR",
+                    "Ошибка сервера",
+                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            );
         }
     }
 
@@ -230,16 +189,11 @@ public class DiaryUserServlet extends HttpServlet {
             try {
                 diaryUpdateDto = objectMapper.readValue(req.getReader(), DiaryUpdateDto.class);
             } catch (JsonMappingException e) {
-                System.out.println(e.getMessage());
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("BAD_REQUEST")
-                        .message("Тело запроса не может быть пустым")
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                errorHandlerServlet.handleError(resp, e.getMessage(),
+                        "BAD_REQUEST",
+                        "Тело запроса не может быть пустым",
+                        HttpServletResponse.SC_BAD_REQUEST
+                );
                 return;
             }
 
@@ -248,30 +202,22 @@ public class DiaryUserServlet extends HttpServlet {
             if (userFromSession != null) {
                 diaryUpdateDto.setUserId(userFromSession.getId());
             } else {
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("UNAUTHORIZED")
-                        .message("Вы не авторизованы")
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                errorHandlerServlet.handleError(resp, "Пользователь не авторизовался",
+                        "UNAUTHORIZED",
+                        "Вы не авторизованы",
+                        HttpServletResponse.SC_UNAUTHORIZED
+                );
                 return;
             }
 
             try {
                 validatorDtoUpdate.validate(diaryUpdateDto);
             } catch (MethodArgumentNotValidException e) {
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("BAD_REQUEST")
-                        .message(e.getMessage())
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                errorHandlerServlet.handleError(resp, e.getMessage(),
+                        "BAD_REQUEST",
+                        e.getMessage(),
+                        HttpServletResponse.SC_BAD_REQUEST
+                );
                 return;
             }
 
@@ -282,28 +228,18 @@ public class DiaryUserServlet extends HttpServlet {
             resp.getWriter().write(objectMapper.writeValueAsString(diaryResponseDto));
             resp.setStatus(HttpServletResponse.SC_OK);
         } catch (NotFoundException e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("NOT_FOUND")
-                    .message("Такого дневника не существует")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "NOT_FOUND",
+                    "Дневника с таким ID не существует",
+                    HttpServletResponse.SC_NOT_FOUND
+            );
             return;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("INTERNAL_SERVER_ERROR")
-                    .message("Ошибка сервера")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "INTERNAL_SERVER_ERROR",
+                    "Ошибка сервера",
+                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            );
         }
     }
 }

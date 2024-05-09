@@ -15,5 +15,5 @@ import java.time.format.DateTimeFormatter;
 public final class DataTimePattern {
     public static final String DATE_TIME_DEFAULT = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_TIME_IN = "dd-MM-yyyy HH:mm";
-    public static final DateTimeFormatter DATE_TIME_FORMATTER_IN = DateTimeFormatter.ofPattern(DATE_TIME_IN);
+    public static final DateTimeFormatter DEFAULT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_DEFAULT);
 }

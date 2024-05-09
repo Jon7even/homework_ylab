@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
-import com.github.jon7even.core.domain.v1.exception.model.ApiError;
 import com.github.jon7even.services.AuthorizationService;
+import com.github.jon7even.servlet.handler.ErrorHandlerServlet;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,10 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
-import static com.github.jon7even.constants.ControllerContent.DEFAULT_CONTENT_JSON;
-import static com.github.jon7even.constants.ControllerContent.DEFAULT_ENCODING;
 import static com.github.jon7even.constants.ControllerContext.AUTH_SERVICE;
 import static com.github.jon7even.constants.ControllerPath.PATH_URL_AUTH;
 import static com.github.jon7even.constants.ControllerPath.PATH_URL_SIGN_OUT;
@@ -34,11 +31,13 @@ import static com.github.jon7even.constants.ControllerPath.PATH_URL_SIGN_OUT;
 public class LogoutServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
     private AuthorizationService authService;
+    private final ErrorHandlerServlet errorHandlerServlet;
 
     public LogoutServlet() {
         this.objectMapper = new ObjectMapper();
         this.objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         this.objectMapper.registerModule(new JavaTimeModule());
+        this.errorHandlerServlet = ErrorHandlerServlet.getInstance();
     }
 
     @Override
@@ -61,15 +60,11 @@ public class LogoutServlet extends HttpServlet {
             authService.processLogOut(userFromSession);
             resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } else {
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("FORBIDDEN")
-                    .message("Вы не авторизованы")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            errorHandlerServlet.handleError(resp, "Пользователь пытается выйти, но уже не авторизован",
+                    "FORBIDDEN",
+                    "Вы не авторизованы",
+                    HttpServletResponse.SC_FORBIDDEN
+            );
         }
     }
 }

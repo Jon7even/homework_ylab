@@ -9,9 +9,9 @@ import com.github.jon7even.core.domain.v1.dto.user.UserLogInAuthDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
 import com.github.jon7even.core.domain.v1.exception.MethodArgumentNotValidException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
-import com.github.jon7even.core.domain.v1.exception.model.ApiError;
 import com.github.jon7even.services.AuthorizationService;
 import com.github.jon7even.services.UserService;
+import com.github.jon7even.servlet.handler.ErrorHandlerServlet;
 import com.github.jon7even.validator.ValidatorDto;
 import com.github.jon7even.validator.impl.UserLogInAuthDtoValidatorDto;
 import jakarta.servlet.ServletConfig;
@@ -22,7 +22,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_CONTENT_JSON;
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_ENCODING;
@@ -44,12 +43,14 @@ public class AuthorizationServlet extends HttpServlet {
     private final ValidatorDto<UserLogInAuthDto> validatorDto;
     private UserService userService;
     private AuthorizationService authService;
+    private final ErrorHandlerServlet errorHandlerServlet;
 
     public AuthorizationServlet() {
         this.objectMapper = new ObjectMapper();
         this.objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         this.objectMapper.registerModule(new JavaTimeModule());
         this.validatorDto = UserLogInAuthDtoValidatorDto.getInstance();
+        this.errorHandlerServlet = ErrorHandlerServlet.getInstance();
     }
 
     @Override
@@ -70,31 +71,22 @@ public class AuthorizationServlet extends HttpServlet {
             try {
                 userLogInAuthDto = objectMapper.readValue(req.getReader(), UserLogInAuthDto.class);
             } catch (JsonMappingException e) {
-                System.out.println(e.getMessage());
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("BAD_REQUEST")
-                        .message("Тело запроса не может быть пустым")
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                errorHandlerServlet.handleError(resp, e.getMessage(),
+                        "BAD_REQUEST",
+                        "Тело запроса не может быть пустым",
+                        HttpServletResponse.SC_BAD_REQUEST
+                );
                 return;
             }
 
             try {
                 validatorDto.validate(userLogInAuthDto);
             } catch (MethodArgumentNotValidException e) {
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("BAD_REQUEST")
-                        .message(e.getMessage())
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                errorHandlerServlet.handleError(resp, e.getMessage(),
+                        "BAD_REQUEST",
+                        e.getMessage(),
+                        HttpServletResponse.SC_BAD_REQUEST
+                );
                 return;
             }
 
@@ -107,39 +99,26 @@ public class AuthorizationServlet extends HttpServlet {
                 resp.getWriter().write(objectMapper.writeValueAsString(userLogInResponseDto));
                 resp.setStatus(HttpServletResponse.SC_OK);
             } else {
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("BAD_REQUEST")
-                        .message("Пароль указан неверно")
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                errorHandlerServlet.handleError(resp, "Пользователь указал неверный пароль",
+                        "BAD_REQUEST",
+                        "Пароль указан неверно",
+                        HttpServletResponse.SC_BAD_REQUEST
+                );
+                return;
             }
         } catch (NotFoundException e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("NOT_FOUND")
-                    .message("Такой пользователь не найден")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            errorHandlerServlet.handleError(resp, "Пользователь указал неверный логин",
+                    "NOT_FOUND",
+                    "Такой пользователь не найден",
+                    HttpServletResponse.SC_NOT_FOUND
+            );
             return;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("INTERNAL_SERVER_ERROR")
-                    .message("Ошибка сервера")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "INTERNAL_SERVER_ERROR",
+                    "Ошибка сервера",
+                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            );
         }
     }
 }

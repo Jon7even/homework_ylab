@@ -12,6 +12,7 @@ import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.exception.model.ApiError;
 import com.github.jon7even.services.DiaryService;
 import com.github.jon7even.services.GroupPermissionsService;
+import com.github.jon7even.servlet.handler.ErrorHandlerServlet;
 import com.github.jon7even.validator.impl.ParamValidator;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -45,12 +46,14 @@ public class DiaryAdminServlet extends HttpServlet {
     private final ParamValidator validator;
     private DiaryService diaryService;
     private GroupPermissionsService groupPermissionsService;
+    private final ErrorHandlerServlet errorHandlerServlet;
 
     public DiaryAdminServlet() {
         this.objectMapper = new ObjectMapper();
         this.objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         this.objectMapper.registerModule(new JavaTimeModule());
         this.validator = ParamValidator.getInstance();
+        this.errorHandlerServlet = ErrorHandlerServlet.getInstance();
     }
 
     @Override
@@ -89,15 +92,12 @@ public class DiaryAdminServlet extends HttpServlet {
                     requesterId, userFromSession.getIdGroupPermissions(), SERVICE_DIARY_ID, FlagPermissions.READ
             );
             if (!accessToAction) {
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("FORBIDDEN")
-                        .message("У вас нет доступа к этой операции")
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                errorHandlerServlet.handleError(resp,
+                        "Пользователь пытается совершить запрещенную ему операцию",
+                        "FORBIDDEN",
+                        "У вас нет доступа к этой операции",
+                        HttpServletResponse.SC_FORBIDDEN
+                );
                 return;
             }
 
@@ -106,15 +106,11 @@ public class DiaryAdminServlet extends HttpServlet {
             try {
                 validator.validate(userId, PARAM_USER_ID);
             } catch (MethodArgumentNotValidException e) {
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("BAD_REQUEST")
-                        .message(e.getMessage())
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                errorHandlerServlet.handleError(resp, e.getMessage(),
+                        "BAD_REQUEST",
+                        e.getMessage(),
+                        HttpServletResponse.SC_BAD_REQUEST
+                );
                 return;
             }
 
@@ -125,28 +121,18 @@ public class DiaryAdminServlet extends HttpServlet {
             resp.getWriter().write(objectMapper.writeValueAsString(diaryResponseDto));
             resp.setStatus(HttpServletResponse.SC_OK);
         } catch (NotFoundException e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("NOT_FOUND")
-                    .message("Такого дневника не существует")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "NOT_FOUND",
+                    "Дневника с таким ID не существует",
+                    HttpServletResponse.SC_NOT_FOUND
+            );
             return;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("INTERNAL_SERVER_ERROR")
-                    .message("Ошибка сервера")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "INTERNAL_SERVER_ERROR",
+                    "Ошибка сервера",
+                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            );
         }
     }
 }

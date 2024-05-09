@@ -14,9 +14,9 @@ import com.github.jon7even.core.domain.v1.exception.AccessDeniedException;
 import com.github.jon7even.core.domain.v1.exception.AlreadyExistException;
 import com.github.jon7even.core.domain.v1.exception.MethodArgumentNotValidException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
-import com.github.jon7even.core.domain.v1.exception.model.ApiError;
 import com.github.jon7even.services.DiaryService;
 import com.github.jon7even.services.WorkoutService;
+import com.github.jon7even.servlet.handler.ErrorHandlerServlet;
 import com.github.jon7even.validator.ValidatorDto;
 import com.github.jon7even.validator.impl.ParamValidator;
 import com.github.jon7even.validator.impl.WorkoutCreateValidatorDto;
@@ -29,7 +29,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_CONTENT_JSON;
@@ -56,6 +55,7 @@ public class WorkoutUserServlet extends HttpServlet {
     private final ParamValidator validator;
     private final ValidatorDto<WorkoutCreateDto> createValidatorDto;
     private final ValidatorDto<WorkoutUpdateDto> updateValidatorDto;
+    private final ErrorHandlerServlet errorHandlerServlet;
 
     public WorkoutUserServlet() {
         this.objectMapper = new ObjectMapper();
@@ -64,6 +64,7 @@ public class WorkoutUserServlet extends HttpServlet {
         this.validator = ParamValidator.getInstance();
         this.createValidatorDto = WorkoutCreateValidatorDto.getInstance();
         this.updateValidatorDto = WorkoutUpdateValidatorDto.getInstance();
+        this.errorHandlerServlet = ErrorHandlerServlet.getInstance();
     }
 
     @Override
@@ -87,15 +88,11 @@ public class WorkoutUserServlet extends HttpServlet {
         if (userFromSession != null) {
             idDiary = diaryService.getIdDiaryByUserId(userFromSession.getId());
         } else {
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("UNAUTHORIZED")
-                    .message("Вы не авторизованы")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            errorHandlerServlet.handleError(resp, "Пользователь не авторизовался",
+                    "UNAUTHORIZED",
+                    "Вы не авторизованы",
+                    HttpServletResponse.SC_UNAUTHORIZED
+            );
             return;
         }
 
@@ -114,15 +111,11 @@ public class WorkoutUserServlet extends HttpServlet {
                 try {
                     validator.validate(workoutId, PARAM_WORKOUT_ID);
                 } catch (MethodArgumentNotValidException e) {
-                    resp.setContentType(DEFAULT_CONTENT_JSON);
-                    resp.setCharacterEncoding(DEFAULT_ENCODING);
-                    ApiError error = ApiError.builder()
-                            .reason("BAD_REQUEST")
-                            .message(e.getMessage())
-                            .timestamp(LocalDateTime.now())
-                            .build();
-                    resp.getWriter().write(objectMapper.writeValueAsString(error));
-                    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    errorHandlerServlet.handleError(resp, e.getMessage(),
+                            "BAD_REQUEST",
+                            e.getMessage(),
+                            HttpServletResponse.SC_BAD_REQUEST
+                    );
                     return;
                 }
 
@@ -134,30 +127,20 @@ public class WorkoutUserServlet extends HttpServlet {
                     resp.getWriter().write(objectMapper.writeValueAsString(workoutResponseDto));
                     resp.setStatus(HttpServletResponse.SC_OK);
                 } catch (NotFoundException e) {
-                    System.out.println(e.getMessage());
-                    resp.setContentType(DEFAULT_CONTENT_JSON);
-                    resp.setCharacterEncoding(DEFAULT_ENCODING);
-                    ApiError error = ApiError.builder()
-                            .reason("NOT_FOUND")
-                            .message("Тренировки с таким ID не существует")
-                            .timestamp(LocalDateTime.now())
-                            .build();
-                    resp.getWriter().write(objectMapper.writeValueAsString(error));
-                    resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    errorHandlerServlet.handleError(resp, e.getMessage(),
+                            "NOT_FOUND",
+                            "Тренировки с таким ID не существует",
+                            HttpServletResponse.SC_NOT_FOUND
+                    );
                     return;
                 }
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("INTERNAL_SERVER_ERROR")
-                    .message("Ошибка сервера")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "INTERNAL_SERVER_ERROR",
+                    "Ошибка сервера",
+                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            );
         }
     }
 
@@ -173,16 +156,11 @@ public class WorkoutUserServlet extends HttpServlet {
             try {
                 workoutCreateDto = objectMapper.readValue(req.getReader(), WorkoutCreateDto.class);
             } catch (JsonMappingException e) {
-                System.out.println(e.getMessage());
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("BAD_REQUEST")
-                        .message("Тело запроса не может быть пустым")
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                errorHandlerServlet.handleError(resp, e.getMessage(),
+                        "BAD_REQUEST",
+                        "Тело запроса не может быть пустым",
+                        HttpServletResponse.SC_BAD_REQUEST
+                );
                 return;
             }
 
@@ -192,32 +170,25 @@ public class WorkoutUserServlet extends HttpServlet {
                 Long idDiary = diaryService.getIdDiaryByUserId(userFromSession.getId());
                 workoutCreateDto.setIdDiary(idDiary);
             } else {
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("UNAUTHORIZED")
-                        .message("Вы не авторизованы")
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                errorHandlerServlet.handleError(resp, "Пользователь не авторизовался",
+                        "UNAUTHORIZED",
+                        "Вы не авторизованы",
+                        HttpServletResponse.SC_UNAUTHORIZED
+                );
                 return;
             }
 
             try {
                 createValidatorDto.validate(workoutCreateDto);
             } catch (MethodArgumentNotValidException e) {
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("BAD_REQUEST")
-                        .message(e.getMessage())
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                errorHandlerServlet.handleError(resp, e.getMessage(),
+                        "BAD_REQUEST",
+                        e.getMessage(),
+                        HttpServletResponse.SC_BAD_REQUEST
+                );
                 return;
             }
+
             WorkoutFullResponseDto workoutFullResponseDto = workoutService.saveWorkout(workoutCreateDto);
 
             resp.setContentType(DEFAULT_CONTENT_JSON);
@@ -225,28 +196,18 @@ public class WorkoutUserServlet extends HttpServlet {
             resp.getWriter().write(objectMapper.writeValueAsString(workoutFullResponseDto));
             resp.setStatus(HttpServletResponse.SC_CREATED);
         } catch (AlreadyExistException e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("CONFLICT")
-                    .message("Тренировка с таким типом уже внесена в этот день")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_CONFLICT);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "CONFLICT",
+                    "Тренировка с таким типом уже внесена в этот день",
+                    HttpServletResponse.SC_CONFLICT
+            );
             return;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("INTERNAL_SERVER_ERROR")
-                    .message("Ошибка сервера")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "INTERNAL_SERVER_ERROR",
+                    "Ошибка сервера",
+                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            );
         }
     }
 
@@ -261,16 +222,11 @@ public class WorkoutUserServlet extends HttpServlet {
             try {
                 workoutUpdateDto = objectMapper.readValue(req.getReader(), WorkoutUpdateDto.class);
             } catch (JsonMappingException e) {
-                System.out.println(e.getMessage());
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("BAD_REQUEST")
-                        .message("Тело запроса не может быть пустым")
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                errorHandlerServlet.handleError(resp, e.getMessage(),
+                        "BAD_REQUEST",
+                        "Тело запроса не может быть пустым",
+                        HttpServletResponse.SC_BAD_REQUEST
+                );
                 return;
             }
 
@@ -280,30 +236,22 @@ public class WorkoutUserServlet extends HttpServlet {
                 Long idDiary = diaryService.getIdDiaryByUserId(userFromSession.getId());
                 workoutUpdateDto.setIdDiary(idDiary);
             } else {
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("UNAUTHORIZED")
-                        .message("Вы не авторизованы")
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                errorHandlerServlet.handleError(resp, "Пользователь не авторизовался",
+                        "UNAUTHORIZED",
+                        "Вы не авторизованы",
+                        HttpServletResponse.SC_UNAUTHORIZED
+                );
                 return;
             }
 
             try {
                 updateValidatorDto.validate(workoutUpdateDto);
             } catch (MethodArgumentNotValidException e) {
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("BAD_REQUEST")
-                        .message(e.getMessage())
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                errorHandlerServlet.handleError(resp, e.getMessage(),
+                        "BAD_REQUEST",
+                        e.getMessage(),
+                        HttpServletResponse.SC_BAD_REQUEST
+                );
                 return;
             }
 
@@ -314,28 +262,18 @@ public class WorkoutUserServlet extends HttpServlet {
             resp.getWriter().write(objectMapper.writeValueAsString(workoutFullResponseDto));
             resp.setStatus(HttpServletResponse.SC_OK);
         } catch (NotFoundException e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("NOT_FOUND")
-                    .message("Такой тренировки не существует")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "NOT_FOUND",
+                    "Тренировки с таким ID не существует",
+                    HttpServletResponse.SC_NOT_FOUND
+            );
             return;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("INTERNAL_SERVER_ERROR")
-                    .message("Ошибка сервера")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "INTERNAL_SERVER_ERROR",
+                    "Ошибка сервера",
+                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            );
         }
     }
 
@@ -351,15 +289,11 @@ public class WorkoutUserServlet extends HttpServlet {
         if (userFromSession != null) {
             requesterId = userFromSession.getId();
         } else {
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("UNAUTHORIZED")
-                    .message("Вы не авторизованы")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            errorHandlerServlet.handleError(resp, "Пользователь не авторизовался",
+                    "UNAUTHORIZED",
+                    "Вы не авторизованы",
+                    HttpServletResponse.SC_UNAUTHORIZED
+            );
             return;
         }
 
@@ -369,55 +303,36 @@ public class WorkoutUserServlet extends HttpServlet {
             try {
                 validator.validate(workoutId, PARAM_USER_ID);
             } catch (MethodArgumentNotValidException e) {
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("BAD_REQUEST")
-                        .message(e.getMessage())
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                errorHandlerServlet.handleError(resp, e.getMessage(),
+                        "BAD_REQUEST",
+                        e.getMessage(),
+                        HttpServletResponse.SC_BAD_REQUEST
+                );
                 return;
             }
 
             workoutService.deleteWorkoutByWorkoutIdAndOwnerId(Long.valueOf(workoutId), requesterId);
             resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } catch (NotFoundException e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("NOT_FOUND")
-                    .message("Такой тренировки не существует")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "NOT_FOUND",
+                    "Тренировки с таким ID не существует",
+                    HttpServletResponse.SC_NOT_FOUND
+            );
             return;
         } catch (AccessDeniedException e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("FORBIDDEN")
-                    .message("Вы не являетесь владельцем этой тренировки")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "FORBIDDEN",
+                    "Вы не являетесь владельцем этой тренировки",
+                    HttpServletResponse.SC_FORBIDDEN
+            );
             return;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("INTERNAL_SERVER_ERROR")
-                    .message("Ошибка сервера")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "INTERNAL_SERVER_ERROR",
+                    "Ошибка сервера",
+                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            );
         }
     }
 }

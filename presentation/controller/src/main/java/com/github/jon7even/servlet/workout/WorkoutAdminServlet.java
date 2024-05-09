@@ -9,8 +9,8 @@ import com.github.jon7even.core.domain.v1.dto.workout.WorkoutShortResponseDto;
 import com.github.jon7even.core.domain.v1.exception.AccessDeniedException;
 import com.github.jon7even.core.domain.v1.exception.MethodArgumentNotValidException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
-import com.github.jon7even.core.domain.v1.exception.model.ApiError;
 import com.github.jon7even.services.WorkoutService;
+import com.github.jon7even.servlet.handler.ErrorHandlerServlet;
 import com.github.jon7even.validator.impl.ParamValidator;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -20,7 +20,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.github.jon7even.constants.ControllerContent.DEFAULT_CONTENT_JSON;
@@ -42,12 +41,14 @@ public class WorkoutAdminServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
     private final ParamValidator validator;
     private WorkoutService workoutService;
+    private final ErrorHandlerServlet errorHandlerServlet;
 
     public WorkoutAdminServlet() {
         this.objectMapper = new ObjectMapper();
         this.objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         this.objectMapper.registerModule(new JavaTimeModule());
         this.validator = ParamValidator.getInstance();
+        this.errorHandlerServlet = ErrorHandlerServlet.getInstance();
     }
 
     @Override
@@ -69,15 +70,11 @@ public class WorkoutAdminServlet extends HttpServlet {
         if (userFromSession != null) {
             requesterId = userFromSession.getId();
         } else {
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("UNAUTHORIZED")
-                    .message("Вы не авторизованы")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            errorHandlerServlet.handleError(resp, "Пользователь не авторизовался",
+                    "UNAUTHORIZED",
+                    "Вы не авторизованы",
+                    HttpServletResponse.SC_UNAUTHORIZED
+            );
             return;
         }
         try {
@@ -86,15 +83,11 @@ public class WorkoutAdminServlet extends HttpServlet {
             try {
                 validator.validate(userId, PARAM_USER_ID);
             } catch (MethodArgumentNotValidException e) {
-                resp.setContentType(DEFAULT_CONTENT_JSON);
-                resp.setCharacterEncoding(DEFAULT_ENCODING);
-                ApiError error = ApiError.builder()
-                        .reason("BAD_REQUEST")
-                        .message(e.getMessage())
-                        .timestamp(LocalDateTime.now())
-                        .build();
-                resp.getWriter().write(objectMapper.writeValueAsString(error));
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                errorHandlerServlet.handleError(resp, e.getMessage(),
+                        "BAD_REQUEST",
+                        e.getMessage(),
+                        HttpServletResponse.SC_BAD_REQUEST
+                );
                 return;
             }
 
@@ -106,40 +99,25 @@ public class WorkoutAdminServlet extends HttpServlet {
             resp.getWriter().write(objectMapper.writeValueAsString(workoutShortResponseDtoList));
             resp.setStatus(HttpServletResponse.SC_OK);
         } catch (NotFoundException e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("NOT_FOUND")
-                    .message("Такого пользователя не существует")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "NOT_FOUND",
+                    "Такого пользователя не существует",
+                    HttpServletResponse.SC_NOT_FOUND
+            );
             return;
         } catch (AccessDeniedException e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("FORBIDDEN")
-                    .message("У вас нет доступа к этой операции")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "FORBIDDEN",
+                    "У вас нет доступа к этой операции",
+                    HttpServletResponse.SC_FORBIDDEN
+            );
             return;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            resp.setContentType(DEFAULT_CONTENT_JSON);
-            resp.setCharacterEncoding(DEFAULT_ENCODING);
-            ApiError error = ApiError.builder()
-                    .reason("INTERNAL_SERVER_ERROR")
-                    .message("Ошибка сервера")
-                    .timestamp(LocalDateTime.now())
-                    .build();
-            resp.getWriter().write(objectMapper.writeValueAsString(error));
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            errorHandlerServlet.handleError(resp, e.getMessage(),
+                    "INTERNAL_SERVER_ERROR",
+                    "Ошибка сервера",
+                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR
+            );
         }
     }
 }
