@@ -2,12 +2,14 @@ package com.github.jon7even.validator.impl;
 
 import com.github.jon7even.core.domain.v1.exception.MethodArgumentNotValidException;
 import com.github.jon7even.validator.Validator;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ParamValidator implements Validator<String> {
+public class ParamValidator implements Validator<Object> {
     private static ParamValidator instance;
+    private final NumberValidator numberValidator;
+
+    private ParamValidator() {
+        this.numberValidator = NumberValidator.getInstance();
+    }
 
     public static ParamValidator getInstance() {
         if (instance == null) {
@@ -17,20 +19,10 @@ public class ParamValidator implements Validator<String> {
     }
 
     @Override
-    public void validate(String obj, String name) {
-        if (obj == null || obj.isBlank()) {
-            throw new MethodArgumentNotValidException(name, "не может быть пустым");
-        }
-        long id;
+    public void validate(Object number, String name) {
+        numberValidator.validate(number, name);
 
-        try {
-            id = Long.parseLong(obj);
-        } catch (NumberFormatException e) {
-            System.out.println(e.getMessage());
-            throw new MethodArgumentNotValidException(name, "должен быть числом");
-        }
-
-        if (id < 1) {
+        if (Long.parseLong(String.valueOf(number)) < 1) {
             throw new MethodArgumentNotValidException(name, "должен быть положительным");
         }
     }

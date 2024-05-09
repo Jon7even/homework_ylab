@@ -11,7 +11,7 @@ import com.github.jon7even.core.domain.v1.exception.MethodArgumentNotValidExcept
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.core.domain.v1.exception.model.ApiError;
 import com.github.jon7even.services.WorkoutService;
-import com.github.jon7even.validator.impl.NumberValidator;
+import com.github.jon7even.validator.impl.ParamValidator;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -40,14 +40,14 @@ import static com.github.jon7even.constants.ControllerPath.PATH_URL_WORKOUT;
 @WebServlet(PATH_URL_ADMIN + PATH_URL_WORKOUT)
 public class WorkoutAdminServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
-    private final NumberValidator validator;
+    private final ParamValidator validator;
     private WorkoutService workoutService;
 
     public WorkoutAdminServlet() {
         this.objectMapper = new ObjectMapper();
         this.objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         this.objectMapper.registerModule(new JavaTimeModule());
-        this.validator = NumberValidator.getInstance();
+        this.validator = ParamValidator.getInstance();
     }
 
     @Override

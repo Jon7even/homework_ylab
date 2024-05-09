@@ -4,7 +4,6 @@ import com.github.jon7even.core.domain.v1.exception.MethodArgumentNotValidExcept
 import com.github.jon7even.validator.Validator;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.apache.maven.shared.utils.StringUtils;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ObjectValidator implements Validator<Object> {
@@ -19,15 +18,8 @@ public class ObjectValidator implements Validator<Object> {
 
     @Override
     public void validate(Object obj, String name) {
-        if (obj == null) {
+        if (obj == null || obj instanceof String str && str.isBlank()) {
             throw new MethodArgumentNotValidException(name, "не может быть пустым");
-        }
-
-        if (obj instanceof String) {
-            String objString = (String) obj;
-            if (StringUtils.isBlank(objString)) {
-                throw new MethodArgumentNotValidException(name, "не может быть пустым");
-            }
         }
     }
 }

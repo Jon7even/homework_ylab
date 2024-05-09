@@ -15,6 +15,8 @@ public final class NameOfFieldsForValidation {
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
     public static final String TYPE_WORKOUT_ID = "idTypeWorkout";
+    public static final String TIME_START = "timeStartOn";
+    public static final String TIME_END = "timeEndOn";
     public static final String TIME_OF_REST = "timeOfRest";
     public static final String CALORIE_PER_HOUR = "caloriePerHour";
     public static final String DETAIL_OF_TYPE_ID = "detailOfTypeId";
@@ -26,5 +28,4 @@ public final class NameOfFieldsForValidation {
     public static final String CURRENT_WEIGHT = "currentWeightUser";
     public static final String PERSONAL_NOTE = "personalNote";
     public static final String DETAIL_OF_WORKOUT = "detailOfWorkout";
-
 }

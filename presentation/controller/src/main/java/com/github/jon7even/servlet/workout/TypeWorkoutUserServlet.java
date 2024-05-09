@@ -89,7 +89,7 @@ public class TypeWorkoutUserServlet extends HttpServlet {
                 resp.setStatus(HttpServletResponse.SC_OK);
             } else {
                 String typeWorkoutId = req.getParameter(PARAM_TYPE_WORKOUT_ID);
-
+                System.out.println(typeWorkoutId);
                 try {
                     validator.validate(typeWorkoutId, PARAM_TYPE_WORKOUT_ID);
                 } catch (MethodArgumentNotValidException e) {

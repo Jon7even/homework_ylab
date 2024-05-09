@@ -23,29 +23,14 @@ public class NumberValidator implements Validator<Object> {
     public void validate(Object number, String name) {
         objectValidator.validate(number, name);
 
-        if (!NumberUtils.isCreatable(number.toString())) {
+        if (!NumberUtils.isCreatable(String.valueOf(number))) {
             throw new MethodArgumentNotValidException(name, "должен быть числом");
         }
 
-        if (number instanceof Long) {
-            Long numberLong = (Long) number;
-            if (numberLong < 1L) {
-                throw new MethodArgumentNotValidException(name, "должен быть положительным");
-            }
-        }
-
-        if (number instanceof Float) {
-            Float numberFloat = (Float) number;
-            if (numberFloat < 1.0f) {
-                throw new MethodArgumentNotValidException(name, "должен быть положительным");
-            }
-        }
-
-        if (number instanceof Integer) {
-            Integer numberInteger = (Integer) number;
-            if (numberInteger < 1) {
-                throw new MethodArgumentNotValidException(name, "должен быть положительным");
-            }
+        if (number instanceof Long ln && ln < 1L
+                || number instanceof Float fl && fl < 1.0f
+                || number instanceof Integer inr && inr < 1) {
+            throw new MethodArgumentNotValidException(name, "должен быть положительным");
         }
     }
 }
