@@ -61,9 +61,7 @@ public class WorkoutServiceImpl implements WorkoutService {
                 workoutCreateDto.getIdTypeWorkout(), workoutCreateDto.getTimeStartOn().toLocalDate()
         );
         Duration timeOfRest = Duration.ofMinutes(workoutCreateDto.getTimeOfRest());
-        WorkoutEntity workoutEntityForSaveInRepository = workoutMapper.toWorkoutEntityFromDtoCreate(
-                workoutCreateDto, timeOfRest
-        );
+        WorkoutEntity workoutEntityForSaveInRepository = workoutMapper.toWorkoutEntityFromDtoCreate(workoutCreateDto);
         System.out.println("Тренировка для сохранения собрана: " + workoutEntityForSaveInRepository);
 
         WorkoutEntity createdWorkout = workoutRepository.createWorkout(workoutEntityForSaveInRepository)
@@ -104,7 +102,7 @@ public class WorkoutServiceImpl implements WorkoutService {
         WorkoutEntity workoutEntityForUpdate = getWorkoutEntityById(workoutUpdateDto.getId());
         LocalDate localDateOldWorkout = workoutEntityForUpdate.getTimeStartOn().toLocalDate();
         Duration timeOfRest = Duration.ofMinutes(workoutUpdateDto.getTimeOfRest());
-        workoutMapper.updateWorkoutEntityFromDtoUpdate(workoutEntityForUpdate, workoutUpdateDto, timeOfRest);
+        workoutMapper.updateWorkoutEntityFromDtoUpdate(workoutEntityForUpdate, workoutUpdateDto);
 
         if (!localDateOldWorkout.equals(workoutEntityForUpdate.getTimeStartOn().toLocalDate())) {
             validateWorkoutByTypeToday(

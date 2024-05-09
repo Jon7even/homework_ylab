@@ -37,6 +37,6 @@ public class ServiceCalculationOfStatsImpl implements ServiceCalculationOfStats 
         System.out.println("Начинаю расчет количества минут тренировки:" + workoutFullResponseDto);
         long timeOfWorkout = Duration.between(workoutFullResponseDto.getTimeStartOn(),
                 workoutFullResponseDto.getTimeEndOn()).toMinutes();
-        return Math.toIntExact(timeOfWorkout - workoutFullResponseDto.getTimeOfRest().toMinutes());
+        return Math.toIntExact(timeOfWorkout - workoutFullResponseDto.getTimeOfRest());
     }
 }

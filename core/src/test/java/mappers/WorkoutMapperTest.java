@@ -9,8 +9,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import setup.PreparationForTests;
 
-import java.time.Duration;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class WorkoutMapperTest extends PreparationForTests {
@@ -25,9 +23,7 @@ public class WorkoutMapperTest extends PreparationForTests {
     @Test
     @DisplayName("Маппинг из DTO в сущность для сохранения новой тренировки")
     public void should_toWorkoutEntityFromDtoCreate_ReturnEntityNotId() {
-        WorkoutEntity actualResultFirst = workoutMapper.toWorkoutEntityFromDtoCreate(
-                workoutCreateDtoFirst, Duration.ofMinutes(workoutCreateDtoFirst.getTimeOfRest())
-        );
+        WorkoutEntity actualResultFirst = workoutMapper.toWorkoutEntityFromDtoCreate(workoutCreateDtoFirst);
 
         assertThat(actualResultFirst)
                 .isNotNull();
@@ -59,9 +55,7 @@ public class WorkoutMapperTest extends PreparationForTests {
                 .isNotNull()
                 .isEqualTo(workoutEntityFirst.getDetailOfWorkout());
 
-        WorkoutEntity actualResultSecond = workoutMapper.toWorkoutEntityFromDtoCreate(
-                workoutCreateDtoSecond, Duration.ofMinutes(workoutCreateDtoSecond.getTimeOfRest())
-        );
+        WorkoutEntity actualResultSecond = workoutMapper.toWorkoutEntityFromDtoCreate(workoutCreateDtoSecond);
 
         assertThat(actualResultSecond)
                 .isNotNull();
@@ -93,9 +87,7 @@ public class WorkoutMapperTest extends PreparationForTests {
                 .isNotNull()
                 .isEqualTo(workoutEntitySecond.getDetailOfWorkout());
 
-        WorkoutEntity actualResultThird = workoutMapper.toWorkoutEntityFromDtoCreate(
-                workoutCreateDtoThird, Duration.ofMinutes(workoutCreateDtoThird.getTimeOfRest())
-        );
+        WorkoutEntity actualResultThird = workoutMapper.toWorkoutEntityFromDtoCreate(workoutCreateDtoThird);
 
         assertThat(actualResultThird)
                 .isNotNull();

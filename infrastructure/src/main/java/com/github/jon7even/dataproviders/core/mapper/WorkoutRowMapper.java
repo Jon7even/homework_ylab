@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Duration;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -29,7 +28,7 @@ public class WorkoutRowMapper implements RowMapper<WorkoutEntity> {
                 .idTypeWorkout(rs.getLong("type_workout_id"))
                 .timeStartOn(rs.getObject("start_on", LocalDateTime.class))
                 .timeEndOn(rs.getObject("end_on", LocalDateTime.class))
-                .timeOfRest(Duration.ofMinutes(rs.getLong("time_rest")))
+                .timeOfRest(rs.getLong("time_rest"))
                 .currentWeightUser(rs.getFloat("weight"))
                 .personalNote(rs.getString("note"))
                 .detailOfWorkout(rs.getString("detail"))

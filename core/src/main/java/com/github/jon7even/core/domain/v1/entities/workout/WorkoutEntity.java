@@ -20,7 +20,7 @@ public class WorkoutEntity {
     private Long idTypeWorkout;
     private LocalDateTime timeStartOn;
     private LocalDateTime timeEndOn;
-    private Duration timeOfRest;
+    private Long timeOfRest;
     private Float currentWeightUser;
     private String personalNote;
     private String detailOfWorkout;

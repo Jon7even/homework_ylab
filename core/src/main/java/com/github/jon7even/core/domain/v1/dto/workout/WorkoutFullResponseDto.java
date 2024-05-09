@@ -35,7 +35,7 @@ public class WorkoutFullResponseDto {
     @JsonFormat(pattern = DATE_TIME_DEFAULT)
     private LocalDateTime timeEndOn;
 
-    private Duration timeOfRest;
+    private Long timeOfRest;
 
     private Float currentWeightUser;
 

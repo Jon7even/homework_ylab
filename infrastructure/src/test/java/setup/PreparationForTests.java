@@ -24,7 +24,6 @@ import com.github.jon7even.core.domain.v1.entities.workout.DiaryEntity;
 import com.github.jon7even.core.domain.v1.entities.workout.TypeWorkoutEntity;
 import com.github.jon7even.core.domain.v1.entities.workout.WorkoutEntity;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -358,9 +357,9 @@ public class PreparationForTests {
     protected LocalDateTime timeUpdateFirst;
     protected LocalDateTime timeUpdateSecond;
     protected LocalDateTime timeUpdateThird;
-    protected Duration periodOne;
-    protected Duration periodSecond;
-    protected Duration periodThird;
+    protected Long periodOne;
+    protected Long periodSecond;
+    protected Long periodThird;
 
     protected void initLocalDateTime() {
         timeStartFirst = LocalDateTime.of(2024, 4, 14, 10, 0);
@@ -369,9 +368,9 @@ public class PreparationForTests {
         timeEndSecond = LocalDateTime.of(2024, 4, 15, 17, 57);
         timeStartThird = LocalDateTime.of(2024, 4, 16, 17, 17);
         timeEndThird = LocalDateTime.of(2024, 4, 16, 20, 7);
-        periodOne = Duration.ofMinutes(20L);
-        periodSecond = Duration.ofMinutes(37L);
-        periodThird = Duration.ofMinutes(47L);
+        periodOne = 20L;
+        periodSecond = 37L;
+        periodThird = 47L;
         timeUpdateFirst = timeStartFirst.plusDays(1);
         timeUpdateSecond = timeStartSecond.plusDays(1);
         timeUpdateThird = timeStartThird.plusDays(1);
@@ -884,7 +883,7 @@ public class PreparationForTests {
                 .idTypeWorkout(workoutEntityFirst.getIdTypeWorkout())
                 .timeStartOn(workoutEntityFirst.getTimeStartOn())
                 .timeEndOn(workoutEntityFirst.getTimeEndOn())
-                .timeOfRest(workoutEntityFirst.getTimeOfRest().toMinutes())
+                .timeOfRest(workoutEntityFirst.getTimeOfRest())
                 .currentWeightUser(workoutEntityFirst.getCurrentWeightUser())
                 .personalNote(workoutEntityFirst.getPersonalNote())
                 .detailOfWorkout(workoutEntityFirst.getDetailOfWorkout())
@@ -894,7 +893,7 @@ public class PreparationForTests {
                 .idTypeWorkout(workoutEntitySecond.getIdTypeWorkout())
                 .timeStartOn(workoutEntitySecond.getTimeStartOn())
                 .timeEndOn(workoutEntitySecond.getTimeEndOn())
-                .timeOfRest(workoutEntitySecond.getTimeOfRest().toMinutes())
+                .timeOfRest(workoutEntitySecond.getTimeOfRest())
                 .currentWeightUser(workoutEntitySecond.getCurrentWeightUser())
                 .personalNote(workoutEntitySecond.getPersonalNote())
                 .detailOfWorkout(workoutEntitySecond.getDetailOfWorkout())
@@ -904,7 +903,7 @@ public class PreparationForTests {
                 .idTypeWorkout(workoutEntityThird.getIdTypeWorkout())
                 .timeStartOn(workoutEntityThird.getTimeStartOn())
                 .timeEndOn(workoutEntityThird.getTimeEndOn())
-                .timeOfRest(workoutEntityThird.getTimeOfRest().toMinutes())
+                .timeOfRest(workoutEntityThird.getTimeOfRest())
                 .currentWeightUser(workoutEntityThird.getCurrentWeightUser())
                 .personalNote(workoutEntityThird.getPersonalNote())
                 .detailOfWorkout(workoutEntityThird.getDetailOfWorkout())
