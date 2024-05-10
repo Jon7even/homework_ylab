@@ -5916,476 +5916,2807 @@
 					"name": "user",
 					"item": [
 						{
-							"name": "Create Workout First",
-							"event": [
+							"name": "create",
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 201\", function () {\r",
-											"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
-											"});\r",
-											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
-											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
-											"});\r",
-											"pm.test(\"Has Workout response\", function () {\r",
-											"    pm.response.to.be.withBody;\r",
-											"    pm.response.to.be.json;\r",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/user/workout",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"user",
-										"workout"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Create Workout Second",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 201\", function () {\r",
-											"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
-											"});\r",
-											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
-											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
-											"});\r",
-											"pm.test(\"Has Workout response\", function () {\r",
-											"    pm.response.to.be.withBody;\r",
-											"    pm.response.to.be.json;\r",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 5,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя вторая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/user/workout",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"user",
-										"workout"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Update Workout Second",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
-											"});\r",
-											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
-											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
-											"});\r",
-											"pm.test(\"Has Workout response\", function () {\r",
-											"    pm.response.to.be.withBody;\r",
-											"    pm.response.to.be.json;\r",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": 1,\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 2,\r\n  \"timeStartOn\": \"07-05-2024 13:00\",\r\n  \"timeEndOn\": \"07-05-2024 17:00\",\r\n  \"timeOfRest\": 21,\r\n  \"currentWeightUser\": 81.5,\r\n  \"personalNote\": \"Моя первая обновленная тренировка\",\r\n  \"detailOfWorkout\": \"2 км\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/user/workout",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"user",
-										"workout"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get Workout Second",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
-											"});\r",
-											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
-											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
-											"});\r",
-											"pm.test(\"Has audit response\", function () {\r",
-											"    pm.response.to.be.withBody;\r",
-											"    pm.response.to.be.json;\r",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/user/workout?workoutId=2",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"user",
-										"workout"
-									],
-									"query": [
+									"name": "validation",
+									"item": [
 										{
-											"key": "workoutId",
-											"value": "2"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get All Workouts",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
-											"});\r",
-											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
-											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
-											"});\r",
-											"pm.test(\"Has audit response\", function () {\r",
-											"    pm.response.to.be.withBody;\r",
-											"    pm.response.to.be.json;\r",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/user/workout",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"user",
-										"workout"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete Workout Second",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 204\", function () {\r",
-											"    pm.expect(pm.response.code).to.be.oneOf([204]);\r",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/user/workout?workoutId=2",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"user",
-										"workout"
-									],
-									"query": [
+											"name": "Create Workout Fail IdTypeWorkout Positive",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[idTypeWorkout] not validated, reason: [должен быть положительным]\"').to.eql('[idTypeWorkout] not validated, reason: [должен быть положительным]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 0,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
 										{
-											"key": "workoutId",
-											"value": "2"
+											"name": "Create Workout Fail IdTypeWorkout Not Null",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[idTypeWorkout] not validated, reason: [не может быть пустым]\"').to.eql('[idTypeWorkout] not validated, reason: [не может быть пустым]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"idDiary\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Workout Fail timeStartOn Not Null",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[Object DTO] not validated, reason: [не может быть пустым]\"').to.eql('[Object DTO] not validated, reason: [не может быть пустым]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Workout Fail timeStartOn Future",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[timeStartOn] not validated, reason: [не может быть в будущем]\"').to.eql('[timeStartOn] not validated, reason: [не может быть в будущем]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2037 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Workout Fail timeEndOn Not Null",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[Object DTO] not validated, reason: [не может быть пустым]\"').to.eql('[Object DTO] not validated, reason: [не может быть пустым]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Workout Fail timeEndOn After Start",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[timeEndOn] not validated, reason: [не может быть раньше начала тренировки]\"').to.eql('[timeEndOn] not validated, reason: [не может быть раньше начала тренировки]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n    \"timeEndOn\": \"07-05-2024 11:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Workout Fail timeEndOn  Before Start Day",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[timeEndOn] not validated, reason: [не может быть указано следующим днем]\"').to.eql('[timeEndOn] not validated, reason: [не может быть указано следующим днем]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n    \"timeEndOn\": \"08-05-2024 11:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Workout Fail timeOfRest Not Null",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[timeOfRest] not validated, reason: [не может быть пустым]\"').to.eql('[timeOfRest] not validated, reason: [не может быть пустым]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": \"\",\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Workout Fail timeOfRest Positive",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[timeOfRest] not validated, reason: [должен быть положительным]\"').to.eql('[timeOfRest] not validated, reason: [должен быть положительным]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": \"-1\",\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Workout Fail timeOfRest More Workout",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[timeOfRest] not validated, reason: [не может быть больше чем сама тренировка]\"').to.eql('[timeOfRest] not validated, reason: [не может быть больше чем сама тренировка]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": \"400\",\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Workout Fail currentWeightUser Not Null",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[currentWeightUser] not validated, reason: [не может быть пустым]\"').to.eql('[currentWeightUser] not validated, reason: [не может быть пустым]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Workout Fail personalNote Not Null",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[personalNote] not validated, reason: [не может быть пустым]\"').to.eql('[personalNote] not validated, reason: [не может быть пустым]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \" \",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Workout Fail detailOfWorkout Not Null",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[detailOfWorkout] not validated, reason: [не может быть пустым]\"').to.eql('[detailOfWorkout] not validated, reason: [не может быть пустым]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \" \"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
 										}
 									]
+								},
+								{
+									"name": "Create Workout First",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has Workout response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/user/workout",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"workout"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Workout Second",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has Workout response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 5,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя вторая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/user/workout",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"workout"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Workout Second Fail Already Exist Type",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 409\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([409]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"CONFLICT\"').to.eql('CONFLICT');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"Тренировка с таким типом уже внесена в этот день\"').to.eql('Тренировка с таким типом уже внесена в этот день');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 5,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя вторая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/user/workout",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"workout"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "Get Workout Second After Delete Fail",
-							"event": [
+							"name": "update",
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 404\", function () {\r",
-											"    pm.expect(pm.response.code).to.be.oneOf([404]);\r",
-											"});\r",
-											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
-											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
-											"});\r",
-											"pm.test(\"Has ApiError response\", function () {\r",
-											"    pm.response.to.be.withBody;\r",
-											"    pm.response.to.be.json;\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('reason');\r",
-											"    pm.expect(jsonData.reason, '\"reason\" must be \"NOT_FOUND\"').to.eql('NOT_FOUND');\r",
-											"    pm.expect(jsonData).to.have.property('message');\r",
-											"    pm.expect(jsonData.message, '\"Тренировки с таким ID не существует\"').to.eql('Тренировки с таким ID не существует');\r",
-											"    pm.expect(jsonData).to.have.property('timestamp');\r",
-											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/user/workout?workoutId=2",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"user",
-										"workout"
-									],
-									"query": [
+									"name": "validation",
+									"item": [
 										{
-											"key": "workoutId",
-											"value": "2"
+											"name": "Update Workout Fail IdTypeWorkout Positive",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[idTypeWorkout] not validated, reason: [должен быть положительным]\"').to.eql('[idTypeWorkout] not validated, reason: [должен быть положительным]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": 1,\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 0,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update Workout Fail IdTypeWorkout Not Null",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[idTypeWorkout] not validated, reason: [не может быть пустым]\"').to.eql('[idTypeWorkout] not validated, reason: [не может быть пустым]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": 1,\r\n  \"idDiary\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update Workout Fail timeStartOn Not Null",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[Object DTO] not validated, reason: [не может быть пустым]\"').to.eql('[Object DTO] not validated, reason: [не может быть пустым]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": 1,\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update Workout Fail timeStartOn Future",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[timeStartOn] not validated, reason: [не может быть в будущем]\"').to.eql('[timeStartOn] not validated, reason: [не может быть в будущем]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": 1,\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2037 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update Workout Fail timeEndOn Not Null",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[Object DTO] not validated, reason: [не может быть пустым]\"').to.eql('[Object DTO] not validated, reason: [не может быть пустым]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": 1,\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update Workout Fail timeEndOn After Start",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[timeEndOn] not validated, reason: [не может быть раньше начала тренировки]\"').to.eql('[timeEndOn] not validated, reason: [не может быть раньше начала тренировки]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": 1,\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n    \"timeEndOn\": \"07-05-2024 11:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update Workout Fail timeEndOn  Before Start Day",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[timeEndOn] not validated, reason: [не может быть указано следующим днем]\"').to.eql('[timeEndOn] not validated, reason: [не может быть указано следующим днем]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": 1,\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n    \"timeEndOn\": \"08-05-2024 11:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update Workout Fail timeOfRest Not Null",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[timeOfRest] not validated, reason: [не может быть пустым]\"').to.eql('[timeOfRest] not validated, reason: [не может быть пустым]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": 1,\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": \"\",\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update Workout Fail timeOfRest Positive",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[timeOfRest] not validated, reason: [должен быть положительным]\"').to.eql('[timeOfRest] not validated, reason: [должен быть положительным]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": 1,\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": \"-1\",\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update Workout Fail timeOfRest More Workout",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[timeOfRest] not validated, reason: [не может быть больше чем сама тренировка]\"').to.eql('[timeOfRest] not validated, reason: [не может быть больше чем сама тренировка]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": 1,\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": \"400\",\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update Workout Fail currentWeightUser Not Null",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[currentWeightUser] not validated, reason: [не может быть пустым]\"').to.eql('[currentWeightUser] not validated, reason: [не может быть пустым]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": 1,\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update Workout Fail personalNote Not Null",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[personalNote] not validated, reason: [не может быть пустым]\"').to.eql('[personalNote] not validated, reason: [не может быть пустым]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": 1,\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \" \",\r\n  \"detailOfWorkout\": \"1 км\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update Workout Fail detailOfWorkout Not Null",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+															"});\r",
+															"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+															"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+															"});\r",
+															"pm.test(\"Has ApiError response\", function () {\r",
+															"    pm.response.to.be.withBody;\r",
+															"    pm.response.to.be.json;\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData).to.have.property('reason');\r",
+															"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+															"    pm.expect(jsonData).to.have.property('message');\r",
+															"    pm.expect(jsonData.message, '\"[detailOfWorkout] not validated, reason: [не может быть пустым]\"').to.eql('[detailOfWorkout] not validated, reason: [не может быть пустым]');\r",
+															"    pm.expect(jsonData).to.have.property('timestamp');\r",
+															"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": 1,\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 1,\r\n  \"timeStartOn\": \"07-05-2024 12:00\",\r\n  \"timeEndOn\": \"07-05-2024 16:00\",\r\n  \"timeOfRest\": 20,\r\n  \"currentWeightUser\": 85.5,\r\n  \"personalNote\": \"Моя первая тренировка\",\r\n  \"detailOfWorkout\": \" \"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/user/workout",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"user",
+														"workout"
+													]
+												}
+											},
+											"response": []
 										}
 									]
+								},
+								{
+									"name": "Update Workout Second",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has Workout response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": 1,\r\n  \"idDiary\": 1,\r\n  \"idTypeWorkout\": 2,\r\n  \"timeStartOn\": \"07-05-2024 13:00\",\r\n  \"timeEndOn\": \"07-05-2024 17:00\",\r\n  \"timeOfRest\": 21,\r\n  \"currentWeightUser\": 81.5,\r\n  \"personalNote\": \"Моя первая обновленная тренировка\",\r\n  \"detailOfWorkout\": \"2 км\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/user/workout",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"workout"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
+						},
+						{
+							"name": "get",
+							"item": [
+								{
+									"name": "Get Workout Second",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has audit response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/workout?workoutId=2",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"workout"
+											],
+											"query": [
+												{
+													"key": "workoutId",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Workout Fail WorkoutId Positive",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"[workoutId] not validated, reason: [должен быть положительным]\"').to.eql('[workoutId] not validated, reason: [должен быть положительным]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/workout?workoutId=-2",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"workout"
+											],
+											"query": [
+												{
+													"key": "workoutId",
+													"value": "-2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Workout Fail WorkoutId Number",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"[workoutId] not validated, reason: [должен быть числом]\"').to.eql('[workoutId] not validated, reason: [должен быть числом]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/workout?workoutId=dfg",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"workout"
+											],
+											"query": [
+												{
+													"key": "workoutId",
+													"value": "dfg"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Workout Fail WorkoutId Null",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"[workoutId] not validated, reason: [не может быть пустым]\"').to.eql('[workoutId] not validated, reason: [не может быть пустым]');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/workout?workoutId=",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"workout"
+											],
+											"query": [
+												{
+													"key": "workoutId",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get All Workouts",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has audit response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/workout",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"workout"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "delete",
+							"item": [
+								{
+									"name": "Delete Workout Second",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([204]);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/workout?workoutId=2",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"workout"
+											],
+											"query": [
+												{
+													"key": "workoutId",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Workout Second After Delete Fail",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.expect(pm.response.code).to.be.oneOf([404]);\r",
+													"});\r",
+													"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+													"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+													"});\r",
+													"pm.test(\"Has ApiError response\", function () {\r",
+													"    pm.response.to.be.withBody;\r",
+													"    pm.response.to.be.json;\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property('reason');\r",
+													"    pm.expect(jsonData.reason, '\"reason\" must be \"NOT_FOUND\"').to.eql('NOT_FOUND');\r",
+													"    pm.expect(jsonData).to.have.property('message');\r",
+													"    pm.expect(jsonData.message, '\"Тренировки с таким ID не существует\"').to.eql('Тренировки с таким ID не существует');\r",
+													"    pm.expect(jsonData).to.have.property('timestamp');\r",
+													"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/workout?workoutId=2",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"workout"
+											],
+											"query": [
+												{
+													"key": "workoutId",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
@@ -6453,6 +8784,228 @@
 										{
 											"key": "userId",
 											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Workouts By Admin Fail UserId Positive",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"[userId] not validated, reason: [должен быть положительным]\"').to.eql('[userId] not validated, reason: [должен быть положительным]');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/admin/workout?userId=-1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"workout"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "-1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Workouts By Admin Fail UserId Number",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"[userId] not validated, reason: [должен быть числом]\"').to.eql('[userId] not validated, reason: [должен быть числом]');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/admin/workout?userId=asd",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"workout"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "asd"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Workouts By Admin Fail UserId Null",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+											"});\r",
+											"pm.test(\"Content-Type header is application/json;charset=UTF-8\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=UTF-8');\r",
+											"});\r",
+											"pm.test(\"Has ApiError response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('reason');\r",
+											"    pm.expect(jsonData.reason, '\"reason\" must be \"BAD_REQUEST\"').to.eql('BAD_REQUEST');\r",
+											"    pm.expect(jsonData).to.have.property('message');\r",
+											"    pm.expect(jsonData.message, '\"[userId] not validated, reason: [не может быть пустым]\"').to.eql('[userId] not validated, reason: [не может быть пустым]');\r",
+											"    pm.expect(jsonData).to.have.property('timestamp');\r",
+											"    pm.expect(jsonData.timestamp, '\"timestamp\" must be not empty').to.not.empty;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/admin/workout?userId=",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"workout"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": ""
 										}
 									]
 								}

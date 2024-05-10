@@ -28,7 +28,7 @@ public class WorkoutUpdateValidatorDto implements ValidatorDto<WorkoutUpdateDto>
     @Override
     public void validate(WorkoutUpdateDto dto) {
         objectValidator.validate(dto, OBJECT_DTO);
-        numberValidator.validate(dto.getIdDiary(), ID);
+        numberValidator.validate(dto.getId(), ID);
         numberValidator.validate(dto.getIdDiary(), DIARY_ID);
         numberValidator.validate(dto.getIdTypeWorkout(), TYPE_WORKOUT_ID);
 
