@@ -1,5 +1,6 @@
 package com.github.jon7even.services.impl;
 
+import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutFullResponseDto;
 import com.github.jon7even.services.ServiceCalculationOfStats;
 
@@ -11,6 +12,7 @@ import java.time.Duration;
  * @author Jon7even
  * @version 1.0
  */
+@Loggable
 public class ServiceCalculationOfStatsImpl implements ServiceCalculationOfStats {
     private static ServiceCalculationOfStatsImpl instance;
 
@@ -35,6 +37,6 @@ public class ServiceCalculationOfStatsImpl implements ServiceCalculationOfStats 
         System.out.println("Начинаю расчет количества минут тренировки:" + workoutFullResponseDto);
         long timeOfWorkout = Duration.between(workoutFullResponseDto.getTimeStartOn(),
                 workoutFullResponseDto.getTimeEndOn()).toMinutes();
-        return Math.toIntExact(timeOfWorkout - workoutFullResponseDto.getTimeOfRest().toMinutes());
+        return Math.toIntExact(timeOfWorkout - workoutFullResponseDto.getTimeOfRest());
     }
 }

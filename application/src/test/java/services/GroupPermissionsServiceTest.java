@@ -11,12 +11,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import services.setup.ContainersSetup;
 import setup.PreparationForTests;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-public class GroupPermissionsServiceTest extends PreparationForTests {
+public class GroupPermissionsServiceTest extends ContainersSetup {
     @InjectMocks
     private GroupPermissionsServiceImpl groupPermissionsService;
     @Mock
@@ -32,8 +33,8 @@ public class GroupPermissionsServiceTest extends PreparationForTests {
     @Test
     @DisplayName("Сервис разрешений должен вернуть разрешение true")
     public void getPermissionsForService_ReturnTrue() {
-        boolean actualResult = groupPermissionsService.getPermissionsForService(
-                firstIdInteger, historyTypeAdmin.getNameType().getId(), FlagPermissions.DELETE
+        boolean actualResult = groupPermissionsService.getPermissionForService(
+                firstIdLong, firstIdInteger, historyTypeAdmin.getNameType().getId(), FlagPermissions.DELETE
         );
         assertThat(actualResult)
                 .isNotNull()
@@ -44,8 +45,8 @@ public class GroupPermissionsServiceTest extends PreparationForTests {
     @Test
     @DisplayName("Сервис разрешений должен вернуть разрешение false")
     public void getPermissionsForService_ReturnFalse() {
-        boolean actualResult = groupPermissionsService.getPermissionsForService(
-                secondIdInteger, historyTypeUser.getNameType().getId(), FlagPermissions.DELETE
+        boolean actualResult = groupPermissionsService.getPermissionForService(
+                firstIdLong, secondIdInteger, historyTypeUser.getNameType().getId(), FlagPermissions.DELETE
         );
         assertThat(actualResult)
                 .isNotNull()

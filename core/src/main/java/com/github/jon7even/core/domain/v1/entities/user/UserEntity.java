@@ -2,6 +2,7 @@ package com.github.jon7even.core.domain.v1.entities.user;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * Класс описывающий сущность пользователя
@@ -13,7 +14,11 @@ import lombok.Data;
 @Builder
 public class UserEntity {
     private Long id;
+
     private String login;
+
+    @ToString.Exclude
     private String password;
+
     private Integer idGroupPermissions;
 }

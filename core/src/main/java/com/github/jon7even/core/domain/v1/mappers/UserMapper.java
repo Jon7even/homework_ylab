@@ -2,7 +2,7 @@ package com.github.jon7even.core.domain.v1.mappers;
 
 
 import com.github.jon7even.core.domain.v1.dto.user.UserCreateDto;
-import com.github.jon7even.core.domain.v1.dto.user.UserInMemoryDto;
+import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserShortResponseDto;
 import com.github.jon7even.core.domain.v1.dto.user.UserUpdateDto;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
@@ -20,8 +20,8 @@ public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "userCreateDto.login", target = "login")
     @Mapping(source = "userCreateDto.password", target = "password")
-    @Mapping(source = "userCreateDto.idGroupPermissions", target = "idGroupPermissions")
-    UserEntity toEntityFromDtoCreate(UserCreateDto userCreateDto);
+    @Mapping(source = "idGroupPermissions", target = "idGroupPermissions")
+    UserEntity toEntityFromDtoCreate(UserCreateDto userCreateDto, Integer idGroupPermissions);
 
     @Mapping(source = "idUser", target = "id")
     @Mapping(source = "userLogin", target = "login")
@@ -35,5 +35,5 @@ public interface UserMapper {
     @Mapping(source = "userEntity.id", target = "id")
     @Mapping(source = "userEntity.login", target = "login")
     @Mapping(source = "userEntity.idGroupPermissions", target = "idGroupPermissions")
-    UserInMemoryDto toInMemoryDtoFromEntity(UserEntity userEntity);
+    UserLogInResponseDto toInMemoryDtoFromEntity(UserEntity userEntity);
 }

@@ -6,11 +6,34 @@ services:
       - .env
     image: "postgres:${POSTGRES_VERSION}"
     volumes:
-      - /var/lib/postgresql/data/
+      - pg_data:/var/lib/postgresql/data
     ports:
-      - "${EXTERNAL_PORT}:5432"
+      - "${EXTERNAL_PORT_POSTGRES}:5432"
     restart: on-failure
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASS}
+    networks:
+      - local
+
+  td-tomcat:
+    container_name: td-tomcat
+    env_file:
+      - .env
+    build: /presentation/controller/
+    depends_on:
+      - td-main-db
+    links:
+      - td-main-db
+    restart: on-failure
+    ports:
+      - "${EXTERNAL_PORT_TOMCAT}:8080"
+    networks:
+      - local
+
+volumes:
+  pg_data: {}
+
+networks:
+  local:

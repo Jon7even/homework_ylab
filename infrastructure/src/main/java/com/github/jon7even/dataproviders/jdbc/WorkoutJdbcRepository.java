@@ -52,7 +52,7 @@ public class WorkoutJdbcRepository implements WorkoutDao {
             statement.setLong(2, workoutEntity.getIdTypeWorkout());
             statement.setObject(3, workoutEntity.getTimeStartOn());
             statement.setObject(4, workoutEntity.getTimeEndOn());
-            statement.setLong(5, workoutEntity.getTimeOfRest().toMinutes());
+            statement.setLong(5, workoutEntity.getTimeOfRest());
             statement.setFloat(6, workoutEntity.getCurrentWeightUser());
             statement.setString(7, workoutEntity.getPersonalNote());
             statement.setString(8, workoutEntity.getDetailOfWorkout());
@@ -106,7 +106,7 @@ public class WorkoutJdbcRepository implements WorkoutDao {
             statement.setLong(2, workoutEntity.getIdTypeWorkout());
             statement.setObject(3, workoutEntity.getTimeStartOn());
             statement.setObject(4, workoutEntity.getTimeEndOn());
-            statement.setLong(5, workoutEntity.getTimeOfRest().toMinutes());
+            statement.setLong(5, workoutEntity.getTimeOfRest());
             statement.setFloat(6, workoutEntity.getCurrentWeightUser());
             statement.setString(7, workoutEntity.getPersonalNote());
             statement.setString(8, workoutEntity.getDetailOfWorkout());

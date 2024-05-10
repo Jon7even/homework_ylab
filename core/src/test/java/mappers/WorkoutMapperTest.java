@@ -23,9 +23,7 @@ public class WorkoutMapperTest extends PreparationForTests {
     @Test
     @DisplayName("Маппинг из DTO в сущность для сохранения новой тренировки")
     public void should_toWorkoutEntityFromDtoCreate_ReturnEntityNotId() {
-        WorkoutEntity actualResultFirst = workoutMapper.toWorkoutEntityFromDtoCreate(
-                workoutCreateDtoFirst
-        );
+        WorkoutEntity actualResultFirst = workoutMapper.toWorkoutEntityFromDtoCreate(workoutCreateDtoFirst);
 
         assertThat(actualResultFirst)
                 .isNotNull();
@@ -57,9 +55,7 @@ public class WorkoutMapperTest extends PreparationForTests {
                 .isNotNull()
                 .isEqualTo(workoutEntityFirst.getDetailOfWorkout());
 
-        WorkoutEntity actualResultSecond = workoutMapper.toWorkoutEntityFromDtoCreate(
-                workoutCreateDtoSecond
-        );
+        WorkoutEntity actualResultSecond = workoutMapper.toWorkoutEntityFromDtoCreate(workoutCreateDtoSecond);
 
         assertThat(actualResultSecond)
                 .isNotNull();
@@ -91,9 +87,7 @@ public class WorkoutMapperTest extends PreparationForTests {
                 .isNotNull()
                 .isEqualTo(workoutEntitySecond.getDetailOfWorkout());
 
-        WorkoutEntity actualResultThird = workoutMapper.toWorkoutEntityFromDtoCreate(
-                workoutCreateDtoThird
-        );
+        WorkoutEntity actualResultThird = workoutMapper.toWorkoutEntityFromDtoCreate(workoutCreateDtoThird);
 
         assertThat(actualResultThird)
                 .isNotNull();

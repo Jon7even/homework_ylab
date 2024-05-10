@@ -1,5 +1,6 @@
 package com.github.jon7even.services.impl;
 
+import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dao.GroupPermissionsDao;
 import com.github.jon7even.core.domain.v1.dao.HistoryUserDao;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
@@ -31,6 +32,7 @@ import static com.github.jon7even.core.domain.v1.entities.permissions.enums.Flag
  * @author Jon7even
  * @version 1.0
  */
+@Loggable
 public class HistoryUserServiceImpl implements HistoryUserService {
     private static final Integer SERVICE_HISTORY_ID = 1;
     private final UserDao userRepository;
@@ -78,8 +80,9 @@ public class HistoryUserServiceImpl implements HistoryUserService {
     @Override
     public List<HistoryUserResponseByAdminDto> findAllHistoryByAdminIdSortByDeskDate(Long userId, Long requesterId) {
         System.out.println("requesterId=" + requesterId
-                + "хочет получить историю действий пользователя с userId=" + userId);
+                + " хочет получить историю действий пользователя с userId=" + userId);
         isExistUserOrThrowException(requesterId);
+        isExistUserOrThrowException(userId);
         validationOfPermissions(requesterId, READ);
 
         List<HistoryUserEntity> listHistoryByUserId = historyUserRepository.findAllHistoryByUserId(userId);
@@ -121,7 +124,7 @@ public class HistoryUserServiceImpl implements HistoryUserService {
     private void validationOfPermissions(Long requesterId, FlagPermissions flagPermissions) {
         System.out.println("Пользователь с requesterId="
                 + requesterId + "запрашивает разрешение на операцию: " + flagPermissions);
-        if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId),
+        if (groupPermissionsService.getPermissionForService(requesterId, getGroupPermissionsId(requesterId),
                 SERVICE_HISTORY_ID, flagPermissions)) {
             System.out.println("Разрешение на эту операцию получено.");
         } else {

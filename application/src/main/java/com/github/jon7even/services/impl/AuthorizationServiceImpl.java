@@ -1,9 +1,10 @@
 package com.github.jon7even.services.impl;
 
+import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dao.UserDao;
-import com.github.jon7even.core.domain.v1.dto.user.UserLoginAuthDto;
+import com.github.jon7even.core.domain.v1.dto.user.UserLogInAuthDto;
+import com.github.jon7even.core.domain.v1.dto.user.UserLogInResponseDto;
 import com.github.jon7even.core.domain.v1.entities.user.UserEntity;
-import com.github.jon7even.core.domain.v1.exception.AccessDeniedException;
 import com.github.jon7even.core.domain.v1.exception.NotFoundException;
 import com.github.jon7even.services.AuthorizationService;
 
@@ -13,6 +14,7 @@ import com.github.jon7even.services.AuthorizationService;
  * @author Jon7even
  * @version 1.0
  */
+@Loggable
 public class AuthorizationServiceImpl implements AuthorizationService {
     private final UserDao userRepository;
 
@@ -21,7 +23,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     }
 
     @Override
-    public boolean processAuthorization(UserLoginAuthDto userLoginAuthDto) {
+    public boolean processAuthorization(UserLogInAuthDto userLoginAuthDto) {
         System.out.println("К нам пришел пользователь на авторизацию: " + userLoginAuthDto);
         UserEntity userFromBd = userRepository.findByUserLogin(userLoginAuthDto.getLogin())
                 .orElseThrow(() -> new NotFoundException(
@@ -31,8 +33,13 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             System.out.println("Пользователь авторизовался");
             return true;
         } else {
-            throw new AccessDeniedException(String.format("For [userLogin=%s]",
-                    userLoginAuthDto.getLogin()));
+            System.out.printf("Доступ запрещен, пароль введен неверно [userLogin=%s]%n", userLoginAuthDto.getLogin());
+            return false;
         }
+    }
+
+    @Override
+    public void processLogOut(UserLogInResponseDto userLogInResponseDto) {
+        System.out.println("Пользователь выходит из приложения: " + userLogInResponseDto);
     }
 }

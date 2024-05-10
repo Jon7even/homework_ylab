@@ -1,5 +1,6 @@
 package com.github.jon7even.services.impl;
 
+import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dao.*;
 import com.github.jon7even.core.domain.v1.dto.typeworkout.TypeWorkoutResponseDto;
 import com.github.jon7even.core.domain.v1.dto.workout.WorkoutCreateDto;
@@ -16,6 +17,7 @@ import com.github.jon7even.services.GroupPermissionsService;
 import com.github.jon7even.services.TypeWorkoutService;
 import com.github.jon7even.services.WorkoutService;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -29,6 +31,7 @@ import static com.github.jon7even.core.domain.v1.entities.permissions.enums.Flag
  * @author Jon7even
  * @version 1.0
  */
+@Loggable
 public class WorkoutServiceImpl implements WorkoutService {
     private static final Integer SERVICE_WORKOUT_ID = 3;
     private final UserDao userRepository;
@@ -57,9 +60,8 @@ public class WorkoutServiceImpl implements WorkoutService {
         validateWorkoutByTypeToday(
                 workoutCreateDto.getIdTypeWorkout(), workoutCreateDto.getTimeStartOn().toLocalDate()
         );
-        WorkoutEntity workoutEntityForSaveInRepository = workoutMapper.toWorkoutEntityFromDtoCreate(
-                workoutCreateDto
-        );
+        Duration timeOfRest = Duration.ofMinutes(workoutCreateDto.getTimeOfRest());
+        WorkoutEntity workoutEntityForSaveInRepository = workoutMapper.toWorkoutEntityFromDtoCreate(workoutCreateDto);
         System.out.println("Тренировка для сохранения собрана: " + workoutEntityForSaveInRepository);
 
         WorkoutEntity createdWorkout = workoutRepository.createWorkout(workoutEntityForSaveInRepository)
@@ -99,6 +101,7 @@ public class WorkoutServiceImpl implements WorkoutService {
         System.out.println("Начинаем обновлять тренировку, вот что нужно обновить: " + workoutUpdateDto);
         WorkoutEntity workoutEntityForUpdate = getWorkoutEntityById(workoutUpdateDto.getId());
         LocalDate localDateOldWorkout = workoutEntityForUpdate.getTimeStartOn().toLocalDate();
+        Duration timeOfRest = Duration.ofMinutes(workoutUpdateDto.getTimeOfRest());
         workoutMapper.updateWorkoutEntityFromDtoUpdate(workoutEntityForUpdate, workoutUpdateDto);
 
         if (!localDateOldWorkout.equals(workoutEntityForUpdate.getTimeStartOn().toLocalDate())) {
@@ -136,6 +139,7 @@ public class WorkoutServiceImpl implements WorkoutService {
         System.out.println("requesterId=" + requesterId
                 + "хочет получить список тренировок пользователя с userId=" + userId);
         isExistUserOrThrowException(userId);
+        isExistUserOrThrowException(requesterId);
         validationOfPermissions(requesterId, READ);
         List<WorkoutEntity> listFoundWorkouts = getListWorkoutEntityNotSort(getDiaryByUserId(userId));
         List<WorkoutEntity> sortedListWorkouts = sortListWorkoutsByDataDesk(listFoundWorkouts);
@@ -201,7 +205,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     private void validationOfPermissions(Long requesterId, FlagPermissions flagPermissions) {
         System.out.println("Пользователь с requesterId="
                 + requesterId + "запрашивает разрешение на операцию: " + flagPermissions);
-        if (groupPermissionsService.getPermissionsForService(getGroupPermissionsId(requesterId),
+        if (groupPermissionsService.getPermissionForService(requesterId, getGroupPermissionsId(requesterId),
                 SERVICE_WORKOUT_ID, flagPermissions)) {
             System.out.println("Разрешение на эту операцию получено.");
         } else {

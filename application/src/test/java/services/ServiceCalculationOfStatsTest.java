@@ -6,14 +6,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import setup.PreparationForTests;
+import services.setup.ContainersSetup;
 
 import java.time.Duration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-public class ServiceCalculationOfStatsTest extends PreparationForTests {
+public class ServiceCalculationOfStatsTest extends ContainersSetup {
     private ServiceCalculationOfStatsImpl serviceCalculationOfStats;
 
     @BeforeEach
@@ -43,7 +43,7 @@ public class ServiceCalculationOfStatsTest extends PreparationForTests {
         );
         long timeOfWorkout = Duration.between(timeStartFirst, timeEndFirst).toMinutes();
         int timeOfWorkoutMinusRestExpected
-                = (int) (timeOfWorkout - workoutFullResponseDtoFirst.getTimeOfRest().toMinutes());
+                = (int) (timeOfWorkout - workoutFullResponseDtoFirst.getTimeOfRest());
 
         assertThat(actualResult)
                 .isNotNull()

@@ -24,7 +24,6 @@ import com.github.jon7even.core.domain.v1.entities.workout.DiaryEntity;
 import com.github.jon7even.core.domain.v1.entities.workout.TypeWorkoutEntity;
 import com.github.jon7even.core.domain.v1.entities.workout.WorkoutEntity;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -44,6 +43,8 @@ public class PreparationForTests {
     protected Integer secondIdInteger = 2;
     protected Integer thirdIdInteger = 3;
     protected Integer fourthIdInteger = 4;
+    protected Integer DEFAULT_ADMIN_GROUP = firstIdInteger;
+    protected Integer DEFAULT_USER_GROUP = secondIdInteger;
     protected UserEntity userEntityFirst;
     protected UserEntity userEntityForCreateFirst;
     protected UserEntity userEntityForUpdateFirst;
@@ -356,9 +357,9 @@ public class PreparationForTests {
     protected LocalDateTime timeUpdateFirst;
     protected LocalDateTime timeUpdateSecond;
     protected LocalDateTime timeUpdateThird;
-    protected Duration periodOne;
-    protected Duration periodSecond;
-    protected Duration periodThird;
+    protected Long periodOne;
+    protected Long periodSecond;
+    protected Long periodThird;
 
     protected void initLocalDateTime() {
         timeStartFirst = LocalDateTime.of(2024, 4, 14, 10, 0);
@@ -367,9 +368,9 @@ public class PreparationForTests {
         timeEndSecond = LocalDateTime.of(2024, 4, 15, 17, 57);
         timeStartThird = LocalDateTime.of(2024, 4, 16, 17, 17);
         timeEndThird = LocalDateTime.of(2024, 4, 16, 20, 7);
-        periodOne = Duration.ofMinutes(20L);
-        periodSecond = Duration.ofMinutes(37L);
-        periodThird = Duration.ofMinutes(47L);
+        periodOne = 20L;
+        periodSecond = 37L;
+        periodThird = 47L;
         timeUpdateFirst = timeStartFirst.plusDays(1);
         timeUpdateSecond = timeStartSecond.plusDays(1);
         timeUpdateThird = timeStartThird.plusDays(1);
@@ -422,7 +423,6 @@ public class PreparationForTests {
         userCreateDtoFirst = UserCreateDto.builder()
                 .login("UserDtoCreate")
                 .password("UserDtoUpdate")
-                .idGroupPermissions(1)
                 .build();
         userUpdateDtoFirst = UserUpdateDto.builder()
                 .password("newPassword")

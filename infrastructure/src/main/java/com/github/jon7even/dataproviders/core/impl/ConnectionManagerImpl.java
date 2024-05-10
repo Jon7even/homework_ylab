@@ -15,7 +15,7 @@ import java.sql.SQLException;
  * @version 1.0
  */
 public class ConnectionManagerImpl implements ConnectionManager {
-    private static Connection connection;
+    private static Connection connection = null;
     private final MainConfig config;
 
     public ConnectionManagerImpl(MainConfig config) {
@@ -26,6 +26,7 @@ public class ConnectionManagerImpl implements ConnectionManager {
     public Connection getConnection() {
         if (connection == null) {
             try {
+                Class.forName("org.postgresql.Driver");
                 connection = DriverManager.getConnection(
                         config.getBdSourceUrl(),
                         config.getBdUser(),
@@ -41,6 +42,8 @@ public class ConnectionManagerImpl implements ConnectionManager {
                     throwables = throwables.getNextException();
                 }
                 throw new DataBaseException("С соединением пошло что-то не так. Смотрите ошибки выше.");
+            } catch (ClassNotFoundException e) {
+                throw new DataBaseException("С драйвером БД пошло что-то не так. Смотрите ошибки выше.");
             }
         }
         return connection;

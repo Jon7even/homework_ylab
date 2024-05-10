@@ -14,7 +14,8 @@
         <module>application</module>
         <module>core</module>
         <module>infrastructure</module>
-        <module>presentation</module>
+        <module>presentation/controller</module>
+        <module>aspect</module>
     </modules>
 
     <properties>
@@ -33,11 +34,16 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <liquibase.version>4.9.1</liquibase.version>
-        <posgres.version>42.5.4</posgres.version>
+        <posgres.version>42.7.3</posgres.version>
         <testcontainers.version>1.19.7</testcontainers.version>
         <log4j.version>2.23.1</log4j.version>
         <maven.assembly.version>2.4</maven.assembly.version>
         <assertJ.version>3.25.2</assertJ.version>
+        <jakarta.version>6.0.0</jakarta.version>
+        <maven.war.plugin.version>3.3.2</maven.war.plugin.version>
+        <jackson.version>2.15.3</jackson.version>
+        <aspectj.version>1.9.7</aspectj.version>
+        <aspectj.plugin.version>1.14.0</aspectj.plugin.version>
     </properties>
 
     <dependencies>
@@ -88,5 +94,30 @@
         </dependency>
 
     </dependencies>
+
+    <profiles>
+
+        <profile>
+            <id>webapp</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>application</module>
+                <module>core</module>
+                <module>infrastructure</module>
+                <module>presentation/controller</module>
+                <module>aspect</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>no-tests-webapp</id>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+
+    </profiles>
 
 </project>

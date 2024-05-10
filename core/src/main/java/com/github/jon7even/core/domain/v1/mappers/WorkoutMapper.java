@@ -51,7 +51,8 @@ public interface WorkoutMapper {
     @Mapping(source = "workoutUpdate.currentWeightUser", target = "currentWeightUser")
     @Mapping(source = "workoutUpdate.personalNote", target = "personalNote")
     @Mapping(source = "workoutUpdate.detailOfWorkout", target = "detailOfWorkout")
-    void updateWorkoutEntityFromDtoUpdate(@MappingTarget WorkoutEntity workoutEntity, WorkoutUpdateDto workoutUpdate);
+    void updateWorkoutEntityFromDtoUpdate(@MappingTarget WorkoutEntity workoutEntity,
+                                          WorkoutUpdateDto workoutUpdate);
 
     @Mapping(source = "workoutEntity.id", target = "id")
     @Mapping(source = "workoutEntity.timeStartOn", target = "timeStartOn")

@@ -1,5 +1,6 @@
 package com.github.jon7even.services.impl;
 
+import com.github.jon7even.annotations.Loggable;
 import com.github.jon7even.core.domain.v1.dao.GroupPermissionsDao;
 import com.github.jon7even.core.domain.v1.dto.permission.GroupPermissionsServiceDto;
 import com.github.jon7even.core.domain.v1.entities.permissions.GroupPermissionsEntity;
@@ -16,6 +17,7 @@ import com.github.jon7even.services.GroupPermissionsService;
  * @author Jon7even
  * @version 1.0
  */
+@Loggable
 public class GroupPermissionsServiceImpl implements GroupPermissionsService {
     private final GroupPermissionsDao groupRepository;
     private final GroupPermissionsMapper groupPermissionsMapper;
@@ -26,10 +28,11 @@ public class GroupPermissionsServiceImpl implements GroupPermissionsService {
     }
 
     @Override
-    public boolean getPermissionsForService(Integer groupPermissionsId, Integer nameTypeServiceId,
-                                            FlagPermissions flag) {
-        System.out.println("Начинаем определять разрешения для пользователя из группы groupPermissionsId="
-                + groupPermissionsId + " и сервиса с nameTypeServiceId=" + nameTypeServiceId
+    public Boolean getPermissionForService(Long requesterId, Integer groupPermissionsId,
+                                           Integer nameTypeServiceId, FlagPermissions flag) {
+        System.out.println("Начинаем определять разрешение для пользователя с requesterId=" + requesterId
+                + " из группы groupPermissionsId=" + groupPermissionsId
+                + " и сервиса с nameTypeServiceId=" + nameTypeServiceId
                 + " с флагом разрешения flag=" + flag);
         GroupPermissionsEntity groupPermissionsFromBD = getGroupPermissionsEntityByGroupAndServiceId(
                 groupPermissionsId, nameTypeServiceId
@@ -38,7 +41,7 @@ public class GroupPermissionsServiceImpl implements GroupPermissionsService {
     }
 
     @Override
-    public GroupPermissionsServiceDto getPermissionsForService(Integer groupPermissionsId, Integer nameTypeServiceId) {
+    public GroupPermissionsServiceDto getPermissionsForServices(Integer groupPermissionsId, Integer nameTypeServiceId) {
         System.out.println("Начинаем искать разрешения для пользователя из группы groupPermissionsId="
                 + groupPermissionsId + " и сервиса с nameTypeServiceId=" + nameTypeServiceId);
 
